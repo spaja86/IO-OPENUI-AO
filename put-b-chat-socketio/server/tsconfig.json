@@ -1,0 +1,1 @@
+{\n  \"compilerOptions\": {\n    \"target\": \"ES2022\",\n    \"module\": \"CommonJS\",\n    \"types\": [\"node\"]\n  }\n}
