@@ -1,24 +1,14 @@
-# Dependencies
+# Dependencies (will be reinstalled during build)
 node_modules/
+
+# Logs
 npm-debug.log
 yarn-error.log
+*.log
+
+# Lock files (Vercel will generate new ones)
 package-lock.json
 yarn.lock
-
-# Environment files
-.env
-.env.local
-.env.*.local
-.env.development
-.env.production
-
-# Build outputs
-dist/
-build/
-.cache/
-
-# TypeScript
-*.tsbuildinfo
 
 # IDE
 .vscode/
@@ -33,12 +23,8 @@ Thumbs.db
 
 # Git
 .git/
-.gitignore
 
-# Documentation
+# Documentation (not needed for runtime)
 README.md
 IOOpenUIAO.txt
-
-# Source files (only compiled dist is needed)
-src/
-tsconfig.json
+VERCEL_DEPLOYMENT.md
