@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "name": "io-openui-ao",
+  "rewrites": [
+    {
+      "source": "/api/realtime/(.*)",
+      "destination": "/api/realtime"
+    },
+    {
+      "source": "/api/chat/(.*)",
+      "destination": "/api/chat"
+    }
+  ]
+}
