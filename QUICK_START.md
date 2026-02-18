@@ -59,3 +59,20 @@ curl https://your-site.vercel.app/api/realtime/key
 
 **Sve je spremno - kliknite Deploy! 🚀**  
 **Everything is ready - just click Deploy! 🚀**
+
+---
+
+## ⚠️ NAPOMENA O 404 GREŠKAMA / NOTE ABOUT 404 ERRORS
+
+Ako dobijate 404 greške nakon deployment-a, problem je verovatno rešen!
+
+If you're getting 404 errors after deployment, the problem has likely been fixed!
+
+**Proverite / Check:**
+- `public/` direktorijum mora postojati sa `index.html`
+- `api/` direktorijum mora postojati sa API funkcijama
+
+**Za detalje / For details:**
+→ Pogledajte `FIX_404_ERRORS.md` za kompletno objašnjenje
+→ See `FIX_404_ERRORS.md` for complete explanation
+
