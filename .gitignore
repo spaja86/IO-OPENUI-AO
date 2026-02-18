@@ -1,8 +1,22 @@
 # Node.js
 node_modules/
+package-lock.json
+npm-debug.log
+yarn-error.log
+
+# Build outputs
+dist/
+/dist/
 
 # Vite
-/dist/
 /.env
 /.env.local
 /.env.*.local
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log

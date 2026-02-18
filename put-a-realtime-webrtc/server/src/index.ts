@@ -1,1 +1,27 @@
-import express from 'express';\n\nconst app = express();\nconst port = process.env.PORT || 3000;\n\n// Realtime WebRTC ephemeral key endpoint\napp.get('/api/webrtc/key', (req, res) => {\n    const ephemeralKey = generateEphemeralKey(); // Implement your key generation logic here\n    res.json({ key: ephemeralKey });\n});\n\nconst generateEphemeralKey = () => {\n    // Placeholder for key generation logic\n    return 'your-generated-key';\n};\n\napp.listen(port, () => {\n    console.log(`Server running at http://localhost:${port}`);\n});
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.use(cors());
+app.use(express.json());
+
+// Realtime WebRTC ephemeral key endpoint
+app.get('/api/webrtc/key', (req, res) => {
+    const ephemeralKey = generateEphemeralKey();
+    res.json({ key: ephemeralKey });
+});
+
+const generateEphemeralKey = () => {
+    // Placeholder for key generation logic
+    // In production, this should generate actual ephemeral keys using OpenAI API
+    return 'your-generated-key';
+};
+
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+});
