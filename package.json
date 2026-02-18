@@ -1,0 +1,9 @@
+{
+  "name": "io-openui-ao",
+  "version": "1.0.0",
+  "description": "IO OpenUI AO Platform",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^10.0.0"
+  }
+}

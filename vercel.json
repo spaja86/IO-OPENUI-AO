@@ -1,38 +1,14 @@
 {
   "version": 2,
   "name": "io-openui-ao",
-  "builds": [
+  "rewrites": [
     {
-      "src": "put-a-realtime-webrtc/server/dist/index.js",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["put-a-realtime-webrtc/server/dist/**"]
-      }
+      "source": "/api/realtime/(.*)",
+      "destination": "/api/realtime"
     },
     {
-      "src": "put-b-chat-socketio/server/dist/index.js",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["put-b-chat-socketio/server/dist/**"]
-      }
+      "source": "/api/chat/(.*)",
+      "destination": "/api/chat"
     }
-  ],
-  "routes": [
-    {
-      "src": "/api/realtime/(.*)",
-      "dest": "put-a-realtime-webrtc/server/dist/index.js"
-    },
-    {
-      "src": "/api/chat/(.*)",
-      "dest": "put-b-chat-socketio/server/dist/index.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "put-a-realtime-webrtc/web/index.html"
-    }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "buildCommand": "cd put-a-realtime-webrtc/server && npm install && npm run build && cd ../../put-b-chat-socketio/server && npm install && npm run build"
+  ]
 }
