@@ -66,13 +66,32 @@ async function connect() {
   const offer = await pc.createOffer({ offerToReceiveAudio: true, offerToReceiveVideo: false });
   await pc.setLocalDescription(offer);
 
+  // Wait for ICE gathering to finish so the SDP contains all candidates (max 10 s)
+  await Promise.race([
+    new Promise<void>(resolve => {
+      if (pc!.iceGatheringState === 'complete') {
+        resolve();
+      } else {
+        pc!.addEventListener('icegatheringstatechange', function onState() {
+          if (pc!.iceGatheringState === 'complete') {
+            pc!.removeEventListener('icegatheringstatechange', onState);
+            resolve();
+          }
+        });
+      }
+    }),
+    new Promise<void>((_, reject) =>
+      setTimeout(() => reject(new Error('ICE gathering timed out')), 10_000)
+    ),
+  ]);
+
   const model = (import.meta as any).env?.VITE_REALTIME_MODEL || 'gpt-4o-realtime-preview';
   const resp = await fetch(
     `https://api.openai.com/v1/realtime?model=${encodeURIComponent(model)}`,
     {
       method: 'POST',
       headers: { Authorization: `Bearer ${EPHEMERAL}`, 'Content-Type': 'application/sdp' },
-      body: offer.sdp
+      body: pc!.localDescription!.sdp
     }
   );
 
