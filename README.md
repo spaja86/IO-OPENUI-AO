@@ -1,6 +1,6 @@
 # I/OOpenUI/AO
 
-Platforma za AI komunikaciju u realnom vremenu — glasovna konverzacija (WebRTC) i tekstualni chat (Socket.IO).
+Platforma za AI komunikaciju u realnom vremenu — glasovna konverzacija (WebRTC) i tekstualni chat (SSE streaming).
 
 **Domen:** [https://www.ioopenuiao.com](https://www.ioopenuiao.com)
 
@@ -10,109 +10,84 @@ Platforma za AI komunikaciju u realnom vremenu — glasovna konverzacija (WebRTC
 
 ```
 /
-├── index.html                        ← Landing page (servisira se sa /)
-├── vercel.json                       ← Vercel routing (landing + /realtime/ + /chat/)
-├── put-a-realtime-webrtc/
-│   ├── server/                       ← Express backend (ephemeral key, CORS, rate-limit)
-│   └── web/                          ← Vite frontend (build → /realtime/)
-└── put-b-chat-socketio/
-    ├── server/                       ← Express + Socket.IO backend (streaming chat)
-    └── web/                          ← Vite frontend (build → /chat/)
+├── index.html                           ← Landing page
+├── vercel.json                          ← Vercel routing + function config
+├── package.json                         ← Root build script (pokreće oba Vite build-a)
+├── api/
+│   ├── health.ts                        ← GET  /api/health
+│   ├── realtime/ephemeral.ts            ← POST /api/realtime/ephemeral (WebRTC token)
+│   └── chat/stream.ts                   ← POST /api/chat/stream (SSE streaming)
+├── put-a-realtime-webrtc/web/           ← Vite app → /realtime/
+└── put-b-chat-socketio/web/             ← Vite app → /chat/
 ```
 
 ---
 
-## Deployment na Vercel (frontend)
+## Deployment na Vercel (sve automatski)
 
-### 1. Postavi Vercel projekat
+### Korak 1 — Poveži repo
 
-U Vercel dashboard-u:
-- **Root Directory:** `/` (repo root)
-- **Framework Preset:** Other / None
-- **Build Command:** `cd put-a-realtime-webrtc/web && npm ci && npm run build && cd ../../put-b-chat-socketio/web && npm ci && npm run build`
-- **Output Directory:** `.` (repo root — `index.html` + `realtime/` + `chat/` folderi)
-- **Install Command:** _(ostaviti prazno)_
+1. Idi na [vercel.com/new](https://vercel.com/new)
+2. Izaberi repo `spaja86/IO-OPENUI-AO`
+3. Vercel automatski detektuje `package.json` i pokrne `npm ci && npm run build`
+4. Klikni **Deploy**
 
-### 2. Postavi environment varijable u Vercel
+> Framework Preset: **Other** · Build Command: `npm run build` · Output Directory: `.`
 
-| Varijabla | Vrednost |
+### Korak 2 — Postavi JEDNU environment varijablu
+
+Vercel Dashboard → Settings → Environment Variables:
+
+| Key | Value | Environment |
+|---|---|---|
+| `OPENAI_API_KEY` | `sk-...` (tvoj OpenAI ključ) | Production, Preview, Development |
+
+**To je sve. Nema zasebnih servera, nema dodatnih konfiguracija.**
+
+Opciono (ako hoćeš drugi model):
+
+| Key | Default vrednost |
 |---|---|
-| `VITE_SERVER_URL` | URL tvog Realtime servera, npr. `https://realtime-server.onrender.com` |
-| `VITE_SOCKET_URL` | URL tvog Chat servera, npr. `https://chat-server.onrender.com` |
-
-> **Bez ovih varijabli frontend će pokušati da se konektuje na `localhost` i neće raditi u produkciji!**
+| `REALTIME_MODEL` | `gpt-4o-realtime-preview` |
+| `RESP_MODEL` | `gpt-4o-mini` |
 
 ---
 
-## Deployment backend servera
+## API endpointovi (Vercel Serverless Functions)
 
-Backend serveri zahtevaju persistentnu Node.js sredinu (Vercel Serverless **ne podržava** WebSocket/Socket.IO bez Pro plana).
-
-**Preporučeni hosting:** [Render.com](https://render.com) (besplatan tier), [Railway.app](https://railway.app), ili [Fly.io](https://fly.io).
-
-### Put A – Realtime server (port 3000)
-
-```bash
-cd put-a-realtime-webrtc/server
-cp .env.example .env
-# Uredi .env: postavi OPENAI_API_KEY i CORS_ORIGIN
-npm ci
-npm run dev       # development
-npm run start     # production (posle npm run build)
-```
-
-#### .env vrednosti za produkciju
-```
-OPENAI_API_KEY=sk-...
-REALTIME_MODEL=gpt-4o-realtime-preview
-PORT=3000
-CORS_ORIGIN=https://ioopenuiao.com,https://www.ioopenuiao.com
-```
-
-### Put B – Chat server (port 3001)
-
-```bash
-cd put-b-chat-socketio/server
-cp .env.example .env
-# Uredi .env: postavi OPENAI_API_KEY i CORS_ORIGIN
-npm ci
-npm run dev       # development
-npm run start     # production (posle npm run build)
-```
-
-#### .env vrednosti za produkciju
-```
-OPENAI_API_KEY=sk-...
-RESP_MODEL=gpt-4o-mini
-PORT=3001
-CORS_ORIGIN=https://ioopenuiao.com,https://www.ioopenuiao.com
-```
+| Endpoint | Metod | Opis | Timeout |
+|---|---|---|---|
+| `/api/health` | GET | Health check | 10 s |
+| `/api/realtime/ephemeral` | POST | Kreira ephemeral token za WebRTC sesiju | 30 s |
+| `/api/chat/stream` | POST `{ "text": "..." }` | SSE streaming chat odgovor | 60 s |
 
 ---
 
 ## Lokalni razvoj
 
 ```bash
-# Terminal 1 – Realtime server
-cd put-a-realtime-webrtc/server && cp .env.example .env && npm ci && npm run dev
+# 1. Postavi environment varijablu
+cp .env.example .env   # (videti dole za format)
 
-# Terminal 2 – Realtime frontend
-cd put-a-realtime-webrtc/web && npm ci && npm run dev
-# → http://localhost:5173
+# 2. Instaliraj zavisnosti i pokreni build
+npm ci
+npm run build
 
-# Terminal 3 – Chat server
-cd put-b-chat-socketio/server && cp .env.example .env && npm ci && npm run dev
+# 3. Pokreni Vite dev servere
+cd put-a-realtime-webrtc/web && npm ci && npm run dev   # → http://localhost:5173
+cd put-b-chat-socketio/web && npm ci && npm run dev    # → http://localhost:5174
+```
 
-# Terminal 4 – Chat frontend
-cd put-b-chat-socketio/web && npm ci && npm run dev
-# → http://localhost:5174
+`.env` u root-u:
+```
+OPENAI_API_KEY=sk-...
 ```
 
 ---
 
-## Sigurnosne napomene
+## Sigurnost
 
-- `OPENAI_API_KEY` **nikad** ne sme biti u frontend kodu niti commitovan u repo.
-- U produkciji uvek koristi **HTTPS** (obavezno za WebRTC mikrofon).
-- CORS je konfigurisan na serveru da prihvata samo dozvoljene origine.
+- `OPENAI_API_KEY` se čita **isključivo** u serverless funkcijama (`api/`) — nikad ne dolazi do browsera.
+- U produkciji sve ide preko HTTPS (Vercel automatski).
+- HTTPS je obavezan za WebRTC mikrofon pristup u svim modernim browserima.
 - Rate limit na `/api/realtime/ephemeral`: 5 zahteva/min/IP.

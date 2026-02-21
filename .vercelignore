@@ -1,0 +1,12 @@
+# Exclude old standalone servers (not used on Vercel — API functions in /api/ replace them)
+put-a-realtime-webrtc/server/
+put-b-chat-socketio/server/
+
+# Exclude large conversation export
+IOOpenUIAO.txt
+
+# Exclude dev tooling configs not needed at runtime
+put-a-realtime-webrtc/web/tsconfig.json
+put-b-chat-socketio/web/tsconfig.json
+put-a-realtime-webrtc/web/vite.config.ts
+put-b-chat-socketio/web/vite.config.ts
