@@ -5,6 +5,10 @@ node_modules/
 dist/
 .vite/
 
+# Vercel build outputs (committed via CI, not manually)
+/realtime/
+/chat/
+
 # Environment files
 .env
 .env.local

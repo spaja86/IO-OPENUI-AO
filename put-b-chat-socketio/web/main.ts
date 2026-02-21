@@ -13,14 +13,17 @@ const socket = io(SOCKET_URL, { transports: ['websocket'] });
 function append(role: 'user' | 'assistant', text: string): HTMLSpanElement | null {
   const div = document.createElement('div');
   div.style.margin = '6px 0';
+  const label = document.createElement('b');
+  label.textContent = role === 'user' ? 'Ti: ' : 'Asistent: ';
+  div.appendChild(label);
   if (role === 'user') {
-    div.innerHTML = `<b>Ti:</b> ${text}`;
+    const textNode = document.createTextNode(text);
+    div.appendChild(textNode);
     thread.appendChild(div);
     thread.scrollTop = thread.scrollHeight;
     return null;
   } else {
     const span = document.createElement('span');
-    div.innerHTML = `<b>Asistent:</b> `;
     div.appendChild(span);
     thread.appendChild(div);
     thread.scrollTop = thread.scrollHeight;
