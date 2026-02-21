@@ -2,6 +2,11 @@
   "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
+  "functions": {
+    "api/health.ts": { "maxDuration": 10 },
+    "api/realtime/ephemeral.ts": { "maxDuration": 30 },
+    "api/chat/stream.ts": { "maxDuration": 60 }
+  },
   "headers": [
     {
       "source": "/(.*)",

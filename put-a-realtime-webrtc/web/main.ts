@@ -4,9 +4,7 @@ const btnConnect = document.getElementById('connect') as HTMLButtonElement;
 const btnHangup = document.getElementById('hangup') as HTMLButtonElement;
 const remoteAudio = document.getElementById('remote') as HTMLAudioElement;
 
-const SERVER =
-  (import.meta as any).env?.VITE_SERVER_URL ||
-  `${location.protocol}//${location.hostname}:3000`;
+const SERVER = (import.meta as any).env?.VITE_API_BASE ?? '';
 
 let pc: RTCPeerConnection | null = null;
 let dc: RTCDataChannel | null = null;

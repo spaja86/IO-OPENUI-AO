@@ -1,69 +1,90 @@
-import { io } from 'socket.io-client';
-
 const thread = document.getElementById('thread')!;
 const form = document.getElementById('f') as HTMLFormElement;
 const inp = document.getElementById('inp') as HTMLInputElement;
+const sendBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
 
-const SOCKET_URL =
-  (import.meta as any).env?.VITE_SOCKET_URL ||
-  `${location.protocol}//${location.hostname}:3001`;
+const API_BASE = (import.meta as any).env?.VITE_API_BASE ?? '';
 
-const socket = io(SOCKET_URL, { transports: ['websocket'] });
-
-function append(role: 'user' | 'assistant', text: string): HTMLSpanElement | null {
-  const div = document.createElement('div');
-  div.style.margin = '6px 0';
+function append(role: 'user' | 'assistant', text = ''): HTMLSpanElement | null {
+  const row = document.createElement('div');
+  row.style.margin = '6px 0';
   const label = document.createElement('b');
   label.textContent = role === 'user' ? 'Ti: ' : 'Asistent: ';
-  div.appendChild(label);
+  row.appendChild(label);
   if (role === 'user') {
-    const textNode = document.createTextNode(text);
-    div.appendChild(textNode);
-    thread.appendChild(div);
+    row.appendChild(document.createTextNode(text));
+    thread.appendChild(row);
     thread.scrollTop = thread.scrollHeight;
     return null;
-  } else {
-    const span = document.createElement('span');
-    div.appendChild(span);
-    thread.appendChild(div);
-    thread.scrollTop = thread.scrollHeight;
-    return span;
   }
+  const span = document.createElement('span');
+  row.appendChild(span);
+  thread.appendChild(row);
+  thread.scrollTop = thread.scrollHeight;
+  return span;
 }
 
-form.onsubmit = (e) => {
+form.onsubmit = async (e) => {
   e.preventDefault();
   const text = inp.value.trim();
-  if (!text) return;
+  if (!text || sendBtn.disabled) return;
 
-  const id = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
+  sendBtn.disabled = true;
   append('user', text);
-  const target = append('assistant', '');
+  const target = append('assistant');
   inp.value = '';
 
-  socket.emit('user_message', { id, text });
+  try {
+    const resp = await fetch(`${API_BASE}/api/chat/stream`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text }),
+    });
 
-  const onDelta = ({ id: got, delta }: { id: string; delta: string }) => {
-    if (got !== id || !target) return;
-    target.textContent += delta;
-    thread.scrollTop = thread.scrollHeight;
-  };
+    if (!resp.ok || !resp.body) {
+      if (target) target.textContent = `Greška: ${resp.status} ${resp.statusText}`;
+      return;
+    }
 
-  const onDone = ({ id: got }: { id: string }) => {
-    if (got !== id) return;
-    socket.off('assistant_delta', onDelta);
-    socket.off('assistant_done', onDone);
-  };
+    const reader = resp.body.getReader();
+    const dec = new TextDecoder();
+    let buf = '';
+    let finished = false;
 
-  const onError = ({ id: got, error }: { id: string; error: string }) => {
-    if (got !== id || !target) return;
-    target.textContent = `Greška: ${error}`;
-    socket.off('assistant_delta', onDelta);
-    socket.off('assistant_done', onDone);
-    socket.off('assistant_error', onError);
-  };
-
-  socket.on('assistant_delta', onDelta);
-  socket.on('assistant_done', onDone);
-  socket.on('assistant_error', onError);
+    while (!finished) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buf += dec.decode(value, { stream: true });
+      const lines = buf.split('\n');
+      buf = lines.pop() ?? '';
+      for (const line of lines) {
+        const l = line.trim();
+        if (!l.startsWith('data:')) continue;
+        const data = l.slice(5).trim();
+        if (data === '[DONE]') { finished = true; break; }
+        try {
+          const json = JSON.parse(data) as {
+            error?: string;
+            choices?: Array<{ delta?: { content?: string } }>;
+          };
+          if (json.error) {
+            if (target) target.textContent = `Greška: ${json.error}`;
+            finished = true;
+            break;
+          }
+          const delta = json?.choices?.[0]?.delta?.content;
+          if (delta && target) {
+            target.textContent += delta;
+            thread.scrollTop = thread.scrollHeight;
+          }
+        } catch {
+          // ignore non-JSON SSE lines
+        }
+      }
+    }
+  } catch (e: unknown) {
+    if (target) target.textContent = `Greška: ${e instanceof Error ? e.message : String(e)}`;
+  } finally {
+    sendBtn.disabled = false;
+  }
 };
