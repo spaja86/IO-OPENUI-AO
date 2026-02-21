@@ -42,7 +42,12 @@ form.onsubmit = async (e) => {
     });
 
     if (!resp.ok || !resp.body) {
-      if (target) target.textContent = `Greška: ${resp.status} ${resp.statusText}`;
+      let errMsg = `${resp.status} ${resp.statusText}`;
+      try {
+        const errJson = await resp.json() as { error?: string };
+        if (errJson?.error) errMsg = errJson.error;
+      } catch { /* not JSON, use status text */ }
+      if (target) target.textContent = `Greška: ${errMsg}`;
       return;
     }
 

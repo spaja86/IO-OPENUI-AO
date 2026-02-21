@@ -20,9 +20,12 @@ function log(...args: unknown[]) {
 
 async function createEphemeralSecret(): Promise<string> {
   const r = await fetch(`${SERVER}/api/realtime/ephemeral`, { method: 'POST' });
-  if (!r.ok) throw new Error(`Failed to get client secret: ${r.status}`);
   const json = await r.json();
-  const secret = json?.client_secret?.value as string;
+  if (!r.ok) {
+    const msg = (json as { error?: string })?.error ?? `HTTP ${r.status}`;
+    throw new Error(msg);
+  }
+  const secret = (json as { client_secret?: { value?: string } })?.client_secret?.value;
   if (!secret) throw new Error('No client_secret.value in response');
   return secret;
 }
@@ -97,7 +100,8 @@ async function connect() {
 
   if (!resp.ok) throw new Error(`Realtime SDP failed: ${await resp.text()}`);
 
-  await pc.setRemoteDescription({ type: 'answer', sdp: await resp.text() });
+  const answerSdp = await resp.text();
+  await pc.setRemoteDescription({ type: 'answer', sdp: answerSdp });
   log('Connected to Realtime');
 }
 
