@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="sr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>I/OOpenUI/AO – Chat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+      main { background: white; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); padding: 40px; max-width: 600px; width: 100%; }
+      h1 { color: #333; margin-bottom: 20px; font-size: 28px; }
+      #thread { border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px; height: 300px; overflow-y: auto; margin-bottom: 16px; background: #fafafa; }
+      #thread div { margin: 6px 0; line-height: 1.5; }
+      form { display: flex; gap: 8px; }
+      #inp { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; outline: none; }
+      #inp:focus { border-color: #11998e; }
+      button[type="submit"] { padding: 12px 20px; background: #11998e; color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+      button[type="submit"]:hover { background: #0d8073; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>💬 I/OOpenUI/AO – Chat</h1>
+      <div id="thread"></div>
+      <form id="f">
+        <input id="inp" placeholder="Unesi poruku…" autocomplete="off" />
+        <button type="submit">Pošalji</button>
+      </form>
+    </main>
+    <script type="module" src="/main.ts"></script>
+  </body>
+</html>
