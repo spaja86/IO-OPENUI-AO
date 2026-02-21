@@ -1,8 +1,11 @@
 # Node.js
 node_modules/
 
-# Vite
-/dist/
-/.env
-/.env.local
-/.env.*.local
+# Vite / build artifacts
+dist/
+.vite/
+
+# Environment files
+.env
+.env.local
+.env.*.local
