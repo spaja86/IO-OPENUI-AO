@@ -1,1 +1,19 @@
-{\n  "name": "io-openui-ao",\n  "version": "1.0.0",\n  "scripts": {\n    "build": "tsc",\n    "dev": "vite",\n    "deploy": "vercel --prod"\n  },\n  "dependencies": {\n    "react": "^17.0.2",\n    "react-dom": "^17.0.2",\n    "vite": "^2.6.4",\n    "typescript": "^4.4.4"\n  },\n  "devDependencies": {\n    "@types/react": "^17.0.2",\n    "@types/react-dom": "^17.0.2",\n    "tsc": "^2.0.0"\n  },\n  "engines": {\n    "node": ">=14.x",\n    "npm": ">=6.x"\n  },\n  "license": "MIT",\n  "description": "A project for deploying to Vercel using Node.js"\n}
+{
+  "name": "io-openui-ao",
+  "version": "1.0.0",
+  "description": "SPAJA Ekosistem — AI platforma, banka, menjačnica i IT kompanija na jednom mestu",
+  "scripts": {
+    "build": "npm run build:realtime && npm run build:chat",
+    "build:realtime": "cd put-a-realtime-webrtc/web && npm install && npm run build",
+    "build:chat": "cd put-b-chat-socketio/web && npm install && npm run build",
+    "dev": "vite",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18.x",
+    "npm": ">=8.x"
+  },
+  "license": "MIT"
+}
