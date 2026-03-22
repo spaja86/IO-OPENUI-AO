@@ -1,11 +1,1 @@
-{
-  "version": 2,
-  "outputDirectory": "public",
-  "routes": [
-    { "src": "/bank/(.*)", "dest": "/bank/$1" },
-    { "src": "/exchange/(.*)", "dest": "/exchange/$1" },
-    { "src": "/company/(.*)", "dest": "/company/$1" },
-    { "src": "/ai/(.*)", "dest": "/ai/$1" },
-    { "src": "/(.*)", "dest": "/$1" }
-  ]
-}
+{"version":2,"outputDirectory":"public","rewrites":[{"source":"/bank","destination":"/bank/index.html"},{"source":"/bank/(.*)","destination":"/bank/$1"},{"source":"/exchange","destination":"/exchange/index.html"},{"source":"/exchange/(.*)","destination":"/exchange/$1"},{"source":"/ai","destination":"/ai/index.html"},{"source":"/ai/(.*)","destination":"/ai/$1"},{"source":"/company","destination":"/company/index.html"},{"source":"/company/(.*)","destination":"/company/$1"},{"source":"/(.*)","destination":"/index.html"}]}
