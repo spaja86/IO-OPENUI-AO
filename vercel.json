@@ -23,5 +23,13 @@
     { "source": "/realtime/(.*)", "destination": "/realtime/index.html" },
     { "source": "/chat", "destination": "/chat/index.html" },
     { "source": "/chat/(.*)", "destination": "/chat/index.html" }
+  ],
+  "routes": [
+    { "src": "/bank/(.*)", "dest": "/bank/$1" },
+    { "src": "/exchange/(.*)", "dest": "/exchange/$1" },
+    { "src": "/company/(.*)", "dest": "/company/$1" },
+    { "src": "/ai/(.*)", "dest": "/ai/$1" },
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }

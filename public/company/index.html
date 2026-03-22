@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kompanija SPAJA — IT usluge i proizvodi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bg: '#0a0a0f',
+            surface: '#12121a',
+            border: '#1e1e30',
+            accent: '#7c3aed',
+            accent2: '#2563eb',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #0a0a0f; }
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 30%, #7c3aed 70%, #2563eb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .card-hover { transition: transform 0.25s, border-color 0.25s; }
+    .card-hover:hover { transform: translateY(-4px); border-color: #7c3aed !important; }
+    .btn-grad {
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      transition: opacity 0.2s;
+    }
+    .btn-grad:hover { opacity: 0.9; }
+  </style>
+</head>
+<body class="text-slate-200 font-sans min-h-screen">
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 bg-[#0a0a0f]/90 backdrop-blur border-b border-[#1e1e30]">
+    <div class="max-w-6xl mx-auto px-6 flex items-center gap-4 flex-wrap py-3">
+      <a href="/" class="text-slate-400 text-sm hover:text-purple-400 transition-colors whitespace-nowrap">
+        ← Nazad na SPAJA Ekosistem
+      </a>
+      <span class="text-xl font-extrabold gradient-text whitespace-nowrap">🏢 Kompanija SPAJA</span>
+      <nav class="flex gap-1 flex-wrap ml-auto">
+        <a href="#about"    class="text-slate-400 hover:text-white hover:bg-[#1e1e30] px-3 py-1 rounded text-sm transition-all">O nama</a>
+        <a href="#products" class="text-slate-400 hover:text-white hover:bg-[#1e1e30] px-3 py-1 rounded text-sm transition-all">Proizvodi</a>
+        <a href="#projects" class="text-slate-400 hover:text-white hover:bg-[#1e1e30] px-3 py-1 rounded text-sm transition-all">Projekti</a>
+        <a href="#contact"  class="text-slate-400 hover:text-white hover:bg-[#1e1e30] px-3 py-1 rounded text-sm transition-all">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative py-24 px-6 text-center overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none"
+         style="background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(16,185,129,0.15), transparent 70%)"></div>
+    <div class="relative max-w-3xl mx-auto">
+      <span class="inline-block bg-gradient-to-r from-purple-700 to-blue-700 text-white text-xs font-bold uppercase tracking-widest px-4 py-1 rounded-full mb-4">
+        🏢 IT Kompanija
+      </span>
+      <h1 class="text-4xl md:text-5xl font-black gradient-text mb-4">Kompanija SPAJA</h1>
+      <p class="text-slate-400 text-lg mb-6">
+        Profesionalna IT kompanija koja gradi digitalne produkte i pruža usluge na svetskom nivou. Web razvoj, AI integracije, cloud arhitektura — sve na jednom mestu.
+      </p>
+      <a href="#products" class="btn-grad text-white font-bold px-8 py-3 rounded-lg inline-block">
+        Pogledaj usluge →
+      </a>
+    </div>
+  </section>
+
+  <!-- O NAMA -->
+  <section id="about" class="py-20 px-6 bg-[#12121a] border-y border-[#1e1e30]">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl font-extrabold gradient-text mb-6">O nama</h2>
+      <div class="grid md:grid-cols-2 gap-8 items-start">
+        <div>
+          <p class="text-slate-400 text-lg leading-relaxed mb-4">
+            Kompanija SPAJA je nastala iz vizije jednog čoveka — Nikole Spajića — da stvori digitalni ekosistem koji menja način na koji svet koristi tehnologiju. Specijalizovani smo za AI-driven rešenja, finansijsku tehnologiju i web platforme.
+          </p>
+          <p class="text-slate-400 leading-relaxed">
+            Sa sedištem u Srbiji i klijentima širom sveta, kombinujemo lokalno znanje sa globalnim standardima. Naš tim stručnjaka u oblasti AI, web razvoja i cloud arhitekture radi na projektima koji transformišu industrije.
+          </p>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-[#0a0a0f] border border-[#1e1e30] rounded-xl p-4 text-center card-hover">
+            <div class="text-3xl font-black text-purple-500">10+</div>
+            <div class="text-slate-400 text-sm mt-1">Godina iskustva</div>
+          </div>
+          <div class="bg-[#0a0a0f] border border-[#1e1e30] rounded-xl p-4 text-center card-hover">
+            <div class="text-3xl font-black text-blue-500">50+</div>
+            <div class="text-slate-400 text-sm mt-1">Projekata</div>
+          </div>
+          <div class="bg-[#0a0a0f] border border-[#1e1e30] rounded-xl p-4 text-center card-hover">
+            <div class="text-3xl font-black text-purple-500">4</div>
+            <div class="text-slate-400 text-sm mt-1">Ekosistem modula</div>
+          </div>
+          <div class="bg-[#0a0a0f] border border-[#1e1e30] rounded-xl p-4 text-center card-hover">
+            <div class="text-3xl font-black text-blue-500">24/7</div>
+            <div class="text-slate-400 text-sm mt-1">Podrška</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROIZVODI I USLUGE -->
+  <section id="products" class="py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl font-extrabold gradient-text mb-3">IT Proizvodi i usluge</h2>
+      <p class="text-slate-400 mb-10 max-w-2xl">Nudimo kompletna rešenja za digitalizaciju vašeg poslovanja — od ideje do produkcije.</p>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div class="bg-[#12121a] border border-[#1e1e30] rounded-xl p-6 card-hover">
+          <div class="text-3xl mb-3">🌐</div>
+          <h3 class="text-lg font-bold mb-2">Web Razvoj</h3>
+          <p class="text-slate-400 text-sm">Full-stack web aplikacije, landing stranice, e-commerce platforme. React, Next.js, TypeScript.</p>
+        </div>
+
+        <div class="bg-[#12121a] border border-[#1e1e30] rounded-xl p-6 card-hover">
+          <div class="text-3xl mb-3">🤖</div>
+          <h3 class="text-lg font-bold mb-2">AI Integracije</h3>
+          <p class="text-slate-400 text-sm">Integracija OpenAI, chatbotovi, automatizacija poslovnih procesa i analiza podataka.</p>
+        </div>
+
+        <div class="bg-[#12121a] border border-[#1e1e30] rounded-xl p-6 card-hover">
+          <div class="text-3xl mb-3">☁️</div>
+          <h3 class="text-lg font-bold mb-2">Cloud Arhitektura</h3>
+          <p class="text-slate-400 text-sm">Vercel, AWS, Azure deployementi. Serverless funkcije, CDN optimizacija, autoskaliranje.</p>
+        </div>
+
+        <div class="bg-[#12121a] border border-[#1e1e30] rounded-xl p-6 card-hover">
+          <div class="text-3xl mb-3">📱</div>
+          <h3 class="text-lg font-bold mb-2">Mobilne Aplikacije</h3>
+          <p class="text-slate-400 text-sm">Cross-platform mobilne aplikacije za iOS i Android. React Native, PWA rešenja.</p>
+        </div>
+
+        <div class="bg-[#12121a] border border-[#1e1e30] rounded-xl p-6 card-hover">
+          <div class="text-3xl mb-3">🔐</div>
+          <h3 class="text-lg font-bold mb-2">Kibernetička sigurnost</h3>
+          <p class="text-slate-400 text-sm">Bezbednosne audit, penetraciono testiranje, implementacija sigurnosnih protokola.</p>
+        </div>
+
+        <div class="bg-[#12121a] border border-[#1e1e30] rounded-xl p-6 card-hover">
+          <div class="text-3xl mb-3">💹</div>
+          <h3 class="text-lg font-bold mb-2">Fintech Rešenja</h3>
+          <p class="text-slate-400 text-sm">Platni sistemi, kripto integracije, bankarski softver i trading platforme.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- NAŠI PROJEKTI -->
+  <section id="projects" class="py-20 px-6 bg-[#12121a] border-y border-[#1e1e30]">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl font-extrabold gradient-text mb-3">Naši projekti</h2>
+      <p class="text-slate-400 mb-10 max-w-2xl">Pogledajte žive projekte koji su deo SPAJA Ekosistema — svaki je izgradila Kompanija SPAJA.</p>
+
+      <div class="grid md:grid-cols-2 gap-6">
+
+        <a href="/bank/" class="bg-[#0a0a0f] border border-[#1e1e30] rounded-xl p-6 card-hover block group">
+          <div class="flex items-start gap-4">
+            <div class="text-4xl">🏦</div>
+            <div>
+              <h3 class="text-lg font-bold mb-1 group-hover:text-purple-400 transition-colors">AI IQ World Bank</h3>
+              <p class="text-slate-400 text-sm mb-3">Bankarski portal sa AI asistentom, transferima i Omega AI tehnologijom.</p>
+              <span class="text-blue-400 text-sm font-semibold">Poseti → /bank/</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="/exchange/" class="bg-[#0a0a0f] border border-[#1e1e30] rounded-xl p-6 card-hover block group">
+          <div class="flex items-start gap-4">
+            <div class="text-4xl">💱</div>
+            <div>
+              <h3 class="text-lg font-bold mb-1 group-hover:text-blue-400 transition-colors">AI IQ Menjačnica</h3>
+              <p class="text-slate-400 text-sm mb-3">Kripto i fiat menjačnica sa live kursevima i BUY/SELL funkcionalnostima.</p>
+              <span class="text-blue-400 text-sm font-semibold">Poseti → /exchange/</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="/ai/" class="bg-[#0a0a0f] border border-[#1e1e30] rounded-xl p-6 card-hover block group">
+          <div class="flex items-start gap-4">
+            <div class="text-4xl">🤖</div>
+            <div>
+              <h3 class="text-lg font-bold mb-1 group-hover:text-yellow-400 transition-colors">IO OpenUI AO</h3>
+              <p class="text-slate-400 text-sm mb-3">AI real-time platforma — WebRTC razgovor i SSE chat pokretani OpenAI-jem.</p>
+              <span class="text-blue-400 text-sm font-semibold">Poseti → /ai/</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="/" class="bg-[#0a0a0f] border border-[#1e1e30] rounded-xl p-6 card-hover block group">
+          <div class="flex items-start gap-4">
+            <div class="text-4xl">🌍</div>
+            <div>
+              <h3 class="text-lg font-bold mb-1 group-hover:text-green-400 transition-colors">SPAJA Ekosistem Hub</h3>
+              <p class="text-slate-400 text-sm mb-3">Centralna platforma koja integriše sve module u jedan koherentan ekosistem.</p>
+              <span class="text-blue-400 text-sm font-semibold">Poseti → /</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKT FORMA -->
+  <section id="contact" class="py-20 px-6">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl font-extrabold gradient-text mb-3">Kontakt</h2>
+      <p class="text-slate-400 mb-10">Imate projekat ili pitanje? Kontaktirajte nas — odgovaramo u roku od 24h.</p>
+
+      <form class="space-y-5" onsubmit="handleSubmit(event)">
+        <div class="grid md:grid-cols-2 gap-5">
+          <div>
+            <label class="block text-sm font-semibold text-slate-400 mb-1" for="cf-name">Ime i prezime</label>
+            <input
+              id="cf-name"
+              type="text"
+              placeholder="Npr. Nikola Spajić"
+              required
+              class="w-full bg-[#12121a] border border-[#1e1e30] rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition-colors"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-400 mb-1" for="cf-email">Email adresa</label>
+            <input
+              id="cf-email"
+              type="email"
+              placeholder="vas@email.com"
+              required
+              class="w-full bg-[#12121a] border border-[#1e1e30] rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition-colors"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-slate-400 mb-1" for="cf-subject">Predmet</label>
+          <input
+            id="cf-subject"
+            type="text"
+            placeholder="Kratki opis projekta ili upita"
+            required
+            class="w-full bg-[#12121a] border border-[#1e1e30] rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition-colors"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-slate-400 mb-1" for="cf-message">Poruka</label>
+          <textarea
+            id="cf-message"
+            rows="5"
+            placeholder="Opišite vaš projekat, zahtev ili pitanje..."
+            required
+            class="w-full bg-[#12121a] border border-[#1e1e30] rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition-colors resize-none"
+          ></textarea>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <button type="submit" class="btn-grad text-white font-bold px-8 py-3 rounded-lg">
+            Pošalji poruku →
+          </button>
+          <div id="cf-status" class="text-sm text-slate-400"></div>
+        </div>
+      </form>
+
+      <div class="mt-10 flex flex-wrap gap-4 text-sm">
+        <a href="mailto:spajicn@gmail.com" class="text-blue-400 hover:underline">📧 spajicn@gmail.com</a>
+        <a href="mailto:spajicn@yahoo.com" class="text-blue-400 hover:underline">📧 spajicn@yahoo.com</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-[#1e1e30] py-8 px-6 text-center text-slate-400 text-sm">
+    <p>© 2026 Kompanija SPAJA | Owner: Nikola Spajić |
+      <a href="mailto:spajicn@gmail.com" class="text-blue-400 hover:underline">spajicn@gmail.com</a>
+    </p>
+    <p class="mt-2"><a href="/" class="text-blue-400 hover:underline">← SPAJA Ekosistem</a></p>
+  </footer>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      var status = document.getElementById('cf-status');
+      status.textContent = '✅ Poruka je primljena! Odgovorićemo vam uskoro.';
+      status.style.color = '#10b981';
+      e.target.reset();
+    }
+  </script>
+
+</body>
+</html>
