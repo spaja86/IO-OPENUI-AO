@@ -2,13 +2,13 @@ import { useState } from 'react';
 import TicTacToe from '../components/demos/TicTacToe';
 import GameHub from '../components/demos/GameHub';
 
-type ActiveGame = 'tictactoe' | 'quiz' | null;
+type ActiveGame = 'tictactoe' | 'quiz' | 'chess' | 'pong' | null;
 
-const GAMES = [
-  { id: 'tictactoe' as const, icon: '⭕', title: 'Tic-Tac-Toe', desc: 'Klasična igra X i O sa AI protivnikom', status: 'live', color: '#7c3aed' },
-  { id: 'quiz' as const, icon: '🧠', title: 'Tehnološki Kviz', desc: '5 pitanja o tehnologiji, kriptu i AI', status: 'live', color: '#06b6d4' },
-  { id: null as unknown as 'tictactoe', icon: '♟️', title: 'Chess', desc: 'Online sah sa mulitplayer podrskom', status: 'coming-soon', color: '#f59e0b' },
-  { id: null as unknown as 'tictactoe', icon: '🏓', title: 'Multiplayer Pong', desc: 'Klasicni Pong za 2 igraca', status: 'coming-soon', color: '#10b981' },
+const GAMES: { id: ActiveGame; icon: string; title: string; desc: string; status: string; color: string }[] = [
+  { id: 'tictactoe', icon: '⭕', title: 'Tic-Tac-Toe', desc: 'Klasična igra X i O sa AI protivnikom', status: 'live', color: '#7c3aed' },
+  { id: 'quiz', icon: '🧠', title: 'Tehnološki Kviz', desc: '5 pitanja o tehnologiji, kriptu i AI', status: 'live', color: '#06b6d4' },
+  { id: 'chess', icon: '♟️', title: 'Chess', desc: 'Online šah sa multiplayer podrškom', status: 'coming-soon', color: '#f59e0b' },
+  { id: 'pong', icon: '🏓', title: 'Multiplayer Pong', desc: 'Klasični Pong za 2 igrača', status: 'coming-soon', color: '#10b981' },
 ];
 
 export default function GamesPage() {
@@ -32,7 +32,7 @@ export default function GamesPage() {
             🎮 Igrice Hub
           </h1>
           <p style={{ color: '#94a3b8', fontSize: '1.05rem' }}>
-            Igraj online igrice direktno u pretrazivacu — solo ili sa prijateljima
+            Igraj online igrice direktno u pretraživaču — solo ili sa prijateljima
           </p>
         </div>
 

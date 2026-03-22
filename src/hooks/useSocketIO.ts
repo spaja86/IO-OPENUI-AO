@@ -45,7 +45,7 @@ export function useSocketIO() {
     const sysMsg: ChatMessage = {
       id: Date.now().toString(),
       user: 'Sistem',
-      content: `Presli ste na kanal #${channel}`,
+      content: `Prešli ste na kanal #${channel}`,
       timestamp: new Date(),
       channel,
       type: 'system',

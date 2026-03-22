@@ -105,7 +105,7 @@ export default function GameHub() {
           <div style={{ color: '#06b6d4', fontSize: '1.1rem', fontWeight: 600, marginTop: '8px' }}>{pct}%</div>
         </div>
         <p style={{ color: '#94a3b8', marginBottom: '24px', fontSize: '0.9rem' }}>
-          {pct >= 80 ? 'Odlicno! Ti si pravi tehnolosk guru! 🎉' : pct >= 50 ? 'Dobro! Jos malo vezbe i bit ces ekspert!' : 'Ne brini, svaki pocetnik je bio pocelnik!'}
+          {pct >= 80 ? 'Odlično! Ti si pravi tehnološki guru! 🎉' : pct >= 50 ? 'Dobro! Još malo vežbe i bićeš ekspert!' : 'Ne brini, svaki početnik je bio početnik!'}
         </p>
         <button
           onClick={restart}

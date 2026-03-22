@@ -13,7 +13,7 @@ export const OWNER_INFO = {
 };
 
 export const NAV_LINKS: NavLink[] = [
-  { label: 'Pocetna', path: '/' },
+  { label: 'Početna', path: '/' },
   { label: 'Funkcionalnosti', path: '/features' },
   { label: 'Chat', path: '/chat' },
   { label: 'Video', path: '/video' },
