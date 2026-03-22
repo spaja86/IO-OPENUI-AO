@@ -1,1 +1,11 @@
-{\n  "version": 2,\n  "builds": [\n    {\n      "src": "public/**/*",\n      "use": "@vercel/static"\n    }\n  ],\n  "routes": [\n    {\n      "src": "/(.*)",\n      "dest": "/public/$1"\n    }\n  ]\n}
+{
+  "version": 2,
+  "outputDirectory": "public",
+  "routes": [
+    { "src": "/bank/(.*)", "dest": "/bank/$1" },
+    { "src": "/exchange/(.*)", "dest": "/exchange/$1" },
+    { "src": "/company/(.*)", "dest": "/company/$1" },
+    { "src": "/ai/(.*)", "dest": "/ai/$1" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}
