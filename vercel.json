@@ -1,1 +1,11 @@
-{"version":2,"outputDirectory":"public","rewrites":[{"source":"/bank","destination":"/bank/index.html"},{"source":"/bank/(.*)","destination":"/bank/$1"},{"source":"/exchange","destination":"/exchange/index.html"},{"source":"/exchange/(.*)","destination":"/exchange/$1"},{"source":"/ai","destination":"/ai/index.html"},{"source":"/ai/(.*)","destination":"/ai/$1"},{"source":"/company","destination":"/company/index.html"},{"source":"/company/(.*)","destination":"/company/$1"},{"source":"/(.*)","destination":"/index.html"}]}
+{
+  "version": 2,
+  "outputDirectory": "public",
+  "rewrites": [
+    { "source": "/bank/(.*)", "destination": "/bank/$1" },
+    { "source": "/exchange/(.*)", "destination": "/exchange/$1" },
+    { "source": "/company/(.*)", "destination": "/company/$1" },
+    { "source": "/ai/(.*)", "destination": "/ai/$1" },
+    { "source": "/(.*)", "destination": "/$1" }
+  ]
+}
