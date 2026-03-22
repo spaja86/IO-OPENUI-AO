@@ -1,0 +1,30 @@
+# Dependencies (will be reinstalled during build)
+node_modules/
+
+# Logs
+npm-debug.log
+yarn-error.log
+*.log
+
+# Lock files (Vercel will generate new ones)
+package-lock.json
+yarn.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+
+# Documentation (not needed for runtime)
+README.md
+IOOpenUIAO.txt
+VERCEL_DEPLOYMENT.md
