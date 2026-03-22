@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="sr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="I/OOpenUI/AO – Platforma za glasovnu i tekstualnu AI komunikaciju u realnom vremenu." />
+    <title>I/OOpenUI/AO</title>
+    <style>
+      :root {
+        --purple: #667eea;
+        --green: #11998e;
+        --radius: 14px;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: #0f0f13;
+        color: #f0f0f0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+
+      /* ── header ── */
+      header { text-align: center; margin-bottom: 56px; }
+      .logo { font-size: clamp(2rem, 6vw, 3.4rem); font-weight: 800; letter-spacing: -1px; }
+      .logo span { background: linear-gradient(135deg, var(--purple), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+      .tagline { margin-top: 10px; color: #999; font-size: 1.05rem; }
+
+      /* ── cards ── */
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        width: 100%;
+        max-width: 860px;
+      }
+      .card {
+        background: #1a1a22;
+        border: 1px solid #2a2a36;
+        border-radius: var(--radius);
+        padding: 36px 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        transition: transform 0.2s, border-color 0.2s;
+      }
+      .card:hover { transform: translateY(-4px); }
+      .card.realtime { border-color: #667eea55; }
+      .card.realtime:hover { border-color: var(--purple); }
+      .card.chat { border-color: #11998e55; }
+      .card.chat:hover { border-color: var(--green); }
+
+      .card-icon { font-size: 2.6rem; }
+      .card h2 { font-size: 1.35rem; font-weight: 700; }
+      .card p { color: #aaa; font-size: 0.95rem; line-height: 1.6; flex: 1; }
+      .card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+      .card ul li { font-size: 0.88rem; color: #888; display: flex; align-items: center; gap: 8px; }
+      .card ul li::before { content: "✓"; font-weight: 700; }
+      .card.realtime ul li::before { color: var(--purple); }
+      .card.chat ul li::before { color: var(--green); }
+
+      .btn {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-decoration: none;
+        text-align: center;
+        transition: opacity 0.2s, transform 0.2s;
+      }
+      .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+      .btn.realtime { background: var(--purple); color: #fff; }
+      .btn.chat { background: var(--green); color: #fff; }
+
+      /* ── status badge ── */
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 20px;
+        width: fit-content;
+      }
+      .badge.live { background: #14532d33; color: #4ade80; border: 1px solid #4ade8055; }
+      .badge.live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 6px #4ade80; }
+
+      /* ── footer ── */
+      footer { margin-top: 56px; color: #555; font-size: 0.82rem; text-align: center; }
+      footer a { color: #777; text-decoration: none; }
+      footer a:hover { color: #aaa; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo"><span>I/OOpenUI/AO</span></div>
+      <p class="tagline">Platforma za AI komunikaciju u realnom vremenu — glas &amp; tekst</p>
+    </header>
+
+    <section class="cards">
+      <!-- Put A -->
+      <div class="card realtime">
+        <span class="card-icon">🎙️</span>
+        <div class="badge live">Aktivno</div>
+        <h2>Put A – Realtime Glas</h2>
+        <p>Glasovna konverzacija sa AI asistentom u realnom vremenu pomoću WebRTC i OpenAI Realtime API-ja.</p>
+        <ul>
+          <li>WebRTC audio streaming</li>
+          <li>Ephemeral API ključevi</li>
+          <li>Nizak latens (&lt; 500 ms)</li>
+          <li>Srpski jezik po default-u</li>
+        </ul>
+        <a class="btn realtime" href="/realtime/">Otvori Realtime →</a>
+      </div>
+
+      <!-- Put B -->
+      <div class="card chat">
+        <span class="card-icon">💬</span>
+        <div class="badge live">Aktivno</div>
+        <h2>Put B – Tekstualni Chat</h2>
+        <p>Streaming tekstualni chat sa AI asistentom u realnom vremenu pomoću Server-Sent Events i OpenAI Chat Completions API-ja.</p>
+        <ul>
+          <li>Real-time streaming odgovori</li>
+          <li>Native SSE (bez zavisnosti)</li>
+          <li>GPT-4o-mini model</li>
+          <li>Jednostavan &amp; brz UI</li>
+        </ul>
+        <a class="btn chat" href="/chat/">Otvori Chat →</a>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2025 <a href="https://www.ioopenuiao.com">I/OOpenUI/AO</a> &nbsp;·&nbsp;
+        <a href="https://github.com/spaja86/IO-OPENUI-AO" target="_blank" rel="noopener">GitHub</a>
+      </p>
+    </footer>
+  </body>
+</html>

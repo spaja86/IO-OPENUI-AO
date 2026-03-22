@@ -1,19 +1,13 @@
 {
-  "name": "io-openui-ao",
-  "version": "1.0.0",
-  "description": "IO OpenUI AO Platform",
-  "type": "module",
+  "name": "ioopenuiao",
+  "private": true,
   "scripts": {
-    "build": "tsc",
-    "dev": "vite",
-    "deploy": "vercel --prod"
+    "build": "npm run build:realtime && npm run build:chat && mkdir -p public && cp index.html public/",
+    "build:realtime": "cd put-a-realtime-webrtc/web && npm ci && npm run build",
+    "build:chat": "cd put-b-chat-socketio/web && npm ci && npm run build"
   },
-  "dependencies": {
-    "dotenv": "^10.0.0"
-  },
-  "engines": {
-    "node": ">=14.x",
-    "npm": ">=6.x"
-  },
-  "license": "MIT"
+  "devDependencies": {
+    "@vercel/node": "^3.2.0",
+    "typescript": "^5.4.0"
+  }
 }

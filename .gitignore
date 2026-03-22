@@ -4,9 +4,9 @@ package-lock.json
 npm-debug.log
 yarn-error.log
 
-# Build outputs
+# Vite / build artifacts
 dist/
-/dist/
+.vite/
 
 # Environment files
 .env
