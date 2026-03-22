@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SPAJA Ekosistem — Platforma koju svet još nije video</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --border: #1e1e30;
+      --accent: #7c3aed;
+      --accent2: #2563eb;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+    nav { display: flex; gap: 0.25rem; flex-wrap: wrap; }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    nav a:hover { background: var(--border); color: var(--text); }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 6rem 2rem 5rem;
+      text-align: center;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, #fff 30%, var(--accent) 70%, var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.2rem;
+      position: relative;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+      position: relative;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .modules {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(124,58,237,0.2); border-color: var(--accent); }
+    .card:hover::before { opacity: 1; }
+
+    .card-bank::before   { background: radial-gradient(circle at 0% 0%, rgba(124,58,237,0.15), transparent 60%); }
+    .card-exchange::before { background: radial-gradient(circle at 0% 0%, rgba(37,99,235,0.15), transparent 60%); }
+    .card-company::before  { background: radial-gradient(circle at 0% 0%, rgba(16,185,129,0.15), transparent 60%); }
+    .card-ai::before       { background: radial-gradient(circle at 0% 0%, rgba(245,158,11,0.15), transparent 60%); }
+
+    .card-icon { font-size: 2.5rem; }
+    .card-title { font-size: 1.2rem; font-weight: 700; color: var(--text); }
+    .card-subtitle { font-size: 0.9rem; color: var(--accent); font-weight: 600; }
+    .card-desc { font-size: 0.9rem; color: var(--muted); flex: 1; }
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--accent2);
+      margin-top: 0.5rem;
+    }
+
+    .stats {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+    }
+    .stats-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label { font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem; }
+
+    footer {
+      padding: 2rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--accent2); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo">SPAJA</a>
+      <nav>
+        <a href="/bank/">🏦 Banka</a>
+        <a href="/exchange/">💱 Menjačnica</a>
+        <a href="/company/">🏢 Kompanija</a>
+        <a href="/ai/">🤖 AI</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-badge">🌍 SPAJA Ekosistem</div>
+    <h1>Platforma koju svet još nije video</h1>
+    <p>Jedan ekosistem. Četiri moćna servisa. Banka, menjačnica, IT kompanija i AI platforma — sve na jednom mestu, pogonjeno veštačkom inteligencijom.</p>
+  </section>
+
+  <section class="modules">
+
+    <a href="/bank/" class="card card-bank">
+      <div class="card-icon">🏦</div>
+      <div class="card-title">AI IQ World Bank</div>
+      <div class="card-subtitle">Finansijski servis</div>
+      <div class="card-desc">Najbrža i najpametnija banka na svetu. AI asistent, internacionalni transferi, Omega AI tehnologija i ekspanzija u Smederevu.</div>
+      <span class="card-link">Uđi u banku →</span>
+    </a>
+
+    <a href="/exchange/" class="card card-exchange">
+      <div class="card-icon">💱</div>
+      <div class="card-title">AI IQ Menjačnica</div>
+      <div class="card-subtitle">Kripto &amp; Fiat trading</div>
+      <div class="card-desc">Svetska kripto menjačnica sa live kursevima, BUY/SELL orderima, podrškom za BTC, ETH, USDT, EUR i RSD. Fee: 2%.</div>
+      <span class="card-link">Otvori menjačnicu →</span>
+    </a>
+
+    <a href="/company/" class="card card-company">
+      <div class="card-icon">🏢</div>
+      <div class="card-title">Kompanija SPAJA</div>
+      <div class="card-subtitle">IT usluge &amp; Proizvodi</div>
+      <div class="card-desc">Profesionalna IT kompanija koja gradi budućnost. Web razvoj, AI integracije, cloud arhitektura i poslovne aplikacije.</div>
+      <span class="card-link">Saznaj više →</span>
+    </a>
+
+    <a href="/ai/" class="card card-ai">
+      <div class="card-icon">🤖</div>
+      <div class="card-title">IO OpenUI AO</div>
+      <div class="card-subtitle">AI Real-time platforma</div>
+      <div class="card-desc">WebRTC real-time AI razgovor i AI Chat (SSE) pokretani OpenAI-jem. Razgovaraj sa AI asistentom u realnom vremenu.</div>
+      <span class="card-link">Pokreni AI →</span>
+    </a>
+
+  </section>
+
+  <section class="stats">
+    <div class="stats-inner">
+      <div>
+        <div class="stat-value">4</div>
+        <div class="stat-label">Integrisana servisa</div>
+      </div>
+      <div>
+        <div class="stat-value">∞</div>
+        <div class="stat-label">AI mogućnosti</div>
+      </div>
+      <div>
+        <div class="stat-value">1</div>
+        <div class="stat-label">Ekosistem</div>
+      </div>
+      <div>
+        <div class="stat-value">2026</div>
+        <div class="stat-label">Godina lansiranja</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 SPAJA Ekosistem | Owner: Nikola Spajić |
+      <a href="mailto:spajicn@gmail.com">spajicn@gmail.com</a>
+    </p>
+  </footer>
+
+</body>
+</html>
