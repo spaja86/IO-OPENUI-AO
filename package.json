@@ -1,1 +1,28 @@
-{\n  "name": "io-openui-ao",\n  "version": "1.0.0",\n  "scripts": {\n    "build": "tsc",\n    "dev": "vite",\n    "deploy": "vercel --prod"\n  },\n  "dependencies": {\n    "react": "^17.0.2",\n    "react-dom": "^17.0.2",\n    "vite": "^2.6.4",\n    "typescript": "^4.4.4"\n  },\n  "devDependencies": {\n    "@types/react": "^17.0.2",\n    "@types/react-dom": "^17.0.2",\n    "tsc": "^2.0.0"\n  },\n  "engines": {\n    "node": ">=14.x",\n    "npm": ">=6.x"\n  },\n  "license": "MIT",\n  "description": "A project for deploying to Vercel using Node.js"\n}
+{
+  "name": "io-openui-ao",
+  "version": "2.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "typescript": "^5.0.0",
+    "vite": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=16.x",
+    "npm": ">=8.x"
+  },
+  "license": "MIT",
+  "description": "Platforma za profesionalnu saradnju, igrice i mnogo toga jos"
+}
