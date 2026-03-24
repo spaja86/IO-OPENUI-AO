@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import TicTacToe from '../components/demos/TicTacToe';
 import GameHub from '../components/demos/GameHub';
+import Chess from '../components/games/Chess';
+import Pong from '../components/games/Pong';
+import Leaderboard from '../components/games/Leaderboard';
 
 type ActiveGame = 'tictactoe' | 'quiz' | 'chess' | 'pong' | null;
 
 const GAMES: { id: ActiveGame; icon: string; title: string; desc: string; status: string; color: string }[] = [
   { id: 'tictactoe', icon: '⭕', title: 'Tic-Tac-Toe', desc: 'Klasična igra X i O sa AI protivnikom', status: 'live', color: '#7c3aed' },
   { id: 'quiz', icon: '🧠', title: 'Tehnološki Kviz', desc: '5 pitanja o tehnologiji, kriptu i AI', status: 'live', color: '#06b6d4' },
-  { id: 'chess', icon: '♟️', title: 'Chess', desc: 'Online šah sa multiplayer podrškom', status: 'coming-soon', color: '#f59e0b' },
-  { id: 'pong', icon: '🏓', title: 'Multiplayer Pong', desc: 'Klasični Pong za 2 igrača', status: 'coming-soon', color: '#10b981' },
+  { id: 'chess', icon: '♟️', title: 'Chess', desc: 'Šah sa validacijom poteza i highlight legal moves', status: 'live', color: '#f59e0b' },
+  { id: 'pong', icon: '🏓', title: 'Multiplayer Pong', desc: 'Canvas Pong za 2 igrača — W/S i ↑/↓', status: 'live', color: '#10b981' },
 ];
 
 export default function GamesPage() {
@@ -103,6 +106,38 @@ export default function GamesPage() {
           </div>
         )}
 
+        {active === 'chess' && (
+          <div
+            style={{
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(245,158,11,0.3)',
+              borderRadius: '20px',
+              padding: '32px 24px',
+            }}
+          >
+            <h2 style={{ textAlign: 'center', color: '#f1f5f9', fontWeight: 700, marginBottom: '24px', fontSize: '1.4rem' }}>
+              ♟️ Chess
+            </h2>
+            <Chess />
+          </div>
+        )}
+
+        {active === 'pong' && (
+          <div
+            style={{
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(16,185,129,0.3)',
+              borderRadius: '20px',
+              padding: '32px 24px',
+            }}
+          >
+            <h2 style={{ textAlign: 'center', color: '#f1f5f9', fontWeight: 700, marginBottom: '24px', fontSize: '1.4rem' }}>
+              🏓 Multiplayer Pong
+            </h2>
+            <Pong />
+          </div>
+        )}
+
         {!active && (
           <div
             style={{
@@ -118,6 +153,11 @@ export default function GamesPage() {
             <p>Izaberi igru iznad da počneš da igraš</p>
           </div>
         )}
+
+        {/* Leaderboard */}
+        <div style={{ marginTop: '48px', display: 'flex', justifyContent: 'center' }}>
+          <Leaderboard game="quiz" title="Quiz Rang Lista" />
+        </div>
       </div>
     </div>
   );

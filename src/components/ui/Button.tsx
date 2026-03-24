@@ -1,8 +1,43 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+
+export function useRipple(color = 'rgba(255,255,255,0.3)') {
+  const ref = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const handleClick = (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const ripple = document.createElement('span');
+      const size = Math.max(rect.width, rect.height) * 2;
+      ripple.style.cssText = `
+        position:absolute;
+        border-radius:50%;
+        width:${size}px;height:${size}px;
+        left:${x - size / 2}px;top:${y - size / 2}px;
+        background:${color};
+        transform:scale(0);
+        animation:ripple-anim 0.6s linear;
+        pointer-events:none;
+      `;
+      el.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 700);
+    };
+
+    el.addEventListener('click', handleClick);
+    return () => el.removeEventListener('click', handleClick);
+  }, [color]);
+
+  return ref;
+}
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
+  rippleColor?: string;
   children: React.ReactNode;
 }
 
@@ -17,6 +52,8 @@ const styles: Record<string, React.CSSProperties> = {
     cursor: 'pointer',
     border: 'none',
     textDecoration: 'none',
+    position: 'relative',
+    overflow: 'hidden',
   },
   primary: {
     background: 'linear-gradient(135deg, #7c3aed, #06b6d4)',
@@ -44,11 +81,13 @@ const styles: Record<string, React.CSSProperties> = {
 export default function Button({
   variant = 'primary',
   size = 'md',
+  rippleColor,
   children,
   style,
   ...props
 }: ButtonProps) {
   const [hovered, setHovered] = React.useState(false);
+  const ref = useRipple(rippleColor || 'rgba(255,255,255,0.3)');
 
   const hoverStyle: React.CSSProperties = hovered
     ? variant === 'primary'
@@ -57,19 +96,16 @@ export default function Button({
     : {};
 
   return (
-    <button
-      style={{
-        ...styles.base,
-        ...styles[variant],
-        ...styles[size],
-        ...hoverStyle,
-        ...style,
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      {...props}
-    >
-      {children}
-    </button>
+    <>
+      <button
+        ref={ref}
+        style={{ ...styles.base, ...styles[variant], ...styles[size], ...hoverStyle, ...style }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        {...props}
+      >
+        {children}
+      </button>
+    </>
   );
 }

@@ -14,10 +14,19 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="IO-OPENUI-AO" />
   <meta name="twitter:description" content="Platforma za profesionalnu saradnju uz WebRTC video pozive, Socket.IO chat i igrice" />
-  <link rel="icon" href="/favicon.ico" />
+  <meta name="theme-color" content="#7c3aed" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/icon-192.svg" type="image/svg+xml" />
 </head>
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+      });
+    }
+  </script>
 </body>
 </html>
