@@ -1,0 +1,74 @@
+<!-- Full Market Trade UI with BUY/SELL — AI IQ Menjačnica -->
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Market Trade — AI IQ Menjačnica</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="/" class="back-link">← Nazad na SPAJA Ekosistem</a>
+      <div class="logo">💱 AI IQ Menjačnica</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="trade.html" class="active">Trejd (Market)</a>
+        <a href="index.html#about">O nama</a>
+        <a href="index.html#contact">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="market-trade" class="trade-page">
+      <div class="container">
+        <h1>Market Trade</h1>
+        <p class="trade-subtitle">BUY / SELL kripto i fiat valute | Fee: <strong>2%</strong></p>
+
+        <div class="trade-controls">
+          <div class="control-group">
+            <label for="trade-type">Tip transakcije:</label>
+            <select id="trade-type">
+              <option value="buy">BUY — Kupujem</option>
+              <option value="sell">SELL — Prodajem</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label for="currency">Fiat valuta:</label>
+            <select id="currency">
+              <option value="RSD">RSD — Srpski Dinar</option>
+              <option value="EUR">EUR — Euro</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label for="mode">Režim prikaza:</label>
+            <select id="mode">
+              <option value="A">A — Pretraga + Load More</option>
+              <option value="B">B — Padajuća lista</option>
+            </select>
+          </div>
+        </div>
+
+        <p>Fee: <span id="fee">2%</span></p>
+
+        <div id="results"></div>
+
+        <div style="margin-top:1rem;">
+          <button id="trade-button" class="btn-submit">Potvrdi transakciju</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 AI IQ Menjačnica | <a href="/">← SPAJA Ekosistem</a></p>
+  </footer>
+
+  <script src="js/trade.js"></script>
+</body>
+</html>
