@@ -6,41 +6,28 @@ export interface Platform {
   github: string;
   tech: string[];
   icon: string;
-  status: 'live' | 'active' | 'coming-soon';
-}
-
-export interface Feature {
-  id: string;
-  icon: string;
-  title: string;
-  description: string;
-  color: string;
+  status: 'live' | 'active' | 'development';
 }
 
 export interface ChatMessage {
   id: string;
   user: string;
-  content: string;
+  message: string;
   timestamp: Date;
-  channel: string;
-  type: 'message' | 'system';
+  isOwn: boolean;
 }
 
-export interface GameScore {
-  player: string;
-  score: number;
-  game: string;
-  date: Date;
+export interface Feature {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  category: 'realtime' | 'ai' | 'security' | 'collaboration';
 }
 
-export interface QuizQuestion {
-  id: number;
-  question: string;
-  options: string[];
-  correctIndex: number;
-}
-
-export interface NavLink {
-  label: string;
-  path: string;
+export interface ContactForm {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
 }
