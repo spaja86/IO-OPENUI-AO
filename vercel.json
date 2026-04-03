@@ -1,1 +1,17 @@
-{\n  "version": 2,\n  "builds": [\n    {\n      "src": "public/**/*",\n      "use": "@vercel/static"\n    }\n  ],\n  "routes": [\n    {\n      "src": "/(.*)",\n      "dest": "/public/$1"\n    }\n  ],\n  "env": {\n    "OPENAI_API_KEY": "YOUR_OPENAI_API_KEY"\n  }\n}
+{
+  "version": 2,
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    }
+  ]
+}
