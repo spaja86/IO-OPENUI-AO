@@ -1,12 +1,17 @@
 {
   "version": 2,
-  "outputDirectory": "public",
-  "routes": [
-    { "src": "/bank/(.*)", "dest": "/bank/$1" },
-    { "src": "/exchange/(.*)", "dest": "/exchange/$1" },
-    { "src": "/company/(.*)", "dest": "/company/$1" },
-    { "src": "/ai/(.*)", "dest": "/ai/$1" },
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/(.*)", "dest": "/$1" }
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    }
   ]
 }
