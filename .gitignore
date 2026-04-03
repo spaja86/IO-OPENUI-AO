@@ -1,5 +1,8 @@
 # Node.js
 node_modules/
+package-lock.json
+npm-debug.log
+yarn-error.log
 
 # Vite / build artifacts
 dist/
