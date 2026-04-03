@@ -1,50 +1,40 @@
 import { useState, useCallback } from 'react';
 
-interface WebRTCState {
-  isConnecting: boolean;
+export interface WebRTCState {
   isConnected: boolean;
   isMuted: boolean;
   isCameraOff: boolean;
-  isScreenSharing: boolean;
+  isCallActive: boolean;
 }
 
 export function useWebRTC() {
   const [state, setState] = useState<WebRTCState>({
-    isConnecting: false,
     isConnected: false,
     isMuted: false,
     isCameraOff: false,
-    isScreenSharing: false,
+    isCallActive: false,
   });
 
   const startCall = useCallback(() => {
-    setState(s => ({ ...s, isConnecting: true }));
-    setTimeout(() => {
-      setState(s => ({ ...s, isConnecting: false, isConnected: true }));
-    }, 2000);
+    setState(prev => ({ ...prev, isCallActive: true, isConnected: true }));
   }, []);
 
   const endCall = useCallback(() => {
     setState({
-      isConnecting: false,
       isConnected: false,
       isMuted: false,
       isCameraOff: false,
-      isScreenSharing: false,
+      isCallActive: false,
     });
   }, []);
 
   const toggleMute = useCallback(() => {
-    setState(s => ({ ...s, isMuted: !s.isMuted }));
+    setState(prev => ({ ...prev, isMuted: !prev.isMuted }));
   }, []);
 
   const toggleCamera = useCallback(() => {
-    setState(s => ({ ...s, isCameraOff: !s.isCameraOff }));
+    setState(prev => ({ ...prev, isCameraOff: !prev.isCameraOff }));
   }, []);
 
-  const toggleScreenShare = useCallback(() => {
-    setState(s => ({ ...s, isScreenSharing: !s.isScreenSharing }));
-  }, []);
-
-  return { ...state, startCall, endCall, toggleMute, toggleCamera, toggleScreenShare };
+  return { state, startCall, endCall, toggleMute, toggleCamera };
 }

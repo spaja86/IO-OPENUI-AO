@@ -1,6 +1,6 @@
 {
   "name": "io-openui-ao",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -24,5 +24,5 @@
     "npm": ">=8.x"
   },
   "license": "MIT",
-  "description": "Platforma za profesionalnu saradnju, igrice i mnogo toga jos"
+  "description": "IO-OPENUI-AO — Platforma za profesionalnu saradnju i real-time komunikaciju. Powered by WebRTC + Socket.IO."
 }

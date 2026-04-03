@@ -1,139 +1,143 @@
-# IO-OPENUI-AO
+# 🌐 IO-OPENUI-AO
 
-![React](https://img.shields.io/badge/React-18.2-61dafb?style=flat-square&logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178c6?style=flat-square&logo=typescript)
-![Vite](https://img.shields.io/badge/Vite-4.0-646cff?style=flat-square&logo=vite)
-![Vercel](https://img.shields.io/badge/Vercel-deployed-000000?style=flat-square&logo=vercel)
-![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-io--openui--ao.vercel.app-00d4ff?style=for-the-badge&logo=vercel)](https://io-openui-ao.vercel.app)
+[![React](https://img.shields.io/badge/React-18-61dafb?style=for-the-badge&logo=react)](https://reactjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org)
+[![Vite](https://img.shields.io/badge/Vite-4-646cff?style=for-the-badge&logo=vite)](https://vitejs.dev)
 
-> **Platforma za profesionalnu saradnju uz WebRTC video pozive, Socket.IO chat i igrice**
-
-🔗 **Live:** https://io-openui-ao.vercel.app
+> **Platforma za profesionalnu saradnju i real-time komunikaciju**  
+> Deo ekosistema [Kompanija SPAJA](https://github.com/spaja86/Kompanija-SPAJA)
 
 ---
 
-## ✨ Features
+## 🚀 Live Demo
 
-- 📡 **WebRTC Video** — Peer-to-peer video pozivi direktno u pretrazivacu
-- 💬 **Real-time Chat** — Socket.IO multi-channel chat sa sistemskim notifikacijama
-- 🎮 **Igrice** — Tic-Tac-Toe (sa AI/minimax), Tehnoloski Kviz sa timerom
-- 🤖 **AI Asistent** — Pametni chat bot (coming soon)
-- 🔒 **E2E Enkripcija** — DTLS/SRTP privatnost
-- 📱 **Cross-platform** — Responsive dizajn za sve uredaje
-- 🌙 **Dark Theme** — Glassmorphism dizajn sa ljubicastom temom
-
-## 📸 Screenshots
-
-> *Stranice: Pocetna, Chat, Video, Igrice, O Nama, Kontakt*
+🔗 **[https://io-openui-ao.vercel.app](https://io-openui-ao.vercel.app)**
 
 ---
 
-## 🚀 Instalacija
+## 📋 Opis platforme
+
+IO-OPENUI-AO je moderna web platforma izgrađena na **Vite + React 18 + TypeScript** stack-u. Pruža real-time komunikacione alate putem **WebRTC** i **Socket.IO** tehnologija, uz profesionalni UI sa futurističkom sci-fi estetikom.
+
+---
+
+## ✨ Funkcionalnosti
+
+| Funkcija | Opis |
+|---|---|
+| 📡 **Real-time Video** | WebRTC peer-to-peer video pozivi |
+| 💬 **Live Chat** | Socket.IO instant messaging |
+| 🤝 **Profesionalna Saradnja** | Timski alati i komunikacija |
+| 🎮 **Gaming & Entertainment** | Interaktivni multiplayer sadržaj |
+| 🔒 **Sigurna Komunikacija** | End-to-end enkripcija, security headers |
+| 🌍 **Globalni Pristup** | Vercel CDN, dostupno 24/7 |
+
+---
+
+## 🛠️ Tehnološki Stack
+
+- **React 18** — UI biblioteka sa Hooks
+- **TypeScript 5** — Tip sigurnost
+- **Vite 4** — Ultra-brzi build tool
+- **React Router v6** — Client-side routing (5 ruta)
+- **WebRTC** — Real-time video/audio komunikacija
+- **Socket.IO** — Instant messaging
+
+---
+
+## 📁 Struktura projekta
+
+```
+IO-OPENUI-AO/
+├── src/
+│   ├── main.tsx              # Entry point
+│   ├── App.tsx               # React Router setup
+│   ├── types/index.ts        # TypeScript interfejsi
+│   ├── components/
+│   │   ├── Header.tsx        # Navigacija + hamburger meni
+│   │   ├── Footer.tsx        # Footer sa linkovima
+│   │   ├── Hero.tsx          # Hero sekcija
+│   │   ├── FeatureCard.tsx   # Feature kartice
+│   │   ├── ChatDemo.tsx      # Mock Socket.IO chat
+│   │   ├── VideoCallDemo.tsx # Mock WebRTC video
+│   │   ├── PlatformLinks.tsx # Linkovi na platforme
+│   │   └── ScrollAnimation.tsx # Fade-in animacije
+│   ├── pages/
+│   │   ├── Home.tsx          # Naslovna
+│   │   ├── Features.tsx      # Funkcionalnosti
+│   │   ├── About.tsx         # O platformi
+│   │   ├── Contact.tsx       # Kontakt
+│   │   └── Realtime.tsx      # Real-time demo
+│   ├── hooks/
+│   │   ├── useScrollAnimation.ts
+│   │   ├── useWebRTC.ts
+│   │   └── useSocketIO.ts
+│   ├── utils/
+│   │   ├── constants.ts
+│   │   └── helpers.ts
+│   └── styles/
+│       ├── globals.css
+│       └── variables.css
+├── put-a-realtime-webrtc/    # WebRTC server
+├── put-b-chat-socketio/      # Socket.IO server
+├── index.html                # Vite entry point
+├── vite.config.ts
+├── tsconfig.json
+└── vercel.json
+```
+
+---
+
+## 🖥️ Pokretanje lokalno
 
 ```bash
-# Klonirajte repo
+# 1. Klonirajte repozitorijum
 git clone https://github.com/spaja86/IO-OPENUI-AO.git
 cd IO-OPENUI-AO
 
-# Instalirajte zavisnosti
+# 2. Instalirajte zavisnosti
 npm install
 
-# Pokrenite development server
+# 3. Pokrenite razvojni server
 npm run dev
+
+# 4. Otvorite u browseru
+# http://localhost:3000
 ```
 
-Otvorite http://localhost:3000
-
-## 🏗️ Struktura projekta
-
-```
-src/
-  main.tsx              ← React entry point
-  App.tsx               ← Router + Layout
-  index.css             ← Globalni CSS varijable + animacije
-  types/
-    index.ts            ← TypeScript interfejsi
-  constants/
-    index.ts            ← OWNER_INFO, PLATFORMS, FEATURES, QUIZ
-  components/
-    layout/
-      Header.tsx        ← Sticky nav sa mobile hamburger
-      Footer.tsx        ← Owner info, social media, platform links
-    ui/
-      PlatformCard.tsx  ← Kartica za platforme
-      FeatureCard.tsx   ← Kartica za features
-      Button.tsx        ← Reusable button
-      Badge.tsx         ← Tech stack badge
-    demos/
-      ChatDemo.tsx      ← Mock Socket.IO chat UI
-      VideoCallDemo.tsx ← Mock WebRTC video call UI
-      GameHub.tsx       ← Quiz igra sa timerom
-      TicTacToe.tsx     ← Tic-Tac-Toe sa minimax AI
-  hooks/
-    useScrollAnimation.ts ← Intersection Observer hook
-    useWebRTC.ts          ← Mock WebRTC hook
-    useSocketIO.ts        ← Mock Socket.IO hook
-    useTheme.ts           ← Dark/light mode hook
-  pages/
-    HomePage.tsx          ← Pocetna sa hero, stats, features, ecosystem
-    FeaturesPage.tsx      ← Sve funkcionalnosti + roadmap
-    AboutPage.tsx         ← O platformi, tech stack, vlasniku
-    ContactPage.tsx       ← Kontakt forma + info
-    GamesPage.tsx         ← Igrice hub
-    ChatPage.tsx          ← Chat demo stranica
-    VideoPage.tsx         ← Video call demo stranica
-```
-
-## 📦 Scripts
+### Build za produkciju
 
 ```bash
-npm run dev      # Development server (localhost:3000)
-npm run build    # TypeScript check + Vite build
-npm run preview  # Preview production build
-npm run deploy   # Deploy na Vercel
+npm run build
+npm run preview
 ```
-
-## 🚀 Deployment na Vercel
-
-```bash
-# Instaliraj Vercel CLI
-npm i -g vercel
-
-# Deploy u produkciju
-npm run deploy
-```
-
-Vercel automatski prepoznaje Vite projekte. `vercel.json` sadrzi SPA rewrites i security headers.
 
 ---
 
-## 🌐 Ekosistem Platformi
+## 🔗 Ekosistem Kompanija SPAJA
 
-Sve 4 platforme saradjuju medjusobno:
-
-| Platforma | Opis | Tech |
-|-----------|------|------|
-| 🌐 [IO-OPENUI-AO](https://io-openui-ao.vercel.app) | Saradnja, igrice, real-time | React, WebRTC, Socket.IO |
-| 🏦 [Ai-Iq-World-Bank](https://github.com/spaja86/Ai-Iq-World-Bank) | Profesionalna svetska banka | HTML, CSS, JS |
-| 💱 [Ai-Iq-Menjacnica](https://github.com/spaja86/Ai-Iq-Menja-nica) | Kripto menjacnica | JavaScript |
-| 🏢 [Kompanija SPAJA](https://github.com/spaja86/Kompanija-SPAJA) | Maticna IT kompanija | Next.js, TypeScript |
+| Platforma | Opis | Link |
+|---|---|---|
+| 🏢 **Kompanija SPAJA** | Matična IT kompanija | [GitHub](https://github.com/spaja86/Kompanija-SPAJA) |
+| 🏦 **Ai-Iq-World-Bank** | Profesionalna svetska banka | [GitHub](https://github.com/spaja86/Ai-Iq-World-Bank) |
+| 💱 **Ai-Iq-Menjačnica** | Kripto menjačnica | [GitHub](https://github.com/spaja86/Ai-Iq-Menja-nica) |
 
 ---
 
-## 👤 Vlasnik
+## 👤 Kontakt
 
-**Nikola Spajic**
+**Nikola Spajić**
 
-- 📧 spajicn@yahoo.com
-- 📧 spajicn@gmail.com
-- 📘 [Facebook /Spaja86](https://www.facebook.com/Spaja86)
-- 📷 [Instagram @spaja.1986](https://www.instagram.com/spaja.1986)
-- 🎵 [TikTok @spaja.1986](https://www.tiktok.com/@spaja.1986)
-- 📺 [YouTube @spajanikopenevolution](https://www.youtube.com/@spajanikopenevolution)
-- 💻 [GitHub spaja86](https://github.com/spaja86)
+- 📧 [spajicn@yahoo.com](mailto:spajicn@yahoo.com)
+- 📧 [spajicn@gmail.com](mailto:spajicn@gmail.com)
+- 📘 [Facebook](https://www.facebook.com/Spaja86)
+- 📸 [Instagram](https://www.instagram.com/spaja.1986)
+- 🎵 [TikTok](https://www.tiktok.com/@spaja.1986)
+- ▶️ [YouTube](https://www.youtube.com/@spajanikopenevolution)
 
 ---
 
 ## 📄 Licenca
 
-MIT © 2026 Nikola Spajic
+MIT © 2026 Nikola Spajić
