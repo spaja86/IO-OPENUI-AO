@@ -1,19 +1,28 @@
 {
   "name": "io-openui-ao",
   "version": "1.0.0",
-  "description": "SPAJA Ekosistem — AI platforma, banka, menjačnica i IT kompanija na jednom mestu",
   "scripts": {
-    "build": "npm run build:realtime && npm run build:chat",
-    "build:realtime": "cd put-a-realtime-webrtc/web && npm install && npm run build",
-    "build:chat": "cd put-b-chat-socketio/web && npm install && npm run build",
     "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
     "deploy": "vercel --prod"
   },
-  "dependencies": {},
-  "devDependencies": {},
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "typescript": "^5.0.0",
+    "vite": "^4.0.0"
+  },
   "engines": {
-    "node": ">=18.x",
+    "node": ">=16.x",
     "npm": ">=8.x"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "description": "IO-OPENUI-AO — Platforma za profesionalnu saradnju i real-time komunikaciju. Powered by WebRTC + Socket.IO."
 }
