@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://io-openui-ao.vercel.app/sitemap.xml
