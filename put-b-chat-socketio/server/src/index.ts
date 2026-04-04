@@ -108,3 +108,7 @@ io.on('connection', (socket) => {
 httpServer.listen(PORT, () => {
   console.log(`Chat Socket.IO server on :${PORT}`);
 });
+
+httpServer.listen(PORT, () => {
+  console.log(`Chat Socket.IO server on :${PORT}`);
+});
