@@ -2,6 +2,8 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 
 const W = 800, H = 500;
 const PAD_W = 12, PAD_H = 80, PAD_SPEED = 5, BALL_R = 8, BALL_SPEED_INIT = 4;
+const WIN_SCORE = 5;
+const AUTOFINISH_DELAY = 4;
 
 interface State {
   ball: { x: number; y: number; vx: number; vy: number };
@@ -9,6 +11,7 @@ interface State {
   score: [number, number];
   paused: boolean;
   running: boolean;
+  winner: number | null;
 }
 
 function initState(): State {
@@ -19,6 +22,7 @@ function initState(): State {
     score: [0, 0],
     paused: false,
     running: true,
+    winner: null,
   };
 }
 
@@ -29,6 +33,10 @@ export default function Pong() {
   const rafRef = useRef<number>(0);
   const [score, setScore] = useState<[number, number]>([0, 0]);
   const [running, setRunning] = useState(true);
+  const [winner, setWinner] = useState<number | null>(null);
+  const [autoFinish, setAutoFinish] = useState(false);
+  const [countdown, setCountdown] = useState<number | null>(null);
+  const countdownRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const draw = useCallback((ctx: CanvasRenderingContext2D) => {
     const s = stateRef.current;
@@ -81,11 +89,22 @@ export default function Pong() {
       ctx.font = 'bold 28px sans-serif';
       ctx.fillText('⏸ Pauza — Space da nastaviš', W / 2, H / 2);
     }
+
+    if (s.winner !== null) {
+      ctx.fillStyle = 'rgba(0,0,0,0.6)';
+      ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = s.winner === 1 ? '#7c3aed' : '#06b6d4';
+      ctx.font = 'bold 36px sans-serif';
+      ctx.fillText(`🎉 Igrač ${s.winner} pobeđuje!`, W / 2, H / 2 - 20);
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '20px sans-serif';
+      ctx.fillText(`Rezultat: ${s.score[0]} - ${s.score[1]}`, W / 2, H / 2 + 20);
+    }
   }, []);
 
   const tick = useCallback(() => {
     const s = stateRef.current;
-    if (!s.running || s.paused) {
+    if (!s.running || s.paused || s.winner !== null) {
       draw(canvasRef.current!.getContext('2d')!);
       rafRef.current = requestAnimationFrame(tick);
       return;
@@ -122,12 +141,24 @@ export default function Pong() {
     if (s.ball.x < 0) {
       s.score[1]++;
       setScore([s.score[0], s.score[1]]);
-      Object.assign(s, { ...initState(), score: s.score });
+      if (s.score[1] >= WIN_SCORE) {
+        s.winner = 2;
+        setWinner(2);
+      } else {
+        const currentScore = s.score;
+        Object.assign(s, { ...initState(), score: currentScore });
+      }
     }
     if (s.ball.x > W) {
       s.score[0]++;
       setScore([s.score[0], s.score[1]]);
-      Object.assign(s, { ...initState(), score: s.score });
+      if (s.score[0] >= WIN_SCORE) {
+        s.winner = 1;
+        setWinner(1);
+      } else {
+        const currentScore = s.score;
+        Object.assign(s, { ...initState(), score: currentScore });
+      }
     }
 
     draw(canvasRef.current!.getContext('2d')!);
@@ -160,7 +191,50 @@ export default function Pong() {
     stateRef.current = initState();
     setScore([0, 0]);
     setRunning(true);
+    setWinner(null);
+    setCountdown(null);
+    if (countdownRef.current) {
+      clearInterval(countdownRef.current);
+      countdownRef.current = null;
+    }
   };
+
+  // Autofinish: restart game after a winner
+  useEffect(() => {
+    if (!autoFinish || winner === null) {
+      setCountdown(null);
+      if (countdownRef.current) {
+        clearInterval(countdownRef.current);
+        countdownRef.current = null;
+      }
+      return;
+    }
+
+    setCountdown(AUTOFINISH_DELAY);
+    countdownRef.current = setInterval(() => {
+      setCountdown(prev => {
+        if (prev === null || prev <= 1) {
+          if (countdownRef.current) {
+            clearInterval(countdownRef.current);
+            countdownRef.current = null;
+          }
+          stateRef.current = initState();
+          setScore([0, 0]);
+          setRunning(true);
+          setWinner(null);
+          return null;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => {
+      if (countdownRef.current) {
+        clearInterval(countdownRef.current);
+        countdownRef.current = null;
+      }
+    };
+  }, [autoFinish, winner]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px' }}>
@@ -169,6 +243,25 @@ export default function Pong() {
         <span style={{ color: '#f1f5f9', fontWeight: 800, fontSize: '1.2rem' }}>{score[0]} : {score[1]}</span>
         <span style={{ color: '#06b6d4', fontWeight: 700, fontSize: '0.9rem' }}>Igrač 2 — ↑/↓ 🔵</span>
       </div>
+
+      {winner !== null && (
+        <div style={{
+          padding: '10px 20px',
+          background: winner === 1 ? 'rgba(124,58,237,0.15)' : 'rgba(6,182,212,0.15)',
+          border: winner === 1 ? '1px solid rgba(124,58,237,0.4)' : '1px solid rgba(6,182,212,0.4)',
+          borderRadius: '10px',
+          textAlign: 'center',
+        }}>
+          <span style={{ color: winner === 1 ? '#7c3aed' : '#06b6d4', fontWeight: 700, fontSize: '1rem' }}>
+            🎉 Igrač {winner} pobeđuje! ({score[0]} - {score[1]})
+          </span>
+          {autoFinish && countdown !== null && (
+            <span style={{ display: 'block', fontSize: '0.8rem', marginTop: '4px', color: '#f59e0b', fontWeight: 600 }}>
+              Nova igra za {countdown}s...
+            </span>
+          )}
+        </div>
+      )}
 
       <div style={{ position: 'relative', width: '100%', maxWidth: `${W}px` }}>
         <canvas
@@ -190,10 +283,25 @@ export default function Pong() {
         >
           🔄 Restart
         </button>
+        <button
+          onClick={() => setAutoFinish(a => !a)}
+          style={{
+            padding: '8px 18px',
+            background: autoFinish ? 'rgba(16,185,129,0.2)' : 'transparent',
+            border: autoFinish ? '1px solid #10b981' : '1px solid rgba(255,255,255,0.1)',
+            borderRadius: '8px',
+            color: autoFinish ? '#10b981' : '#94a3b8',
+            cursor: 'pointer',
+            fontWeight: 600,
+            fontSize: '0.85rem',
+          }}
+        >
+          ⚡ Autofinish {autoFinish ? 'ON' : 'OFF'}
+        </button>
       </div>
 
       <p style={{ color: '#475569', fontSize: '0.78rem', textAlign: 'center' }}>
-        Igrač 1: W (gore) / S (dole) &nbsp;|&nbsp; Igrač 2: ↑ / ↓ &nbsp;|&nbsp; Space: pauza
+        Igrač 1: W (gore) / S (dole) &nbsp;|&nbsp; Igrač 2: ↑ / ↓ &nbsp;|&nbsp; Space: pauza &nbsp;|&nbsp; Pobeda: prvi do {WIN_SCORE}
       </p>
     </div>
   );
