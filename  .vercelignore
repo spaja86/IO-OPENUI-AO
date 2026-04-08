@@ -1,0 +1,13 @@
+# .vercelignore
+
+# Exclude node_modules directory
+node_modules/
+
+# Exclude build output
+dist/
+
+# Exclude local configuration files
+*.local
+
+# Exclude environment variables files
+.env*

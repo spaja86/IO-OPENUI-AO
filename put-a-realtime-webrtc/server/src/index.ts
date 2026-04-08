@@ -66,3 +66,7 @@ app.post('/api/realtime/ephemeral', async (_req, res) => {
 app.listen(PORT, () => {
   console.log(`Realtime server on :${PORT}`);
 });
+
+app.listen(PORT, () => {
+  console.log(`Realtime server on :${PORT}`);
+});

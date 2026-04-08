@@ -1,0 +1,31 @@
+:root {
+  --io-dark: #050a14;
+  --io-panel: #0d1b2a;
+  --io-card: #122340;
+  --io-accent: #00d4ff;
+  --io-accent2: #7c3aed;
+  --io-green: #10b981;
+  --io-text: #e2e8f0;
+  --io-muted: #64748b;
+  --gradient: linear-gradient(135deg, #00d4ff, #7c3aed);
+
+  --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Fira Code', 'Cascadia Code', monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+
+  --shadow-glow: 0 0 20px rgba(0, 212, 255, 0.3);
+  --shadow-glow2: 0 0 20px rgba(124, 58, 237, 0.3);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.6s ease;
+
+  --header-height: 70px;
+  --container-max: 1200px;
+  --section-padding: 80px 0;
+}
