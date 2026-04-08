@@ -15,6 +15,7 @@ export interface ChatMessage {
   message: string;
   timestamp: Date;
   isOwn: boolean;
+  type: 'message' | 'system';
 }
 
 export interface Feature {
@@ -22,7 +23,20 @@ export interface Feature {
   title: string;
   description: string;
   icon: string;
-  category: 'realtime' | 'ai' | 'security' | 'collaboration';
+  color?: string;
+  category?: 'realtime' | 'ai' | 'security' | 'collaboration';
+}
+
+export interface QuizQuestion {
+  id: number;
+  question: string;
+  options: string[];
+  correctIndex: number;
+}
+
+export interface NavLink {
+  label: string;
+  path: string;
 }
 
 export interface ContactForm {
