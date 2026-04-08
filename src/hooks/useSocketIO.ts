@@ -14,39 +14,48 @@ const BOT_MESSAGES = [
 ];
 
 export function useSocketIO() {
+  const [activeChannel, setActiveChannel] = useState('general');
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: '1',
       user: 'Nikola',
       message: 'Zdravo! Kako ste?',
+      content: 'Zdravo! Kako ste?',
       timestamp: new Date(),
       isOwn: false,
+      type: 'message',
     },
     {
       id: '2',
       user: 'Marko',
       message: 'Odlično! Platforma radi sjajno 🚀',
+      content: 'Odlično! Platforma radi sjajno 🚀',
       timestamp: new Date(),
       isOwn: false,
+      type: 'message',
     },
     {
       id: '3',
       user: 'Ana',
       message: 'Testiramo Socket.IO integraciju',
+      content: 'Testiramo Socket.IO integraciju',
       timestamp: new Date(),
       isOwn: false,
+      type: 'message',
     },
   ]);
 
   const [isConnected] = useState(true);
 
-  const sendMessage = useCallback((text: string) => {
+  const sendMessage = useCallback((text: string, _user?: string) => {
     const myMsg: ChatMessage = {
       id: generateId(),
       user: 'Ti',
       message: text,
+      content: text,
       timestamp: new Date(),
       isOwn: true,
+      type: 'message',
     };
     setMessages(prev => [...prev, myMsg]);
 
@@ -58,12 +67,18 @@ export function useSocketIO() {
         id: generateId(),
         user: botUser,
         message: botMessage,
+        content: botMessage,
         timestamp: new Date(),
         isOwn: false,
+        type: 'message',
       };
       setMessages(prev => [...prev, botMsg]);
     }, 1000 + Math.random() * 1500);
   }, []);
 
-  return { messages, sendMessage, isConnected };
+  const switchChannel = useCallback((channel: string) => {
+    setActiveChannel(channel);
+  }, []);
+
+  return { messages, sendMessage, isConnected, activeChannel, switchChannel };
 }
