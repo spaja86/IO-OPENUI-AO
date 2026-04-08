@@ -1,56 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOOpenUIAO - Realtime WebRTC</title>
+<!doctype html>
+<html lang="sr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>I/OOpenUI/AO – Realtime</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
-        .container { background: white; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); padding: 40px; max-width: 600px; width: 100%; }
-        h1 { color: #333; margin-bottom: 10px; font-size: 28px; }
-        .subtitle { color: #666; margin-bottom: 30px; }
-        .status { background: #f0f0f0; padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; }
-        .status.connected { background: #d4edda; color: #155724; }
-        .status.disconnected { background: #f8d7da; color: #721c24; }
-        .button-group { display: flex; gap: 12px; margin-bottom: 30px; }
-        button { flex: 1; padding: 12px 20px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
-        .btn-primary { background: #667eea; color: white; }
-        .btn-primary:hover:not(:disabled) { background: #5568d3; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
-        .btn-danger { background: #e74c3c; color: white; }
-        .btn-danger:hover:not(:disabled) { background: #c0392b; transform: translateY(-2px); }
-        button:disabled { opacity: 0.5; cursor: not-allowed; }
-        .log { background: #1e1e1e; color: #00ff00; padding: 16px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 12px; height: 300px; overflow-y: auto; margin-bottom: 20px; }
-        audio { width: 100%; margin-top: 20px; }
-        .feature-list { list-style: none; margin: 20px 0; }
-        .feature-list li { padding: 8px 0; color: #555; display: flex; align-items: center; }
-        .feature-list li:before { content: "✓"; color: #667eea; font-weight: bold; margin-right: 10px; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+      main { background: white; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); padding: 40px; max-width: 600px; width: 100%; }
+      h1 { color: #333; margin-bottom: 10px; font-size: 28px; }
+      p { color: #666; margin-bottom: 20px; }
+      .btn-group { display: flex; gap: 12px; margin-bottom: 20px; }
+      button { flex: 1; padding: 12px 20px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+      #connect { background: #667eea; color: white; }
+      #connect:hover:not(:disabled) { background: #5568d3; transform: translateY(-2px); }
+      #hangup { background: #e74c3c; color: white; }
+      #hangup:hover:not(:disabled) { background: #c0392b; }
+      button:disabled { opacity: 0.5; cursor: not-allowed; }
+      #log { background: #1e1e1e; color: #00ff00; padding: 16px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 12px; height: 260px; overflow-y: auto; white-space: pre-wrap; margin-bottom: 16px; }
     </style>
-</head>
-<body>
-    <div class="container">
-        <h1>🎙️ IOOpenUIAO Realtime</h1>
-        <p class="subtitle">WebRTC + OpenAI Realtime API</p>
-        
-        <div class="status disconnected" id="status">Status: Disconnected</div>
-        
-        <div class="button-group">
-            <button class="btn-primary" id="connect">Connect & Start</button>
-            <button class="btn-danger" id="disconnect" disabled>Disconnect</button>
-        </div>
-
-        <ul class="feature-list">
-            <li>Real-time voice conversation with AI</li>
-            <li>WebRTC peer-to-peer connection</li>
-            <li>Ephemeral OpenAI API keys</li>
-            <li>Low latency audio streaming</li>
-        </ul>
-
-        <div class="log" id="log"></div>
-        
-        <audio id="remoteAudio" autoplay playsinline></audio>
-    </div>
-
+  </head>
+  <body>
+    <main>
+      <h1>🎙️ I/OOpenUI/AO – Realtime</h1>
+      <p>Status: <span id="status">disconnected</span></p>
+      <div class="btn-group">
+        <button id="connect">Connect &amp; Say Hi</button>
+        <button id="hangup" disabled>Hang up</button>
+      </div>
+      <div id="log"></div>
+      <audio id="remote" autoplay playsinline></audio>
+    </main>
     <script type="module" src="/main.ts"></script>
-</body>
+  </body>
 </html>

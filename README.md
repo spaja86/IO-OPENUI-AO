@@ -1,143 +1,93 @@
-# 🌐 IO-OPENUI-AO
+# I/OOpenUI/AO
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-io--openui--ao.vercel.app-00d4ff?style=for-the-badge&logo=vercel)](https://io-openui-ao.vercel.app)
-[![React](https://img.shields.io/badge/React-18-61dafb?style=for-the-badge&logo=react)](https://reactjs.org)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org)
-[![Vite](https://img.shields.io/badge/Vite-4-646cff?style=for-the-badge&logo=vite)](https://vitejs.dev)
+Platforma za AI komunikaciju u realnom vremenu — glasovna konverzacija (WebRTC) i tekstualni chat (SSE streaming).
 
-> **Platforma za profesionalnu saradnju i real-time komunikaciju**  
-> Deo ekosistema [Kompanija SPAJA](https://github.com/spaja86/Kompanija-SPAJA)
+**Domen:** [https://www.ioopenuiao.com](https://www.ioopenuiao.com)
 
 ---
 
-## 🚀 Live Demo
-
-🔗 **[https://io-openui-ao.vercel.app](https://io-openui-ao.vercel.app)**
-
----
-
-## 📋 Opis platforme
-
-IO-OPENUI-AO je moderna web platforma izgrađena na **Vite + React 18 + TypeScript** stack-u. Pruža real-time komunikacione alate putem **WebRTC** i **Socket.IO** tehnologija, uz profesionalni UI sa futurističkom sci-fi estetikom.
-
----
-
-## ✨ Funkcionalnosti
-
-| Funkcija | Opis |
-|---|---|
-| 📡 **Real-time Video** | WebRTC peer-to-peer video pozivi |
-| 💬 **Live Chat** | Socket.IO instant messaging |
-| 🤝 **Profesionalna Saradnja** | Timski alati i komunikacija |
-| 🎮 **Gaming & Entertainment** | Interaktivni multiplayer sadržaj |
-| 🔒 **Sigurna Komunikacija** | End-to-end enkripcija, security headers |
-| 🌍 **Globalni Pristup** | Vercel CDN, dostupno 24/7 |
-
----
-
-## 🛠️ Tehnološki Stack
-
-- **React 18** — UI biblioteka sa Hooks
-- **TypeScript 5** — Tip sigurnost
-- **Vite 4** — Ultra-brzi build tool
-- **React Router v6** — Client-side routing (5 ruta)
-- **WebRTC** — Real-time video/audio komunikacija
-- **Socket.IO** — Instant messaging
-
----
-
-## 📁 Struktura projekta
+## Struktura projekta
 
 ```
-IO-OPENUI-AO/
-├── src/
-│   ├── main.tsx              # Entry point
-│   ├── App.tsx               # React Router setup
-│   ├── types/index.ts        # TypeScript interfejsi
-│   ├── components/
-│   │   ├── Header.tsx        # Navigacija + hamburger meni
-│   │   ├── Footer.tsx        # Footer sa linkovima
-│   │   ├── Hero.tsx          # Hero sekcija
-│   │   ├── FeatureCard.tsx   # Feature kartice
-│   │   ├── ChatDemo.tsx      # Mock Socket.IO chat
-│   │   ├── VideoCallDemo.tsx # Mock WebRTC video
-│   │   ├── PlatformLinks.tsx # Linkovi na platforme
-│   │   └── ScrollAnimation.tsx # Fade-in animacije
-│   ├── pages/
-│   │   ├── Home.tsx          # Naslovna
-│   │   ├── Features.tsx      # Funkcionalnosti
-│   │   ├── About.tsx         # O platformi
-│   │   ├── Contact.tsx       # Kontakt
-│   │   └── Realtime.tsx      # Real-time demo
-│   ├── hooks/
-│   │   ├── useScrollAnimation.ts
-│   │   ├── useWebRTC.ts
-│   │   └── useSocketIO.ts
-│   ├── utils/
-│   │   ├── constants.ts
-│   │   └── helpers.ts
-│   └── styles/
-│       ├── globals.css
-│       └── variables.css
-├── put-a-realtime-webrtc/    # WebRTC server
-├── put-b-chat-socketio/      # Socket.IO server
-├── index.html                # Vite entry point
-├── vite.config.ts
-├── tsconfig.json
-└── vercel.json
+/
+├── index.html                           ← Landing page
+├── vercel.json                          ← Vercel routing + function config
+├── package.json                         ← Root build script (pokreće oba Vite build-a)
+├── api/
+│   ├── health.ts                        ← GET  /api/health
+│   ├── realtime/ephemeral.ts            ← POST /api/realtime/ephemeral (WebRTC token)
+│   └── chat/stream.ts                   ← POST /api/chat/stream (SSE streaming)
+├── put-a-realtime-webrtc/web/           ← Vite app → /realtime/
+└── put-b-chat-socketio/web/             ← Vite app → /chat/
 ```
 
 ---
 
-## 🖥️ Pokretanje lokalno
+## Deployment na Vercel (sve automatski)
 
-```bash
-# 1. Klonirajte repozitorijum
-git clone https://github.com/spaja86/IO-OPENUI-AO.git
-cd IO-OPENUI-AO
+### Korak 1 — Poveži repo
 
-# 2. Instalirajte zavisnosti
-npm install
+1. Idi na [vercel.com/new](https://vercel.com/new)
+2. Izaberi repo `spaja86/IO-OPENUI-AO`
+3. Vercel automatski detektuje `package.json` i pokrne `npm ci && npm run build`
+4. Klikni **Deploy**
 
-# 3. Pokrenite razvojni server
-npm run dev
+> Framework Preset: **Other** · Build Command: `npm run build` · Output Directory: `.`
 
-# 4. Otvorite u browseru
-# http://localhost:3000
-```
+### Korak 2 — Postavi JEDNU environment varijablu
 
-### Build za produkciju
+Vercel Dashboard → Settings → Environment Variables:
 
-```bash
-npm run build
-npm run preview
-```
-
----
-
-## 🔗 Ekosistem Kompanija SPAJA
-
-| Platforma | Opis | Link |
+| Key | Value | Environment |
 |---|---|---|
-| 🏢 **Kompanija SPAJA** | Matična IT kompanija | [GitHub](https://github.com/spaja86/Kompanija-SPAJA) |
-| 🏦 **Ai-Iq-World-Bank** | Profesionalna svetska banka | [GitHub](https://github.com/spaja86/Ai-Iq-World-Bank) |
-| 💱 **Ai-Iq-Menjačnica** | Kripto menjačnica | [GitHub](https://github.com/spaja86/Ai-Iq-Menja-nica) |
+| `OPENAI_API_KEY` | `sk-...` (tvoj OpenAI ključ) | Production, Preview, Development |
+
+**To je sve. Nema zasebnih servera, nema dodatnih konfiguracija.**
+
+Opciono (ako hoćeš drugi model):
+
+| Key | Default vrednost |
+|---|---|
+| `REALTIME_MODEL` | `gpt-4o-realtime-preview` |
+| `RESP_MODEL` | `gpt-4o-mini` |
 
 ---
 
-## 👤 Kontakt
+## API endpointovi (Vercel Serverless Functions)
 
-**Nikola Spajić**
-
-- 📧 [spajicn@yahoo.com](mailto:spajicn@yahoo.com)
-- 📧 [spajicn@gmail.com](mailto:spajicn@gmail.com)
-- 📘 [Facebook](https://www.facebook.com/Spaja86)
-- 📸 [Instagram](https://www.instagram.com/spaja.1986)
-- 🎵 [TikTok](https://www.tiktok.com/@spaja.1986)
-- ▶️ [YouTube](https://www.youtube.com/@spajanikopenevolution)
+| Endpoint | Metod | Opis | Timeout |
+|---|---|---|---|
+| `/api/health` | GET | Health check | 10 s |
+| `/api/realtime/ephemeral` | POST | Kreira ephemeral token za WebRTC sesiju | 30 s |
+| `/api/chat/stream` | POST `{ "text": "..." }` | SSE streaming chat odgovor | 60 s |
 
 ---
 
-## 📄 Licenca
+## Lokalni razvoj
 
-MIT © 2026 Nikola Spajić
+```bash
+# 1. Postavi environment varijablu
+cp .env.example .env   # (videti dole za format)
+
+# 2. Instaliraj zavisnosti i pokreni build
+npm ci
+npm run build
+
+# 3. Pokreni Vite dev servere
+cd put-a-realtime-webrtc/web && npm ci && npm run dev   # → http://localhost:5173
+cd put-b-chat-socketio/web && npm ci && npm run dev    # → http://localhost:5174
+```
+
+`.env` u root-u:
+```
+OPENAI_API_KEY=sk-...
+```
+
+---
+
+## Sigurnost
+
+- `OPENAI_API_KEY` se čita **isključivo** u serverless funkcijama (`api/`) — nikad ne dolazi do browsera.
+- U produkciji sve ide preko HTTPS (Vercel automatski).
+- HTTPS je obavezan za WebRTC mikrofon pristup u svim modernim browserima.
+- Rate limit na `/api/realtime/ephemeral`: 5 zahteva/min/IP.
