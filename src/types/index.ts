@@ -13,7 +13,6 @@ export interface ChatMessage {
   id: string;
   user: string;
   message: string;
-  content: string;
   timestamp: Date;
   isOwn: boolean;
   type: 'message' | 'system';

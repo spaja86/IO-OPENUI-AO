@@ -163,7 +163,7 @@ export default function ChatDemo() {
             >
               {msg.type === 'system' ? (
                 <div style={{ width: '100%', textAlign: 'center', color: '#64748b', fontSize: '0.8rem', fontStyle: 'italic' }}>
-                  — {msg.content} —
+                  — {msg.message} —
                 </div>
               ) : (
                 <>
@@ -191,14 +191,14 @@ export default function ChatDemo() {
                       </span>
                       <span style={{ color: '#64748b', fontSize: '0.75rem' }}>{formatTime(msg.timestamp)}</span>
                       <button
-                        onClick={() => setReplyTo(msg.content.length > 40 ? msg.content.slice(0, 40) + '…' : msg.content)}
+                        onClick={() => setReplyTo(msg.message.length > 40 ? msg.message.slice(0, 40) + '…' : msg.message)}
                         style={{ marginLeft: 'auto', background: 'none', border: 'none', color: '#475569', cursor: 'pointer', fontSize: '0.72rem', padding: '2px 6px', borderRadius: '6px' }}
                         title="Odgovori"
                       >
                         ↩ Odgovori
                       </button>
                     </div>
-                    <p style={{ color: '#e2e8f0', fontSize: '0.9rem', lineHeight: 1.5, whiteSpace: 'pre-line' }}>{msg.content}</p>
+                    <p style={{ color: '#e2e8f0', fontSize: '0.9rem', lineHeight: 1.5, whiteSpace: 'pre-line' }}>{msg.message}</p>
                   </div>
                 </>
               )}
