@@ -7,7 +7,7 @@ interface FeatureCardProps {
 }
 
 export default function FeatureCard({ feature, delay = 0 }: FeatureCardProps) {
-  const categoryColors: Record<string, string> = {
+  const categoryColors: Record<NonNullable<Feature['category']>, string> = {
     realtime: '#00d4ff',
     ai: '#10b981',
     security: '#f59e0b',

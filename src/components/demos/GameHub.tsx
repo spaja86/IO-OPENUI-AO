@@ -14,6 +14,8 @@ export default function GameHub() {
   const [autoFinish, setAutoFinish] = useState(false);
   const [countdown, setCountdown] = useState<number | null>(null);
   const countdownRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const currentRef = useRef(current);
+  currentRef.current = current;
 
   useEffect(() => {
     if (phase !== 'playing' || selected !== null) return;
@@ -36,7 +38,7 @@ export default function GameHub() {
   const advanceToNext = () => {
     setSelected(null);
     setTimeLeft(30);
-    if (current + 1 >= QUIZ_QUESTIONS.length) {
+    if (currentRef.current + 1 >= QUIZ_QUESTIONS.length) {
       setPhase('finished');
     } else {
       setCurrent(c => c + 1);
@@ -84,7 +86,7 @@ export default function GameHub() {
         countdownRef.current = null;
       }
     };
-  }, [autoFinish, phase, selected, current]);
+  }, [autoFinish, phase, selected]);
 
   const restart = () => {
     setPhase('start');
