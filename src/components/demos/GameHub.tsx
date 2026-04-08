@@ -33,19 +33,23 @@ export default function GameHub() {
     }
   };
 
-  const handleNext = () => {
+  const advanceToNext = () => {
     setSelected(null);
     setTimeLeft(30);
-    setCountdown(null);
-    if (countdownRef.current) {
-      clearInterval(countdownRef.current);
-      countdownRef.current = null;
-    }
     if (current + 1 >= QUIZ_QUESTIONS.length) {
       setPhase('finished');
     } else {
       setCurrent(c => c + 1);
     }
+  };
+
+  const handleNext = () => {
+    setCountdown(null);
+    if (countdownRef.current) {
+      clearInterval(countdownRef.current);
+      countdownRef.current = null;
+    }
+    advanceToNext();
   };
 
   // Autofinish: auto-advance after answering
@@ -67,14 +71,7 @@ export default function GameHub() {
             clearInterval(countdownRef.current);
             countdownRef.current = null;
           }
-          // Advance to next question
-          setSelected(null);
-          setTimeLeft(30);
-          if (current + 1 >= QUIZ_QUESTIONS.length) {
-            setPhase('finished');
-          } else {
-            setCurrent(c => c + 1);
-          }
+          advanceToNext();
           return null;
         }
         return prev - 1;
