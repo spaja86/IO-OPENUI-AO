@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 
 type Player = 'X' | 'O' | null;
 
@@ -62,11 +62,16 @@ function getBestMove(squares: Player[]): number {
   return bestMove;
 }
 
+const AUTOFINISH_DELAY = 3;
+
 export default function TicTacToe() {
   const [board, setBoard] = useState<Player[]>(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
   const [scores, setScores] = useState({ X: 0, O: 0, draws: 0 });
   const [vsAI, setVsAI] = useState(true);
+  const [autoFinish, setAutoFinish] = useState(false);
+  const [countdown, setCountdown] = useState<number | null>(null);
+  const countdownRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const winner = calculateWinner(board);
   const isDraw = !winner && !board.includes(null);
@@ -114,7 +119,48 @@ export default function TicTacToe() {
   const reset = () => {
     setBoard(Array(9).fill(null));
     setXIsNext(true);
+    setCountdown(null);
+    if (countdownRef.current) {
+      clearInterval(countdownRef.current);
+      countdownRef.current = null;
+    }
   };
+
+  // Autofinish: start countdown when game ends
+  useEffect(() => {
+    if (!autoFinish || (!winner && !isDraw)) {
+      setCountdown(null);
+      if (countdownRef.current) {
+        clearInterval(countdownRef.current);
+        countdownRef.current = null;
+      }
+      return;
+    }
+
+    setCountdown(AUTOFINISH_DELAY);
+    countdownRef.current = setInterval(() => {
+      setCountdown(prev => {
+        if (prev === null || prev <= 1) {
+          if (countdownRef.current) {
+            clearInterval(countdownRef.current);
+            countdownRef.current = null;
+          }
+          // Reset the board for a new game
+          setBoard(Array(9).fill(null));
+          setXIsNext(true);
+          return null;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => {
+      if (countdownRef.current) {
+        clearInterval(countdownRef.current);
+        countdownRef.current = null;
+      }
+    };
+  }, [autoFinish, winner, isDraw]);
 
   const cellColors = (cell: Player) => {
     if (cell === 'X') return '#7c3aed';
@@ -125,7 +171,7 @@ export default function TicTacToe() {
   return (
     <div style={{ textAlign: 'center' }}>
       {/* Mode toggle */}
-      <div style={{ marginBottom: '16px', display: 'flex', justifyContent: 'center', gap: '10px' }}>
+      <div style={{ marginBottom: '16px', display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
         {[true, false].map(ai => (
           <button
             key={String(ai)}
@@ -144,6 +190,21 @@ export default function TicTacToe() {
             {ai ? '🤖 vs AI' : '👤 vs Igrač'}
           </button>
         ))}
+        <button
+          onClick={() => setAutoFinish(a => !a)}
+          style={{
+            padding: '6px 16px',
+            borderRadius: '8px',
+            border: autoFinish ? '1px solid #10b981' : '1px solid rgba(255,255,255,0.1)',
+            background: autoFinish ? 'rgba(16,185,129,0.2)' : 'transparent',
+            color: autoFinish ? '#10b981' : '#94a3b8',
+            cursor: 'pointer',
+            fontSize: '0.875rem',
+            fontWeight: 600,
+          }}
+        >
+          ⚡ Autofinish {autoFinish ? 'ON' : 'OFF'}
+        </button>
       </div>
 
       {/* Score */}
@@ -175,6 +236,11 @@ export default function TicTacToe() {
         }}
       >
         {winner ? `🎉 ${winner === 'X' ? 'Ti' : vsAI ? 'AI' : 'Igrač 2'} pobeduje!` : isDraw ? '🤝 Nerešeno!' : `Na redu: ${xIsNext ? 'X (Ti)' : vsAI ? 'O (AI)' : 'O (P2)'}`}
+        {autoFinish && countdown !== null && (
+          <span style={{ display: 'block', fontSize: '0.75rem', marginTop: '4px', color: '#f59e0b' }}>
+            Nova igra za {countdown}s...
+          </span>
+        )}
       </div>
 
       {/* Grid */}
