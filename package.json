@@ -7,7 +7,16 @@
     "build:chat": "cd put-b-chat-socketio/web && npm ci && npm run build"
   },
   "devDependencies": {
-    "@vercel/node": "^3.2.0",
-    "typescript": "^5.4.0"
-  }
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "typescript": "^5.0.0",
+    "vite": "^8.0.6"
+  },
+  "engines": {
+    "node": ">=16.x",
+    "npm": ">=8.x"
+  },
+  "license": "MIT",
+  "description": "IO-OPENUI-AO — Platforma za profesionalnu saradnju i real-time komunikaciju. Powered by WebRTC + Socket.IO."
 }
