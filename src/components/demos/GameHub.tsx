@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { QUIZ_QUESTIONS } from '../../constants';
 
 type Phase = 'start' | 'playing' | 'finished';
+
+const AUTOFINISH_DELAY = 2;
 
 export default function GameHub() {
   const [phase, setPhase] = useState<Phase>('start');
@@ -9,6 +11,11 @@ export default function GameHub() {
   const [score, setScore] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [timeLeft, setTimeLeft] = useState(30);
+  const [autoFinish, setAutoFinish] = useState(false);
+  const [countdown, setCountdown] = useState<number | null>(null);
+  const countdownRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const currentRef = useRef(current);
+  currentRef.current = current;
 
   useEffect(() => {
     if (phase !== 'playing' || selected !== null) return;
@@ -28,15 +35,58 @@ export default function GameHub() {
     }
   };
 
-  const handleNext = () => {
+  const advanceToNext = () => {
     setSelected(null);
     setTimeLeft(30);
-    if (current + 1 >= QUIZ_QUESTIONS.length) {
+    if (currentRef.current + 1 >= QUIZ_QUESTIONS.length) {
       setPhase('finished');
     } else {
       setCurrent(c => c + 1);
     }
   };
+
+  const handleNext = () => {
+    setCountdown(null);
+    if (countdownRef.current) {
+      clearInterval(countdownRef.current);
+      countdownRef.current = null;
+    }
+    advanceToNext();
+  };
+
+  // Autofinish: auto-advance after answering
+  useEffect(() => {
+    if (!autoFinish || phase !== 'playing' || selected === null) {
+      setCountdown(null);
+      if (countdownRef.current) {
+        clearInterval(countdownRef.current);
+        countdownRef.current = null;
+      }
+      return;
+    }
+
+    setCountdown(AUTOFINISH_DELAY);
+    countdownRef.current = setInterval(() => {
+      setCountdown(prev => {
+        if (prev === null || prev <= 1) {
+          if (countdownRef.current) {
+            clearInterval(countdownRef.current);
+            countdownRef.current = null;
+          }
+          advanceToNext();
+          return null;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => {
+      if (countdownRef.current) {
+        clearInterval(countdownRef.current);
+        countdownRef.current = null;
+      }
+    };
+  }, [autoFinish, phase, selected]);
 
   const restart = () => {
     setPhase('start');
@@ -44,6 +94,11 @@ export default function GameHub() {
     setScore(0);
     setSelected(null);
     setTimeLeft(30);
+    setCountdown(null);
+    if (countdownRef.current) {
+      clearInterval(countdownRef.current);
+      countdownRef.current = null;
+    }
   };
 
   const q = QUIZ_QUESTIONS[current];
@@ -77,6 +132,28 @@ export default function GameHub() {
         >
           ▶ Počni Kviz
         </button>
+        <div style={{ marginTop: '16px' }}>
+          <button
+            onClick={() => setAutoFinish(a => !a)}
+            style={{
+              padding: '8px 20px',
+              borderRadius: '8px',
+              border: autoFinish ? '1px solid #10b981' : '1px solid rgba(255,255,255,0.1)',
+              background: autoFinish ? 'rgba(16,185,129,0.2)' : 'transparent',
+              color: autoFinish ? '#10b981' : '#94a3b8',
+              cursor: 'pointer',
+              fontSize: '0.85rem',
+              fontWeight: 600,
+            }}
+          >
+            ⚡ Autofinish {autoFinish ? 'ON' : 'OFF'}
+          </button>
+          {autoFinish && (
+            <p style={{ color: '#64748b', fontSize: '0.8rem', marginTop: '8px' }}>
+              Automatski prelazi na sledeće pitanje nakon odgovora
+            </p>
+          )}
+        </div>
       </div>
     );
   }
@@ -198,20 +275,26 @@ export default function GameHub() {
 
       {selected !== null && (
         <div style={{ textAlign: 'center', marginTop: '20px' }}>
-          <button
-            onClick={handleNext}
-            style={{
-              padding: '10px 24px',
-              background: 'linear-gradient(135deg, #7c3aed, #06b6d4)',
-              border: 'none',
-              borderRadius: '8px',
-              color: '#fff',
-              cursor: 'pointer',
-              fontWeight: 600,
-            }}
-          >
-            {current + 1 < QUIZ_QUESTIONS.length ? 'Sledeće pitanje →' : 'Vidi rezultat'}
-          </button>
+          {autoFinish && countdown !== null ? (
+            <span style={{ color: '#f59e0b', fontWeight: 600, fontSize: '0.9rem' }}>
+              ⚡ Sledeće pitanje za {countdown}s...
+            </span>
+          ) : (
+            <button
+              onClick={handleNext}
+              style={{
+                padding: '10px 24px',
+                background: 'linear-gradient(135deg, #7c3aed, #06b6d4)',
+                border: 'none',
+                borderRadius: '8px',
+                color: '#fff',
+                cursor: 'pointer',
+                fontWeight: 600,
+              }}
+            >
+              {current + 1 < QUIZ_QUESTIONS.length ? 'Sledeće pitanje →' : 'Vidi rezultat'}
+            </button>
+          )}
         </div>
       )}
     </div>

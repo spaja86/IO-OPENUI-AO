@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 
 type Piece = { type: string; color: 'w' | 'b' };
 type Board = (Piece | null)[][];
@@ -62,12 +62,19 @@ function getLegalMoves(board: Board, row: number, col: number): Pos[] {
   return moves;
 }
 
+const AUTOFINISH_DELAY = 4;
+
 export default function Chess() {
   const [board, setBoard] = useState<Board>(initBoard);
   const [selected, setSelected] = useState<Pos | null>(null);
   const [legalMoves, setLegalMoves] = useState<Pos[]>([]);
   const [turn, setTurn] = useState<'w' | 'b'>('w');
   const [status, setStatus] = useState('Belom je red');
+  const [autoFinish, setAutoFinish] = useState(false);
+  const [countdown, setCountdown] = useState<number | null>(null);
+  const countdownRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const isGameOver = status.includes('pobednik');
 
   const handleClick = useCallback((row: number, col: number) => {
     const piece = board[row][col];
@@ -106,7 +113,50 @@ export default function Chess() {
     setLegalMoves([]);
     setTurn('w');
     setStatus('Belom je red');
+    setCountdown(null);
+    if (countdownRef.current) {
+      clearInterval(countdownRef.current);
+      countdownRef.current = null;
+    }
   };
+
+  // Autofinish: restart game after checkmate
+  useEffect(() => {
+    if (!autoFinish || !isGameOver) {
+      setCountdown(null);
+      if (countdownRef.current) {
+        clearInterval(countdownRef.current);
+        countdownRef.current = null;
+      }
+      return;
+    }
+
+    setCountdown(AUTOFINISH_DELAY);
+    countdownRef.current = setInterval(() => {
+      setCountdown(prev => {
+        if (prev === null || prev <= 1) {
+          if (countdownRef.current) {
+            clearInterval(countdownRef.current);
+            countdownRef.current = null;
+          }
+          setBoard(initBoard());
+          setSelected(null);
+          setLegalMoves([]);
+          setTurn('w');
+          setStatus('Belom je red');
+          return null;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => {
+      if (countdownRef.current) {
+        clearInterval(countdownRef.current);
+        countdownRef.current = null;
+      }
+    };
+  }, [autoFinish, isGameOver]);
 
   const isHighlighted = (r: number, c: number) => legalMoves.some(([lr, lc]) => lr === r && lc === c);
 
@@ -114,7 +164,27 @@ export default function Chess() {
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
         <span style={{ color: '#f1f5f9', fontWeight: 600, fontSize: '0.95rem' }}>{status}</span>
+        {autoFinish && countdown !== null && (
+          <span style={{ fontSize: '0.8rem', color: '#f59e0b', fontWeight: 600 }}>
+            Nova igra za {countdown}s...
+          </span>
+        )}
         <span style={{ fontSize: '0.7rem', background: 'rgba(245,158,11,0.2)', color: '#f59e0b', padding: '3px 10px', borderRadius: '10px', fontWeight: 600 }}>🤖 AI — Coming Soon</span>
+        <button
+          onClick={() => setAutoFinish(a => !a)}
+          style={{
+            padding: '6px 14px',
+            background: autoFinish ? 'rgba(16,185,129,0.2)' : 'transparent',
+            border: autoFinish ? '1px solid #10b981' : '1px solid rgba(255,255,255,0.1)',
+            borderRadius: '8px',
+            color: autoFinish ? '#10b981' : '#94a3b8',
+            cursor: 'pointer',
+            fontSize: '0.85rem',
+            fontWeight: 600,
+          }}
+        >
+          ⚡ Autofinish {autoFinish ? 'ON' : 'OFF'}
+        </button>
         <button onClick={reset} style={{ padding: '6px 14px', background: 'rgba(124,58,237,0.2)', border: '1px solid #7c3aed', borderRadius: '8px', color: '#7c3aed', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 600 }}>
           Restart
         </button>
