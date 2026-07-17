@@ -1,0 +1,46 @@
+{
+  "version": "1.0.0",
+  "agents": {
+    "ci-bot": {
+      "enabled": true,
+      "auto-fix": true,
+      "linter": "eslint",
+      "formatter": "prettier",
+      "test-timeout": 30000,
+      "strict-mode": false
+    },
+    "security-scanner": {
+      "enabled": true,
+      "npm-audit-level": "moderate",
+      "snyk-enabled": true,
+      "secrets-scan": true,
+      "sast-enabled": true,
+      "block-on-critical": true,
+      "auto-label": true
+    },
+    "deploy-bot": {
+      "enabled": true,
+      "auto-deploy": true,
+      "environment": "production",
+      "require-approval": false,
+      "vercel-enabled": true
+    },
+    "human-review": {
+      "enabled": true,
+      "require-approval": true,
+      "min-reviewers": 1,
+      "dismiss-stale-reviews": false
+    }
+  },
+  "rules": {
+    "no-secrets": true,
+    "require-signed-commits": true,
+    "require-audit-logs": true,
+    "multi-repo-sync": true
+  },
+  "notifications": {
+    "slack": false,
+    "email": false,
+    "github-comments": true
+  }
+}
