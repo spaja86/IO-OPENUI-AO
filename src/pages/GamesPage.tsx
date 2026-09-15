@@ -109,7 +109,8 @@ function tierAccent(tier: string) {
 export default function GamesPage() {
   const [selectedPlan, setSelectedPlan] = useState(gamesCatalog[0]);
   const [activeMiniGame, setActiveMiniGame] = useState<ActiveGame>('tictactoe');
-  const selectedKnowledge = gamesEncyclopedia[selectedPlan.id];
+  const fallbackKnowledge = gamesEncyclopedia[gamesCatalog[0].id];
+  const selectedKnowledge = gamesEncyclopedia[selectedPlan.id] ?? fallbackKnowledge;
   const layeredOverview = [
     { title: 'Kratki pregled', color: '#06b6d4', points: selectedKnowledge.shortOverview },
     { title: 'Prošireni pregled', color: '#10b981', points: selectedKnowledge.expandedOverview },
@@ -272,38 +273,42 @@ export default function GamesPage() {
             <p className="section-subtitle">Konfigurisani model po igri: licenca, START, fond, bonusi i guardrail-ovi.</p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
-            {gamesCatalog.map(game => (
-              <button
-                key={game.id}
-                onClick={() => setSelectedPlan(game)}
-                style={{
-                  ...sectionCard,
-                  textAlign: 'left',
-                  cursor: 'pointer',
-                  borderColor: selectedPlan.id === game.id ? 'rgba(124,58,237,0.55)' : 'rgba(0,212,255,0.14)',
-                  boxShadow: selectedPlan.id === game.id ? '0 0 0 1px rgba(124,58,237,0.25)' : 'none',
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', marginBottom: '14px' }}>
-                  <span style={badgeStyle(game.status === 'live' ? '#10b981' : '#f59e0b')}>
-                    {game.status === 'live' ? 'Live' : 'Pilot'}
-                  </span>
-                  <span style={{ color: 'var(--io-muted)', fontSize: '0.82rem' }}>{game.genre}</span>
-                </div>
-                <h3 style={{ fontSize: '1.2rem', marginBottom: '8px', color: 'var(--io-text)' }}>{game.title}</h3>
-                <p style={{ color: 'var(--io-muted)', marginBottom: '18px', minHeight: '52px' }}>{game.summary}</p>
-                <div style={{ display: 'grid', gap: '10px' }}>
-                  <div style={listStyle('#e2e8f0')}>🔐 {game.licensePrice}</div>
-                  <div style={listStyle('#10b981')}>🟢 {game.funStartCredit}</div>
-                  <div style={listStyle('#c084fc')}>🟣 {game.professionalStartCredit}</div>
-                </div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '14px' }}>
-                  <span style={badgeStyle('#06b6d4')}>{gamesEncyclopedia[game.id].masterProfile.sessionLength}</span>
-                  <span style={badgeStyle('#f59e0b')}>{gamesEncyclopedia[game.id].masterProfile.entryDifficulty}</span>
-                  <span style={badgeStyle('#7c3aed')}>{gamesEncyclopedia[game.id].masterProfile.tacticalDepth}</span>
-                </div>
-              </button>
-            ))}
+            {gamesCatalog.map(game => {
+              const cardKnowledge = gamesEncyclopedia[game.id] ?? fallbackKnowledge;
+
+              return (
+                <button
+                  key={game.id}
+                  onClick={() => setSelectedPlan(game)}
+                  style={{
+                    ...sectionCard,
+                    textAlign: 'left',
+                    cursor: 'pointer',
+                    borderColor: selectedPlan.id === game.id ? 'rgba(124,58,237,0.55)' : 'rgba(0,212,255,0.14)',
+                    boxShadow: selectedPlan.id === game.id ? '0 0 0 1px rgba(124,58,237,0.25)' : 'none',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', marginBottom: '14px' }}>
+                    <span style={badgeStyle(game.status === 'live' ? '#10b981' : '#f59e0b')}>
+                      {game.status === 'live' ? 'Live' : 'Pilot'}
+                    </span>
+                    <span style={{ color: 'var(--io-muted)', fontSize: '0.82rem' }}>{game.genre}</span>
+                  </div>
+                  <h3 style={{ fontSize: '1.2rem', marginBottom: '8px', color: 'var(--io-text)' }}>{game.title}</h3>
+                  <p style={{ color: 'var(--io-muted)', marginBottom: '18px', minHeight: '52px' }}>{game.summary}</p>
+                  <div style={{ display: 'grid', gap: '10px' }}>
+                    <div style={listStyle('#e2e8f0')}>🔐 {game.licensePrice}</div>
+                    <div style={listStyle('#10b981')}>🟢 {game.funStartCredit}</div>
+                    <div style={listStyle('#c084fc')}>🟣 {game.professionalStartCredit}</div>
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '14px' }}>
+                    <span style={badgeStyle('#06b6d4')}>{cardKnowledge.masterProfile.sessionLength}</span>
+                    <span style={badgeStyle('#f59e0b')}>{cardKnowledge.masterProfile.entryDifficulty}</span>
+                    <span style={badgeStyle('#7c3aed')}>{cardKnowledge.masterProfile.tacticalDepth}</span>
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -372,6 +377,8 @@ export default function GamesPage() {
                 <a
                   key={link.label}
                   href={`#${link.anchor}`}
+                  aria-label={`${link.label} — ${link.note}`}
+                  title={link.note}
                   style={{
                     ...badgeStyle('#2563eb'),
                     textDecoration: 'none',
@@ -542,7 +549,7 @@ export default function GamesPage() {
       <section id="game-mechanics" style={{ padding: '0 0 72px' }}>
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginBottom: '24px' }}>
-            <div style={sectionCard}>
+            <div id="match-lifecycle" style={sectionCard}>
               <div style={{ ...badgeStyle('#10b981'), marginBottom: '16px' }}>⚙️ Mehanike, pravila i odluke</div>
               <div style={{ display: 'grid', gap: '12px' }}>
                 {selectedKnowledge.mechanics.map(block => (

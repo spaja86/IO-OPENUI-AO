@@ -929,7 +929,7 @@ export const gamesEncyclopedia: Record<string, GameKnowledgeEntry> = {
     relatedSections: [
       { label: 'Game Plan', anchor: 'game-plan', note: 'Pravila, fond i uslovi START-a.' },
       { label: 'Wallet / Ledger', anchor: 'wallet-ledger', note: 'Stanja, rezerve i trag novca.' },
-      { label: 'Lifecycle', anchor: 'wallet-ledger', note: 'Koraci od license check-a do PDF potvrde.' },
+      { label: 'Lifecycle', anchor: 'match-lifecycle', note: 'Koraci od license check-a do PDF potvrde.' },
       { label: 'Bounty', anchor: 'bounty-program', note: 'Nagrade za rang i poseban učinak.' },
       { label: 'Compliance', anchor: 'compliance-controls', note: 'Verifikacija, anti-fraud i admin pravila.' },
       { label: 'Playground', anchor: 'fun-test-playground', note: 'Siguran prostor za trening i onboarding.' },
