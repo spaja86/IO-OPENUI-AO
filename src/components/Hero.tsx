@@ -154,6 +154,9 @@ export default function Hero() {
           <Link to="/realtime" className="btn-primary">
             🚀 Isprobaj Demo
           </Link>
+          <Link to="/games" className="btn-secondary">
+            🎮 Games Economy
+          </Link>
           <Link to="/features" className="btn-secondary">
             📋 Funkcionalnosti
           </Link>

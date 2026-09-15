@@ -68,8 +68,8 @@ export const FEATURES: Feature[] = [
   },
   {
     id: 'gaming',
-    title: 'Gaming & Entertainment',
-    description: 'Interaktivni multiplayer igre i zabavni sadržaj. Tic-Tac-Toe, kvizovi i još mnogo toga.',
+    title: 'Games Economy',
+    description: 'Fun/Test mini-igre i profesionalni skill-based mod sa trajnim licencama, START kreditima i payout pravilima.',
     icon: '🎮',
     category: 'collaboration',
   },
@@ -93,6 +93,7 @@ export const NAV_LINKS = [
   { path: '/', label: 'Početna' },
   { path: '/features', label: 'Funkcionalnosti' },
   { path: '/realtime', label: 'Real-time Demo' },
+  { path: '/games', label: 'Games Economy' },
   { path: '/about', label: 'O Nama' },
   { path: '/contact', label: 'Kontakt' },
 ];

@@ -198,6 +198,9 @@ nav a:hover { background: var(--border); color: var(--text); }
   gap: 1rem;
   text-align: center;
 }
+.ledger-stats .card {
+  background: var(--surface);
+}
 .stat { padding: 1.5rem; }
 .stat-value {
   font-size: 2.2rem;
@@ -214,6 +217,82 @@ nav a:hover { background: var(--border); color: var(--text); }
 .social-links a { color: var(--accent2); text-decoration: none; font-size: 0.9rem; }
 .social-links a:hover { text-decoration: underline; }
 
+.notice-banner {
+  margin-bottom: 2rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid rgba(245,158,11,0.35);
+  border-radius: var(--radius);
+  background: rgba(245,158,11,0.08);
+  color: var(--text);
+}
+
+.feed {
+  display: grid;
+  gap: 1rem;
+}
+
+.feed-item {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.5fr) auto minmax(120px, 0.8fr) minmax(220px, 1.2fr);
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.feed-id {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.feed-meta {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.feed-amount {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 90px;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.pill.purple {
+  background: rgba(124,58,237,0.18);
+  border: 1px solid rgba(124,58,237,0.35);
+  color: #c084fc;
+}
+
+.pill.blue {
+  background: rgba(37,99,235,0.16);
+  border: 1px solid rgba(37,99,235,0.35);
+  color: #93c5fd;
+}
+
+.pill.orange {
+  background: rgba(245,158,11,0.16);
+  border: 1px solid rgba(245,158,11,0.35);
+  color: #fbbf24;
+}
+
+.pill.green {
+  background: rgba(16,185,129,0.16);
+  border: 1px solid rgba(16,185,129,0.35);
+  color: #6ee7b7;
+}
+
 /* FOOTER */
 footer {
   text-align: center;
@@ -229,4 +308,7 @@ footer p + p { margin-top: 0.5rem; }
 @media (max-width: 640px) {
   .header-inner { gap: 0.5rem; }
   nav { display: none; }
+  .feed-item {
+    grid-template-columns: 1fr;
+  }
 }

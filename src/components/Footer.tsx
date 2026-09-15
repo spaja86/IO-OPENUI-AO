@@ -77,6 +77,7 @@ export default function Footer() {
                 { to: '/', label: 'Početna' },
                 { to: '/features', label: 'Funkcionalnosti' },
                 { to: '/realtime', label: 'Real-time Demo' },
+                { to: '/games', label: 'Games Economy' },
                 { to: '/about', label: 'O Nama' },
                 { to: '/contact', label: 'Kontakt' },
               ].map(l => (
