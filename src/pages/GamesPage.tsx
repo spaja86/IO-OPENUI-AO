@@ -7,12 +7,25 @@ import Leaderboard from '../components/games/Leaderboard';
 import {
   adminControls,
   antiFraudRules,
+  antiAbuseBountyRules,
+  bountyMatrix,
   complianceRequirements,
+  compensationRules,
+  contractTierPolicies,
   gamesCatalog,
   ledgerEntries,
+  legalTracks,
   lifecycleSteps,
+  operationalControls,
+  programSubsystems,
+  proPlayerStatuses,
+  rankFactors,
+  recentBountyEvents,
   transactionHistory,
   walletSnapshot,
+  weeklyRankSnapshots,
+  weeklySettlements,
+  workRules,
 } from '../data/gamesEconomy';
 
 type ActiveGame = 'tictactoe' | 'quiz' | 'chess' | 'pong';
@@ -55,6 +68,38 @@ function listStyle(color: string): React.CSSProperties {
     border: '1px solid rgba(255,255,255,0.06)',
     color,
   };
+}
+
+function statusAccent(status: string) {
+  switch (status) {
+    case 'contracted':
+      return '#10b981';
+    case 'candidate':
+      return '#06b6d4';
+    case 'independent':
+      return '#7c3aed';
+    case 'suspended':
+      return '#ef4444';
+    case 'released':
+      return '#f59e0b';
+    default:
+      return '#e2e8f0';
+  }
+}
+
+function tierAccent(tier: string) {
+  switch (tier) {
+    case 'elite':
+      return '#f59e0b';
+    case 'premium':
+      return '#7c3aed';
+    case 'standard':
+      return '#10b981';
+    case 'development':
+      return '#06b6d4';
+    default:
+      return '#94a3b8';
+  }
 }
 
 export default function GamesPage() {
@@ -129,8 +174,35 @@ export default function GamesPage() {
                 <li style={listStyle('#e2e8f0')}>18+ · ID + age verification · KYC/AML</li>
                 <li style={listStyle('#e2e8f0')}>Wallet rezervacija sredstava pre roster lock-a</li>
                 <li style={listStyle('#e2e8f0')}>PDF račun/obračun + profesionalni email delivery</li>
+                <li style={listStyle('#e2e8f0')}>Pro Player Contracts + Weekly Bounty Program</li>
               </ul>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section style={{ padding: '0 0 72px' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+            <h2 className="section-title">Professional Program Model</h2>
+            <p className="section-subtitle">Fun/Test ostaje odvojen, dok se novi ugovorni i bounty mehanizmi primenjuju samo u Professional zoni.</p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px', marginBottom: '24px' }}>
+            {programSubsystems.map(system => (
+              <div key={system.title} style={sectionCard}>
+                <div style={{ ...badgeStyle('#7c3aed'), marginBottom: '12px' }}>{system.scope}</div>
+                <h3 style={{ marginBottom: '10px' }}>{system.title}</h3>
+                <p style={{ color: 'var(--io-muted)' }}>{system.detail}</p>
+              </div>
+            ))}
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
+            {proPlayerStatuses.map(item => (
+              <div key={item.status} style={{ ...sectionCard, borderColor: `${statusAccent(item.status)}55` }}>
+                <div style={{ ...badgeStyle(statusAccent(item.status)), marginBottom: '12px' }}>{item.label}</div>
+                <p style={{ color: 'var(--io-muted)' }}>{item.detail}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -169,6 +241,51 @@ export default function GamesPage() {
                 </div>
               </button>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section style={{ padding: '0 0 72px' }}>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+            <div style={sectionCard}>
+              <div style={{ ...badgeStyle('#06b6d4'), marginBottom: '16px' }}>⚖️ Legal & business tracks</div>
+              <div style={{ display: 'grid', gap: '12px' }}>
+                {legalTracks.map(track => (
+                  <div key={track.model} style={listStyle('#e2e8f0')}>
+                    <strong>{track.label}</strong>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '8px' }}>Plata: {track.salary}</div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>Minimum sati: {track.weeklyHours}</div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>Trening: {track.requiredTraining}</div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>Ugovor: {track.contractContents}</div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>Godišnji: {track.vacation}</div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>Mesečno slobodno: {track.monthlyDaysOff}</div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>Dodaci: {track.addons}</div>
+                    <div style={{ color: '#f59e0b', fontSize: '0.84rem', marginTop: '6px' }}>{track.termination}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={sectionCard}>
+              <div style={{ ...badgeStyle('#f59e0b'), marginBottom: '16px' }}>📑 Contract tiers</div>
+              <div style={{ display: 'grid', gap: '12px' }}>
+                {contractTierPolicies.map(policy => (
+                  <div key={policy.tier} style={{ ...listStyle('#e2e8f0'), border: `1px solid ${tierAccent(policy.tier)}55` }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', marginBottom: '8px' }}>
+                      <strong>{policy.label}</strong>
+                      <span style={{ color: tierAccent(policy.tier), fontWeight: 700 }}>{policy.baseSalary}</span>
+                    </div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>Minimum sati: {policy.weeklyHours}</div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>Trening: {policy.requiredTraining}</div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>Godišnji: {policy.vacation}</div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>Mesečno slobodno: {policy.monthlyDaysOff}</div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '6px' }}>Dodaci: {policy.addons.join(' · ')}</div>
+                    <div style={{ color: '#f59e0b', fontSize: '0.84rem', marginTop: '6px' }}>{policy.autoReview}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -295,6 +412,76 @@ export default function GamesPage() {
 
       <section style={{ padding: '0 0 72px' }}>
         <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+            <div style={sectionCard}>
+              <div style={{ ...badgeStyle('#10b981'), marginBottom: '16px' }}>📈 Weekly rank formula</div>
+              <div style={{ display: 'grid', gap: '10px' }}>
+                {rankFactors.map(item => (
+                  <div key={item.title} style={listStyle('#e2e8f0')}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px' }}>
+                      <strong>{item.title}</strong>
+                      <span style={{ color: '#10b981', fontWeight: 700 }}>{item.weight}</span>
+                    </div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '4px' }}>{item.detail}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={sectionCard}>
+              <div style={{ ...badgeStyle('#7c3aed'), marginBottom: '16px' }}>🏅 Weekly rank snapshots</div>
+              <div style={{ display: 'grid', gap: '10px' }}>
+                {weeklyRankSnapshots.map(player => (
+                  <div key={player.player} style={{ ...listStyle('#e2e8f0'), border: `1px solid ${statusAccent(player.status)}44` }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', marginBottom: '6px' }}>
+                      <strong>{player.player}</strong>
+                      <span style={{ color: statusAccent(player.status), fontWeight: 700 }}>{player.movement}</span>
+                    </div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>{player.game}</div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>Global rank: {player.globalRank} · Game rank: {player.gameRank}</div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>Status: {player.status} · Tier: {player.contractTier}</div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>Validni sati: {player.validHours}</div>
+                    <div style={{ color: '#94a3b8', fontSize: '0.84rem', marginTop: '4px' }}>{player.note}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style={{ padding: '0 0 72px' }}>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+            <div style={sectionCard}>
+              <div style={{ ...badgeStyle('#06b6d4'), marginBottom: '16px' }}>⏱️ Work hours & leave</div>
+              <div style={{ display: 'grid', gap: '10px' }}>
+                {workRules.map(rule => (
+                  <div key={rule.title} style={listStyle('#e2e8f0')}>
+                    <strong>{rule.title}</strong>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '4px' }}>{rule.detail}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={sectionCard}>
+              <div style={{ ...badgeStyle('#f59e0b'), marginBottom: '16px' }}>💸 Salary, premiums & addons</div>
+              <div style={{ display: 'grid', gap: '10px' }}>
+                {compensationRules.map(rule => (
+                  <div key={rule.title} style={listStyle('#e2e8f0')}>
+                    <strong>{rule.title}</strong>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '4px' }}>{rule.detail}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style={{ padding: '0 0 72px' }}>
+        <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
             <div style={sectionCard}>
               <div style={{ ...badgeStyle('#06b6d4'), marginBottom: '16px' }}>💼 Wallet / Ledger</div>
@@ -325,6 +512,60 @@ export default function GamesPage() {
                   <div key={step.id} style={listStyle('#e2e8f0')}>
                     <strong>{index + 1}. {step.title}</strong>
                     <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '4px' }}>{step.detail}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style={{ padding: '0 0 72px' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+            <h2 className="section-title">Weekly Bounty Program</h2>
+            <p className="section-subtitle">Program je vezan za top 10.000 ranked professional igrača i obračunava se tek po zatvaranju nedeljnog rank snapshot-a.</p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', marginBottom: '24px' }}>
+            <div style={sectionCard}>
+              <div style={{ ...badgeStyle('#10b981'), marginBottom: '16px' }}>🎯 Bounty matrix</div>
+              <div style={{ display: 'grid', gap: '10px' }}>
+                {bountyMatrix.map(item => (
+                  <div key={`${item.targetBand}-${item.hunterBand}`} style={listStyle('#e2e8f0')}>
+                    <strong>{item.targetBand}</strong>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '4px' }}>Hunter: {item.hunterBand}</div>
+                    <div style={{ color: '#10b981', fontSize: '0.84rem' }}>Base bonus: {item.baseBonus}</div>
+                    <div style={{ color: '#06b6d4', fontSize: '0.84rem' }}>Rank-up bonus: {item.rankUpBonus}</div>
+                    <div style={{ color: '#f59e0b', fontSize: '0.84rem' }}>Multiplier: {item.multiplier}</div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '4px' }}>{item.note}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={sectionCard}>
+              <div style={{ ...badgeStyle('#ef4444'), marginBottom: '16px' }}>🚫 Anti-abuse guardrails</div>
+              <div style={{ display: 'grid', gap: '10px' }}>
+                {antiAbuseBountyRules.map(rule => (
+                  <div key={rule.title} style={listStyle('#e2e8f0')}>
+                    <strong>{rule.title}</strong>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '4px' }}>{rule.detail}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={sectionCard}>
+              <div style={{ ...badgeStyle('#7c3aed'), marginBottom: '16px' }}>📌 Recent bounty events</div>
+              <div style={{ display: 'grid', gap: '10px' }}>
+                {recentBountyEvents.map(event => (
+                  <div key={`${event.hunter}-${event.target}`} style={listStyle('#e2e8f0')}>
+                    <strong>{event.hunter}</strong>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '4px' }}>Target: {event.target}</div>
+                    <div style={{ color: '#10b981', fontSize: '0.84rem' }}>{event.trigger}</div>
+                    <div style={{ color: '#f1f5f9', fontSize: '0.84rem' }}>Payout: {event.payout}</div>
+                    <div style={{ color: '#94a3b8', fontSize: '0.84rem' }}>Status: {event.status}</div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '4px' }}>{event.note}</div>
                   </div>
                 ))}
               </div>
@@ -369,6 +610,43 @@ export default function GamesPage() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style={{ padding: '0 0 72px' }}>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+            <div style={sectionCard}>
+              <div style={{ ...badgeStyle('#06b6d4'), marginBottom: '16px' }}>🧮 Weekly settlement</div>
+              <div style={{ display: 'grid', gap: '10px' }}>
+                {weeklySettlements.map(item => (
+                  <div key={item.player} style={listStyle('#e2e8f0')}>
+                    <strong>{item.player}</strong>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '4px' }}>{item.contractStatus}</div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>Salary: {item.salary}</div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>Addons: {item.addons}</div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>Bounty: {item.bounty}</div>
+                    <div style={{ color: '#ef4444', fontSize: '0.84rem' }}>Penalties: {item.penalties}</div>
+                    <div style={{ color: '#10b981', fontSize: '0.84rem' }}>Net: {item.net}</div>
+                    <div style={{ color: '#f59e0b', fontSize: '0.84rem', marginTop: '4px' }}>{item.decision}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={sectionCard}>
+              <div style={{ ...badgeStyle('#2563eb'), marginBottom: '16px' }}>🧰 Operational admin controls</div>
+              <div style={{ display: 'grid', gap: '10px' }}>
+                {operationalControls.map(item => (
+                  <div key={item.title} style={listStyle('#e2e8f0')}>
+                    <strong>{item.title}</strong>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '4px' }}>{item.detail}</div>
+                    <div style={{ color: '#06b6d4', fontSize: '0.84rem', marginTop: '4px' }}>{item.audit}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
