@@ -587,6 +587,96 @@ export const gamesCatalog: GameCatalogEntry[] = [
     },
   },
   {
+    id: 'bubli-babli-1320',
+    title: 'BUBLI BABLI 1320',
+    status: 'pilot',
+    genre: 'Arcade strategy / progression duel ladder',
+    licensePrice: '10.000 RSD trajna licenca',
+    funStartCredit: '0 RSD · sandbox progression drills',
+    professionalStartCredit: '1.320 RSD po START-u',
+    summary: 'Rank-gated 1320 competitive format koji vodi igrača ka centralnom 10000LVL identitetu kroz discipline score, anti-abuse kontrolu i audit-ready payout model.',
+    compliance: '18+ · 1320 Gate → 10000LVL · ID verifikacija · KYC/AML · telemetry + anti-collusion review',
+    config: {
+      entry_fee_per_player: '1.320 RSD',
+      team_size: '1 vs 1 ili 2 vs 2',
+      base_prize_pool: '52.800 RSD',
+      sponsor_boost: '20.000 RSD progression reserve',
+      bonus_reserve: '10.000 RSD',
+      operator_margin_reserve: '4.000 RSD + review reserve',
+      victory_required_for_bonus: true,
+    },
+    gamePlan: {
+      eligibility: [
+        'Aktivna trajna licenca i 18+ verified status',
+        'Položen 1320 readiness gate sa stabilnim discipline score-om',
+        'Čist anti-abuse signal i minimum tri verified meča u aktuelnom ciklusu',
+      ],
+      matchFormat: 'Duel ili squad-lite ladder sesija sa zaključanim loadout-om, 1320 ulaznim pragom i 10000LVL progression praćenjem.',
+      minimumPlayers: '2 igrača (1v1) ili 4 igrača (2v2)',
+      startFee: '1.320 RSD po igraču pri svakom START-u',
+      payouts: [
+        {
+          label: 'Collected entry fees',
+          value: '2.640 RSD / 5.280 RSD',
+          note: 'Zavisi od moda: 1v1 ili 2v2.',
+        },
+        {
+          label: 'Winner progression payout',
+          value: '52.800 RSD',
+          note: 'Bazni fond za verified pobednika ili verified duo rezultat.',
+        },
+        {
+          label: 'Bonus reserve',
+          value: '10.000 RSD',
+          note: 'Dodaje se za clean execution, tactical chain i 10000LVL discipline milestone samo uz pobedu.',
+        },
+      ],
+      bonusRules: [
+        {
+          id: 'clean-chain-1320',
+          title: '1320 clean chain',
+          amount: '3.000 RSD',
+          category: 'automatic',
+          requiresVictory: true,
+          note: 'Dodeljuje se kada meč ima čist telemetry tok bez dispute trigger-a i bez integrity prekida.',
+        },
+        {
+          id: 'level-bridge-10000',
+          title: '10000LVL bridge bonus',
+          amount: '4.000 RSD',
+          category: 'reviewed',
+          requiresVictory: true,
+          note: 'Važi kada igrač pređe definisani 1320 → 10000LVL milestone bez anti-abuse zastavica.',
+        },
+        {
+          id: 'discipline-loop',
+          title: 'Discipline loop bonus',
+          amount: '3.000 RSD',
+          category: 'reviewed',
+          requiresVictory: true,
+          note: 'Traži tri uzastopna verified meča sa stabilnim decision quality i bez exploita.',
+        },
+      ],
+      reviewedMetrics: [
+        {
+          title: 'Progression integrity audit',
+          description: 'Sistem proverava da li 1320 score i 10000LVL napredak dolaze iz legitimnog performansa, ne iz farm pattern-a.',
+          payoutMode: 'manual-review',
+        },
+        {
+          title: 'Anti-collusion pairing control',
+          description: 'Ponavljani zatvoreni parovi, dogovoreni surrender ili nenormalno kratke serije aktiviraju ručni payout hold.',
+          payoutMode: 'manual-review',
+        },
+        {
+          title: 'Decision quality variance review',
+          description: 'Nagle i nelogične oscilacije u decision kvalitetu šalju meč u pending status do finalne provere.',
+          payoutMode: 'manual-review',
+        },
+      ],
+    },
+  },
+  {
     id: 'io-quiz-clash',
     title: 'IO Quiz Clash',
     status: 'live',
@@ -916,6 +1006,8 @@ export const globalGamesGlossary: GlossaryEntry[] = [
   { term: 'Dispute window', category: 'Admin', definition: 'Vremenski okvir u kome igrač ili tim mogu osporiti rezultat pre konačne isplate.' },
   { term: 'Bounty', category: 'Rang', definition: 'Dodatna nagrada za pobedu nad ciljanim rangom ili ispunjavanje posebnog takmičarskog uslova.' },
   { term: 'Collusion signal', category: 'Anti-fraud', definition: 'Signal da su igrači možda nameštali ishod, razmenjivali pobede ili zloupotrebljavali matchmaking.' },
+  { term: '1320 Gate', category: 'Rang', definition: 'Ulazni readiness prag koji proverava da li igrač sme u BUBLI BABLI 1320 Professional ciklus.' },
+  { term: '10000LVL', category: 'Progression', definition: 'Centralni progression identitet koji traži dug kontinuitet, čist telemetry trag i potvrđen anti-abuse status.' },
 ];
 
 export const gamesEncyclopedia: Record<string, GameKnowledgeEntry> = {
@@ -1629,6 +1721,291 @@ export const gamesEncyclopedia: Record<string, GameKnowledgeEntry> = {
         'Faza 3: otvaranje low-risk professional ladder prozora sa manjim START ulazom.',
         'Faza 4: weekly reevaluation, anti-collusion paring pravila i bonus audit.',
         'Faza 5: most ka višem Dota programu za timove sa stabilnim višenedeljnim učinkom.',
+      ],
+    },
+  },
+  'bubli-babli-1320': {
+    shortOverview: [
+      'BUBLI BABLI 1320 je progression competitive naslov koji kombinuje duel taktiku, tempo odluke i rank disciplinu.',
+      'Ulaz u Professional sloj počinje na 1320 pragu, dok je cilj dugoročno održavanje centralnog 10000LVL identiteta.',
+      'Fun/Test služi za bezbedan trening i kalibraciju stila, a Professional uvodi licencu, START i audit-ready ekonomiju.',
+    ],
+    expandedOverview: [
+      'Svaka sesija ima tri sloja: ulazna disciplina, taktička egzekucija i završni integrity check.',
+      'Napredovanje ne zavisi od jednog meča već od niza čistih mečeva koji zajedno grade 10000LVL reputaciju.',
+      'Sistem posebno meri da li igrač pobeđuje kroz realnu odluku i adaptaciju, a ne kroz repetitivno farmovanje istih obrazaca.',
+    ],
+    expertView: [
+      'Ekspertni nivo traži balans tempa i rizika: prebrza eskalacija ruši stabilnost, prespora igra blokira level progresiju.',
+      'Najveća prednost dolazi iz konzistentnog decision quality profila kroz više različitih protivnika i modova.',
+      'Pravi 10000LVL kandidati znaju kada da zaključe sigurnu pobedu, a kada da kontrolisano uzmu dodatni milestone rizik.',
+    ],
+    operationalView: [
+      'Professional sesije zahtevaju verifikovan nalog, aktivnu licencu, START rezervaciju i čist compliance status.',
+      'Svaki meč ostavlja trag kroz telemetry, rezultat, payout odluku i eventualni review hold.',
+      'Ekonomija povezuje 1320 ulazni prag, bonus rezervu, operator margin i pravilo da se bonus aktivira samo uz verified pobedu.',
+    ],
+    historyMetaScenarios: [
+      '1320 sloj je dizajniran kao most između treninga i visoke progression zone kako bi se smanjio broj lažno spremnih kandidata.',
+      'Meta se menja po ciklusima: nekad dominira brzina zatvaranja partije, nekad disciplina kontrole i low-error izvođenje.',
+      'Najvredniji scenario je stabilan prelaz 1320 → 10000LVL bez skokova koji zahtevaju masivan ručni rollback.',
+    ],
+    masterProfile: {
+      identity: 'BUBLI BABLI 1320 / 10000LVL',
+      genre: 'Arcade strategy',
+      subgenre: 'Progression duel ladder sa readiness gate modelom',
+      coreIdea: 'Igrač kroz disciplinovane odluke i čist tactical tok pretvara 1320 readiness u održiv 10000LVL identitet.',
+      matchGoal: 'Pobediti duel uz potvrđen integritet i unaprediti progression status bez anti-abuse zastavica.',
+      victoryCondition: 'Verified pobeda + clean telemetry + zatvoren review/dispute prozor.',
+      audience: 'Igrači koji vole jasne rank pragove, taktičko odlučivanje i dokazivi napredak kroz više ciklusa.',
+      sessionLength: '12 do 28 minuta po standardnoj sesiji.',
+      entryDifficulty: 'Srednja za ulaz, visoka za održavanje 10000LVL standarda.',
+      tacticalDepth: 'Visoka; tempo, adaptacija i kontrola greške direktno utiču na rank i payout.',
+      playFormat: 'Primarno 1v1 uz podržani 2v2 progression format.',
+      funTestUse: 'Trening situacija, učenje mehanika i testiranje odluka bez finansijskog rizika.',
+      professionalUse: 'Licencirani mečevi sa START uplatom, rank gate validacijom i audit-ready isplatama.',
+    },
+    mechanics: [
+      {
+        title: 'Osnovni tok sesije',
+        points: [
+          'Sesija počinje proverom gate statusa, zaključavanjem loadout-a i potvrdom START kredita.',
+          'Meč potom prolazi kroz opening kontrolu, mid kontrolu rizika i završni conversion prozor.',
+          'Rezultat je validan tek kada telemetry i anti-abuse sloj potvrde da tok nije kompromitovan.',
+        ],
+      },
+      {
+        title: '1320 prag i 10000LVL progresija',
+        points: [
+          '1320 prag nije samo broj pobeda već kombinacija discipline, tačnosti i kontinuiteta.',
+          '10000LVL identitet se dodeljuje postepeno kroz više verified ciklusa, ne kroz jedan ekstremni rezultat.',
+          'Pad kvaliteta ispod retention praga vraća igrača u niži validation sloj.',
+        ],
+      },
+      {
+        title: 'Resursi i tempo',
+        points: [
+          'Glavni resursi su vreme odluke, tempo inicijative, stabilnost performansa i review rizik.',
+          'Agresivan push bez kontrole signala može kratkoročno doneti pobedu ali dugoročno ruši progression status.',
+          'Konzistentan tempo sa malo kritičnih grešaka donosi najstabilniji put ka 10000LVL.',
+        ],
+      },
+      {
+        title: 'Ključne odluke',
+        points: [
+          'Da li ići na brz završetak ili čuvati sigurniji tok sa manjim rizikom za hold.',
+          'Da li uzeti optional milestone izazov kada je baza pobede već stabilna.',
+          'Da li menjati stil tokom ciklusa ili držati provereni obrazac radi continuity score-a.',
+        ],
+      },
+      {
+        title: 'Greške koje koštaju',
+        points: [
+          'Početnici previše jure instant level skok i ignorišu stabilnost.',
+          'Napredni igrači često podcene anti-collusion filter pri ponavljanju istih parova.',
+          'Kandidati za 10000LVL padaju kada kvalitet odlučivanja oscilira bez jasnog taktičkog razloga.',
+        ],
+      },
+    ],
+    everythingInGame: [
+      {
+        title: 'Modovi i arene',
+        points: [
+          'Core mod je 1v1 duel, dok 2v2 služi za prošireni coordination trening i team discipline test.',
+          'Arene su dizajnirane da naglase reading, positioning i kontrolu prozora, ne čist mehanički spam.',
+        ],
+      },
+      {
+        title: 'Uloge i stilovi',
+        points: [
+          'Igrači biraju agresivni, kontrolni ili balansirani stil sa jasnim trade-off pravilima.',
+          'Sistem favorizuje adaptaciju stila prema protivniku, a ne rigidno ponavljanje istog plana.',
+        ],
+      },
+      {
+        title: 'Rank, score i matchmaking',
+        points: [
+          'Matchmaking uzima u obzir readiness score, history stabilnost i anti-abuse signal.',
+          'Score raste kada igrač održava kvalitet kroz raznolike protivnike i validne cikluse.',
+        ],
+      },
+      {
+        title: 'Eventovi i milestone slojevi',
+        points: [
+          'Weekly progression eventi nude dodatni bonus ako su svi mečevi clean i verified.',
+          'Milestone izazovi ubrzavaju napredak, ali nose strožu review logiku.',
+        ],
+      },
+      {
+        title: 'Audit i dispute alati',
+        points: [
+          'Svaki meč ima audit trag koji povezuje poteze, rezultat, payout i reviewer odluku.',
+          'Dispute prozor omogućava korekciju spornih ishoda pre konačnog settlement close-a.',
+        ],
+      },
+    ],
+    tacticalGuide: [
+      { title: 'Opening taktike', focus: 'Siguran ulaz', points: ['Otvori meč planom koji minimizira rane greške i drži tempo pod kontrolom.', 'Rana disciplina vredi više od brzog ali nestabilnog lead-a.'] },
+      { title: 'Mid-game taktike', focus: 'Kontrola ritma', points: ['Prevedi malu prednost u stabilan score umesto rizične all-in odluke.', 'Čitaj adaptacije protivnika i menjaj liniju igre pre nego što momentum pređe na drugu stranu.'] },
+      { title: 'End-game taktike', focus: 'Verified završnica', points: ['Prioritet je čist završetak bez integrity anomalija koje bi aktivirale hold.', 'Ako je potrebno, zatvori meč konzervativno umesto da juriš spektakularan, ali rizičan bonus.'] },
+      { title: 'Agresivni stil', focus: 'Brz pressure', points: ['Efikasan je kada imaš jasan read i stabilan execution.', 'Bez kontrole kvaliteta odluka lako prelazi u penalty zonu.'] },
+      { title: 'Defanzivni stil', focus: 'Greška-minimum', points: ['Dobro radi protiv nepredvidivih protivnika i u retention ciklusima.', 'Mana je sporiji put do high-tier milestone bonusa.'] },
+      { title: 'Kontrolni stil', focus: 'Tempo i mapiranje odluka', points: ['Koristi se za sistematsko gušenje protivničkih opcija i čiste conversion završnice.', 'Najviše doprinosi dugoročnom 10000LVL continuity score-u.'] },
+      { title: 'Resource management', focus: 'Stabilnost ciklusa', points: ['Upravljaj energijom i rizikom kroz ceo meč, ne samo kroz završni push.', 'Svaki nepotreban spike može pomeriti sesiju iz paid u pending status.'] },
+      { title: 'Kontra jačima', focus: 'Disciplinovani upset', points: ['Protiv višeg ranka fokusiraj se na nisku stopu greške i precizne kontrapoteze.', 'Jedan clean upset sa validnim tragom nosi veću reputacionu vrednost od tri haotične pobede.'] },
+    ],
+    explainedTopics: [
+      { title: '1320 readiness gate', what: 'Ulazni kvalifikacioni sloj koji procenjuje da li kandidat može odgovorno u Professional režim.', why: 'Smanjuje rizik da neadekvatni ili abuse-prone igrači odmah pristupe novčanom delu sistema.', whenToUse: 'Pre prvog Professional meča i pri svakom većem progression skoku.', whenNotToUse: 'Ne sme postati birokratska prepreka za igrača koji stabilno održava kvalitet i čist signal.', whatItBrings: 'Fer ulaz, bolju kvalitetnu bazu mečeva i niži fraud pritisak.', cost: 'Traži dodatno vreme za kvalifikaciju i review.', misuseConsequence: 'Preslab gate pušta rizične profile, prestrog gate guši rast legitimnih igrača.', impact: 'Direktno utiče na kvalitet ladder-a, payout stabilnost i reputaciju platforme.' },
+      { title: '10000LVL identity', what: 'Centralni status koji označava dugoročnu potvrđenu kompetentnost i integritet.', why: 'Daje jasan cilj iznad jednokratnih pobeda i usmerava igrača na kontinuitet.', whenToUse: 'Kao glavni progression KPI u nedeljnim i sezonskim ciklusima.', whenNotToUse: 'Ne treba ga dodeljivati na osnovu kratkog win streak-a bez širih dokaza stabilnosti.', whatItBrings: 'Viši trust, bolji matchmaking i premium operativne mogućnosti.', cost: 'Održavanje statusa traži konstantan kvalitet i periodične reevaluacije.', misuseConsequence: 'Ako se status deli previše lako, ceo rank sistem gubi kredibilitet.', impact: 'Menja pristup fondovima, bonusima, review prioritetu i reputaciji igrača.' },
+      { title: 'Manual review hold', what: 'Privremeno zadržavanje settlement-a dok se ne proveri sporni signal.', why: 'Štiti fond i sprečava isplatu potencijalno nevalidnih rezultata.', whenToUse: 'Kod collusion indikacija, abnormalne progresije ili spornog telemetry traga.', whenNotToUse: 'Ne treba ga koristiti kao zamenu za jasna pravila i automatizovane kontrole.', whatItBrings: 'Smanjuje pogrešne isplate i čuva integritet sistema.', cost: 'Produžava vreme do konačne isplate.', misuseConsequence: 'Prečesto ili nejasno korišćenje ruši poverenje legitimnih igrača.', impact: 'Direktno utiče na fairness, pravnu odbranjivost i korisničko iskustvo.' },
+      { title: 'Compliance bridge', what: 'Veza između gameplay rezultata i regulatornih obaveza (KYC/AML, age, audit).', why: 'Professional ekonomija mora biti dokaziva i usklađena sa pravilima.', whenToUse: 'Pre aktivacije naloga, pri većim isplatama i tokom periodičnih kontrola.', whenNotToUse: 'Ne sme usporavati Fun/Test režim koji nema real-money tokove.', whatItBrings: 'Pravnu sigurnost, jasne tragove i održiv operativni model.', cost: 'Dodatna operativna složenost i administracija.', misuseConsequence: 'Loša primena otvara pravni i reputacioni rizik.', impact: 'Definiše da li sistem može skalirati bez regulatornih blokada.' },
+    ],
+    economyBreakdown: [
+      { title: 'Trajna licenca', value: '10.000 RSD', detail: 'Otključava BUBLI BABLI 1320 Professional pristup i progression ledger.' },
+      { title: 'START kredit', value: '1.320 RSD', detail: 'Rezerviše ulaz po igraču za svaki verified meč.' },
+      { title: 'Ulazni trošak', value: '2.640 RSD (1v1) / 5.280 RSD (2v2)', detail: 'Skalira po modu, ali ostaje isti compliance i audit tok.' },
+      { title: 'Bazni fond', value: '52.800 RSD', detail: 'Isplaćuje se tek po potvrdi rezultata i zatvaranju review prozora.' },
+      { title: 'Bonus reserve', value: 'do 10.000 RSD', detail: '1320 clean chain, discipline loop i 10000LVL bridge bonus pravila.' },
+      { title: 'Sponsor reserve', value: '20.000 RSD', detail: 'Koristi se za weekly progression kampanje i kontrolisane pilot prozore.' },
+      { title: 'Operator reserve', value: '4.000 RSD', detail: 'Poklapa telemetry, anti-abuse review, dispute i settlement administraciju.' },
+      { title: 'Hold/penalty pravilo', value: 'Dinamičko', detail: 'Kod težeg signala payout ostaje pending ili ide u rollback do završnog audita.' },
+    ],
+    scenarios: [
+      {
+        title: 'Stabilan prelaz ka 10000LVL',
+        summary: 'Igrač prolazi 1320 gate, zadržava continuity score i ulazi u premium verified prozor bez sporova.',
+        steps: ['3 clean meča u istom ciklusu', 'Jedan confirmed tactical bonus', 'Bez collusion ili telemetry flag-a', 'Status prelazi u 10000LVL candidate lane'],
+      },
+      {
+        title: 'Brza pobeda, slab integritet',
+        summary: 'Rezultat je visok, ali obrazac deluje neprirodno pa settlement ostaje na čekanju.',
+        steps: ['Detektovan sumnjiv progression spike', 'Aktiviran manual review hold', 'Dodatni replay i pairing audit', 'Payout ide tek po finalnoj potvrdi ili rollback odluci'],
+      },
+      {
+        title: 'Pad ispod retention praga',
+        summary: 'Niz slabih sesija i rast grešaka vraćaju igrača iz Professional u trening sloj.',
+        steps: ['Continuity score pada ispod definisanog praga', 'Privremeno se suspenduje 10000LVL lane', 'Igrač radi novi 1320 gate ciklus', 'Ponovni ulaz tek nakon clean verifikacije'],
+      },
+    ],
+    metaDevelopment: [
+      { title: 'Rana faza', detail: 'Fokus je na fer 1320 ulazu i stabilizaciji anti-abuse detekcije u pilot modu.' },
+      { title: 'Srednja faza', detail: 'Sistem prelazi na dublje 10000LVL metrike i bolji balans između brzog napretka i integriteta.' },
+      { title: 'Napredna faza', detail: 'Uvode se sofisticiraniji weekly milestone eventi i precizniji risk-based payout modeli.' },
+      { title: 'Ekosistem faza', detail: 'BUBLI BABLI 1320 postaje feeder sloj za šire profesionalne programe bez gubitka audit standarda.' },
+    ],
+    learningPath: [
+      {
+        level: 'Početni 1320 kandidat',
+        mustUnderstand: ['Osnovne mehanike i tempo sesije', 'START i settlement logiku', 'Fair-play i anti-abuse pravila'],
+        mustPractice: ['Stabilan opening bez velikih grešaka', 'Kontrolisan mid-game tempo', 'Konzistentan završetak meča'],
+        eliminateMistakes: ['Panične all-in odluke', 'Ponavljanje istih rizičnih pattern-a', 'Ignorisanje review upozorenja'],
+      },
+      {
+        level: 'Professional stable',
+        mustUnderstand: ['Kako continuity score utiče na rank i payout', 'Kada aktivirati milestone rizik', 'Kako funkcioniše dispute i audit tok'],
+        mustPractice: ['Adaptaciju stila po protivniku', 'Čiste session chain-ove', 'Decision quality bez velikih oscilacija'],
+        eliminateMistakes: ['Preterani greed za bonus', 'Igranje protiv istih parova radi farmovanja', 'Nepripremljen ulaz u high-pressure sesije'],
+      },
+      {
+        level: '10000LVL aspirant',
+        mustUnderstand: ['Dugoročni kvalitet iznad kratkog streak-a', 'Kompletan compliance i legal kontekst', 'Kako čuvati status kroz više ciklusa'],
+        mustPractice: ['Niz clean verified pobeda', 'Kontrolu rizika pod pritiskom', 'Stabilnu taktiku i komunikaciju u 2v2 modu'],
+        eliminateMistakes: ['Nagle promene stila bez razloga', 'Ignorisanje retention signala', 'Potcenjivanje manual review procesa'],
+      },
+    ],
+    glossary: [
+      { term: '1320 readiness', category: 'Rank', definition: 'Minimalni operativni prag kompetentnosti za ulazak u Professional sesije.' },
+      { term: '10000LVL lane', category: 'Progression', definition: 'Napredni statusni sloj rezervisan za igrače sa dokazanim kontinuitetom i čistim signalom.' },
+      { term: 'Continuity score', category: 'Analytics', definition: 'Mera stabilnosti učinka kroz više mečeva i različite protivnike.' },
+      { term: 'Integrity hold', category: 'Compliance', definition: 'Privremeno zadržavanje payout-a dok traje dodatna validacija spornog meča.' },
+      { term: 'Bridge bonus', category: 'Economy', definition: 'Nagrada za legitimni prelaz između readiness i advanced progression nivoa.' },
+    ],
+    faq: [
+      { question: 'Šta je BUBLI BABLI 1320?', answer: 'To je progression competitive naslov koji koristi 1320 gate kao ulaz i 10000LVL kao dugoročni profesionalni identitet.' },
+      { question: 'Koliko košta ulaz u jedan meč?', answer: 'START je 1.320 RSD po igraču, uz prethodno kupljenu trajnu licencu od 10.000 RSD.' },
+      { question: 'Šta znači 10000LVL?', answer: 'To je status koji potvrđuje da igrač održava visok kvalitet i čist integritet kroz više ciklusa, ne samo kroz jednu pobedu.' },
+      { question: 'Zašto je payout nekad pending?', answer: 'Najčešći razlozi su integrity review, collusion signal, sporan telemetry trag ili dispute prijava.' },
+      { question: 'Kako napredujem iz 1320 ka 10000LVL?', answer: 'Kroz niz clean verified mečeva, stabilan continuity score i uspešno održavanje retention pravila.' },
+    ],
+    trust: [
+      { title: 'Jasan progression model', detail: '1320 i 10000LVL imaju transparentne kriterijume ulaza, održavanja i eventualnog povratka u niži sloj.' },
+      { title: 'Audit trag po meču', detail: 'Svaki payout i svaka hold odluka imaju dokumentovan razlog i proverljiv telemetry kontekst.' },
+      { title: 'Zaštita od abuse-a', detail: 'Pairing kontrole i ručni review sprečavaju farmovanje istih protivnika i nameštene ishode.' },
+      { title: 'Compliance zaštita', detail: 'ID, KYC/AML i age-check ostaju obavezni za sve real-money tokove.' },
+      { title: 'Kontinuirana validacija', detail: 'Status se redovno reevaluira kako bi Professional sloj ostao kvalitetan i fer.' },
+    ],
+    relatedSections: [
+      { label: 'Game Plan', anchor: 'game-plan', note: 'START, eligibility i payout pravila za BUBLI BABLI 1320.' },
+      { label: 'Knowledge Gate', anchor: 'knowledge-gate', note: '1320 gate i 10000LVL retention ciklus.' },
+      { label: 'Wallet / Ledger', anchor: 'wallet-ledger', note: 'Rezervacije, pending status i finalni settlement.' },
+      { label: 'Lifecycle', anchor: 'match-lifecycle', note: 'Koraci od licenciranja do verified isplate.' },
+      { label: 'Compliance', anchor: 'compliance-controls', note: 'ID/KYC/AML i anti-abuse enforcement.' },
+      { label: 'Playground', anchor: 'fun-test-playground', note: 'Sandbox mod za učenje bez finansijskog rizika.' },
+    ],
+    continuousTestingGate: {
+      title: 'BUBLI BABLI 1320 → 10000LVL Continuous Readiness Gate',
+      summary: 'Professional pristup počinje na 1320 pragu, ali se zadržava samo kroz kontinuiranu validaciju koja potvrđuje legitiman napredak ka 10000LVL statusu.',
+      goals: [
+        'Obezbediti da ulazak u real-money sloj bude zasnovan na dokazivom kvalitetu, ne na sreći ili exploitu.',
+        'Stvoriti stabilan most između trening sesija i advanced progression ekonomije.',
+        'Smanjiti collusion i farm obrasce kroz periodične proverе i transparentna pravila.',
+      ],
+      qualificationMetrics: [
+        { title: 'Entry threshold', value: '1320 minimum', detail: 'Kandidat mora držati readiness score na ili iznad 1320 pre prvog Professional meča.' },
+        { title: 'Verified sample', value: '3 meča', detail: 'Ulaz traži tri clean verified sesije iz poslednjeg ciklusa.' },
+        { title: 'Continuity floor', value: '85/100', detail: 'Decision quality i consistency ne smeju pasti ispod definisanog praga.' },
+        { title: '10000LVL bridge', value: '1 potvrđen milestone', detail: 'Za advanced lane potreban je najmanje jedan validan bridge milestone bez hold-a.' },
+        { title: 'Failure route', value: 'Povratak u Fun/Test ili gate repeat', detail: 'Pad praga ili review incident vraća korisnika na ponovnu kvalifikaciju.' },
+      ],
+      knowledgeCategories: [
+        { title: 'Core mehanike i tempo disciplina', points: ['Kandidat mora dokazati da razume kompletan tok sesije od opening-a do verified close-a.', 'Neadekvatan tempo i nekontrolisani rizik direktno obaraju readiness rezultat.'] },
+        { title: 'Progression logika i retention', points: ['Proverava se razumevanje kako 1320 prelazi u 10000LVL kroz kontinuitet, a ne kroz pojedinačni uspeh.', 'Pad retention signala aktivira obavezni povratak na niži sloj.'] },
+        { title: 'Compliance i anti-abuse pravila', points: ['Korisnik mora prepoznati collusion obrasce, zabranjene aranžmane i posledice integritetskih prekršaja.', 'Neznanje u ovom bloku nije izgovor i može voditi suspenziji statusa.'] },
+        { title: 'Payout i dispute odgovornost', points: ['Igrač mora razumeti kako hold, dispute i finalni settlement funkcionišu.', 'Cilj je da finansijske odluke budu jasne i predvidive za svakog učesnika.'] },
+      ],
+      visualQuestionRules: [
+        'Vizuelna pitanja koriste snapshot-e tokova partije, score grafikone i anomalijske primere.',
+        'Scenario karte traže izbor najboljeg poteza uz objašnjenje zašto je to sigurniji progression izbor.',
+        'Banka pitanja se rotira kako bi se sprečilo mehaničko učenje bez razumevanja.',
+      ],
+      weeklyCycle: [
+        { title: 'Ponedeljak', summary: 'Reset readiness parametara i objava fokusa.', steps: ['Objava aktivnih kategorija', 'Ažuriranje milestone pravila', 'Kalibracija anti-abuse modela'] },
+        { title: 'Utorak–sreda', summary: 'Kvalifikacioni pokušaji i baseline sesije.', steps: ['1320 gate testovi', 'Prvi verified mečevi', 'Praćenje continuity score-a'] },
+        { title: 'Četvrtak', summary: 'Controlled professional window.', steps: ['Low-risk ladder sesije', 'Provera dispute signala', 'Privremeni hold gde je potrebno'] },
+        { title: 'Petak', summary: 'Glavni progression prozor.', steps: ['Milestone pokušaji', 'Bridge bonus evaluacija', 'Audit flag prioritizacija'] },
+        { title: 'Subota', summary: 'Review i status korekcije.', steps: ['Ručno čitanje spornih slučajeva', 'Korekcija readiness statusa', 'Povratak kandidata u gate repeat kada je potrebno'] },
+        { title: 'Nedelja', summary: 'Settlement close i plan sledeće nedelje.', steps: ['Zaključavanje payout-a', 'Objava verified status promena', 'Planiranje narednog ciklusa'] },
+      ],
+      retentionRules: [
+        '10000LVL status važi samo uz kontinuirano održavanje kvaliteta i čistog signala.',
+        'Dva uzastopna slaba ciklusa ili jedan ozbiljan integrity incident aktiviraju downgrade.',
+        'Povratak u advanced lane traži nov clean bridge ciklus i proveru svih compliance uslova.',
+      ],
+      antiAbuseRules: [
+        'Sistem ograničava ponavljane mečeve istih parova radi sprečavanja farm pattern-a.',
+        'Neprirodne serije brzih pobeda, sumnjivi surrender i score anomalije šalju nalog u review hold.',
+        'Tokom hold perioda bonus i rank-up kredit se ne isplaćuju niti knjiže kao finalni.',
+        'Teži prekršaji mogu aktivirati privremenu ili trajnu suspenziju Professional pristupa.',
+      ],
+      userJourney: [
+        'Korisnik kreće iz Fun/Test sandbox treninga i priprema se za 1320 gate.',
+        'Posle tri clean kvalifikacione sesije aktivira prvi Professional meč.',
+        'Stabilnim rezultatima i čistim signalom ulazi u 10000LVL candidate lane.',
+        'Kroz više uspešnih ciklusa prelazi u puni 10000LVL status sa većim poverenjem sistema.',
+      ],
+      successMetrics: [
+        'Stopa prolaza kroz 1320 gate bez naknadnog rollback-a.',
+        'Procenat korisnika koji zadržavaju continuity score iznad retention praga.',
+        'Broj manual hold slučajeva na 1.000 mečeva i vreme rešavanja.',
+        'Odnos clean payout-a i dispute slučajeva po ciklusu.',
+        'Konverzija iz 1320 tier-a u održivi 10000LVL status.',
+      ],
+      rolloutPhases: [
+        'Faza 1: definisanje 1320 kriterijuma i pilot readiness modela.',
+        'Faza 2: uvođenje bridge logike ka 10000LVL i prvih weekly milestone-a.',
+        'Faza 3: aktivacija punog continuous gate sistema sa hold/dispute pravilima.',
+        'Faza 4: optimizacija anti-abuse modela i smanjenje false-positive slučajeva.',
+        'Faza 5: skaliranje ka širem professional ekosistemu uz očuvan audit kvalitet.',
       ],
     },
   },
