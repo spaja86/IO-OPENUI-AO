@@ -1,4 +1,4 @@
-import { universityProgram, type UniversityUnit } from '../data/university';
+import { universityProgram, type UniversityUnit } from '../data/university.ts';
 
 export function getDefaultUniversityUnit(): UniversityUnit {
   return universityProgram.units[0];

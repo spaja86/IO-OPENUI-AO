@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { universityProgram } from '../data/university';
+import { universityProgram } from '../data/university.ts';
 import {
   getDefaultUniversityUnit,
   getSelectedUniversityUnit,
   getUniversityUnitAriaLabel,
-} from './universityPageModel';
+} from './universityPageModel.ts';
 
 test('defaults to the first university unit', () => {
   assert.equal(getDefaultUniversityUnit().code, universityProgram.units[0].code);
