@@ -122,6 +122,7 @@ export default function UniversityPage() {
             </div>
 
             <div
+              role="group"
               aria-label="Izbor akademske jedinice univerziteta"
               style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', marginBottom: '24px' }}
             >
