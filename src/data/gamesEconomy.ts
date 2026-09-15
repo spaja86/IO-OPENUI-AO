@@ -887,10 +887,10 @@ export const gamesCatalog: GameCatalogEntry[] = [
     config: {
       entry_fee_per_player: '1.600 RSD',
       team_size: 'Solo ili tim do 4',
-      base_prize_pool: '64.000 RSD',
-      sponsor_boost: '20.000 RSD compatibility reserve',
+      base_prize_pool: '26.000 RSD',
+      sponsor_boost: '10.000 RSD compatibility reserve',
       bonus_reserve: '14.000 RSD',
-      operator_margin_reserve: '6.000 RSD + review reserve',
+      operator_margin_reserve: '4.000 RSD + review reserve',
       victory_required_for_bonus: true,
     },
     gamePlan: {
@@ -904,7 +904,7 @@ export const gamesCatalog: GameCatalogEntry[] = [
       startFee: '1.600 RSD pri svakom START-u u Professional režimu',
       payouts: [
         { label: 'Collected entries', value: '6.400 RSD', note: 'Primer: 4 igrača × 1.600 RSD' },
-        { label: 'Winner compatibility payout', value: '64.000 RSD', note: 'Isplata ide nakon clean telemetry i compatibility review-a.' },
+        { label: 'Winner compatibility payout', value: '26.000 RSD', note: 'Isplata ide nakon clean telemetry i compatibility review-a.' },
         { label: 'Bonus reserve', value: '14.000 RSD', note: 'Za clean execution, stable module sync i verified QA odgovor.' },
       ],
       bonusRules: [
@@ -914,7 +914,7 @@ export const gamesCatalog: GameCatalogEntry[] = [
           amount: '4.000 RSD',
           category: 'automatic',
           requiresVictory: true,
-          note: 'Važi kada nema konflikta između kompijuter i brouvzer modula.',
+          note: 'Važi kada nema konflikta između digitalnog kompjuter sloja i digitalnog browser sloja.',
         },
         {
           id: 'qa-proof-bonus',
@@ -936,7 +936,7 @@ export const gamesCatalog: GameCatalogEntry[] = [
       reviewedMetrics: [
         {
           title: 'Module compatibility score',
-          description: 'Proverava usklađenost digitalnog kompijuter sloja i digitalnog brouvzer sloja kroz celu sesiju.',
+          description: 'Proverava usklađenost digitalnog kompjuter sloja i digitalnog browser sloja kroz celu sesiju.',
           payoutMode: 'manual-review',
         },
         {
@@ -3299,7 +3299,7 @@ export const gamesEncyclopedia: Record<string, GameKnowledgeEntry> = {
     ],
     expertView: [
       'Ključni signal kvaliteta nije samo pobeda već stabilna self-compatibility između svih modula kroz više sesija.',
-      'Ekspertni tim održava isti meč identitet kada prelazi između kompijuter i brouvzer sloja bez raspada pravila.',
+      'Ekspertni tim održava isti meč identitet kada prelazi između digitalnog kompjuter sloja i digitalnog browser sloja bez raspada pravila.',
       'SPAJAPRO fallback je uspešan samo kada incident ne menja rezultat, scoring logiku ili audit sled.',
     ],
     operationalView: [
@@ -3363,14 +3363,14 @@ export const gamesEncyclopedia: Record<string, GameKnowledgeEntry> = {
     ],
     everythingInGame: [
       {
-        title: 'SPAJA DIGITALNI KOMPIJUTER moduli',
+        title: 'SPAJA DIGITALNI KOMPJUTER moduli',
         points: [
           'Standardne klase: OKER, TURKER, EKOR, DOKER, KOKER, ZUMER, IOKER, DJUKS.',
           'Napredne klase: GRON, ZUMAR, ONAKER, ZOM, DUMA, DONKI, DUMAS, TUNAKR.',
         ],
       },
       {
-        title: 'SPAJA DIGITALNI BROUVZER moduli',
+        title: 'SPAJA DIGITALNI BROWSER (BROUVZER) moduli',
         points: [
           'Standardne klase: DOMBA, DUMBAR, GRUPEN, KORON.',
           'Napredne klase: EKVATOR, GOM, DUMBLAR, KIMBAR.',
@@ -3380,7 +3380,7 @@ export const gamesEncyclopedia: Record<string, GameKnowledgeEntry> = {
         title: 'Self-compatibility pravila',
         points: [
           'Igra mora imati jedinstveni identitet bez obzira kroz koji modul prolazi sesija.',
-          'Input/output format ostaje konzistentan i proverava se cross-check mehanizmom između dva sloja.',
+          'Input/output format ostaje konzistentan i proverava se mehanizmom provere usklađenosti između dva sloja.',
           'Svaki mismatch generiše audit događaj i može vratiti sesiju u sandbox korekciju.',
         ],
       },
@@ -3397,8 +3397,8 @@ export const gamesEncyclopedia: Record<string, GameKnowledgeEntry> = {
         title: 'Opening taktike',
         focus: 'Module lock pre START-a',
         points: [
-          'Zaključaj module i proveri da su kompijuter i brouvzer klase u kompatibilnom paru pre početka.',
-          'Otvaranje bez punog compatibility check-a najčešće vodi ka ranim hold signalima.',
+          'Zaključaj module i proveri da su kompjuter i browser klase u kompatibilnom paru pre početka.',
+          'Otvaranje bez pune provere usklađenosti najčešće vodi ka ranim hold signalima.',
         ],
       },
       {
@@ -3457,7 +3457,7 @@ export const gamesEncyclopedia: Record<string, GameKnowledgeEntry> = {
       { title: 'Trajna licenca', value: '16.000 RSD', detail: 'Otključava Gejming industrija Professional sloj.' },
       { title: 'START kredit', value: '1.600 RSD', detail: 'Ulazni trošak po sesiji u Professional režimu.' },
       { title: 'Fun/Test ulaz', value: '0 RSD', detail: 'Sandbox režim za obuku i validaciju bez finansijskog rizika.' },
-      { title: 'Nagradni fond', value: '64.000 RSD', detail: 'Isplaćuje se nakon clean compatibility i audit potvrde.' },
+      { title: 'Nagradni fond', value: '26.000 RSD', detail: 'Isplaćuje se nakon clean compatibility i audit potvrde.' },
       { title: 'Bonus rezerva', value: '14.000 RSD', detail: 'Vezana za clean run, QA proof i SPAJAPRO stabilnost.' },
       { title: 'Review hold', value: 'Operator reserve', detail: 'Aktivira se kod mismatch-a, abuse signala ili nevalidiranih linkova.' },
       { title: 'Isplata', value: 'Weekly verified settlement', detail: 'Finalni release tek kada su sporovi i audit zatvoreni.' },
@@ -3470,8 +3470,8 @@ export const gamesEncyclopedia: Record<string, GameKnowledgeEntry> = {
       },
       {
         title: 'Clean compatibility pobeda',
-        summary: 'Sesija prolazi bez konflikata između kompijuter i brouvzer modula.',
-        steps: ['Module lock', 'Stable telemetry', 'Cross-check prolaz', 'Pobeda', 'Brza isplata'],
+        summary: 'Sesija prolazi bez konflikata između digitalnog kompjuterskog sloja i digitalnog browser sloja.',
+        steps: ['Zaključavanje modula', 'Stabilna telemetrija', 'Provera usklađenosti', 'Pobeda', 'Brza isplata'],
       },
       {
         title: 'Fallback bez gubitka identiteta',
@@ -3520,8 +3520,8 @@ export const gamesEncyclopedia: Record<string, GameKnowledgeEntry> = {
     glossary: [
       { term: 'Gejming endžin', category: 'Arhitektura', definition: 'Centralna logika koja standardizuje pravila i kompatibilnost.' },
       { term: 'SPAJAPRO', category: 'Operacije', definition: 'Orkestrator koji vodi lifecycle i upravlja fallback protokolom.' },
-      { term: 'Digitalni kompijuter modul', category: 'Kompatibilnost', definition: 'Klasa iz OKER/TURKER/EKOR/... grupe koja učestvuje u engine mapiranju.' },
-      { term: 'Digitalni brouvzer modul', category: 'Kompatibilnost', definition: 'Klasa iz DOMBA/DUMBAR/GRUPEN/... grupe za frontend i interakcioni sloj.' },
+      { term: 'Digitalni kompjuter modul', category: 'Kompatibilnost', definition: 'Klasa iz OKER/TURKER/EKOR/... grupe koja učestvuje u engine mapiranju.' },
+      { term: 'Digitalni browser modul', category: 'Kompatibilnost', definition: 'Klasa iz DOMBA/DUMBAR/GRUPEN/... grupe za frontend i interakcioni sloj.' },
       { term: 'ChatGPT link sloj', category: 'Knowledge', definition: 'Validirani skup referenci sa obaveznim audit tragom upotrebe.' },
       { term: 'Self-compatibility', category: 'Integritet', definition: 'Isto ponašanje igre kroz sve module i režime bez pucanja pravila.' },
     ],
@@ -3534,18 +3534,18 @@ export const gamesEncyclopedia: Record<string, GameKnowledgeEntry> = {
     ],
     trust: [
       { title: 'Transparentna granica režima', detail: 'Jasno je šta je trening, a šta finansijski odgovorna Professional sesija.' },
-      { title: 'Kompatibilnost kao uslov', detail: 'Nijedan rezultat nije finalan bez clean cross-check potvrde između slojeva.' },
+      { title: 'Kompatibilnost kao uslov', detail: 'Nijedan rezultat nije finalan bez čiste potvrde usklađenosti između slojeva.' },
       { title: 'ChatGPT link bezbednost', detail: 'Samo validirani i auditirani linkovi mogu biti deo zvaničnog procesa.' },
       { title: 'SPAJAPRO audit trag', detail: 'Svaka lifecycle odluka i fallback događaj ima dokumentovan uzrok i ishod.' },
       { title: 'Anti-abuse zaštita', detail: 'Mismatchevi, collusion i nevalidirani izvori znanja automatski aktiviraju review.' },
     ],
     relatedSections: [
-      { label: 'Game Plan', anchor: 'game-plan', note: 'Licenca, START i payout model za Gejming industrija program.' },
-      { label: 'Knowledge Gate', anchor: 'knowledge-gate', note: 'Readiness kriterijumi, QA i retention pravila.' },
-      { label: 'Wallet / Ledger', anchor: 'wallet-ledger', note: 'Financial hold i verified settlement tok.' },
-      { label: 'Lifecycle', anchor: 'match-lifecycle', note: 'SPAJAPRO orchestration koraci kroz celu sesiju.' },
-      { label: 'Compliance', anchor: 'compliance-controls', note: 'ID/KYC i anti-abuse kontrole za Professional režim.' },
-      { label: 'Playground', anchor: 'fun-test-playground', note: 'Sandbox režim za obuku i kompatibilnost testove.' },
+      { label: 'Master profil', anchor: 'game-master-profile', note: 'Identitet Gejming endžina i granice režima.' },
+      { label: 'Mehanike', anchor: 'game-mechanics', note: 'Module, kompatibilnost i lifecycle pravila.' },
+      { label: 'Taktički vodič', anchor: 'game-tactical-guide', note: 'Opening, mid i end-game orchestration discipline.' },
+      { label: 'Objašnjene teme', anchor: 'explained-max', note: 'Gejming endžin, ChatGPT link sloj i SPAJAPRO.' },
+      { label: 'Ekonomija', anchor: 'game-economy', note: 'Licenca, START, fond, bonus i settlement tok.' },
+      { label: 'Pojmovnik / FAQ', anchor: 'glossary-faq', note: 'Terminologija i pravila korišćenja.' },
     ],
     continuousTestingGate: {
       title: 'Gejming industrija Continuous Readiness Gate',
@@ -3557,14 +3557,14 @@ export const gamesEncyclopedia: Record<string, GameKnowledgeEntry> = {
       ],
       qualificationMetrics: [
         { title: 'Engine schema lock', value: '100%', detail: 'Svaka sesija mora koristiti validiran i nepromenjen schema ID tokom meča.' },
-        { title: 'Module compatibility', value: '>= 95%', detail: 'Kompijuter i brouvzer klase moraju proći cross-check bez kritičnog konflikta.' },
+        { title: 'Usklađenost modula', value: '>= 95%', detail: 'Kompjuter i browser klase moraju proći proveru usklađenosti bez kritičnog konflikta.' },
         { title: 'ChatGPT link compliance', value: '100% validirani', detail: 'Svaki korišćeni link mora imati kategoriju i audit razlog.' },
-        { title: 'Critical abuse flags', value: '0 critical', detail: 'Collusion, injection ili neautorizovani izvor znanja automatski ruše prolaz.' },
+        { title: 'Critical abuse flags', value: '0 critical', detail: 'Collusion, injection ili neautorizovani izvor znanja automatski obaraju gate i prebacuju sesiju u review hold do ručne odluke.' },
         { title: 'Retention continuity', value: 'Nedeljno', detail: 'Status ostaje aktivan samo uz kontinuirano čiste cikluse.' },
       ],
       knowledgeCategories: [
         { title: 'Engine disciplina', points: ['Jedan engine identitet po sesiji.', 'Bez paralelnih pravila van centralnog sloja.'] },
-        { title: 'Module kompatibilnost', points: ['Mapiranje kompijuter i brouvzer klasa pre starta.', 'Kontinuirani cross-check tokom celog meča.'] },
+        { title: 'Usklađenost modula', points: ['Mapiranje kompjuter i browser klasa pre starta.', 'Kontinuirana provera usklađenosti tokom celog meča.'] },
         { title: 'ChatGPT link pravila', points: ['Samo validirane reference.', 'Svaki link mora imati audit trag i namenu.'] },
         { title: 'SPAJAPRO fallback', points: ['Fallback ne menja scoring i pravila.', 'Svaki fallback ima rollback i završni status.'] },
       ],
@@ -3590,6 +3590,7 @@ export const gamesEncyclopedia: Record<string, GameKnowledgeEntry> = {
         'Nevalidirani ChatGPT linkovi, lažna modul mapa ili menjanje schema ID-a tokom meča aktiviraju trenutni hold.',
         'Multi-account koordinacija i ponavljani namešteni pairinzi blokiraju bonus i progression priznanje.',
         'Tokom aktivnog review-a korisnik ne može preći u verified payout status.',
+        'Svaki hold mora imati ručni pregled i jasno dokumentovan appeal korak pre konačne suspenzije ili povratka statusa.',
       ],
       userJourney: [
         'Korisnik počinje u sandbox Fun/Test režimu i uči module bez finansijskog rizika.',
