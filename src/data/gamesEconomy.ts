@@ -150,6 +150,21 @@ export interface RelatedSectionLink {
   note: string;
 }
 
+export interface ContinuousTestingGate {
+  title: string;
+  summary: string;
+  goals: string[];
+  qualificationMetrics: EconomyBreakdownLine[];
+  knowledgeCategories: DetailCluster[];
+  visualQuestionRules: string[];
+  weeklyCycle: ScenarioBreakdown[];
+  retentionRules: string[];
+  antiAbuseRules: string[];
+  userJourney: string[];
+  successMetrics: string[];
+  rolloutPhases: string[];
+}
+
 export interface GameKnowledgeEntry {
   shortOverview: string[];
   expandedOverview: string[];
@@ -169,6 +184,7 @@ export interface GameKnowledgeEntry {
   faq: FAQEntry[];
   trust: TrustPoint[];
   relatedSections: RelatedSectionLink[];
+  continuousTestingGate?: ContinuousTestingGate;
 }
 
 export interface WalletSnapshot {
@@ -489,7 +505,7 @@ export const gamesCatalog: GameCatalogEntry[] = [
     funStartCredit: '0 RSD · browser kviz',
     professionalStartCredit: '900 RSD po START-u',
     summary: 'Znanje kao competitive skill mode sa malim ulazom i trenutnim PDF potvrđivanjem.',
-    compliance: '18+ za Professional · telemetry + proctoring light',
+    compliance: '18+ za Professional · 3x100 qualification gate · telemetry + proctoring light',
     config: {
       entry_fee_per_player: '900 RSD',
       team_size: 'Solo',
@@ -501,7 +517,7 @@ export const gamesCatalog: GameCatalogEntry[] = [
     gamePlan: {
       eligibility: [
         'Licenca aktivna',
-        'Knowledge score threshold ispunjen',
+        '3 qualification testa po 100 pitanja položena sa minimum 80% tačnosti',
         'Professional mode samo za punoletne korisnike',
       ],
       matchFormat: 'Timed ranked solo run sa zaključanim pitanjima',
@@ -524,7 +540,7 @@ export const gamesCatalog: GameCatalogEntry[] = [
       reviewedMetrics: [
         {
           title: 'Answer pattern review',
-          description: 'Sumnjivi obrasci i copy-assist ponašanje šalju sesiju u pending audit.',
+          description: 'Sumnjivi obrasci u kvalifikaciji ili live run-u šalju sesiju u pending audit i mogu vratiti igrača u Fun/Test zonu.',
           payoutMode: 'manual-review',
         },
       ],
@@ -1082,9 +1098,9 @@ export const gamesEncyclopedia: Record<string, GameKnowledgeEntry> = {
       'Najveća tehnička vrednost je konzistentan performance kroz više rundi i raznih oblasti.',
     ],
     operationalView: [
-      'Professional sesija beleži vreme odgovora, pattern odluka, tačnost i sumnjive skokove u performansu.',
-      'Payout je manji ali brz; zato review mora jasno da odvoji vrhunsko znanje od copy-assist ponašanja.',
-      'Svaki verified run dobija rezultat, PDF trag i eventualni bonus ako je perfect streak potvrđen.',
+      'Professional pristup se otključava tek posle 3 nasumična kvalifikaciona testa sa po 100 pitanja i minimum 80% tačnosti.',
+      'Sistem beleži vreme odgovora, pattern odluka, tačnost i sumnjive skokove i u kvalifikaciji i u live sesijama.',
+      'Svaki verified run dobija rezultat, PDF trag i eventualni bonus ako je perfect streak potvrđen, ali status ostaje pod stalnom nedeljnom proverom.',
     ],
     historyMetaScenarios: [
       'Meta se menja sa bazom pitanja, težinom oblasti i pravilima rangiranja po brzini ili čistoj tačnosti.',
@@ -1104,7 +1120,7 @@ export const gamesEncyclopedia: Record<string, GameKnowledgeEntry> = {
       tacticalDepth: 'Srednja, ali sa visokim značajem psihološke stabilnosti i upravljanja vremenom.',
       playFormat: 'Solo kompeticija fokusirana na tačnost, tempo i anti-cheat čist trag.',
       funTestUse: 'Vežbanje oblasti znanja, reakcije i lokalnog leaderboard-a bez finansijskog rizika.',
-      professionalUse: 'Licencirane solo sesije sa START naknadom, score payout-om i answer-pattern review-om.',
+      professionalUse: 'Licencirane solo sesije sa obaveznim knowledge gate-om, START naknadom, score payout-om i answer-pattern review-om.',
     },
     mechanics: [
       { title: 'Osnovna pravila', points: ['Sesija ima ograničen broj pitanja ili vremenski prozor.', 'Rezultat se računa kombinacijom tačnosti i brzine.', 'Pobeda traži verified score, ne samo visok sirovi broj poena.'] },
@@ -1114,7 +1130,7 @@ export const gamesEncyclopedia: Record<string, GameKnowledgeEntry> = {
       { title: 'Greške po nivoima', points: ['Početnici pogađaju bez čitanja kraja pitanja.', 'Napredni igrači nepotrebno forsiraju brzinu i gube sigurnost.', 'Svi padaju kada ignorišu umor i mentalni tilt.'] },
     ],
     everythingInGame: [
-      { title: 'Arene i setovi pitanja', points: ['Kategorije pitanja su bojišta znanja: tehnologija, opšta kultura, logika i specijalni event setovi.', 'Svaki set ima drugačiji ritam i prag pouzdanosti.'] },
+      { title: 'Arene i setovi pitanja', points: ['Kategorije pitanja su bojišta znanja: tehnologija, opšta kultura, osnovno obrazovanje, logika i specijalni event setovi.', 'Svaki set ima drugačiji ritam i prag pouzdanosti.'] },
       { title: 'Alati i sposobnosti', points: ['Glavni alat je znanje, a pomoćni alati su fokus, memorijska rutina i prepoznavanje zamki u formulaciji.', 'Professional mod ne dozvoljava spoljne asistive alate.'] },
       { title: 'Score, rank i matchmaking', points: ['Score ranking vrednuje verified rezultat i konzistentnost kroz takmičarske prozore.', 'Ograničenja sesija smanjuju abuse kroz previše pokušaja u kratkom periodu.'] },
       { title: 'Eventovi i sezonske promene', points: ['Tematske nedelje i novi skupovi pitanja menjaju prioritet oblasti za pripremu.', 'Patch u scoring-u menja odnos brzine i tačnosti.'] },
@@ -1152,7 +1168,7 @@ export const gamesEncyclopedia: Record<string, GameKnowledgeEntry> = {
       { title: 'Pobeda sa bonusom', summary: 'Čist run bez greške u vremenskom cilju.', steps: ['Kontrolisan opening', 'Ujednačen tempo', 'Perfect streak', 'Bonus review pa isplata'] },
       { title: 'Sporna sesija', summary: 'Previše nagli skok performanse traži proveru.', steps: ['Flag odgovora', 'Payout hold', 'Provera istorije i seta pitanja', 'Zaključak'] },
       { title: 'Diskvalifikacija', summary: 'Neregularna pomoć ruši score.', steps: ['Detektovan pattern', 'Rezultat poništen', 'Nagrada blokirana', 'Status može biti suspendovan'] },
-      { title: 'Prelazak iz Fun/Test u Professional', summary: 'Igrač prelazi sa vežbe na verified knowledge run.', steps: ['Trening oblasti', 'Kupovina licence', 'Prvi low-risk Professional run', 'Ulazak u dnevne score prozore'] },
+      { title: 'Prelazak iz Fun/Test u Professional', summary: 'Igrač prelazi sa vežbe na verified knowledge run kroz obaveznu kvalifikaciju.', steps: ['Trening oblasti', 'Pokretanje qualification paketa', '3 položena testa sa minimum 80%', 'Prvi low-risk Professional run', 'Ulazak u dnevne score prozore'] },
     ],
     metaDevelopment: [
       { title: 'Trenutno najjače', detail: 'Igrači sa ujednačenim tempom i širokim znanjem imaju najstabilnije verified score-ove.' },
@@ -1165,34 +1181,104 @@ export const gamesEncyclopedia: Record<string, GameKnowledgeEntry> = {
       { level: 'Početnik', mustUnderstand: ['Kako se računa score', 'Zašto je tačnost osnova'], mustPractice: ['Pažljivo čitanje pitanja', 'Mirno otvaranje sesije'], eliminateMistakes: ['Nasumično pogađanje', 'Preskakanje ključnih reči'] },
       { level: 'Srednji nivo', mustUnderstand: ['Odnos brzine i tačnosti', 'Kako jedna greška ne sme srušiti ritam'], mustPractice: ['Ravnomeran tempo', 'Rad po oblastima slabosti'], eliminateMistakes: ['Panično ubrzavanje', 'Mentalni tilt posle greške'] },
       { level: 'Napredni nivo', mustUnderstand: ['Kako se gradi perfect streak', 'Kako se čita obrazac težih pitanja'], mustPractice: ['Stabilnost kroz više run-ova', 'Brz reset fokusa'], eliminateMistakes: ['Preterano jurcanje bonus-a', 'Forsiranje oblasti koju ne kontrolišeš'] },
-      { level: 'Profesionalni nivo', mustUnderstand: ['Review pravila i audit trag', 'Kako verified score utiče na payout i reputaciju'], mustPractice: ['Čistu i konzistentnu izvedbu', 'Pripremu po sezonskim setovima'], eliminateMistakes: ['Sumnjive obrasce odgovora', 'Nepoštovanje sesijskih ograničenja'] },
+      { level: 'Profesionalni nivo', mustUnderstand: ['Review pravila, 3x100 qualification gate i audit trag', 'Kako verified score utiče na payout i reputaciju'], mustPractice: ['Čistu i konzistentnu izvedbu', 'Pripremu po sezonskim setovima', 'Nedeljnu reevaluaciju oblasti slabosti'], eliminateMistakes: ['Sumnjive obrasce odgovora', 'Nepoštovanje sesijskih ograničenja', 'Pad ispod kvalifikacionog praga'] },
     ],
     glossary: [
       { term: 'Verified score', category: 'Rang', definition: 'Rezultat potvrđen i takmičarskim pravilima i review signalima.' },
       { term: 'Perfect streak', category: 'Gameplay', definition: 'Niz tačnih odgovora bez greške unutar zadatog uslova.' },
+      { term: 'Qualification package', category: 'Access', definition: 'Tri nasumična testa sa po 100 pitanja koja moraju biti položena pre ulaska u real-money režim.' },
+      { term: 'Visual question set', category: 'Gameplay', definition: 'Slikovita pitanja sa simbolima, mapama, dijagramima i interfejsom koja proveravaju razumevanje, ne samo memorisanje.' },
       { term: 'Speed weighting', category: 'Gameplay', definition: 'Deo formule koji vrednuje brzinu odgovora.' },
       { term: 'Pattern anomaly', category: 'Anti-fraud', definition: 'Neobičan obrazac odgovora koji traži proveru.' },
       { term: 'Daily competitive window', category: 'Admin', definition: 'Dnevni vremenski prozor u kom se porede rezultati za payout.' },
     ],
     faq: [
-      { question: 'Kako počinjem?', answer: 'Kroz browser kviz trening, pa licencu i prvi Professional run.' },
+      { question: 'Kako počinjem?', answer: 'Kroz browser kviz trening, pa qualification paket od 3 nasumična testa pre prvog Professional run-a.' },
       { question: 'Koliko košta jedan run?', answer: '900 RSD START po sesiji uz prethodno kupljenu licencu.' },
+      { question: 'Koji je uslov za ulazak u igre za novac?', answer: 'Sva 3 kvalifikaciona testa moraju biti položena sa najmanje 80 tačnih odgovora od 100 na svakom testu.' },
       { question: 'Kako dobijam bonus?', answer: 'Samo kroz verified perfect streak u čistoj sesiji.' },
-      { question: 'Zašto je score blokiran?', answer: 'Zato što answer pattern ili tempo odgovora traže dodatni review.' },
+      { question: 'Zašto je score blokiran?', answer: 'Zato što answer pattern, tempo odgovora ili sumnjiv skok između treninga i kvalifikacije traže dodatni review.' },
     ],
     trust: [
-      { title: 'Provera rezultata', detail: 'Ne gledaju se samo poeni već i ritam, tačnost i obrazac odluka.' },
+      { title: 'Provera rezultata', detail: 'Ne gledaju se samo poeni već i ritam, tačnost, obrazac odluka i razlika između treninga, kvalifikacije i live run-a.' },
       { title: 'Žalbe', detail: 'Igrač može osporiti flag ili tražiti ručni pregled sesije.' },
-      { title: 'Detekcija abuse-a', detail: 'Sistem prati copy-assist signale, neuobičajene skokove i ponavljane sumnjive sesije.' },
-      { title: 'Audit trag', detail: 'Svaka reviewed sesija ostavlja evidenciju o razlogu i ishodu odluke.' },
+      { title: 'Detekcija abuse-a', detail: 'Sistem prati copy-assist signale, neuobičajene skokove, prebrze odgovore i ponavljane sumnjive sesije.' },
+      { title: 'Audit trag', detail: 'Svaka reviewed sesija i svaka kvalifikaciona promena statusa ostavlja evidenciju o razlogu i ishodu odluke.' },
+      { title: 'Kontinuirana kompetentnost', detail: 'Professional status ostaje aktivan samo dok igrač prolazi nedeljne ili sezonske reevaluacije bez ozbiljnih odstupanja.' },
     ],
     relatedSections: [
       { label: 'Game Plan', anchor: 'game-plan', note: 'Kako izgleda verified score model.' },
+      { label: 'Knowledge Gate', anchor: 'knowledge-gate', note: '3x100 qualification i nedeljna reevaluacija.' },
       { label: 'Wallet / Ledger', anchor: 'wallet-ledger', note: 'START, hold i payout tokovi.' },
       { label: 'Bounty', anchor: 'bounty-program', note: 'Kako ranking i weekly layer grade dodatnu vrednost.' },
       { label: 'Compliance', anchor: 'compliance-controls', note: 'Pattern review i anti-abuse pravila.' },
       { label: 'Playground', anchor: 'fun-test-playground', note: 'Browser kviz za trening i onboarding.' },
     ],
+    continuousTestingGate: {
+      title: 'Continuous Testing Qualification Gate',
+      summary: 'Ulazak u real-money režim prolazi kroz stalni knowledge filter: 3 nasumična testa po 100 pitanja, minimum 80% tačnosti po testu i nedeljnu proveru kompetentnosti.',
+      goals: [
+        'Professional pristup se otključava samo kandidatima koji pokažu stabilno znanje, ne samo jedan dobar pokušaj.',
+        'Testiranje služi kao obrazovni, bezbednosni i reputacioni filter pre svakog ozbiljnijeg finansijskog angažmana.',
+        'Fun/Test ostaje sigurna zona za vežbanje, a Professional postaje privilegija zasnovana na dokazivom kvalitetu.',
+      ],
+      qualificationMetrics: [
+        { title: 'Qualification package', value: '3 testa', detail: 'Svaki kandidat mora završiti tri odvojena nasumično generisana testa.' },
+        { title: 'Question count', value: '100 pitanja', detail: 'Svaki test nosi pun obim provere i uključuje velik procenat slikovitih pitanja.' },
+        { title: 'Passing threshold', value: '80% minimum', detail: 'Na svakom testu mora biti najmanje 80 tačnih odgovora; 79/100 nije dovoljno.' },
+        { title: 'Status rule', value: '3/3 položena', detail: 'Professional pristup se aktivira tek kada su sva tri testa uspešno završena.' },
+        { title: 'Failure route', value: 'Povratak u Fun/Test', detail: 'Pad na jednom ili više testova vraća kandidata u trening režim do novog kvalifikacionog ciklusa.' },
+      ],
+      knowledgeCategories: [
+        { title: 'Opšta kultura i obrazovanje', points: ['Pitanja iz opšte kulture, osnovnog obrazovanja i široke informisanosti.', 'Cilj je da kandidat pokaže širinu znanja pre pristupa igrama za novac.'] },
+        { title: 'Logika i digitalna pismenost', points: ['Logičko zaključivanje, pažljivo čitanje i razumevanje digitalnih interfejsa.', 'Ovde se vidi da li kandidat razume informacije, ne samo da nagađa.'] },
+        { title: 'Pravila igre i fair-play', points: ['Pitanja proveravaju razumevanje pravila, fer ponašanja i odgovornosti u competitive okruženju.', 'Greške u ovom bloku nose veći reputacioni rizik za Professional zonu.'] },
+        { title: 'Rizik, prevara i zabranjena pomoć', points: ['Kandidat mora prepoznati zabranjenu pomoć, copy-assist obrasce i pokušaje prevare.', 'Blok podržava compliance, anti-fraud i odluke o suspenziji statusa.'] },
+      ],
+      visualQuestionRules: [
+        'Slikovita pitanja koriste simbole, mape, dijagrame, grafike i interfejs elemente kao obavezni deo testa.',
+        'Vizuelni zadaci proveravaju razumevanje situacije i pažnju, a ne samo čisto pamćenje.',
+        'Sistem rotira različite tipove vizuelnih pitanja kako bi smanjio ponavljanje i šansu za mehaničko učenje odgovora.',
+      ],
+      weeklyCycle: [
+        { title: 'Ponedeljak', summary: 'Osvežavanje baze i aktivnih oblasti.', steps: ['Rotacija kategorija', 'Aktiviranje novih slikovitih pitanja', 'Provera pokrivenosti oblasti slabosti'] },
+        { title: 'Utorak–četvrtak', summary: 'Redovni pokušaji i praćenje kandidata.', steps: ['Kvalifikacioni pokušaji', 'Praćenje rezultata po kategorijama', 'Flagovanje sumnjivih obrazaca'] },
+        { title: 'Petak', summary: 'Analiza kvaliteta i rizika.', steps: ['Pregled prolaznosti', 'Identifikacija najtežih pitanja', 'Audit sumnjivih sesija'] },
+        { title: 'Subota', summary: 'Dopuna i korekcija baze.', steps: ['Dodavanje pitanja koja pokrivaju rupe u znanju', 'Ažuriranje težine po oblastima', 'Priprema sledeće rotacije'] },
+        { title: 'Nedelja', summary: 'Reset kompetentnosti i priprema sledećeg kruga.', steps: ['Reset nedeljnog statusa po potrebi', 'Objava novih oblasti fokusa', 'Planiranje sledeće nedelje testiranja'] },
+      ],
+      retentionRules: [
+        'Professional status nije trajan bez kontrole; proverava se na nedeljnom ili sezonskom nivou.',
+        'Ozbiljan pad kvaliteta, sumnjivo ponašanje ili neuspeh u reevaluaciji vraćaju igrača u Fun/Test režim.',
+        'Ponovni ulazak u real-money zonu zahteva nov čist kvalifikacioni ciklus.',
+      ],
+      antiAbuseRules: [
+        'Pitanja se nasumično biraju iz veće baze uz ograničenje ponavljanja istih kombinacija.',
+        'Trening pokušaji i kvalifikacioni pokušaji vode se odvojeno i ne mogu se mešati za pristup status.',
+        'Prebrzi ili neprirodni obrasci odgovaranja automatski šalju sesiju u review hold.',
+        'Tokom review-a kandidat ne može otključati niti zadržati real-money status.',
+      ],
+      userJourney: [
+        'Korisnik počinje u Fun/Test zoni i vežba oblasti u kojima greši.',
+        'Kada proceni da je spreman, pokreće qualification paket od tri testa.',
+        'Ako položi sva tri testa, dobija pristup Professional sesijama i prvoj low-risk proveri.',
+        'Ako ne položi, vraća se na trening i radi sledeći ciklus sa osveženim pitanjima.',
+      ],
+      successMetrics: [
+        'Prolaznost po kategorijama i po tipu pitanja.',
+        'Broj pokušaja do uspešnog qualification paketa.',
+        'Najčešće greške, posebno u vizuelnim pitanjima i fair-play blokovima.',
+        'Stabilnost igrača nakon ulaska u Professional zonu u odnosu na trening i kvalifikaciju.',
+        'Odnos trening rezultata i kvalifikacionih rezultata kao signal integriteta.',
+      ],
+      rolloutPhases: [
+        'Faza 1: definisanje pravila, kategorija i prolaznog praga.',
+        'Faza 2: izgradnja velike baze slikovitih pitanja.',
+        'Faza 3: aktivacija 3x100 qualification modela.',
+        'Faza 4: uvođenje nedeljne reevaluacije i review pravila.',
+        'Faza 5: povezivanje prolaznosti sa real-money otključavanjem i suspenzijom statusa.',
+      ],
+    },
   },
 };
 
@@ -1339,6 +1425,10 @@ export const complianceRequirements: ComplianceRequirement[] = [
     detail: 'Professional mod ne ide live bez potvrde da format nije nedozvoljeni gambling proizvod.',
   },
   {
+    title: 'Knowledge qualification gate',
+    detail: 'Pre ulaska u real-money mod kandidat mora položiti 3 nasumična testa od po 100 pitanja sa minimum 80% tačnosti na svakom testu.',
+  },
+  {
     title: 'Fiscal PDF archive',
     detail: 'Svaka uplata, bonus, nagrada i refund imaju PDF i audit trail.',
   },
@@ -1358,6 +1448,10 @@ export const antiFraudRules: AntiFraudRule[] = [
     detail: 'Visoki bonusi i neuobičajene akcije idu u obavezni ručni pregled.',
   },
   {
+    title: 'Qualification anomaly review',
+    detail: 'Neprirodna brzina odgovora, nagli skok performanse i sumnjiv odnos trening/kvalifikacija blokiraju otključavanje Professional statusa.',
+  },
+  {
     title: 'Cooldown posle spora',
     detail: 'Disputed mečevi stavljaju naloge u privremeni restricted state.',
   },
@@ -1375,6 +1469,10 @@ export const adminControls: AdminControl[] = [
   {
     title: 'Prize pool controls',
     detail: 'Podešavanje koliko ide u fond, bonus reserve, refund buffer i operator ops.',
+  },
+  {
+    title: 'Question bank rotation',
+    detail: 'Administratori rotiraju nedeljne kategorije, slikovita pitanja i kvalifikacione setove kako bi knowledge gate ostao svež i fer.',
   },
   {
     title: 'Dispute desk',

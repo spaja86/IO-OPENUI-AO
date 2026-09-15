@@ -112,6 +112,7 @@ export default function GamesPage() {
   const fallbackKnowledge = Object.values(gamesEncyclopedia)[0];
   const selectedPlan = gamesCatalog.find(game => game.id === selectedGameId) ?? gamesCatalog[0] ?? null;
   const selectedKnowledge = (selectedGameId ? gamesEncyclopedia[selectedGameId] : undefined) ?? fallbackKnowledge;
+  const continuousTestingGate = selectedKnowledge?.continuousTestingGate;
 
   if (!selectedPlan || !selectedKnowledge) {
     return (
@@ -519,6 +520,123 @@ export default function GamesPage() {
         </div>
       </section>
 
+
+      {continuousTestingGate && (
+        <section id="knowledge-gate" style={{ padding: '0 0 72px' }}>
+          <div className="container">
+            <div style={{ ...sectionCard, marginBottom: '24px', borderColor: 'rgba(6,182,212,0.3)' }}>
+              <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+                <div style={{ ...badgeStyle('#06b6d4'), margin: '0 auto 16px' }}>🧪 Continuous testing gate</div>
+                <h2 className="section-title" style={{ marginBottom: '12px' }}>{continuousTestingGate.title}</h2>
+                <p className="section-subtitle" style={{ maxWidth: '900px', margin: '0 auto' }}>
+                  {continuousTestingGate.summary}
+                </p>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+                {continuousTestingGate.goals.map(goal => (
+                  <div key={goal} style={listStyle('#e2e8f0')}>{goal}</div>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', marginBottom: '24px' }}>
+              <div style={sectionCard}>
+                <div style={{ ...badgeStyle('#10b981'), marginBottom: '16px' }}>📏 Qualification metrics</div>
+                <div style={{ display: 'grid', gap: '10px' }}>
+                  {continuousTestingGate.qualificationMetrics.map(item => (
+                    <div key={item.title} style={listStyle('#e2e8f0')}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', marginBottom: '4px' }}>
+                        <strong>{item.title}</strong>
+                        <span style={{ color: '#10b981', fontWeight: 700 }}>{item.value}</span>
+                      </div>
+                      <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>{item.detail}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div style={sectionCard}>
+                <div style={{ ...badgeStyle('#f59e0b'), marginBottom: '16px' }}>🖼️ Visual question rules</div>
+                <div style={{ display: 'grid', gap: '10px' }}>
+                  {continuousTestingGate.visualQuestionRules.map(rule => (
+                    <div key={rule} style={listStyle('#e2e8f0')}>{rule}</div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px', marginBottom: '24px' }}>
+              {continuousTestingGate.knowledgeCategories.map(block => (
+                <div key={block.title} style={sectionCard}>
+                  <div style={{ ...badgeStyle('#7c3aed'), marginBottom: '12px' }}>{block.title}</div>
+                  <ul style={{ listStyle: 'none', display: 'grid', gap: '8px' }}>
+                    {block.points.map(point => (
+                      <li key={point} style={listStyle('#e2e8f0')}>{point}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ ...sectionCard, marginBottom: '24px' }}>
+              <div style={{ ...badgeStyle('#2563eb'), marginBottom: '16px' }}>🗓️ Weekly non-stop cycle</div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+                {continuousTestingGate.weeklyCycle.map(item => (
+                  <div key={item.title} style={listStyle('#e2e8f0')}>
+                    <strong style={{ display: 'block', marginBottom: '6px' }}>{item.title}</strong>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginBottom: '8px' }}>{item.summary}</div>
+                    <ul style={{ listStyle: 'none', display: 'grid', gap: '6px' }}>
+                      {item.steps.map(step => (
+                        <li key={step} style={{ color: 'var(--io-text)' }}>• {step}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+              <div style={sectionCard}>
+                <div style={{ ...badgeStyle('#ef4444'), marginBottom: '16px' }}>🚨 Retention & anti-abuse</div>
+                <div style={{ display: 'grid', gap: '10px', marginBottom: '16px' }}>
+                  {continuousTestingGate.retentionRules.map(rule => (
+                    <div key={rule} style={listStyle('#e2e8f0')}>{rule}</div>
+                  ))}
+                </div>
+                <div style={{ display: 'grid', gap: '10px' }}>
+                  {continuousTestingGate.antiAbuseRules.map(rule => (
+                    <div key={rule} style={listStyle('#e2e8f0')}>{rule}</div>
+                  ))}
+                </div>
+              </div>
+
+              <div style={sectionCard}>
+                <div style={{ ...badgeStyle('#10b981'), marginBottom: '16px' }}>🧭 Candidate journey</div>
+                <div style={{ display: 'grid', gap: '10px', marginBottom: '16px' }}>
+                  {continuousTestingGate.userJourney.map(step => (
+                    <div key={step} style={listStyle('#e2e8f0')}>{step}</div>
+                  ))}
+                </div>
+                <div style={{ color: '#06b6d4', fontSize: '0.84rem', marginBottom: '10px', fontWeight: 700 }}>Kako se meri uspeh</div>
+                <div style={{ display: 'grid', gap: '10px' }}>
+                  {continuousTestingGate.successMetrics.map(metric => (
+                    <div key={metric} style={listStyle('#e2e8f0')}>{metric}</div>
+                  ))}
+                </div>
+              </div>
+
+              <div style={sectionCard}>
+                <div style={{ ...badgeStyle('#f59e0b'), marginBottom: '16px' }}>🚀 Rollout</div>
+                <div style={{ display: 'grid', gap: '10px' }}>
+                  {continuousTestingGate.rolloutPhases.map(phase => (
+                    <div key={phase} style={listStyle('#e2e8f0')}>{phase}</div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       <section id="game-master-profile" style={{ padding: '0 0 72px' }}>
         <div className="container">
