@@ -51,11 +51,6 @@ const accentByCode = {
 export default function UniversityPage() {
   const [selectedUnitCode, setSelectedUnitCode] = useState(getDefaultUniversityUnit().code);
   const selectedUnit = useMemo(() => getSelectedUniversityUnit(selectedUnitCode), [selectedUnitCode]);
-
-  if (!selectedUnit) {
-    return null;
-  }
-
   const selectedAccent = accentByCode[selectedUnit.code];
 
   return (
@@ -127,7 +122,6 @@ export default function UniversityPage() {
             </div>
 
             <div
-              role="tablist"
               aria-label="Izbor akademske jedinice univerziteta"
               style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', marginBottom: '24px' }}
             >
@@ -135,12 +129,7 @@ export default function UniversityPage() {
                 <button
                   key={unit.code}
                   onClick={() => setSelectedUnitCode(unit.code)}
-                  aria-pressed={selectedUnitCode === unit.code}
                   aria-label={getUniversityUnitAriaLabel(unit)}
-                  role="tab"
-                  aria-selected={selectedUnitCode === unit.code}
-                  aria-controls={`unit-panel-${unit.code}`}
-                  id={`unit-tab-${unit.code}`}
                   style={{
                     ...sectionCard,
                     padding: '18px',
@@ -158,12 +147,7 @@ export default function UniversityPage() {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-              <div
-                id={`unit-panel-${selectedUnit.code}`}
-                role="tabpanel"
-                aria-labelledby={`unit-tab-${selectedUnit.code}`}
-                style={{ ...sectionCard, borderColor: `${selectedAccent}66` }}
-              >
+              <div style={{ ...sectionCard, borderColor: `${selectedAccent}66` }}>
                 <div style={{ ...badgeStyle(selectedAccent), marginBottom: '16px' }}>{selectedUnit.code}</div>
                 <h2 style={{ fontSize: '1.7rem', marginBottom: '8px' }}>{selectedUnit.title}</h2>
                 <p style={{ color: 'var(--io-text)', marginBottom: '10px' }}>{selectedUnit.motto}</p>
