@@ -1,7 +1,7 @@
 export type AccessTier = 'fun' | 'professional';
 export type TransactionType = 'license' | 'start' | 'bonus' | 'prize' | 'refund' | 'salary' | 'allowance';
 export type ProPlayerStatus = 'candidate' | 'contracted' | 'independent' | 'suspended' | 'released';
-export type EngagementModel = 'employee' | 'contractor' | 'esports-contractor';
+export type EngagementModel = 'employee' | 'contractor' | 'esportsContractor';
 export type ContractTier = 'development' | 'standard' | 'premium' | 'elite';
 
 export interface BonusRule {
@@ -677,7 +677,7 @@ export const legalTracks: LegalTrack[] = [
     termination: 'Automatski izlaz iz ugovora ako dva uzastopna weekly review-a padnu ispod minimalnog score-a',
   },
   {
-    model: 'esports-contractor',
+    model: 'esportsContractor',
     label: 'Esport ugovorni saradnik',
     salary: 'Osnovni retainer + bounty/premijum share',
     weeklyHours: '30h minimum',
