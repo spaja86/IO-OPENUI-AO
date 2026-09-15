@@ -107,10 +107,29 @@ function tierAccent(tier: string) {
 }
 
 export default function GamesPage() {
-  const [selectedPlan, setSelectedPlan] = useState(gamesCatalog[0]);
+  const [selectedGameId, setSelectedGameId] = useState(gamesCatalog[0]?.id ?? Object.keys(gamesEncyclopedia)[0] ?? '');
   const [activeMiniGame, setActiveMiniGame] = useState<ActiveGame>('tictactoe');
-  const fallbackKnowledge = gamesEncyclopedia[gamesCatalog[0].id];
-  const selectedKnowledge = gamesEncyclopedia[selectedPlan.id] ?? fallbackKnowledge;
+  const fallbackKnowledge = Object.values(gamesEncyclopedia)[0];
+  const selectedPlan = gamesCatalog.find(game => game.id === selectedGameId) ?? gamesCatalog[0] ?? null;
+  const selectedKnowledge = (selectedGameId ? gamesEncyclopedia[selectedGameId] : undefined) ?? fallbackKnowledge;
+
+  if (!selectedPlan || !selectedKnowledge) {
+    return (
+      <main style={{ paddingTop: 'var(--header-height)' }}>
+        <section style={{ padding: '96px 0 72px' }}>
+          <div className="container">
+            <div style={sectionCard}>
+              <div style={{ ...badgeStyle('#f59e0b'), marginBottom: '12px' }}>🎮 Games data unavailable</div>
+              <p style={{ color: 'var(--io-text)' }}>
+                Games katalog i encyclopedia podaci trenutno nisu dostupni za prikaz.
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+    );
+  }
+
   const layeredOverview = [
     { title: 'Kratki pregled', color: '#06b6d4', points: selectedKnowledge.shortOverview },
     { title: 'Prošireni pregled', color: '#10b981', points: selectedKnowledge.expandedOverview },
@@ -279,13 +298,14 @@ export default function GamesPage() {
               return (
                 <button
                   key={game.id}
-                  onClick={() => setSelectedPlan(game)}
+                  onClick={() => setSelectedGameId(game.id)}
+                  aria-pressed={selectedGameId === game.id}
                   style={{
                     ...sectionCard,
                     textAlign: 'left',
                     cursor: 'pointer',
-                    borderColor: selectedPlan.id === game.id ? 'rgba(124,58,237,0.55)' : 'rgba(0,212,255,0.14)',
-                    boxShadow: selectedPlan.id === game.id ? '0 0 0 1px rgba(124,58,237,0.25)' : 'none',
+                    borderColor: selectedGameId === game.id ? 'rgba(124,58,237,0.55)' : 'rgba(0,212,255,0.14)',
+                    boxShadow: selectedGameId === game.id ? '0 0 0 1px rgba(124,58,237,0.25)' : 'none',
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', marginBottom: '14px' }}>
@@ -854,39 +874,41 @@ export default function GamesPage() {
 
       <section id="wallet-ledger" style={{ padding: '0 0 72px' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
-            <div style={sectionCard}>
-              <div style={{ ...badgeStyle('#06b6d4'), marginBottom: '16px' }}>💼 Wallet / Ledger</div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '14px', marginBottom: '20px' }}>
-                <div style={listStyle('#e2e8f0')}><strong>Available</strong><div>{walletSnapshot.available}</div></div>
-                <div style={listStyle('#f59e0b')}><strong>Reserved</strong><div>{walletSnapshot.reserved}</div></div>
-                <div style={listStyle('#10b981')}><strong>Pending payout</strong><div>{walletSnapshot.pendingPayout}</div></div>
-                <div style={listStyle('#ef4444')}><strong>Locked review</strong><div>{walletSnapshot.lockedForReview}</div></div>
-              </div>
-              <div style={{ display: 'grid', gap: '10px' }}>
-                {ledgerEntries.map(entry => (
-                  <div key={entry.title} style={listStyle('#e2e8f0')}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', marginBottom: '4px' }}>
-                      <strong>{entry.title}</strong>
-                      <span>{entry.amount}</span>
-                    </div>
-                    <div style={{ color: '#06b6d4', fontSize: '0.84rem' }}>{entry.state}</div>
-                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '4px' }}>{entry.note}</div>
-                  </div>
-                ))}
-              </div>
+          <div style={sectionCard}>
+            <div style={{ ...badgeStyle('#06b6d4'), marginBottom: '16px' }}>💼 Wallet / Ledger</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '14px', marginBottom: '20px' }}>
+              <div style={listStyle('#e2e8f0')}><strong>Available</strong><div>{walletSnapshot.available}</div></div>
+              <div style={listStyle('#f59e0b')}><strong>Reserved</strong><div>{walletSnapshot.reserved}</div></div>
+              <div style={listStyle('#10b981')}><strong>Pending payout</strong><div>{walletSnapshot.pendingPayout}</div></div>
+              <div style={listStyle('#ef4444')}><strong>Locked review</strong><div>{walletSnapshot.lockedForReview}</div></div>
             </div>
-
-            <div style={sectionCard}>
-              <div style={{ ...badgeStyle('#10b981'), marginBottom: '16px' }}>🔄 Match lifecycle</div>
-              <div style={{ display: 'grid', gap: '10px' }}>
-                {lifecycleSteps.map((step, index) => (
-                  <div key={step.id} style={listStyle('#e2e8f0')}>
-                    <strong>{index + 1}. {step.title}</strong>
-                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '4px' }}>{step.detail}</div>
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {ledgerEntries.map(entry => (
+                <div key={entry.title} style={listStyle('#e2e8f0')}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', marginBottom: '4px' }}>
+                    <strong>{entry.title}</strong>
+                    <span>{entry.amount}</span>
                   </div>
-                ))}
-              </div>
+                  <div style={{ color: '#06b6d4', fontSize: '0.84rem' }}>{entry.state}</div>
+                  <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '4px' }}>{entry.note}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="match-lifecycle" style={{ padding: '0 0 72px' }}>
+        <div className="container">
+          <div style={sectionCard}>
+            <div style={{ ...badgeStyle('#10b981'), marginBottom: '16px' }}>🔄 Match lifecycle</div>
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {lifecycleSteps.map((step, index) => (
+                <div key={step.id} style={listStyle('#e2e8f0')}>
+                  <strong>{index + 1}. {step.title}</strong>
+                  <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '4px' }}>{step.detail}</div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
