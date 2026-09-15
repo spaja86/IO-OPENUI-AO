@@ -50,7 +50,6 @@ export interface GameCatalogEntry {
   licensePrice: string;
   funStartCredit: string;
   professionalStartCredit: string;
-  maxTeamSize: string;
   summary: string;
   compliance: string;
   config: GamePlanConfig;
@@ -112,7 +111,6 @@ export const gamesCatalog: GameCatalogEntry[] = [
     licensePrice: '24.000 RSD trajna licenca',
     funStartCredit: '0 RSD · test lobby',
     professionalStartCredit: '7.000 RSD po START-u',
-    maxTeamSize: '7 vs 7',
     summary: 'Profesionalni timski mečevi sa START kreditom, pobedničkim fondom i bonus pravilima.',
     compliance: '18+ · ID verifikacija · KYC/AML · manual payout approval',
     config: {
@@ -219,7 +217,6 @@ export const gamesCatalog: GameCatalogEntry[] = [
     licensePrice: '12.000 RSD trajna licenca',
     funStartCredit: '0 RSD · practice board',
     professionalStartCredit: '2.500 RSD po START-u',
-    maxTeamSize: '1 vs 1',
     summary: 'Šah kao skill-based duel sa manjim fondovima, bržim verifikovanjem i PDF obračunom.',
     compliance: '18+ za Professional · anti-engine audit · dispute review',
     config: {
@@ -270,7 +267,6 @@ export const gamesCatalog: GameCatalogEntry[] = [
     licensePrice: '4.000 RSD trajna licenca',
     funStartCredit: '0 RSD · browser kviz',
     professionalStartCredit: '900 RSD po START-u',
-    maxTeamSize: 'Solo',
     summary: 'Znanje kao competitive skill mode sa malim ulazom i trenutnim PDF potvrđivanjem.',
     compliance: '18+ za Professional · telemetry + proctoring light',
     config: {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import TicTacToe from '../components/demos/TicTacToe';
 import GameHub from '../components/demos/GameHub';
 import Chess from '../components/games/Chess';
@@ -182,9 +183,9 @@ export default function GamesPage() {
                 <h2 style={{ fontSize: '1.7rem', marginBottom: '8px' }}>{selectedPlan.title}</h2>
                 <p style={{ color: 'var(--io-muted)', maxWidth: '760px' }}>{selectedPlan.compliance}</p>
               </div>
-              <a href="/bank/" className="btn-secondary">
+              <Link to="/bank/" className="btn-secondary">
                 🏦 Otvori AI IQ World Bank
-              </a>
+              </Link>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: '16px', marginBottom: '28px' }}>
