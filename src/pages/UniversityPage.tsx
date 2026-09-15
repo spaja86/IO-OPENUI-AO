@@ -121,31 +121,44 @@ export default function UniversityPage() {
               </p>
             </div>
 
-            <div
-              role="group"
-              aria-label="Izbor akademske jedinice univerziteta"
-              style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', marginBottom: '24px' }}
+            <fieldset
+              style={{
+                margin: 0,
+                padding: 0,
+                border: 'none',
+              }}
             >
+              <legend style={{ color: 'var(--io-muted)', marginBottom: '12px' }}>Izbor akademske jedinice univerziteta</legend>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', marginBottom: '24px' }}>
               {universityProgram.units.map(unit => (
-                <button
+                <label
                   key={unit.code}
-                  onClick={() => setSelectedUnitCode(unit.code)}
-                  aria-label={getUniversityUnitAriaLabel(unit)}
                   style={{
                     ...sectionCard,
                     padding: '18px',
+                    position: 'relative',
                     textAlign: 'left',
                     cursor: 'pointer',
                     borderColor: selectedUnitCode === unit.code ? `${accentByCode[unit.code]}88` : 'rgba(0,212,255,0.14)',
                     background: selectedUnitCode === unit.code ? `${accentByCode[unit.code]}14` : 'rgba(18, 35, 64, 0.7)',
                   }}
                 >
+                  <input
+                    type="radio"
+                    name="university-unit"
+                    value={unit.code}
+                    checked={selectedUnitCode === unit.code}
+                    onChange={() => setSelectedUnitCode(unit.code)}
+                    aria-label={getUniversityUnitAriaLabel(unit)}
+                    style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}
+                  />
                   <div style={{ ...badgeStyle(accentByCode[unit.code]), marginBottom: '10px' }}>{unit.code}</div>
                   <strong style={{ display: 'block', marginBottom: '8px', color: 'var(--io-text)' }}>{unit.title}</strong>
                   <span style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>{unit.difficulty}</span>
-                </button>
+                </label>
               ))}
-            </div>
+              </div>
+            </fieldset>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
               <div style={{ ...sectionCard, borderColor: `${selectedAccent}66` }}>

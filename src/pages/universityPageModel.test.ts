@@ -9,7 +9,7 @@ import {
 
 test('defaults to the first university unit', () => {
   assert.equal(getDefaultUniversityUnit().code, universityProgram.units[0].code);
-  assert.equal(getSelectedUniversityUnit(undefined).code, 'PAN');
+  assert.equal(getSelectedUniversityUnit(undefined).code, universityProgram.units[0].code);
 });
 
 test('returns the selected unit when a different code is chosen', () => {
