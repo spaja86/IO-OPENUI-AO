@@ -1,5 +1,10 @@
 import React, { useMemo, useState } from 'react';
 import { universityProgram } from '../data/university';
+import {
+  getDefaultUniversityUnit,
+  getSelectedUniversityUnit,
+  getUniversityUnitAriaLabel,
+} from './universityPageModel';
 
 const sectionCard: React.CSSProperties = {
   background: 'rgba(18, 35, 64, 0.7)',
@@ -44,11 +49,8 @@ const accentByCode = {
 } as const;
 
 export default function UniversityPage() {
-  const [selectedUnitCode, setSelectedUnitCode] = useState(universityProgram.units[0]?.code ?? 'PAN');
-  const selectedUnit = useMemo(
-    () => universityProgram.units.find(unit => unit.code === selectedUnitCode) ?? universityProgram.units[0],
-    [selectedUnitCode],
-  );
+  const [selectedUnitCode, setSelectedUnitCode] = useState(getDefaultUniversityUnit().code);
+  const selectedUnit = useMemo(() => getSelectedUniversityUnit(selectedUnitCode), [selectedUnitCode]);
 
   if (!selectedUnit) {
     return null;
@@ -124,12 +126,21 @@ export default function UniversityPage() {
               </p>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', marginBottom: '24px' }}>
+            <div
+              role="tablist"
+              aria-label="Izbor akademske jedinice univerziteta"
+              style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', marginBottom: '24px' }}
+            >
               {universityProgram.units.map(unit => (
                 <button
                   key={unit.code}
                   onClick={() => setSelectedUnitCode(unit.code)}
                   aria-pressed={selectedUnitCode === unit.code}
+                  aria-label={getUniversityUnitAriaLabel(unit)}
+                  role="tab"
+                  aria-selected={selectedUnitCode === unit.code}
+                  aria-controls={`unit-panel-${unit.code}`}
+                  id={`unit-tab-${unit.code}`}
                   style={{
                     ...sectionCard,
                     padding: '18px',
@@ -147,7 +158,12 @@ export default function UniversityPage() {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-              <div style={{ ...sectionCard, borderColor: `${selectedAccent}66` }}>
+              <div
+                id={`unit-panel-${selectedUnit.code}`}
+                role="tabpanel"
+                aria-labelledby={`unit-tab-${selectedUnit.code}`}
+                style={{ ...sectionCard, borderColor: `${selectedAccent}66` }}
+              >
                 <div style={{ ...badgeStyle(selectedAccent), marginBottom: '16px' }}>{selectedUnit.code}</div>
                 <h2 style={{ fontSize: '1.7rem', marginBottom: '8px' }}>{selectedUnit.title}</h2>
                 <p style={{ color: 'var(--io-text)', marginBottom: '10px' }}>{selectedUnit.motto}</p>

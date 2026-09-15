@@ -1254,7 +1254,7 @@ export const gamesEncyclopedia: Record<string, GameKnowledgeEntry> = {
       ],
       antiAbuseRules: [
         'Pitanja se nasumično biraju iz veće baze uz ograničenje ponavljanja istih kombinacija.',
-        'Trening pokušaji i kvalifikacioni pokušaji vode se odvojeno i ne mogu se mešati za pristup status.',
+        'Trening pokušaji i kvalifikacioni pokušaji vode se odvojeno i ne mogu se kombinovati za aktivaciju qualification statusa ili Professional pristupa.',
         'Prebrzi ili neprirodni obrasci odgovaranja automatski šalju sesiju u review hold.',
         'Tokom review-a kandidat ne može otključati niti zadržati real-money status.',
       ],
