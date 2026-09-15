@@ -74,6 +74,13 @@ export const FEATURES: Feature[] = [
     category: 'collaboration',
   },
   {
+    id: 'university',
+    title: 'UNEVERZITET',
+    description: 'Akademski sistem sa 6 jedinica za obrazovanje, testiranje, sertifikaciju i napredovanje ka profesionalnom režimu.',
+    icon: '🎓',
+    category: 'collaboration',
+  },
+  {
     id: 'security',
     title: 'Sigurna Komunikacija',
     description: 'End-to-end enkripcija, HTTPS protokol i napredne sigurnosne politike za zaštitu privatnosti.',
@@ -94,6 +101,7 @@ export const NAV_LINKS = [
   { path: '/features', label: 'Funkcionalnosti' },
   { path: '/realtime', label: 'Real-time Demo' },
   { path: '/games', label: 'Games Economy' },
+  { path: '/university', label: 'Univerzitet' },
   { path: '/about', label: 'O Nama' },
   { path: '/contact', label: 'Kontakt' },
 ];
