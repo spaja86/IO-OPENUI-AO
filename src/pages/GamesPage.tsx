@@ -559,7 +559,7 @@ export default function GamesPage() {
               <div style={{ ...badgeStyle('#7c3aed'), marginBottom: '16px' }}>📌 Recent bounty events</div>
               <div style={{ display: 'grid', gap: '10px' }}>
                 {recentBountyEvents.map(event => (
-                  <div key={`${event.hunter}-${event.target}`} style={listStyle('#e2e8f0')}>
+                  <div key={event.id} style={listStyle('#e2e8f0')}>
                     <strong>{event.hunter}</strong>
                     <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '4px' }}>Target: {event.target}</div>
                     <div style={{ color: '#10b981', fontSize: '0.84rem' }}>{event.trigger}</div>

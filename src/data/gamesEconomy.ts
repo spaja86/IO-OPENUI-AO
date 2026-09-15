@@ -170,6 +170,11 @@ export interface CompensationRule {
   detail: string;
 }
 
+export interface BountyAntiAbuseRule {
+  title: string;
+  detail: string;
+}
+
 export interface BountyMatrixEntry {
   targetBand: string;
   hunterBand: string;
@@ -180,6 +185,7 @@ export interface BountyMatrixEntry {
 }
 
 export interface BountyEvent {
+  id: string;
   hunter: string;
   target: string;
   trigger: string;
@@ -855,7 +861,7 @@ export const bountyMatrix: BountyMatrixEntry[] = [
   },
 ];
 
-export const antiAbuseBountyRules: WorkRule[] = [
+export const antiAbuseBountyRules: BountyAntiAbuseRule[] = [
   { title: 'Validan meč je obavezan', detail: 'Bez telemetry potvrde, anti-collusion check-a i zatvorenog dispute window-a nema bounty isplate.' },
   { title: 'Alt-account i collusion zabrana', detail: 'Farmovanje poznatih naloga, namešteni mečevi i povezani računi blokiraju payout i status.' },
   { title: 'Cooldown parova', detail: 'Isti par igrača ima cooldown period pre ponovnog bounty priznanja da bi se sprečilo farmovanje.' },
@@ -864,6 +870,7 @@ export const antiAbuseBountyRules: WorkRule[] = [
 
 export const recentBountyEvents: BountyEvent[] = [
   {
+    id: 'bounty-w37-001',
     hunter: 'Rising Hunter',
     target: 'Top-900 Quiz Pro',
     trigger: 'Pobeda + prelazak target tier-a',
@@ -872,6 +879,7 @@ export const recentBountyEvents: BountyEvent[] = [
     note: 'Potvrđen underdog scenario i čist anti-fraud signal.',
   },
   {
+    id: 'bounty-w37-002',
     hunter: 'Captain Nova',
     target: 'Top-25 Dota carry',
     trigger: 'Match victory over higher-ranked target',
@@ -880,6 +888,7 @@ export const recentBountyEvents: BountyEvent[] = [
     note: 'Premium bounty lane bez hard cap-a, čeka finalni weekly close.',
   },
   {
+    id: 'bounty-w37-003',
     hunter: 'Shadow Pause',
     target: 'Top-500 Dota support',
     trigger: 'Ranked win claim',
