@@ -13,9 +13,11 @@ import {
   compensationRules,
   contractTierPolicies,
   gameKnowledgeLayers,
+  gameStandardProfiles,
   gamesCatalog,
   gamesEncyclopedia,
   gamesPageMission,
+  globalMinimumAcceptanceGate,
   globalGamesGlossary,
   ledgerEntries,
   legalTracks,
@@ -106,15 +108,50 @@ function tierAccent(tier: string) {
   }
 }
 
+function operationalStatusAccent(status: string) {
+  switch (status) {
+    case 'planned':
+      return '#06b6d4';
+    case 'pilot':
+      return '#f59e0b';
+    case 'live':
+      return '#10b981';
+    case 'restricted':
+      return '#ef4444';
+    default:
+      return '#94a3b8';
+  }
+}
+
+function readinessAccent(readiness: string) {
+  switch (readiness) {
+    case 'ready':
+    case 'pass':
+    case 'up':
+      return '#10b981';
+    case 'partial':
+    case 'hold':
+    case 'stable':
+      return '#f59e0b';
+    case 'blocked':
+    case 'down':
+      return '#ef4444';
+    default:
+      return '#94a3b8';
+  }
+}
+
 export default function GamesPage() {
   const [selectedGameId, setSelectedGameId] = useState(gamesCatalog[0]?.id ?? Object.keys(gamesEncyclopedia)[0] ?? '');
   const [activeMiniGame, setActiveMiniGame] = useState<ActiveGame>('tictactoe');
   const fallbackKnowledge = Object.values(gamesEncyclopedia)[0];
+  const fallbackStandards = Object.values(gameStandardProfiles)[0];
   const selectedPlan = gamesCatalog.find(game => game.id === selectedGameId) ?? gamesCatalog[0] ?? null;
   const selectedKnowledge = (selectedGameId ? gamesEncyclopedia[selectedGameId] : undefined) ?? fallbackKnowledge;
+  const selectedStandards = (selectedGameId ? gameStandardProfiles[selectedGameId] : undefined) ?? fallbackStandards;
   const continuousTestingGate = selectedKnowledge?.continuousTestingGate;
 
-  if (!selectedPlan || !selectedKnowledge) {
+  if (!selectedPlan || !selectedKnowledge || !selectedStandards) {
     return (
       <main style={{ paddingTop: 'var(--header-height)' }}>
         <section style={{ padding: '96px 0 72px' }}>
@@ -520,6 +557,130 @@ export default function GamesPage() {
         </div>
       </section>
 
+      <section id="game-compatibility-matrix" style={{ padding: '0 0 72px' }}>
+        <div className="container">
+          <div style={{ ...sectionCard, marginBottom: '24px' }}>
+            <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+              <div style={{ ...badgeStyle('#2563eb'), margin: '0 auto 16px' }}>🧩 Game Compatibility Matrix</div>
+              <h2 className="section-title" style={{ marginBottom: '12px' }}>Standardizovan template i tehnička spremnost</h2>
+              <p className="section-subtitle" style={{ margin: '0 auto', maxWidth: '900px' }}>
+                Svaka igra koristi obavezan template: identitet, ekonomija, gameplay slojevi, trust/compliance, QA i operativni status.
+              </p>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '12px', marginBottom: '20px' }}>
+              <div style={listStyle('#e2e8f0')}><strong>Identity:</strong> {selectedStandards.template.identity}</div>
+              <div style={listStyle('#e2e8f0')}><strong>Economy:</strong> {selectedStandards.template.economy}</div>
+              <div style={listStyle('#e2e8f0')}><strong>Gameplay:</strong> {selectedStandards.template.gameplayLayers}</div>
+              <div style={listStyle('#e2e8f0')}><strong>Trust/Compliance:</strong> {selectedStandards.template.trustCompliance}</div>
+              <div style={listStyle('#e2e8f0')}><strong>QA:</strong> {selectedStandards.template.qa}</div>
+              <div style={listStyle(operationalStatusAccent(selectedPlan.status))}>
+                <strong>Operational status:</strong> {selectedStandards.template.operationalStatus}
+              </div>
+            </div>
+
+            <div style={{ ...sectionCard, padding: '18px', marginBottom: '20px', borderColor: 'rgba(16,185,129,0.3)' }}>
+              <div style={{ ...badgeStyle('#10b981'), marginBottom: '10px' }}>⚙️ Technical readiness (obavezni blok)</div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: '10px' }}>
+                <div style={listStyle('#e2e8f0')}><strong>Rendering:</strong> {selectedStandards.technicalReadiness.rendering}</div>
+                <div style={listStyle('#e2e8f0')}><strong>Input:</strong> {selectedStandards.technicalReadiness.inputHandling}</div>
+                <div style={listStyle('#e2e8f0')}><strong>Performance:</strong> {selectedStandards.technicalReadiness.performance}</div>
+                <div style={listStyle('#e2e8f0')}><strong>Network:</strong> {selectedStandards.technicalReadiness.network}</div>
+                <div style={listStyle('#e2e8f0')}><strong>Accessibility:</strong> {selectedStandards.technicalReadiness.accessibility}</div>
+                <div style={listStyle('#e2e8f0')}><strong>Compliance:</strong> {selectedStandards.technicalReadiness.compliance}</div>
+              </div>
+            </div>
+
+            <div style={{ marginBottom: '20px' }}>
+              <div style={{ ...badgeStyle('#f59e0b'), marginBottom: '12px' }}>✅ Global minimum acceptance gate (pre live statusa)</div>
+              <div style={{ display: 'grid', gap: '10px' }}>
+                {globalMinimumAcceptanceGate.map(item => (
+                  <div key={item} style={listStyle('#e2e8f0')}>{item}</div>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ display: 'grid', gap: '10px', marginBottom: '20px' }}>
+              {selectedStandards.compatibilityMatrix.map(row => (
+                <div key={row.dimension} style={listStyle('#e2e8f0')}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', marginBottom: '4px' }}>
+                    <strong>{row.dimension}</strong>
+                    <span style={{ ...badgeStyle(readinessAccent(row.readiness)), padding: '4px 10px' }}>{row.readiness.toUpperCase()}</span>
+                  </div>
+                  <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginBottom: '4px' }}>{row.requirement}</div>
+                  <div style={{ color: 'var(--io-text)', fontSize: '0.84rem' }}>{row.detail}</div>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
+              <div style={sectionCard}>
+                <div style={{ ...badgeStyle('#10b981'), marginBottom: '12px' }}>📊 Readiness Index</div>
+                <div style={{ fontSize: '2rem', fontWeight: 800, color: '#10b981', marginBottom: '8px' }}>{selectedStandards.readinessIndex}/100</div>
+                <div style={{ color: 'var(--io-muted)', fontSize: '0.9rem' }}>
+                  Nedeljni pregled prati trendove i jasno signalizira da li igra ide ka live ili ostaje u pilot/restricted statusu.
+                </div>
+              </div>
+
+              <div style={sectionCard}>
+                <div style={{ ...badgeStyle('#ef4444'), marginBottom: '12px' }}>🚧 Known limitations</div>
+                <div style={{ display: 'grid', gap: '8px' }}>
+                  {selectedStandards.knownLimitations.map(item => (
+                    <div key={item} style={listStyle('#e2e8f0')}>{item}</div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+            <div style={sectionCard}>
+              <div style={{ ...badgeStyle('#7c3aed'), marginBottom: '12px' }}>🧪 Acceptance gate (po igri)</div>
+              <div style={{ display: 'grid', gap: '10px' }}>
+                {selectedStandards.minimumAcceptanceGate.map(gate => (
+                  <div key={gate.gate} style={listStyle(readinessAccent(gate.state))}>
+                    <strong>{gate.gate}</strong>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '4px' }}>{gate.requirement}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={sectionCard}>
+              <div style={{ ...badgeStyle('#ef4444'), marginBottom: '12px' }}>⚠️ Risk board</div>
+              <div style={{ display: 'grid', gap: '10px' }}>
+                {selectedStandards.riskBoard.map(item => (
+                  <div key={`${item.category}-${item.level}`} style={listStyle(readinessAccent(item.level === 'critical' || item.level === 'high' ? 'down' : item.level === 'medium' ? 'stable' : 'up'))}>
+                    <strong>{item.category.toUpperCase()} · {item.level.toUpperCase()}</strong>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '4px' }}>{item.mitigation}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={sectionCard}>
+              <div style={{ ...badgeStyle('#06b6d4'), marginBottom: '12px' }}>📈 Weekly readiness review</div>
+              <div style={{ display: 'grid', gap: '10px', marginBottom: '12px' }}>
+                {selectedStandards.weeklyReadinessReview.map(metric => (
+                  <div key={metric.metric} style={listStyle('#e2e8f0')}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
+                      <strong>{metric.metric}</strong>
+                      <span style={{ color: readinessAccent(metric.trend), fontWeight: 700 }}>{metric.trend.toUpperCase()}</span>
+                    </div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>Value: {metric.value} · Target: {metric.target}</div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ ...badgeStyle('#f59e0b'), marginBottom: '10px' }}>🧬 Experimental lane</div>
+              <div style={{ display: 'grid', gap: '8px' }}>
+                {selectedStandards.experimentalLane.map(item => (
+                  <div key={item} style={listStyle('#e2e8f0')}>{item}</div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {continuousTestingGate && (
         <section id="knowledge-gate" style={{ padding: '0 0 72px' }}>
