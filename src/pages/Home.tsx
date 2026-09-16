@@ -7,10 +7,10 @@ import ScrollAnimation from '../components/ScrollAnimation';
 import { FEATURES } from '../utils/constants';
 
 const STATS = [
-  { value: '2', label: 'Real-time modula' },
-  { value: 'WebRTC + Socket.IO', label: 'Tehnologije' },
-  { value: 'TypeScript', label: 'Tip sigurnost' },
-  { value: 'Vercel', label: 'Hosting' },
+  { value: '4', label: 'Ekosistem modula' },
+  { value: '10', label: 'Tipova licenci u bank sloju' },
+  { value: '18', label: 'Ciljanih industrijskih vertikala' },
+  { value: '24/7', label: 'Globalni pristup' },
 ];
 
 export default function Home() {
@@ -18,7 +18,6 @@ export default function Home() {
     <main>
       <Hero />
 
-      {/* Stats bar */}
       <ScrollAnimation>
         <section
           style={{
@@ -62,7 +61,6 @@ export default function Home() {
         </section>
       </ScrollAnimation>
 
-      {/* Features grid */}
       <section style={{ padding: 'var(--section-padding)' }}>
         <div className="container">
           <ScrollAnimation>
@@ -71,7 +69,7 @@ export default function Home() {
                 Ključne <span className="gradient-text">Funkcionalnosti</span>
               </h2>
               <p className="section-subtitle">
-                Sve što vam je potrebno za profesionalnu online saradnju
+                Ekosistem spaja komunikaciju, edukaciju, finansije, licence i profesionalni rad.
               </p>
             </div>
           </ScrollAnimation>
@@ -92,10 +90,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Platform links */}
+      <ScrollAnimation>
+        <section style={{ padding: '0 0 var(--section-padding)' }}>
+          <div className="container">
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: '24px',
+              }}
+            >
+              <a href="/bank/" className="glass-card" style={{ padding: '28px', display: 'block', textDecoration: 'none' }}>
+                <div style={{ fontSize: '2rem', marginBottom: '12px' }}>🏦</div>
+                <h3 style={{ color: 'var(--io-text)', marginBottom: '10px' }}>AI IQ World Bank</h3>
+                <p style={{ color: 'var(--io-muted)', lineHeight: 1.7, marginBottom: '14px' }}>
+                  Globalni work/licensing/compliance centar za delatnosti, dokumente, statuse, regione i enterprise aktivaciju.
+                </p>
+                <span style={{ color: 'var(--io-accent)', fontWeight: 700 }}>Otvori /bank/ →</span>
+              </a>
+              <Link to="/university" className="glass-card" style={{ padding: '28px', display: 'block', textDecoration: 'none' }}>
+                <div style={{ fontSize: '2rem', marginBottom: '12px' }}>🎓</div>
+                <h3 style={{ color: 'var(--io-text)', marginBottom: '10px' }}>UNEVERZITET</h3>
+                <p style={{ color: 'var(--io-muted)', lineHeight: 1.7, marginBottom: '14px' }}>
+                  PAN → DUN putanja, global work readiness, licencni moduli i education-to-licence most za profesionalni režim.
+                </p>
+                <span style={{ color: 'var(--io-accent)', fontWeight: 700 }}>Otvori /university →</span>
+              </Link>
+            </div>
+          </div>
+        </section>
+      </ScrollAnimation>
+
       <PlatformLinks />
 
-      {/* CTA */}
       <ScrollAnimation>
         <section
           style={{
@@ -117,22 +144,25 @@ export default function Home() {
                   marginBottom: '16px',
                 }}
               >
-                Isprobaj{' '}
-                <span className="gradient-text">Real-time Demo</span>
+                Aktiviraj <span className="gradient-text">globalni pristup</span>
               </h2>
               <p
                 style={{
                   color: 'var(--io-muted)',
                   fontSize: '1.05rem',
-                  maxWidth: '500px',
+                  maxWidth: '720px',
                   margin: '0 auto 32px',
+                  lineHeight: 1.7,
                 }}
               >
-                Testiraj live chat i simulirani video poziv direktno u browseru
+                Istraži AI IQ World Bank licence, proveri UNEVERZITET readiness putanju i zatim testiraj real-time i games module u istom ekosistemu.
               </p>
               <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <Link to="/realtime" className="btn-primary">
-                  🚀 Pokreni Demo
+                <a href="/bank/" className="btn-primary">
+                  🏦 Licence i compliance
+                </a>
+                <Link to="/university" className="btn-secondary">
+                  🎓 Akademski put
                 </Link>
                 <Link to="/features" className="btn-secondary">
                   📋 Sve funkcije

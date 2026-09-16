@@ -48,6 +48,13 @@ const accentByCode = {
   DUN: '#ef4444',
 } as const;
 
+const statusColor = {
+  Supported: '#10b981',
+  Conditional: '#f59e0b',
+  Restricted: '#ef4444',
+  'Enterprise review': '#2563eb',
+} as const;
+
 export default function UniversityPage() {
   const [selectedUnitCode, setSelectedUnitCode] = useState(getDefaultUniversityUnit().code);
   const selectedUnit = useMemo(() => getSelectedUniversityUnit(selectedUnitCode), [selectedUnitCode]);
@@ -121,42 +128,36 @@ export default function UniversityPage() {
               </p>
             </div>
 
-            <fieldset
-              style={{
-                margin: 0,
-                padding: 0,
-                border: 'none',
-              }}
-            >
+            <fieldset style={{ margin: 0, padding: 0, border: 'none' }}>
               <legend style={{ color: 'var(--io-muted)', marginBottom: '12px' }}>Izbor akademske jedinice univerziteta</legend>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', marginBottom: '24px' }}>
-              {universityProgram.units.map(unit => (
-                <label
-                  key={unit.code}
-                  style={{
-                    ...sectionCard,
-                    padding: '18px',
-                    position: 'relative',
-                    textAlign: 'left',
-                    cursor: 'pointer',
-                    borderColor: selectedUnitCode === unit.code ? `${accentByCode[unit.code]}88` : 'rgba(0,212,255,0.14)',
-                    background: selectedUnitCode === unit.code ? `${accentByCode[unit.code]}14` : 'rgba(18, 35, 64, 0.7)',
-                  }}
-                >
-                  <input
-                    type="radio"
-                    name="university-unit"
-                    value={unit.code}
-                    checked={selectedUnitCode === unit.code}
-                    onChange={() => setSelectedUnitCode(unit.code)}
-                    aria-label={getUniversityUnitAriaLabel(unit)}
-                    style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}
-                  />
-                  <div style={{ ...badgeStyle(accentByCode[unit.code]), marginBottom: '10px' }}>{unit.code}</div>
-                  <strong style={{ display: 'block', marginBottom: '8px', color: 'var(--io-text)' }}>{unit.title}</strong>
-                  <span style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>{unit.difficulty}</span>
-                </label>
-              ))}
+                {universityProgram.units.map(unit => (
+                  <label
+                    key={unit.code}
+                    style={{
+                      ...sectionCard,
+                      padding: '18px',
+                      position: 'relative',
+                      textAlign: 'left',
+                      cursor: 'pointer',
+                      borderColor: selectedUnitCode === unit.code ? `${accentByCode[unit.code]}88` : 'rgba(0,212,255,0.14)',
+                      background: selectedUnitCode === unit.code ? `${accentByCode[unit.code]}14` : 'rgba(18, 35, 64, 0.7)',
+                    }}
+                  >
+                    <input
+                      type="radio"
+                      name="university-unit"
+                      value={unit.code}
+                      checked={selectedUnitCode === unit.code}
+                      onChange={() => setSelectedUnitCode(unit.code)}
+                      aria-label={getUniversityUnitAriaLabel(unit)}
+                      style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}
+                    />
+                    <div style={{ ...badgeStyle(accentByCode[unit.code]), marginBottom: '10px' }}>{unit.code}</div>
+                    <strong style={{ display: 'block', marginBottom: '8px', color: 'var(--io-text)' }}>{unit.title}</strong>
+                    <span style={{ color: 'var(--io-muted)', fontSize: '0.84rem' }}>{unit.difficulty}</span>
+                  </label>
+                ))}
               </div>
             </fieldset>
 
@@ -334,6 +335,146 @@ export default function UniversityPage() {
                   <div key={item} style={listStyle('#e2e8f0')}>{item}</div>
                 ))}
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style={{ padding: '0 0 72px' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', marginBottom: '28px' }}>
+            <div style={{ ...badgeStyle('#2563eb'), margin: '0 auto 16px' }}>🌍 Education to licence path</div>
+            <h2 className="section-title">Global work readiness i licencirani profesionalni režim</h2>
+            <p className="section-subtitle" style={{ margin: '0 auto', maxWidth: '860px' }}>
+              Novi smerovi uvode bank, compliance, licensing i međunarodnu saradnju kao most između znanja i profesionalne aktivacije.
+            </p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', marginBottom: '24px' }}>
+            {universityProgram.workReadiness.map(track => (
+              <div key={track.title} style={sectionCard}>
+                <div style={{ ...badgeStyle('#2563eb'), marginBottom: '16px' }}>{track.title}</div>
+                <p style={{ color: 'var(--io-muted)', marginBottom: '16px' }}>{track.summary}</p>
+                <div style={{ display: 'grid', gap: '10px', marginBottom: '16px' }}>
+                  {track.modules.map(item => (
+                    <div key={item} style={listStyle('#e2e8f0')}>{item}</div>
+                  ))}
+                </div>
+                <div style={{ display: 'grid', gap: '10px' }}>
+                  {track.outcomes.map(item => (
+                    <div key={item} style={listStyle('#cbd5e1')}>{item}</div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={sectionCard}>
+            <div style={{ ...badgeStyle('#06b6d4'), marginBottom: '16px' }}>🏭 Sektorske sertifikacije</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+              {universityProgram.industryTracks.map(track => (
+                <span
+                  key={track}
+                  style={{
+                    padding: '8px 12px',
+                    borderRadius: '999px',
+                    border: '1px solid rgba(37,99,235,0.32)',
+                    background: 'rgba(37,99,235,0.12)',
+                    color: '#e2e8f0',
+                    fontSize: '0.84rem',
+                  }}
+                >
+                  {track}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style={{ padding: '0 0 72px' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', marginBottom: '28px' }}>
+            <div style={{ ...badgeStyle('#7c3aed'), margin: '0 auto 16px' }}>🔐 Licence i statusi</div>
+            <h2 className="section-title">Licence za rad i globalni statusni model</h2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginBottom: '24px' }}>
+            {universityProgram.licenceTiers.map(tier => (
+              <div key={tier.title} style={sectionCard}>
+                <div style={{ ...badgeStyle('#7c3aed'), marginBottom: '16px' }}>{tier.title}</div>
+                <p style={{ color: 'var(--io-text)', marginBottom: '12px' }}>{tier.audience}</p>
+                <div style={{ display: 'grid', gap: '10px', marginBottom: '12px' }}>
+                  {tier.unlocks.map(item => (
+                    <div key={item} style={listStyle('#e2e8f0')}>{item}</div>
+                  ))}
+                </div>
+                <div style={{ color: 'var(--io-muted)', fontSize: '0.86rem', marginBottom: '8px' }}>Važi za delatnosti:</div>
+                <ul style={{ listStyle: 'none', display: 'grid', gap: '6px', marginBottom: '12px' }}>
+                  {tier.validActivities.map(item => (
+                    <li key={item} style={{ color: 'var(--io-text)' }}>• {item}</li>
+                  ))}
+                </ul>
+                <div style={{ color: 'var(--io-muted)', fontSize: '0.86rem', marginBottom: '8px' }}>Uslovi:</div>
+                <ul style={{ listStyle: 'none', display: 'grid', gap: '6px', marginBottom: '12px' }}>
+                  {tier.requirements.map(item => (
+                    <li key={item} style={{ color: 'var(--io-text)' }}>• {item}</li>
+                  ))}
+                </ul>
+                <div style={{ color: '#cbd5e1', fontSize: '0.84rem', marginBottom: '6px' }}>Verifikacija: {tier.verification}</div>
+                <div style={{ color: '#cbd5e1', fontSize: '0.84rem', marginBottom: '6px' }}>Obnavljanje: {tier.renewal}</div>
+                <div style={{ color: '#fda4af', fontSize: '0.84rem' }}>Suspenzija: {tier.suspension}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+            {universityProgram.globalStatuses.map(status => (
+              <div key={status.title} style={sectionCard}>
+                <div style={{ ...badgeStyle('#10b981'), marginBottom: '16px' }}>{status.title}</div>
+                <div style={{ display: 'grid', gap: '10px', marginBottom: '12px' }}>
+                  {status.entryRequirements.map(item => (
+                    <div key={item} style={listStyle('#e2e8f0')}>{item}</div>
+                  ))}
+                </div>
+                <div style={{ color: 'var(--io-muted)', fontSize: '0.86rem', marginBottom: '8px' }}>Dozvoljene delatnosti:</div>
+                <ul style={{ listStyle: 'none', display: 'grid', gap: '6px', marginBottom: '12px' }}>
+                  {status.allowedActivities.map(item => (
+                    <li key={item} style={{ color: 'var(--io-text)' }}>• {item}</li>
+                  ))}
+                </ul>
+                <div style={{ color: '#cbd5e1', fontSize: '0.84rem', marginBottom: '6px' }}>Teritorija: {status.territory}</div>
+                <div style={{ color: '#cbd5e1', fontSize: '0.84rem', marginBottom: '6px' }}>Finansijski limiti: {status.financialLimits}</div>
+                <div style={{ color: '#cbd5e1', fontSize: '0.84rem', marginBottom: '6px' }}>Audit nivo: {status.auditLevel}</div>
+                <div style={{ color: '#93c5fd', fontSize: '0.84rem' }}>Univerzitetski most: {status.universityBridge}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section style={{ padding: '0 0 72px' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', marginBottom: '28px' }}>
+            <div style={{ ...badgeStyle('#f59e0b'), margin: '0 auto 16px' }}>🗺️ Territorial readiness</div>
+            <h2 className="section-title">Countries / Regions readiness i compliance granice</h2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px', marginBottom: '24px' }}>
+            {universityProgram.regionReadiness.map(region => (
+              <div key={region.title} style={sectionCard}>
+                <div style={{ ...badgeStyle(statusColor[region.status]), marginBottom: '16px' }}>{region.status}</div>
+                <h3 style={{ marginBottom: '10px' }}>{region.title}</h3>
+                <p style={{ color: 'var(--io-muted)', marginBottom: '16px' }}>{region.summary}</p>
+                <div style={{ display: 'grid', gap: '10px' }}>
+                  {region.controls.map(item => (
+                    <div key={item} style={listStyle('#e2e8f0')}>{item}</div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={sectionCard}>
+            <div style={{ ...badgeStyle('#ef4444'), marginBottom: '16px' }}>⚖️ Obavezno razdvajanje</div>
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {universityProgram.complianceBoundaries.map(item => (
+                <div key={item} style={listStyle('#e2e8f0')}>{item}</div>
+              ))}
             </div>
           </div>
         </div>
