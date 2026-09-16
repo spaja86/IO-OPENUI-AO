@@ -14,7 +14,6 @@ export default function Hero() {
         paddingTop: 'var(--header-height)',
       }}
     >
-      {/* Animated gradient background */}
       <div
         style={{
           position: 'absolute',
@@ -50,7 +49,6 @@ export default function Hero() {
         }}
       />
 
-      {/* Particles */}
       <div className="particles">
         {Array.from({ length: 12 }, (_, i) => (
           <span
@@ -67,7 +65,6 @@ export default function Hero() {
         ))}
       </div>
 
-      {/* Content */}
       <div
         className="container"
         style={{
@@ -134,35 +131,37 @@ export default function Hero() {
             fontWeight: 500,
           }}
         >
-          Platforma za Profesionalnu Saradnju
+          Platforma za profesionalnu saradnju, licence i globalni rad
         </p>
 
         <p
           style={{
             color: 'var(--io-muted)',
             fontSize: '1.05rem',
-            maxWidth: '560px',
+            maxWidth: '760px',
             margin: '0 auto 40px',
             lineHeight: 1.7,
           }}
         >
-          Real-time video komunikacija, live chat, gaming i profesionalne alate —
-          sve na jednom mestu. Powered by WebRTC + Socket.IO.
+          Real-time video komunikacija, live chat, games economy, AI IQ World Bank i UNEVERZITET
+          zajedno grade ekosistem za znanje, dokumentaciju, compliance i licencirani profesionalni pristup.
         </p>
 
         <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Link to="/realtime" className="btn-primary">
+          <a href="/bank/" className="btn-primary">
+            🏦 AI IQ World Bank
+          </a>
+          <Link to="/university" className="btn-secondary">
+            🎓 UNEVERZITET
+          </Link>
+          <Link to="/realtime" className="btn-secondary">
             🚀 Isprobaj Demo
           </Link>
           <Link to="/games" className="btn-secondary">
             🎮 Games Economy
           </Link>
-          <Link to="/features" className="btn-secondary">
-            📋 Funkcionalnosti
-          </Link>
         </div>
 
-        {/* Tech badges */}
         <div
           style={{
             display: 'flex',
@@ -172,7 +171,7 @@ export default function Hero() {
             marginTop: '60px',
           }}
         >
-          {['WebRTC', 'Socket.IO', 'React 18', 'TypeScript', 'Vite'].map(tech => (
+          {['WebRTC', 'Socket.IO', 'AI IQ World Bank', 'UNEVERZITET', 'Planetary Licence'].map(tech => (
             <span
               key={tech}
               style={{

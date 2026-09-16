@@ -23,7 +23,6 @@ export default function Footer() {
             marginBottom: '40px',
           }}
         >
-          {/* Brand */}
           <div>
             <div
               style={{
@@ -48,8 +47,7 @@ export default function Footer() {
               </span>
             </div>
             <p style={{ color: 'var(--io-muted)', fontSize: '0.9rem', lineHeight: 1.7 }}>
-              Platforma za profesionalnu saradnju, real-time komunikaciju i napredne
-              web tehnologije.
+              Platforma za profesionalnu saradnju, AI IQ World Bank licence, UNEVERZITET sertifikaciju i globalni radni pristup.
             </p>
             <div
               style={{
@@ -69,7 +67,6 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Navigation */}
           <div>
             <h4 style={{ marginBottom: '16px', color: 'var(--io-text)' }}>Navigacija</h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -78,6 +75,7 @@ export default function Footer() {
                 { to: '/features', label: 'Funkcionalnosti' },
                 { to: '/realtime', label: 'Real-time Demo' },
                 { to: '/games', label: 'Games Economy' },
+                { to: '/university', label: 'Univerzitet' },
                 { to: '/about', label: 'O Nama' },
                 { to: '/contact', label: 'Kontakt' },
               ].map(l => (
@@ -92,10 +90,19 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <a
+                  href="/bank/"
+                  style={{ color: 'var(--io-muted)', fontSize: '0.9rem', transition: 'color 0.2s' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = 'var(--io-accent)')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'var(--io-muted)')}
+                >
+                  AI IQ World Bank
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Platforms */}
           <div>
             <h4 style={{ marginBottom: '16px', color: 'var(--io-text)' }}>
               Ekosistem Kompanija SPAJA
@@ -116,9 +123,11 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
+            <div style={{ marginTop: '16px', color: 'var(--io-muted)', fontSize: '0.84rem', lineHeight: 1.6 }}>
+              Flagship program: <span style={{ color: 'var(--io-text)' }}>Licence za celu planetu za rad</span>
+            </div>
           </div>
 
-          {/* Contact */}
           <div>
             <h4 style={{ marginBottom: '16px', color: 'var(--io-text)' }}>Kontakt</h4>
             <p style={{ color: 'var(--io-muted)', fontSize: '0.9rem', marginBottom: '8px' }}>
@@ -176,7 +185,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom bar */}
         <div
           style={{
             borderTop: '1px solid rgba(255, 255, 255, 0.06)',
@@ -192,7 +200,7 @@ export default function Footer() {
             © {year} {OWNER.name} · Deo ekosistema Kompanija SPAJA
           </p>
           <p style={{ color: 'var(--io-muted)', fontSize: '0.8rem' }}>
-            Vite + React + TypeScript · Vercel
+            Vite + React + TypeScript · Vercel · AI IQ World Bank / UNEVERZITET
           </p>
         </div>
       </div>

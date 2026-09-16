@@ -11,17 +11,21 @@ interface Message {
 const KB: [RegExp, string][] = [
   [/video poziv|webrtc/i, 'Da pokrenete video poziv: idite na stranicu Video, kliknite "Pokreni poziv" i odobrite pristup kameri i mikrofonu. Koristimo WebRTC tehnologiju — direktna veza, bez servera.'],
   [/igric[ae]|games/i, 'Dostupne igrice: 🎮 Tic-Tac-Toe (vs AI), 🧠 Tehnološki Kviz, ♟️ Chess (uskoro), 🏓 Pong (uskoro). Idite na stranicu Igrice!'],
+  [/bank|world bank|ai iq world bank/i, 'AI IQ World Bank je globalni work/licensing/compliance centar ekosistema. Na /bank/ možete videti delatnosti, licence, statuse, regione, dokumentaciju i enterprise programe.'],
+  [/licenc|license|licence/i, '"Licence za celu planetu za rad" je premium programski stub ekosistema: platformska licenca za globalni radni identitet, verifikovanu kompetenciju, compliance-ready status i odobrene delatnosti. Nije automatska državna radna dozvola za svaku zemlju.'],
+  [/delatnost|sektor|industry|industr/i, 'AI IQ World Bank podržava širok katalog delatnosti: finansije, kripto tokove, poslovne servise, AI operacije, dokumentaciju i sektorske programe za IT, AI, fintech, gaming, consulting i druge industrije.'],
+  [/univerzitet|sertifik|spremnost|readiness/i, 'UNEVERZITET vodi korisnika od PAN do DUN nivoa i sada uključuje global work readiness, bank/compliance/licensing module, KYC/AML, AI-finance i education-to-licence putanju.'],
   [/webrtc/i, 'WebRTC (Web Real-Time Communication) je otvoreni standard za peer-to-peer audio, video i razmenu podataka direktno između pretraživača — bez potrebe za serverom.'],
   [/chat|poruka/i, 'Za korišćenje chata: idite na Chat stranicu, izaberite kanal (#general, #gaming, #business, #random) i počnite da kucate. Podržani su emoji i reply na poruke.'],
   [/vlasnik|autor|ko je/i, 'Vlasnik platforme je Nikola Spajić 👨‍💻. Email: spajicn@yahoo.com | spajicn@gmail.com. GitHub: spaja86. Facebook/Instagram/TikTok: Spaja86.'],
-  [/platform[ae]|ekosistem/i, 'IO-OPENUI-AO ekosistem ima 4 platforme:\n🌐 IO-OPENUI-AO — saradnja i igrice\n💱 Ai-Iq-Menjačnica — kripto menjačnica\n🏦 Ai-Iq-World-Bank — digitalna banka\n🏢 Kompanija SPAJA — IT hub'],
+  [/platform[ae]|ekosistem/i, 'IO-OPENUI-AO ekosistem ima 4 platforme:\n🌐 IO-OPENUI-AO — saradnja i igrice\n💱 Ai-Iq-Menjačnica — kripto menjačnica\n🏦 Ai-Iq-World-Bank — globalni work/licensing/compliance centar\n🏢 Kompanija SPAJA — IT hub'],
 ];
 
 function getReply(text: string): string {
   for (const [pattern, reply] of KB) {
     if (pattern.test(text)) return reply;
   }
-  return 'Pitajte me o IO-OPENUI-AO platformi! Mogu da pomognem sa: video pozivima, igricama, chatom, WebRTC ili informacijama o platformi. 🤖';
+  return 'Pitajte me o IO-OPENUI-AO platformi! Mogu da pomognem sa: AI IQ World Bank, licencama, UNEVERZITET-om, video pozivima, igricama i platformskim funkcijama. 🤖';
 }
 
 let nextId = 1;
@@ -30,7 +34,7 @@ export default function ChatbotWidget() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([
-    { id: nextId++, role: 'bot', text: 'Zdravo! Ja sam IO-AO asistent 🤖. Mogu da pomognem sa pitanjima o platformi!', ts: new Date() },
+    { id: nextId++, role: 'bot', text: 'Zdravo! Ja sam IO-AO asistent 🤖. Mogu da pomognem sa pitanjima o platformi, AI IQ World Bank licencama i UNEVERZITET sistemu!', ts: new Date() },
   ]);
   const [typing, setTyping] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -58,7 +62,6 @@ export default function ChatbotWidget() {
 
   return (
     <>
-      {/* Floating button */}
       <button
         onClick={() => setOpen(o => !o)}
         aria-label="AI Chatbot"
@@ -86,7 +89,6 @@ export default function ChatbotWidget() {
         🤖
       </button>
 
-      {/* Chat window */}
       {open && (
         <div
           style={{
@@ -107,7 +109,6 @@ export default function ChatbotWidget() {
             overflow: 'hidden',
           }}
         >
-          {/* Header */}
           <div
             style={{
               padding: '14px 18px',
@@ -118,21 +119,14 @@ export default function ChatbotWidget() {
               gap: '10px',
             }}
           >
-            <span style={{ fontSize: '1.4rem' }}>🤖</span>
+            <div style={{ fontSize: '1.3rem' }}>🤖</div>
             <div>
-              <p style={{ color: '#f1f5f9', fontWeight: 700, fontSize: '0.9rem', margin: 0 }}>IO-AO Asistent</p>
-              <p style={{ color: '#10b981', fontSize: '0.72rem', margin: 0 }}>● Online</p>
+              <div style={{ fontWeight: 700, color: '#fff', fontSize: '0.95rem' }}>IO-AO Asistent</div>
+              <div style={{ color: '#cbd5e1', fontSize: '0.75rem' }}>Online · platforma · bank · licence</div>
             </div>
-            <button
-              onClick={() => setOpen(false)}
-              style={{ marginLeft: 'auto', background: 'none', border: 'none', color: '#64748b', cursor: 'pointer', fontSize: '1.2rem', lineHeight: 1 }}
-            >
-              ×
-            </button>
           </div>
 
-          {/* Messages */}
-          <div style={{ flex: 1, overflowY: 'auto', padding: '14px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>
             {messages.map(msg => (
               <div
                 key={msg.id}
@@ -140,76 +134,59 @@ export default function ChatbotWidget() {
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: msg.role === 'user' ? 'flex-end' : 'flex-start',
+                  marginBottom: '12px',
                 }}
               >
                 <div
                   style={{
                     maxWidth: '82%',
-                    padding: '10px 14px',
-                    borderRadius: msg.role === 'user' ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
-                    background: msg.role === 'user'
-                      ? 'linear-gradient(135deg, #7c3aed, #06b6d4)'
-                      : 'rgba(255,255,255,0.07)',
-                    color: '#f1f5f9',
-                    fontSize: '0.85rem',
+                    padding: '10px 12px',
+                    borderRadius: '14px',
+                    background: msg.role === 'user' ? 'linear-gradient(135deg, #7c3aed, #2563eb)' : 'rgba(255,255,255,0.06)',
+                    color: '#fff',
+                    fontSize: '0.88rem',
                     lineHeight: 1.5,
-                    whiteSpace: 'pre-line',
+                    whiteSpace: 'pre-wrap',
                   }}
                 >
                   {msg.text}
                 </div>
-                <span style={{ color: '#475569', fontSize: '0.7rem', marginTop: '3px' }}>{fmt(msg.ts)}</span>
+                <span style={{ color: '#94a3b8', fontSize: '0.7rem', marginTop: '4px' }}>{fmt(msg.ts)}</span>
               </div>
             ))}
-            {typing && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '5px', padding: '10px 14px', background: 'rgba(255,255,255,0.07)', borderRadius: '16px 16px 16px 4px', width: 'fit-content' }}>
-                {[0, 1, 2].map(i => (
-                  <span key={i} style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#7c3aed', display: 'block', animation: 'typingDot 1.2s infinite', animationDelay: `${i * 0.2}s` }} />
-                ))}
-              </div>
-            )}
+            {typing && <div style={{ color: '#94a3b8', fontSize: '0.8rem' }}>Asistent kuca…</div>}
             <div ref={bottomRef} />
           </div>
 
-          {/* Input */}
-          <div
-            style={{
-              padding: '12px 14px',
-              borderTop: '1px solid rgba(255,255,255,0.08)',
-              display: 'flex',
-              gap: '8px',
-            }}
-          >
+          <div style={{ padding: '12px', borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', gap: '8px' }}>
             <input
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && send()}
-              placeholder="Pitajte nešto..."
+              placeholder="Pitaj o banki, licencama, univerzitetu..."
               style={{
                 flex: 1,
-                padding: '9px 13px',
-                background: 'rgba(255,255,255,0.06)',
-                border: '1px solid rgba(124,58,237,0.3)',
-                borderRadius: '10px',
-                color: '#f1f5f9',
-                fontSize: '0.85rem',
+                background: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: '12px',
+                padding: '10px 12px',
+                color: '#fff',
                 outline: 'none',
               }}
             />
             <button
               onClick={send}
               style={{
-                padding: '9px 14px',
-                background: 'linear-gradient(135deg, #7c3aed, #06b6d4)',
                 border: 'none',
-                borderRadius: '10px',
+                borderRadius: '12px',
+                padding: '0 14px',
+                background: 'linear-gradient(135deg, #7c3aed, #2563eb)',
                 color: '#fff',
-                cursor: 'pointer',
                 fontWeight: 700,
-                fontSize: '0.85rem',
+                cursor: 'pointer',
               }}
             >
-              ➤
+              Pošalji
             </button>
           </div>
         </div>
