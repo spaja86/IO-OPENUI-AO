@@ -3,6 +3,10 @@ export type TransactionType = 'license' | 'start' | 'bonus' | 'prize' | 'refund'
 export type ProPlayerStatus = 'candidate' | 'contracted' | 'independent' | 'suspended' | 'released';
 export type EngagementModel = 'employee' | 'contractor' | 'esportsContractor';
 export type ContractTier = 'development' | 'standard' | 'premium' | 'elite';
+export type GameOperationalStatus = 'planned' | 'pilot' | 'live' | 'restricted';
+export type CompatibilityReadiness = 'ready' | 'partial' | 'blocked';
+export type RiskLevel = 'low' | 'medium' | 'high' | 'critical';
+export type TrendDirection = 'up' | 'stable' | 'down';
 
 export interface BonusRule {
   id: string;
@@ -48,7 +52,7 @@ export interface GamePlan {
 export interface GameCatalogEntry {
   id: string;
   title: string;
-  status: 'pilot' | 'live';
+  status: GameOperationalStatus;
   genre: string;
   licensePrice: string;
   funStartCredit: string;
@@ -63,6 +67,102 @@ export interface GameKnowledgeLayer {
   title: string;
   focus: string;
   detail: string;
+}
+
+export interface GameTemplateDimensions {
+  identity: string;
+  economy: string;
+  gameplayLayers: string;
+  trustCompliance: string;
+  qa: string;
+  operationalStatus: string;
+}
+
+export interface GameTechnicalReadiness {
+  rendering: string;
+  inputHandling: string;
+  performance: string;
+  network: string;
+  accessibility: string;
+  compliance: string;
+}
+
+export interface GameCompatibilityDimension {
+  dimension: string;
+  requirement: string;
+  readiness: CompatibilityReadiness;
+  detail: string;
+}
+
+export interface GameAcceptanceGate {
+  gate: string;
+  requirement: string;
+  state: 'pass' | 'hold';
+}
+
+export interface GameRiskBoardItem {
+  category: 'security' | 'performance' | 'compliance' | 'fairness';
+  level: RiskLevel;
+  mitigation: string;
+}
+
+export interface WeeklyReadinessMetric {
+  metric: string;
+  value: string;
+  target: string;
+  trend: TrendDirection;
+}
+
+export type ThreeDLevel = '360D' | '720D' | '1440D' | '2880D' | '5760D';
+
+export interface ThreeDVisionCompatibility {
+  level: ThreeDLevel;
+  label: string;
+  readiness: CompatibilityReadiness;
+  minimumHardwareProfile: string;
+  fpsTarget: string;
+  maxLoadTime: string;
+  memoryBudget: string;
+  latencyTolerance: string;
+  ergonomicLimit: string;
+}
+
+export interface ThreeDReadinessGateRule {
+  level: ThreeDLevel;
+  rule: string;
+  state: 'pass' | 'hold';
+  note: string;
+}
+
+export interface HealthHeatmapItem {
+  lane: string;
+  state: CompatibilityReadiness;
+  trend: TrendDirection;
+  detail: string;
+}
+
+export interface GameThreeDExtremeLayer {
+  threeDReadinessScore: number;
+  threeDVisionCompatibility: ThreeDVisionCompatibility[];
+  threeDReadinessGate: ThreeDReadinessGateRule[];
+  threeDKnownLimitations: string[];
+  healthHeatmap: HealthHeatmapItem[];
+  progressiveUnlock: string[];
+  safeModeFallback: string[];
+  certificationLane: string[];
+}
+
+export interface GameStandardProfile {
+  template: GameTemplateDimensions;
+  technicalReadiness: GameTechnicalReadiness;
+  compatibilityMatrix: GameCompatibilityDimension[];
+  minimumAcceptanceGate: GameAcceptanceGate[];
+  knownLimitations: string[];
+  readinessIndex: number;
+  riskBoard: GameRiskBoardItem[];
+  weeklyReadinessReview: WeeklyReadinessMetric[];
+  experimentalLane: string[];
+  extreme3DLayer: GameThreeDExtremeLayer;
 }
 
 export interface GameMasterProfile {
@@ -877,7 +977,7 @@ export const gamesCatalog: GameCatalogEntry[] = [
   {
     id: 'gejming-industrija',
     title: 'Gejming industrija',
-    status: 'pilot',
+    status: 'restricted',
     genre: 'Gaming engine / modular compatibility',
     licensePrice: '16.000 RSD trajna licenca',
     funStartCredit: '0 RSD · sandbox režim',
@@ -1046,6 +1146,686 @@ export const gamesCatalog: GameCatalogEntry[] = [
 
 
 export const gamesPageMission = 'Maksimalno objašnjen prikaz svake igrice, njenog sveta, pravila, ekonomije, napredovanja, rizika, nagrada i svih podsistema.';
+
+export const globalMinimumAcceptanceGate = [
+  'Functional gate: svi core mehanizmi i end-of-match tok prolaze bez blokera.',
+  'Security gate: secret scanning i policy kontrole bez kritičnih nalaza.',
+  'Performance gate: ciljani FPS/load/memory pragovi su u granicama za ciljne uređaje.',
+  'Compliance gate: age-gating, region pravila i KYC/AML readiness za professional tok su verifikovani.',
+];
+
+const baseGameStandardProfiles: Record<string, Omit<GameStandardProfile, 'extreme3DLayer'>> = {
+  'dota-pro-circuit': {
+    template: {
+      identity: 'Dota Pro Circuit kao timska MOBA skill competition arena.',
+      economy: 'Trajna licenca + START uplata + pobednički fond + bonus reserve uz audit.',
+      gameplayLayers: 'Draft, lane, objective tempo, teamfight, završni siege.',
+      trustCompliance: '18+, ID/KYC/AML, telemetry dokaz, anti-collusion review.',
+      qa: 'Replay verifikacija, objective tracing i payout validation.',
+      operationalStatus: 'pilot',
+    },
+    technicalReadiness: {
+      rendering: 'Desktop-first responsive UI sa podrškom za 1280+ i fallback rasporedima.',
+      inputHandling: 'Mouse + keyboard obavezno; touch za pregled i administraciju.',
+      performance: 'Target 60 FPS i load < 3.5s na standardnoj broadband mreži.',
+      network: 'Low/medium/high latency handling i recovery za reconnect scenarije.',
+      accessibility: 'Kontrast, fokus stanja i reduced-motion fallback su uključeni.',
+      compliance: 'Age-gating + region lock + KYC/AML blok pre professional aktivacije.',
+    },
+    compatibilityMatrix: [
+      { dimension: 'Platforme', requirement: 'Desktop web / Mobile web / Tablet web', readiness: 'partial', detail: 'Desktop je referenca; mobile/tablet su read-only prioritet.' },
+      { dimension: 'Rezolucije', requirement: '320–480 / 768–1024 / 1280+', readiness: 'partial', detail: '1280+ potpuno podržan; niži breakpoint-i prolaze sa redukovanim gridom.' },
+      { dimension: 'Orijentacija', requirement: 'Portrait + Landscape pravila', readiness: 'partial', detail: 'Landscape je primarni mod za takmičarski prikaz.' },
+      { dimension: 'Input', requirement: 'Touch / Mouse / Keyboard / Gamepad', readiness: 'partial', detail: 'Gamepad nije aktivan u pilotu.' },
+      { dimension: 'Performanse', requirement: 'FPS / load / memory budget', readiness: 'ready', detail: '60 FPS target, load prag i memory budžet su definisani.' },
+      { dimension: 'Mreža', requirement: 'Offline fallback + latency režimi', readiness: 'partial', detail: 'Offline fallback ograničen na pregled i istoriju.' },
+      { dimension: 'Browser minimum', requirement: 'Chrome/Edge/Firefox/Safari', readiness: 'ready', detail: 'Minimum verzije su testirane kroz CI smoke set.' },
+      { dimension: 'Accessibility', requirement: 'Kontrast/fokus/font/reduced motion', readiness: 'ready', detail: 'Ključne a11y kontrole su pokrivene.' },
+      { dimension: 'Compliance', requirement: 'Age-gating/region lock/KYC-AML', readiness: 'ready', detail: 'Professional tok je blokiran bez verifikacije.' },
+    ],
+    minimumAcceptanceGate: [
+      { gate: 'Functional', requirement: 'Stabilan match lifecycle + payout evidence', state: 'pass' },
+      { gate: 'Security', requirement: 'Bez kritičnih nalaza i bez sekreta', state: 'pass' },
+      { gate: 'Performance', requirement: 'FPS/load pragovi na ciljnom desktop profilu', state: 'pass' },
+      { gate: 'Compliance', requirement: 'Age/KYC/AML i region pravila aktivna', state: 'pass' },
+    ],
+    knownLimitations: [
+      'Gamepad nije deo aktivnog competitive input profila.',
+      'Offline režim ne podržava puni meč tok.',
+    ],
+    readinessIndex: 84,
+    riskBoard: [
+      { category: 'security', level: 'medium', mitigation: 'Kontinuiran secret scan + access policy review po ciklusu.' },
+      { category: 'performance', level: 'medium', mitigation: 'Profiling na nižim rezolucijama i latency replay testovi.' },
+      { category: 'compliance', level: 'low', mitigation: 'Obavezna KYC/AML blokada pre svakog professional start-a.' },
+      { category: 'fairness', level: 'medium', mitigation: 'Anti-collusion signal + manual review hold pipeline.' },
+    ],
+    weeklyReadinessReview: [
+      { metric: 'Functional pass rate', value: '98.1%', target: '>=97%', trend: 'stable' },
+      { metric: 'Security critical findings', value: '0', target: '0', trend: 'stable' },
+      { metric: 'Median load time', value: '3.1s', target: '<3.5s', trend: 'up' },
+    ],
+    experimentalLane: [
+      'Novi objective-scoring heuristics samo u sandbox pilot grupi.',
+      'A/B test reward telemetry bez uticaja na live payout.',
+    ],
+  },
+  'io-chess-arena': {
+    template: {
+      identity: 'IO Chess Arena kao 1v1 strateški duel.',
+      economy: 'Trajna licenca + START uplata + anti-engine review bonusi.',
+      gameplayLayers: 'Opening, middlegame pressure, endgame conversion.',
+      trustCompliance: '18+ za professional, anti-engine i dispute kontrola.',
+      qa: 'Move validation, clock integrity i replay audit.',
+      operationalStatus: 'pilot',
+    },
+    technicalReadiness: {
+      rendering: 'Potpuno responzivna šah tabla i panel layout.',
+      inputHandling: 'Mouse/touch za poteze, keyboard shortcut-i za navigaciju.',
+      performance: '60 FPS cilj za animacije i load < 2.5s.',
+      network: 'Latency-tolerant potezni model i reconnect logika.',
+      accessibility: 'High-contrast table tema i fokus indikatori.',
+      compliance: 'Professional pristup tek nakon verifikacije profila.',
+    },
+    compatibilityMatrix: [
+      { dimension: 'Platforme', requirement: 'Desktop web / Mobile web / Tablet web', readiness: 'ready', detail: 'Sve tri platforme podržane.' },
+      { dimension: 'Rezolucije', requirement: '320–480 / 768–1024 / 1280+', readiness: 'ready', detail: 'Tabla i panel se adaptivno skaliraju.' },
+      { dimension: 'Orijentacija', requirement: 'Portrait + Landscape pravila', readiness: 'ready', detail: 'Landscape za analizu, portrait za brzo igranje.' },
+      { dimension: 'Input', requirement: 'Touch / Mouse / Keyboard / Gamepad', readiness: 'partial', detail: 'Gamepad nije podržan.' },
+      { dimension: 'Performanse', requirement: 'FPS / load / memory budget', readiness: 'ready', detail: 'Stabilni pragovi u svim podržanim režimima.' },
+      { dimension: 'Mreža', requirement: 'Offline fallback + latency režimi', readiness: 'partial', detail: 'Offline fallback samo za practice board.' },
+      { dimension: 'Browser minimum', requirement: 'Chrome/Edge/Firefox/Safari', readiness: 'ready', detail: 'Podrška validirana kroz smoke testove.' },
+      { dimension: 'Accessibility', requirement: 'Kontrast/fokus/font/reduced motion', readiness: 'ready', detail: 'A11y kontrole dostupne kroz UI tok.' },
+      { dimension: 'Compliance', requirement: 'Age-gating/region lock/KYC-AML', readiness: 'ready', detail: 'Compliance blok pre professional turnira.' },
+    ],
+    minimumAcceptanceGate: [
+      { gate: 'Functional', requirement: 'Move legality i clock sync validacija', state: 'pass' },
+      { gate: 'Security', requirement: 'Bez critical nalaza', state: 'pass' },
+      { gate: 'Performance', requirement: 'Load/FPS pragovi', state: 'pass' },
+      { gate: 'Compliance', requirement: 'Age + verification policy', state: 'pass' },
+    ],
+    knownLimitations: ['Gamepad nije podržan.', 'Offline mode ograničen na practice board.'],
+    readinessIndex: 91,
+    riskBoard: [
+      { category: 'security', level: 'low', mitigation: 'Nastaviti secret scan i dependency review.' },
+      { category: 'performance', level: 'low', mitigation: 'Kontrolisati animacije na low-end uređajima.' },
+      { category: 'compliance', level: 'low', mitigation: 'Ne dozvoljavati professional tok bez verifikacije.' },
+      { category: 'fairness', level: 'medium', mitigation: 'Anti-engine analiza i dispute pipeline.' },
+    ],
+    weeklyReadinessReview: [
+      { metric: 'Rules engine accuracy', value: '99.7%', target: '>=99%', trend: 'stable' },
+      { metric: 'Dispute resolution SLA', value: '23h', target: '<24h', trend: 'up' },
+      { metric: 'Latency timeout incidents', value: '0.6%', target: '<1%', trend: 'stable' },
+    ],
+    experimentalLane: ['Novi opening-coach hint samo u Fun/Test.', 'Eksperimentalni anti-engine heuristics bez produkcionog uticaja.'],
+  },
+  'dota-1350': {
+    template: {
+      identity: 'DOTA 1350 readiness liga.',
+      economy: 'Niži START ulaz sa strožim gate pravilima.',
+      gameplayLayers: 'Role discipline, objective ladder, team coordination.',
+      trustCompliance: '1320/1350 gate discipline + anti-abuse review.',
+      qa: 'Readiness replay i role-consistency audit.',
+      operationalStatus: 'pilot',
+    },
+    technicalReadiness: {
+      rendering: 'Responsive dashboard sa fokusom na desktop competitive pregled.',
+      inputHandling: 'Mouse + keyboard primarno, touch sekundarno.',
+      performance: 'Target 60 FPS, load < 3.5s.',
+      network: 'Latency režimi i reconnect fallback.',
+      accessibility: 'Kontrast i fokus sistemi uključeni.',
+      compliance: 'Professional dostupnost samo za verified profile.',
+    },
+    compatibilityMatrix: [
+      { dimension: 'Platforme', requirement: 'Desktop web / Mobile web / Tablet web', readiness: 'partial', detail: 'Desktop prioritet, mobile/tablet u ograničenom modu.' },
+      { dimension: 'Rezolucije', requirement: '320–480 / 768–1024 / 1280+', readiness: 'partial', detail: 'Najbolji rezultat na 1280+.' },
+      { dimension: 'Orijentacija', requirement: 'Portrait + Landscape pravila', readiness: 'partial', detail: 'Landscape preporučen za takmičenje.' },
+      { dimension: 'Input', requirement: 'Touch / Mouse / Keyboard / Gamepad', readiness: 'partial', detail: 'Gamepad nije ciljna konfiguracija.' },
+      { dimension: 'Performanse', requirement: 'FPS / load / memory budget', readiness: 'ready', detail: 'Definisani pragovi i kontrola budžeta.' },
+      { dimension: 'Mreža', requirement: 'Offline fallback + latency režimi', readiness: 'partial', detail: 'Offline fallback samo za statične informacije.' },
+      { dimension: 'Browser minimum', requirement: 'Chrome/Edge/Firefox/Safari', readiness: 'ready', detail: 'Podrška pokrivena trenutnim test setom.' },
+      { dimension: 'Accessibility', requirement: 'Kontrast/fokus/font/reduced motion', readiness: 'ready', detail: 'A11y standardi usaglašeni sa globalnim smernicama.' },
+      { dimension: 'Compliance', requirement: 'Age-gating/region lock/KYC-AML', readiness: 'ready', detail: 'Compliance sloj aktivan pre meča.' },
+    ],
+    minimumAcceptanceGate: [
+      { gate: 'Functional', requirement: 'Readiness gate + role validation', state: 'pass' },
+      { gate: 'Security', requirement: 'Bez kritičnih nalaza', state: 'pass' },
+      { gate: 'Performance', requirement: 'Load/FPS pragovi', state: 'pass' },
+      { gate: 'Compliance', requirement: 'KYC/AML kontrola', state: 'pass' },
+    ],
+    knownLimitations: ['Mobile portrait meč ekran nije primarni.', 'Offline meč operacije nisu podržane.'],
+    readinessIndex: 82,
+    riskBoard: [
+      { category: 'security', level: 'medium', mitigation: 'Rotacija policy provera i audit log review.' },
+      { category: 'performance', level: 'medium', mitigation: 'Kontinuirano merenje load-a na srednjem tier uređajima.' },
+      { category: 'compliance', level: 'low', mitigation: 'Strogo enforcement pravila ulaza.' },
+      { category: 'fairness', level: 'medium', mitigation: 'Weekly anti-abuse screening i ručni hold.' },
+    ],
+    weeklyReadinessReview: [
+      { metric: 'Role integrity pass', value: '95.2%', target: '>=94%', trend: 'up' },
+      { metric: 'Average load time', value: '3.2s', target: '<3.5s', trend: 'stable' },
+      { metric: 'Fairness alerts', value: '1.1%', target: '<1.5%', trend: 'stable' },
+    ],
+    experimentalLane: ['Eksperimentalni objective-ladder scoring u sandbox ciklusu.'],
+  },
+  'bubli-babli-1320': {
+    template: {
+      identity: 'BUBLI BABLI 1320 skill progression arena.',
+      economy: '1320 gate + trajna licenca + discipline bonusi.',
+      gameplayLayers: 'Combo chaining, level bridge i discipline loops.',
+      trustCompliance: 'Readiness signal, anti-abuse i audit tok.',
+      qa: 'Chain validation i payout review.',
+      operationalStatus: 'pilot',
+    },
+    technicalReadiness: {
+      rendering: 'Adaptive canvas layout kroz sve breakpoint-e.',
+      inputHandling: 'Touch + mouse podržani, keyboard shortcut minimalni.',
+      performance: '60 FPS cilj, load < 2.8s.',
+      network: 'Low/medium/high latency handling.',
+      accessibility: 'Font scaling i reduced motion fallback.',
+      compliance: 'Professional unlock tek nakon gate potvrde.',
+    },
+    compatibilityMatrix: [
+      { dimension: 'Platforme', requirement: 'Desktop web / Mobile web / Tablet web', readiness: 'ready', detail: 'Pun support za sve tri platforme.' },
+      { dimension: 'Rezolucije', requirement: '320–480 / 768–1024 / 1280+', readiness: 'ready', detail: 'UI skaliranje testirano po segmentima.' },
+      { dimension: 'Orijentacija', requirement: 'Portrait + Landscape pravila', readiness: 'ready', detail: 'Portrait default za mobile, landscape za analysis.' },
+      { dimension: 'Input', requirement: 'Touch / Mouse / Keyboard / Gamepad', readiness: 'partial', detail: 'Gamepad nije planiran.' },
+      { dimension: 'Performanse', requirement: 'FPS / load / memory budget', readiness: 'ready', detail: 'Ciljevi i budžeti su u okviru.' },
+      { dimension: 'Mreža', requirement: 'Offline fallback + latency režimi', readiness: 'partial', detail: 'Offline fallback ograničen na local drills.' },
+      { dimension: 'Browser minimum', requirement: 'Chrome/Edge/Firefox/Safari', readiness: 'ready', detail: 'Kompatibilnost pokrivena smoke testovima.' },
+      { dimension: 'Accessibility', requirement: 'Kontrast/fokus/font/reduced motion', readiness: 'ready', detail: 'A11y kontrola u svim glavnim tokovima.' },
+      { dimension: 'Compliance', requirement: 'Age-gating/region lock/KYC-AML', readiness: 'ready', detail: 'Compliance enforcement aktivan za professional zonu.' },
+    ],
+    minimumAcceptanceGate: [
+      { gate: 'Functional', requirement: 'Chain + gate mehanike stabilne', state: 'pass' },
+      { gate: 'Security', requirement: 'Bez critical findinga', state: 'pass' },
+      { gate: 'Performance', requirement: 'FPS/load target', state: 'pass' },
+      { gate: 'Compliance', requirement: 'Readiness + verification policy', state: 'pass' },
+    ],
+    knownLimitations: ['Gamepad nije podržan.', 'Offline fallback je ograničen na trening.'],
+    readinessIndex: 89,
+    riskBoard: [
+      { category: 'security', level: 'low', mitigation: 'Nastaviti redovan dependency i secret scan.' },
+      { category: 'performance', level: 'low', mitigation: 'Praćenje memory usage tokom dužih sesija.' },
+      { category: 'compliance', level: 'low', mitigation: 'Držati gate i verifikaciju kao hard requirement.' },
+      { category: 'fairness', level: 'medium', mitigation: 'Auto-detection abnormal chain obrazaca + ručni audit.' },
+    ],
+    weeklyReadinessReview: [
+      { metric: 'Chain validation accuracy', value: '99.1%', target: '>=98%', trend: 'stable' },
+      { metric: 'Median load time', value: '2.4s', target: '<2.8s', trend: 'up' },
+      { metric: 'Fairness incident rate', value: '0.8%', target: '<1%', trend: 'stable' },
+    ],
+    experimentalLane: ['Novi level-bridge scoring u eksperimentalnoj ligi.'],
+  },
+  'io-quiz-clash': {
+    template: {
+      identity: 'IO Quiz Clash knowledge-based duel.',
+      economy: 'Niži START i bonusi vezani za streak i tačnost.',
+      gameplayLayers: 'Question pacing, streak management, confidence calls.',
+      trustCompliance: 'Question integrity i anti-cheat signal.',
+      qa: 'Question bank audit i timing validation.',
+      operationalStatus: 'live',
+    },
+    technicalReadiness: {
+      rendering: 'Lightweight responsive UI i brzi state prelazi.',
+      inputHandling: 'Touch/mouse/keyboard podrška.',
+      performance: 'Load < 1.8s i stabilan 60 FPS.',
+      network: 'Graceful degrade na visokoj latenciji.',
+      accessibility: 'Visok kontrast i čitljiv typography scale.',
+      compliance: 'Professional mode sa verifikacijom i region pravilima.',
+    },
+    compatibilityMatrix: [
+      { dimension: 'Platforme', requirement: 'Desktop web / Mobile web / Tablet web', readiness: 'ready', detail: 'Puna kompatibilnost.' },
+      { dimension: 'Rezolucije', requirement: '320–480 / 768–1024 / 1280+', readiness: 'ready', detail: 'Pokriveno responsive grid sistemom.' },
+      { dimension: 'Orijentacija', requirement: 'Portrait + Landscape pravila', readiness: 'ready', detail: 'Oba moda podržana.' },
+      { dimension: 'Input', requirement: 'Touch / Mouse / Keyboard / Gamepad', readiness: 'partial', detail: 'Gamepad nije deo scope-a.' },
+      { dimension: 'Performanse', requirement: 'FPS / load / memory budget', readiness: 'ready', detail: 'Performanse stabilne i merene.' },
+      { dimension: 'Mreža', requirement: 'Offline fallback + latency režimi', readiness: 'partial', detail: 'Offline fallback za practice setove.' },
+      { dimension: 'Browser minimum', requirement: 'Chrome/Edge/Firefox/Safari', readiness: 'ready', detail: 'Podrška validirana.' },
+      { dimension: 'Accessibility', requirement: 'Kontrast/fokus/font/reduced motion', readiness: 'ready', detail: 'A11y tokovi provereni.' },
+      { dimension: 'Compliance', requirement: 'Age-gating/region lock/KYC-AML', readiness: 'ready', detail: 'Compliance blok aktivan.' },
+    ],
+    minimumAcceptanceGate: [
+      { gate: 'Functional', requirement: 'Question flow + scoring bez drift-a', state: 'pass' },
+      { gate: 'Security', requirement: 'Zero critical findings', state: 'pass' },
+      { gate: 'Performance', requirement: 'Sub-2s load', state: 'pass' },
+      { gate: 'Compliance', requirement: 'Verification + policy checks', state: 'pass' },
+    ],
+    knownLimitations: ['Gamepad nije podržan.', 'Offline fallback ne uključuje ranked tok.'],
+    readinessIndex: 94,
+    riskBoard: [
+      { category: 'security', level: 'low', mitigation: 'Nastaviti periodične skenove i question-bank kontrolu.' },
+      { category: 'performance', level: 'low', mitigation: 'Praćenje spikes-a kod velikog broja učesnika.' },
+      { category: 'compliance', level: 'low', mitigation: 'Striktna verifikacija pre professional meča.' },
+      { category: 'fairness', level: 'medium', mitigation: 'Anti-cheat heuristics i ručne provere spornih partija.' },
+    ],
+    weeklyReadinessReview: [
+      { metric: 'Question integrity score', value: '99.4%', target: '>=99%', trend: 'stable' },
+      { metric: 'p95 load time', value: '1.6s', target: '<1.9s', trend: 'up' },
+      { metric: 'Cheat flag false positive', value: '0.3%', target: '<0.5%', trend: 'stable' },
+    ],
+    experimentalLane: ['Adaptive difficulty algoritam u izolovanom experimental lane-u.'],
+  },
+  'spaja-slug-ops': {
+    template: {
+      identity: 'Spaja Slug Ops kao tactical arcade operations mode.',
+      economy: 'Trajna licenca + event bonus rezervisanje.',
+      gameplayLayers: 'Sector clear, boss wave i objective discipline.',
+      trustCompliance: 'Replay + anti-collusion policy.',
+      qa: 'Stage completion i bonus trigger validation.',
+      operationalStatus: 'pilot',
+    },
+    technicalReadiness: {
+      rendering: '2D arena optimizovana za desktop/tablet.',
+      inputHandling: 'Touch/mouse/keyboard, gamepad u test fazi.',
+      performance: '60 FPS cilj i load < 2.6s.',
+      network: 'Latency adaptation i partial offline drills.',
+      accessibility: 'Kontrast i reduced-motion režimi dostupni.',
+      compliance: 'Professional lock bez age+ID verifikacije.',
+    },
+    compatibilityMatrix: [
+      { dimension: 'Platforme', requirement: 'Desktop web / Mobile web / Tablet web', readiness: 'partial', detail: 'Mobile ima ograničen competitive UX.' },
+      { dimension: 'Rezolucije', requirement: '320–480 / 768–1024 / 1280+', readiness: 'partial', detail: '1280+ i tablet su stabilni, 320–480 redukovan HUD.' },
+      { dimension: 'Orijentacija', requirement: 'Portrait + Landscape pravila', readiness: 'partial', detail: 'Landscape preporučen za profesionalni tok.' },
+      { dimension: 'Input', requirement: 'Touch / Mouse / Keyboard / Gamepad', readiness: 'partial', detail: 'Gamepad je experimental-only.' },
+      { dimension: 'Performanse', requirement: 'FPS / load / memory budget', readiness: 'ready', detail: 'Performanse u granicama cilja.' },
+      { dimension: 'Mreža', requirement: 'Offline fallback + latency režimi', readiness: 'partial', detail: 'Offline fallback samo za trening misije.' },
+      { dimension: 'Browser minimum', requirement: 'Chrome/Edge/Firefox/Safari', readiness: 'ready', detail: 'Podrška verifikovana za ciljne verzije.' },
+      { dimension: 'Accessibility', requirement: 'Kontrast/fokus/font/reduced motion', readiness: 'ready', detail: 'A11y kontrola u glavnim tokovima.' },
+      { dimension: 'Compliance', requirement: 'Age-gating/region lock/KYC-AML', readiness: 'ready', detail: 'Compliance sloj aktivan i auditovan.' },
+    ],
+    minimumAcceptanceGate: [
+      { gate: 'Functional', requirement: 'Sector + boss flow bez blokera', state: 'pass' },
+      { gate: 'Security', requirement: 'No critical findings', state: 'pass' },
+      { gate: 'Performance', requirement: 'FPS/load target', state: 'pass' },
+      { gate: 'Compliance', requirement: 'Verification gate', state: 'pass' },
+    ],
+    knownLimitations: ['Gamepad podrška je experimental.', 'Portrait competitive režim nije preporučen.'],
+    readinessIndex: 80,
+    riskBoard: [
+      { category: 'security', level: 'medium', mitigation: 'Pojačan pregled integracija i event payload-a.' },
+      { category: 'performance', level: 'medium', mitigation: 'Optimizacija HUD-a na manjim ekranima.' },
+      { category: 'compliance', level: 'low', mitigation: 'Hard gate za professional aktivaciju.' },
+      { category: 'fairness', level: 'medium', mitigation: 'Replay kontrola i anomalija detekcija po ciklusu.' },
+    ],
+    weeklyReadinessReview: [
+      { metric: 'Sector clear validation', value: '97.2%', target: '>=96%', trend: 'stable' },
+      { metric: 'Median frame stability', value: '59 FPS', target: '>=58 FPS', trend: 'up' },
+      { metric: 'Fairness audit completion', value: '100%', target: '100%', trend: 'stable' },
+    ],
+    experimentalLane: ['Gamepad mapping tuning i arcade balance testovi van live lane-a.'],
+  },
+  'spaja-poker': {
+    template: {
+      identity: 'SPAJA POKER kao skill + discipline card arena.',
+      economy: 'Trajna licenca, controlled bankroll i verifikovani payout.',
+      gameplayLayers: 'Table dynamics, bankroll decisions, showdown discipline.',
+      trustCompliance: 'RNG evidence, anti-collusion, KYC/AML controls.',
+      qa: 'Hand history audit i showdown verification.',
+      operationalStatus: 'pilot',
+    },
+    technicalReadiness: {
+      rendering: 'Responsive table layout sa fokusom na desktop i tablet.',
+      inputHandling: 'Mouse/touch/keyboard podrška.',
+      performance: 'Load < 2.4s i stabilan UI refresh.',
+      network: 'Latency handling i reconnect stolova.',
+      accessibility: 'Font scaling i fokus indikatori za table controls.',
+      compliance: 'Hard compliance checks pre professional entry.',
+    },
+    compatibilityMatrix: [
+      { dimension: 'Platforme', requirement: 'Desktop web / Mobile web / Tablet web', readiness: 'partial', detail: 'Desktop/tablet potpuni, mobile sa redukovanim stolom.' },
+      { dimension: 'Rezolucije', requirement: '320–480 / 768–1024 / 1280+', readiness: 'partial', detail: '320–480 podržan kroz compact prikaz.' },
+      { dimension: 'Orijentacija', requirement: 'Portrait + Landscape pravila', readiness: 'partial', detail: 'Landscape preferiran u professional modu.' },
+      { dimension: 'Input', requirement: 'Touch / Mouse / Keyboard / Gamepad', readiness: 'partial', detail: 'Gamepad nije podržan.' },
+      { dimension: 'Performanse', requirement: 'FPS / load / memory budget', readiness: 'ready', detail: 'Performansni pragovi definisani i stabilni.' },
+      { dimension: 'Mreža', requirement: 'Offline fallback + latency režimi', readiness: 'blocked', detail: 'Offline fallback nije moguć za live table tok.' },
+      { dimension: 'Browser minimum', requirement: 'Chrome/Edge/Firefox/Safari', readiness: 'ready', detail: 'Browser coverage potvrđena.' },
+      { dimension: 'Accessibility', requirement: 'Kontrast/fokus/font/reduced motion', readiness: 'ready', detail: 'A11y smernice implementirane.' },
+      { dimension: 'Compliance', requirement: 'Age-gating/region lock/KYC-AML', readiness: 'ready', detail: 'Compliance je hard-blocking sloj.' },
+    ],
+    minimumAcceptanceGate: [
+      { gate: 'Functional', requirement: 'Hand flow + payout settlement validni', state: 'pass' },
+      { gate: 'Security', requirement: 'No critical findings', state: 'pass' },
+      { gate: 'Performance', requirement: 'UI responsiveness target', state: 'pass' },
+      { gate: 'Compliance', requirement: 'KYC/AML + jurisdiction checks', state: 'pass' },
+    ],
+    knownLimitations: ['Offline režim nije podržan.', 'Gamepad nije podržan.'],
+    readinessIndex: 78,
+    riskBoard: [
+      { category: 'security', level: 'high', mitigation: 'Pojačan audit table transakcija i access enforcement.' },
+      { category: 'performance', level: 'medium', mitigation: 'Optimizacija compact prikaza na mobilnim uređajima.' },
+      { category: 'compliance', level: 'medium', mitigation: 'Kontinuirani region i AML policy review.' },
+      { category: 'fairness', level: 'high', mitigation: 'Anti-collusion modeli + ručni hold za sumnjive obrasce.' },
+    ],
+    weeklyReadinessReview: [
+      { metric: 'Settlement integrity', value: '99.2%', target: '>=99%', trend: 'stable' },
+      { metric: 'Critical security findings', value: '0', target: '0', trend: 'stable' },
+      { metric: 'Fairness escalation rate', value: '1.9%', target: '<2%', trend: 'up' },
+    ],
+    experimentalLane: ['Novi fairness scoring i dispute UI tokovi u izolovanom pilot lane-u.'],
+  },
+  'gejming-industrija': {
+    template: {
+      identity: 'Gejming industrija kao systems-level orchestration arena.',
+      economy: 'Licenca + modul kompatibilnost + QA proof bonusi.',
+      gameplayLayers: 'Compatibility runs, orchestration chain, QA loops.',
+      trustCompliance: 'Audit-centered workflow i policy enforcement.',
+      qa: 'Module compatibility score + ChatGPT link audit.',
+      operationalStatus: 'restricted',
+    },
+    technicalReadiness: {
+      rendering: 'Kompleksni panel layout optimizovan za desktop.',
+      inputHandling: 'Mouse/keyboard primarno; touch sekundarno.',
+      performance: 'Target 55+ FPS i load < 3.8s zbog većeg broja panela.',
+      network: 'Stabilizovan high-latency mode sa retry logikom.',
+      accessibility: 'Kontrast i fokus pokriveni; dodatna revizija u toku.',
+      compliance: 'Strogi policy i governance gate pre svakog release-a.',
+    },
+    compatibilityMatrix: [
+      { dimension: 'Platforme', requirement: 'Desktop web / Mobile web / Tablet web', readiness: 'partial', detail: 'Desktop pun, tablet delimičan, mobile ograničen.' },
+      { dimension: 'Rezolucije', requirement: '320–480 / 768–1024 / 1280+', readiness: 'blocked', detail: 'Competitive tok nije podržan na 320–480.' },
+      { dimension: 'Orijentacija', requirement: 'Portrait + Landscape pravila', readiness: 'partial', detail: 'Landscape je obavezan za enterprise pogled.' },
+      { dimension: 'Input', requirement: 'Touch / Mouse / Keyboard / Gamepad', readiness: 'partial', detail: 'Mouse/keyboard obavezni; gamepad nije podržan.' },
+      { dimension: 'Performanse', requirement: 'FPS / load / memory budget', readiness: 'partial', detail: 'Potrebna dodatna optimizacija memory budžeta.' },
+      { dimension: 'Mreža', requirement: 'Offline fallback + latency režimi', readiness: 'blocked', detail: 'Offline fallback nije podržan u ovom modu.' },
+      { dimension: 'Browser minimum', requirement: 'Chrome/Edge/Firefox/Safari', readiness: 'ready', detail: 'Podrška validirana na target browser setu.' },
+      { dimension: 'Accessibility', requirement: 'Kontrast/fokus/font/reduced motion', readiness: 'partial', detail: 'Potrebna dodatna fokus navigacija za duboke panele.' },
+      { dimension: 'Compliance', requirement: 'Age-gating/region lock/KYC-AML', readiness: 'ready', detail: 'Compliance sloj je u punoj funkciji.' },
+    ],
+    minimumAcceptanceGate: [
+      { gate: 'Functional', requirement: 'Compatibility tok stabilan', state: 'pass' },
+      { gate: 'Security', requirement: 'Bez kritičnih nalaza', state: 'pass' },
+      { gate: 'Performance', requirement: 'Memory optimizacija pre live', state: 'hold' },
+      { gate: 'Compliance', requirement: 'Policy enforcement aktivan', state: 'pass' },
+    ],
+    knownLimitations: [
+      'Mobile competitive tok nije spreman.',
+      'Offline fallback nije podržan.',
+      'Potrebna dodatna optimizacija za niske rezolucije.',
+    ],
+    readinessIndex: 69,
+    riskBoard: [
+      { category: 'security', level: 'medium', mitigation: 'Pojačan scanning i policy enforcement tokom svakog ciklusa.' },
+      { category: 'performance', level: 'high', mitigation: 'Smanjiti panel rendering cost i memory footprint.' },
+      { category: 'compliance', level: 'low', mitigation: 'Održavati postojeći hard-gate model.' },
+      { category: 'fairness', level: 'medium', mitigation: 'Nastaviti QA-proof i anti-abuse kontrolu signala.' },
+    ],
+    weeklyReadinessReview: [
+      { metric: 'Compatibility pass rate', value: '93.4%', target: '>=95%', trend: 'down' },
+      { metric: 'Memory budget compliance', value: '88%', target: '>=95%', trend: 'down' },
+      { metric: 'Security blocking findings', value: '0', target: '0', trend: 'stable' },
+    ],
+    experimentalLane: ['Panel virtualization i lazy orchestration rendering u izolovanom lane-u.'],
+  },
+  'transformes-1350': {
+    template: {
+      identity: 'TRANSFORMES 1350 squad transformation arena.',
+      economy: 'Trajna licenca + 1350 gate + discipline bonusi.',
+      gameplayLayers: 'Form rotation, commander chain, objective conversion.',
+      trustCompliance: 'Replay control + anti-collusion + readiness checks.',
+      qa: 'Commander communication audit i transform consistency.',
+      operationalStatus: 'pilot',
+    },
+    technicalReadiness: {
+      rendering: 'Adaptive squad dashboard sa fokusom na landscape iskustvo.',
+      inputHandling: 'Mouse/keyboard + touch podrška.',
+      performance: 'Target 60 FPS i load < 3.2s.',
+      network: 'Latency-aware squad sync i reconnect flow.',
+      accessibility: 'Kontrast, fokus, reduced motion i font scaling.',
+      compliance: 'Age/KYC/AML gate pre professional meča.',
+    },
+    compatibilityMatrix: [
+      { dimension: 'Platforme', requirement: 'Desktop web / Mobile web / Tablet web', readiness: 'partial', detail: 'Desktop/tablet potpuni, mobile ograničen u professional modu.' },
+      { dimension: 'Rezolucije', requirement: '320–480 / 768–1024 / 1280+', readiness: 'partial', detail: '320–480 ima redukovane kontrole.' },
+      { dimension: 'Orijentacija', requirement: 'Portrait + Landscape pravila', readiness: 'partial', detail: 'Landscape je preporučen za squad koordinaciju.' },
+      { dimension: 'Input', requirement: 'Touch / Mouse / Keyboard / Gamepad', readiness: 'partial', detail: 'Gamepad nije podržan.' },
+      { dimension: 'Performanse', requirement: 'FPS / load / memory budget', readiness: 'ready', detail: 'Performansni target-i zadovoljeni na target profilima.' },
+      { dimension: 'Mreža', requirement: 'Offline fallback + latency režimi', readiness: 'partial', detail: 'Offline fallback ograničen na academy simulation.' },
+      { dimension: 'Browser minimum', requirement: 'Chrome/Edge/Firefox/Safari', readiness: 'ready', detail: 'Browser podrška potvrđena kroz test paket.' },
+      { dimension: 'Accessibility', requirement: 'Kontrast/fokus/font/reduced motion', readiness: 'ready', detail: 'A11y kriterijumi pokriveni u glavnim tokovima.' },
+      { dimension: 'Compliance', requirement: 'Age-gating/region lock/KYC-AML', readiness: 'ready', detail: 'Compliance pravila enforced pre ulaza.' },
+    ],
+    minimumAcceptanceGate: [
+      { gate: 'Functional', requirement: 'Form/commander tok bez blokera', state: 'pass' },
+      { gate: 'Security', requirement: 'No critical security findings', state: 'pass' },
+      { gate: 'Performance', requirement: 'FPS/load target', state: 'pass' },
+      { gate: 'Compliance', requirement: 'Readiness + KYC/AML', state: 'pass' },
+    ],
+    knownLimitations: ['Gamepad nije podržan.', 'Mobile professional UX je ograničen.'],
+    readinessIndex: 86,
+    riskBoard: [
+      { category: 'security', level: 'medium', mitigation: 'Nastaviti sigurnosni scan i policy gate.' },
+      { category: 'performance', level: 'medium', mitigation: 'Dodatna optimizacija kontrola na 320–480 segmentu.' },
+      { category: 'compliance', level: 'low', mitigation: 'Hard verification pre ulaza u professional mod.' },
+      { category: 'fairness', level: 'medium', mitigation: 'Replay + anti-collusion review po ciklusu.' },
+    ],
+    weeklyReadinessReview: [
+      { metric: 'Commander chain validity', value: '96.8%', target: '>=95%', trend: 'up' },
+      { metric: 'Load time p95', value: '3.0s', target: '<3.2s', trend: 'stable' },
+      { metric: 'Compliance hold rate', value: '2.4%', target: '<3%', trend: 'stable' },
+    ],
+    experimentalLane: ['Eksperimentalna forma-balans pravila u izolovanim academy sesijama.'],
+  },
+};
+
+export const extremeProgramLayer = {
+  strategicRoadmap: [
+    'Stage 1: Program baseline + ownership model + KPI definitions.',
+    'Stage 2: Delivery governance gates (DoR/DoD/QA/Release/Rollback).',
+    'Stage 3: 3D vision rollout (360D→720D→1440D→2880D→5760D) by readiness evidence.',
+    'Stage 4: Weekly control-tower review with blockers, decisions, and risk actions.',
+  ],
+  ownershipKpis: [
+    'Product owner KPI: release readiness index i ispunjenje acceptance gate-a.',
+    'Platform owner KPI: stabilnost performansi, latency i browser/3D kompatibilnost.',
+    'Content owner KPI: kvalitet game template-a, trust/compliance jasnoća, known limitations.',
+    'Operations owner KPI: incident response, rollback readiness i audit completeness.',
+  ],
+  deliveryGovernance: [
+    'Definition of Ready',
+    'Definition of Done',
+    'QA gate',
+    'Release gate',
+    'Rollback gate',
+  ],
+  riskOrchestration: [
+    'Security risk lane',
+    'Performance risk lane',
+    'Compliance risk lane',
+    'Fairness risk lane',
+  ],
+  weeklyReviewProtocol: [
+    'Status pregled po igri i po lane-u',
+    'Trend signal (up/stable/down)',
+    'Blokatori i owner odluke',
+    'Next-week akcioni plan',
+  ],
+};
+
+const createThreeDLayer = (profile: {
+  score: number;
+  levelState: Record<ThreeDLevel, CompatibilityReadiness>;
+  gateState: Record<ThreeDLevel, 'pass' | 'hold'>;
+  limitations: string[];
+}): GameThreeDExtremeLayer => ({
+  threeDReadinessScore: profile.score,
+  threeDVisionCompatibility: [
+    {
+      level: '360D',
+      label: 'Entry immersive',
+      readiness: profile.levelState['360D'],
+      minimumHardwareProfile: '3D naočare (entry), GPU mid-tier, CPU 4-core',
+      fpsTarget: '>=60 FPS',
+      maxLoadTime: '<3.5s',
+      memoryBudget: '<1200MB',
+      latencyTolerance: '<90ms',
+      ergonomicLimit: '45 min sesija + eye-strain pauza 10 min',
+    },
+    {
+      level: '720D',
+      label: 'Enhanced immersive',
+      readiness: profile.levelState['720D'],
+      minimumHardwareProfile: '3D naočare (enhanced), GPU upper-mid, CPU 6-core',
+      fpsTarget: '>=70 FPS',
+      maxLoadTime: '<3.2s',
+      memoryBudget: '<1500MB',
+      latencyTolerance: '<80ms',
+      ergonomicLimit: '40 min sesija + eye-strain warning',
+    },
+    {
+      level: '1440D',
+      label: 'Pro immersive',
+      readiness: profile.levelState['1440D'],
+      minimumHardwareProfile: '3D naočare (pro), GPU high-tier, CPU 8-core',
+      fpsTarget: '>=90 FPS',
+      maxLoadTime: '<2.9s',
+      memoryBudget: '<1900MB',
+      latencyTolerance: '<70ms',
+      ergonomicLimit: '35 min sesija + obavezan comfort mode check',
+    },
+    {
+      level: '2880D',
+      label: 'Ultra immersive',
+      readiness: profile.levelState['2880D'],
+      minimumHardwareProfile: '3D naočare (ultra), GPU enthusiast, CPU 8+ core',
+      fpsTarget: '>=110 FPS',
+      maxLoadTime: '<2.6s',
+      memoryBudget: '<2400MB',
+      latencyTolerance: '<60ms',
+      ergonomicLimit: '30 min sesija + adaptive brightness limit',
+    },
+    {
+      level: '5760D',
+      label: 'Cinematic / max immersive',
+      readiness: profile.levelState['5760D'],
+      minimumHardwareProfile: '3D naočare (cinematic), GPU flagship, CPU workstation-grade',
+      fpsTarget: '>=120 FPS',
+      maxLoadTime: '<2.4s',
+      memoryBudget: '<3200MB',
+      latencyTolerance: '<50ms',
+      ergonomicLimit: '25 min sesija + mandatory cooldown window',
+    },
+  ],
+  threeDReadinessGate: [
+    {
+      level: '360D',
+      rule: 'Mora biti ready pre live statusa.',
+      state: profile.gateState['360D'],
+      note: 'Entry immersive minimum za production.',
+    },
+    {
+      level: '720D',
+      rule: 'Mora biti ready pre live statusa.',
+      state: profile.gateState['720D'],
+      note: 'Enhanced immersive minimum za production.',
+    },
+    {
+      level: '1440D',
+      rule: 'Minimum partial sa planom stabilizacije.',
+      state: profile.gateState['1440D'],
+      note: 'Pro immersive lane mora imati stabilizacioni plan.',
+    },
+    {
+      level: '2880D',
+      rule: 'Može ostati experimental dok performanse/sigurnost ne prođu.',
+      state: profile.gateState['2880D'],
+      note: 'Ultra immersive lane nije blokator za pilot.',
+    },
+    {
+      level: '5760D',
+      rule: 'Može ostati experimental dok performanse/sigurnost ne prođu.',
+      state: profile.gateState['5760D'],
+      note: 'Cinematic lane je advanced target.',
+    },
+  ],
+  threeDKnownLimitations: profile.limitations,
+  healthHeatmap: [
+    { lane: '2D Readiness', state: 'ready', trend: 'stable', detail: 'Core 2D tok stabilan.' },
+    { lane: '3D Vision', state: profile.levelState['1440D'], trend: 'up', detail: '3D lane napreduje kroz fazni rollout.' },
+    { lane: 'Risk posture', state: 'partial', trend: 'stable', detail: 'Aktivna mitigacija u security/performance/fairness lane-ovima.' },
+    { lane: 'Release confidence', state: profile.gateState['360D'] === 'pass' && profile.gateState['720D'] === 'pass' ? 'ready' : 'blocked', trend: 'stable', detail: 'Zavisi od hard 3D gate uslova.' },
+  ],
+  progressiveUnlock: [
+    '360D ready → 720D ready → 1440D partial+stabilization → 2880D experimental pass → 5760D certification pass.',
+  ],
+  safeModeFallback: [
+    'Auto downgrade 5760D→2880D pri frame drop-u ispod FPS praga.',
+    'Auto downgrade 2880D/1440D→720D pri latentnosti iznad tolerance.',
+    'Auto downgrade na 360D kada se detektuje eye-strain risk ili thermal throttling.',
+  ],
+  certificationLane: [
+    'Vendor/device profil validacija za 3D naočare.',
+    'Per-device conformance test za FPS, latency i ergonomiju.',
+    'Security + compliance check pre produkcionog whitelisting-a uređaja.',
+  ],
+});
+
+const gameThreeDExtensions: Record<string, GameThreeDExtremeLayer> = {
+  'dota-pro-circuit': createThreeDLayer({
+    score: 78,
+    levelState: { '360D': 'ready', '720D': 'ready', '1440D': 'partial', '2880D': 'partial', '5760D': 'blocked' },
+    gateState: { '360D': 'pass', '720D': 'pass', '1440D': 'pass', '2880D': 'hold', '5760D': 'hold' },
+    limitations: ['5760D lane traži jači GPU profil.', 'Duge sesije zahtevaju strogu eye-strain kontrolu.'],
+  }),
+  'io-chess-arena': createThreeDLayer({
+    score: 85,
+    levelState: { '360D': 'ready', '720D': 'ready', '1440D': 'ready', '2880D': 'partial', '5760D': 'partial' },
+    gateState: { '360D': 'pass', '720D': 'pass', '1440D': 'pass', '2880D': 'hold', '5760D': 'hold' },
+    limitations: ['2880D/5760D traže dodatnu optimizaciju board efekata.'],
+  }),
+  'dota-1350': createThreeDLayer({
+    score: 74,
+    levelState: { '360D': 'ready', '720D': 'ready', '1440D': 'partial', '2880D': 'blocked', '5760D': 'blocked' },
+    gateState: { '360D': 'pass', '720D': 'pass', '1440D': 'pass', '2880D': 'hold', '5760D': 'hold' },
+    limitations: ['2880D/5760D nisu spremni za competitive sesije.'],
+  }),
+  'bubli-babli-1320': createThreeDLayer({
+    score: 82,
+    levelState: { '360D': 'ready', '720D': 'ready', '1440D': 'partial', '2880D': 'partial', '5760D': 'blocked' },
+    gateState: { '360D': 'pass', '720D': 'pass', '1440D': 'pass', '2880D': 'hold', '5760D': 'hold' },
+    limitations: ['5760D zahteva dodatno memory tuning testiranje.'],
+  }),
+  'io-quiz-clash': createThreeDLayer({
+    score: 88,
+    levelState: { '360D': 'ready', '720D': 'ready', '1440D': 'ready', '2880D': 'partial', '5760D': 'partial' },
+    gateState: { '360D': 'pass', '720D': 'pass', '1440D': 'pass', '2880D': 'hold', '5760D': 'hold' },
+    limitations: ['Cinematic mode (5760D) je trenutno samo za limited certification group.'],
+  }),
+  'spaja-slug-ops': createThreeDLayer({
+    score: 70,
+    levelState: { '360D': 'ready', '720D': 'ready', '1440D': 'partial', '2880D': 'blocked', '5760D': 'blocked' },
+    gateState: { '360D': 'pass', '720D': 'pass', '1440D': 'pass', '2880D': 'hold', '5760D': 'hold' },
+    limitations: ['2880D/5760D blokirani dok se ne smanji render cost na slabijim profilima.'],
+  }),
+  'spaja-poker': createThreeDLayer({
+    score: 66,
+    levelState: { '360D': 'ready', '720D': 'ready', '1440D': 'partial', '2880D': 'blocked', '5760D': 'blocked' },
+    gateState: { '360D': 'pass', '720D': 'pass', '1440D': 'pass', '2880D': 'hold', '5760D': 'hold' },
+    limitations: ['Visok rizik eye-strain u dužim table sesijama.', '5760D nije dozvoljen u production lane-u.'],
+  }),
+  'gejming-industrija': createThreeDLayer({
+    score: 58,
+    levelState: { '360D': 'partial', '720D': 'partial', '1440D': 'blocked', '2880D': 'blocked', '5760D': 'blocked' },
+    gateState: { '360D': 'hold', '720D': 'hold', '1440D': 'hold', '2880D': 'hold', '5760D': 'hold' },
+    limitations: ['3D production lane trenutno nije spreman za live.', 'Potreban pun performance/security remediation pre live statusa.'],
+  }),
+  'transformes-1350': createThreeDLayer({
+    score: 76,
+    levelState: { '360D': 'ready', '720D': 'ready', '1440D': 'partial', '2880D': 'partial', '5760D': 'blocked' },
+    gateState: { '360D': 'pass', '720D': 'pass', '1440D': 'pass', '2880D': 'hold', '5760D': 'hold' },
+    limitations: ['5760D ostaje experimental dok ne prođe sigurnosni i performansni prag.'],
+  }),
+};
+
+export const gameStandardProfiles: Record<string, GameStandardProfile> = Object.fromEntries(
+  Object.entries(baseGameStandardProfiles).map(([id, profile]) => [
+    id,
+    {
+      ...profile,
+      extreme3DLayer: gameThreeDExtensions[id],
+    },
+  ]),
+) as Record<string, GameStandardProfile>;
 
 export const gameKnowledgeLayers: GameKnowledgeLayer[] = [
   {

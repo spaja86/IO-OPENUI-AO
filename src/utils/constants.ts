@@ -108,6 +108,7 @@ export const NAV_LINKS = [
   { path: '/features', label: 'Funkcionalnosti' },
   { path: '/realtime', label: 'Real-time Demo' },
   { path: '/games', label: 'Games Economy' },
+  { path: '/developer-create', label: 'Developer & Create' },
   { path: '/spajapro', label: 'SPAJAPRO' },
   { path: '/university', label: 'Univerzitet' },
   { path: '/about', label: 'O Nama' },

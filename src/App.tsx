@@ -10,6 +10,7 @@ import Realtime from './pages/Realtime';
 import GamesPage from './pages/GamesPage';
 import UniversityPage from './pages/UniversityPage';
 import SpajaProPage from './pages/SpajaProPage';
+import DeveloperCreatePage from './pages/DeveloperCreatePage';
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/features" element={<Features />} />
         <Route path="/realtime" element={<Realtime />} />
         <Route path="/games" element={<GamesPage />} />
+        <Route path="/developer-create" element={<DeveloperCreatePage />} />
         <Route path="/spajapro" element={<SpajaProPage />} />
         <Route path="/university" element={<UniversityPage />} />
         <Route path="/about" element={<About />} />

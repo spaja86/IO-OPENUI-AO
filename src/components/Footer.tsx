@@ -75,6 +75,7 @@ export default function Footer() {
                 { to: '/features', label: 'Funkcionalnosti' },
                 { to: '/realtime', label: 'Real-time Demo' },
                 { to: '/games', label: 'Games Economy' },
+                { to: '/developer-create', label: 'Developer & Create' },
                 { to: '/spajapro', label: 'SPAJAPRO' },
                 { to: '/university', label: 'Univerzitet' },
                 { to: '/about', label: 'O Nama' },
