@@ -118,6 +118,15 @@ function routeAccent(route: string) {
   }
 }
 
+function decorativeBadge(color: string, label: string, emoji?: string) {
+  return (
+    <div style={badgeStyle(color)}>
+      {emoji ? <span aria-hidden="true">{emoji}</span> : null}
+      <span>{label}</span>
+    </div>
+  );
+}
+
 export default function DeveloperCreatePage() {
   return (
     <main style={{ paddingTop: 'var(--header-height)' }}>
@@ -130,7 +139,9 @@ export default function DeveloperCreatePage() {
       >
         <div className="container">
           <div style={{ maxWidth: '1020px', margin: '0 auto', textAlign: 'center' }}>
-            <div style={{ ...badgeStyle('#06b6d4'), margin: '0 auto 18px' }}>🧭 Repo control tower · standards · gates · metrics</div>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '18px' }}>
+              {decorativeBadge('#06b6d4', 'Repo control tower · standards · gates · metrics', '🧭')}
+            </div>
             <h1 className="section-title" style={{ marginBottom: '18px' }}>
               Developer &amp; Create <span className="gradient-text">Control Tower</span>
             </h1>
@@ -146,7 +157,7 @@ export default function DeveloperCreatePage() {
                 textAlign: 'left',
               }}
             >
-              <div style={{ ...badgeStyle('#06b6d4'), marginBottom: '12px' }}>🎯 North Star</div>
+              <div style={{ marginBottom: '12px' }}>{decorativeBadge('#06b6d4', 'North Star', '🎯')}</div>
               <h2 style={{ marginBottom: '10px', fontSize: '1.45rem' }}>{DEVELOPER_CREATE_NORTH_STAR.title}</h2>
               <p style={{ color: 'var(--io-text)', marginBottom: '18px' }}>{DEVELOPER_CREATE_NORTH_STAR.why[0]}</p>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
@@ -314,9 +325,13 @@ export default function DeveloperCreatePage() {
                       { label: 'Compliance', value: item.compliance },
                       { label: 'Operations', value: item.operations },
                     ].map(({ label, value }) => (
-                      <div key={`${item.domain}-${label}`} style={{ ...listStyle('#e2e8f0'), border: `1px solid ${statusColor(value)}55` }}>
+                      <div
+                        key={`${item.domain}-${label}`}
+                        aria-label={`${item.domain} ${label} readiness status: ${value}`}
+                        style={{ ...listStyle('#e2e8f0'), border: `1px solid ${statusColor(value)}55` }}
+                      >
                         <strong style={{ display: 'block', marginBottom: '4px' }}>{label}</strong>
-                        <span style={{ color: statusColor(value), fontWeight: 700 }}>{value}</span>
+                        <span style={{ color: statusColor(value), fontWeight: 700 }}>Status: {value}</span>
                       </div>
                     ))}
                   </div>

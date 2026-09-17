@@ -452,7 +452,7 @@ export const INNOVATION_SANDBOX = [
 export const DEVELOPER_PERSONAS: DeveloperPersona[] = [
   {
     persona: 'Creator',
-    mandate: 'Pokreće ideju, definiše vrednost i mapira iskustvo korisnika.',
+    mandate: 'Pokreće ideju, definiše vrednost i mapira iskustvo korisnika.',
     mustOwn: ['Problem statement', 'North Star veza', 'Maturity cilj'],
   },
   {
