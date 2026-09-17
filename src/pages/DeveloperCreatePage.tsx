@@ -6,9 +6,12 @@ import {
   DEFINITION_OF_READY,
   DEVELOPER_CREATE_EPIC_PILLARS,
   DEVELOPER_CREATE_ROADMAP,
+  EXTREME_CONTROL_TOWER_LANES,
+  EXTREME_PROGRAM_LAYER,
   LOCKED_PROGRAM_GOALS,
   QA_AND_RELEASE_GATES,
   REPOSITORY_DOMAIN_BOUNDARIES,
+  THREE_D_VISION_DIMENSION_POLICY,
 } from '../data/developerCreate';
 import { SPAJAPRO_GOVERNANCE, SPAJAPRO_PHASES } from '../data/spajapro';
 
@@ -143,12 +146,66 @@ export default function DeveloperCreatePage() {
         </div>
       </section>
 
+      <section style={{ padding: '0 0 56px' }}>
+        <div className="container">
+          <ScrollAnimation><h2 style={{ marginBottom: '20px' }}>7) Extreme Program Layer</h2></ScrollAnimation>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px', marginBottom: '16px' }}>
+            <ScrollAnimation>
+              <article style={cardStyle}>
+                <h3 style={{ marginBottom: '10px' }}>Strategic roadmap</h3>
+                <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px' }}>
+                  {EXTREME_PROGRAM_LAYER.strategicRoadmap.map(item => <li key={item}>{item}</li>)}
+                </ul>
+              </article>
+            </ScrollAnimation>
+            <ScrollAnimation>
+              <article style={cardStyle}>
+                <h3 style={{ marginBottom: '10px' }}>Delivery governance</h3>
+                <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px' }}>
+                  {EXTREME_PROGRAM_LAYER.deliveryGovernance.map(item => <li key={item}>{item}</li>)}
+                </ul>
+              </article>
+            </ScrollAnimation>
+            <ScrollAnimation>
+              <article style={cardStyle}>
+                <h3 style={{ marginBottom: '10px' }}>Risk orchestration</h3>
+                <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px' }}>
+                  {EXTREME_PROGRAM_LAYER.riskOrchestration.map(item => <li key={item}>{item}</li>)}
+                </ul>
+              </article>
+            </ScrollAnimation>
+          </div>
+          <div style={{ ...cardStyle, marginBottom: '16px' }}>
+            <h3 style={{ marginBottom: '10px' }}>Mandatory weekly review</h3>
+            <p style={{ color: 'var(--io-muted)', marginBottom: '10px' }}>
+              Obavezni format: {EXTREME_PROGRAM_LAYER.mandatoryWeeklyReview.join(' · ')}
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '10px' }}>
+              {EXTREME_CONTROL_TOWER_LANES.map(item => (
+                <div key={item.lane} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(0,212,255,0.18)', borderRadius: '12px', padding: '12px' }}>
+                  <strong>{item.lane}</strong>
+                  <div style={{ color: 'var(--io-muted)', fontSize: '0.86rem', marginTop: '4px' }}>Owner: {item.owner}</div>
+                  <div style={{ color: 'var(--io-muted)', fontSize: '0.82rem', marginTop: '4px' }}>KPI: {item.kpi}</div>
+                  <div style={{ color: 'var(--io-accent)', fontSize: '0.8rem', marginTop: '4px' }}>{item.cadence}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style={cardStyle}>
+            <h3 style={{ marginBottom: '10px' }}>3D Vision Compatibility policy</h3>
+            <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px' }}>
+              {THREE_D_VISION_DIMENSION_POLICY.map(item => <li key={item}>{item}</li>)}
+            </ul>
+          </div>
+        </div>
+      </section>
+
       <section style={{ padding: '0 0 80px' }}>
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
             <ScrollAnimation>
               <article style={cardStyle}>
-                <h2 style={{ marginBottom: '14px' }}>7) QA i release gate-ovi</h2>
+                <h2 style={{ marginBottom: '14px' }}>8) QA i release gate-ovi</h2>
                 <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px' }}>
                   {QA_AND_RELEASE_GATES.map(item => <li key={item}>{item}</li>)}
                 </ul>
@@ -156,7 +213,7 @@ export default function DeveloperCreatePage() {
             </ScrollAnimation>
             <ScrollAnimation>
               <article style={cardStyle}>
-                <h2 style={{ marginBottom: '14px' }}>8) Napredni nivo (više)</h2>
+                <h2 style={{ marginBottom: '14px' }}>9) Napredni nivo (više)</h2>
                 <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px' }}>
                   {ADVANCED_CONTINUOUS_IMPROVEMENTS.map(item => <li key={item}>{item}</li>)}
                 </ul>

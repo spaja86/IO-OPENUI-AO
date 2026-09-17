@@ -613,6 +613,25 @@ export default function GamesPage() {
               ))}
             </div>
 
+            <div style={{ ...sectionCard, padding: '18px', marginBottom: '20px', borderColor: 'rgba(124,58,237,0.38)' }}>
+              <div style={{ ...badgeStyle('#7c3aed'), marginBottom: '12px' }}>🕶️ 3D Vision Compatibility (360D/720D/1440D/2880D/5760D)</div>
+              <div style={{ display: 'grid', gap: '10px' }}>
+                {selectedStandards.extreme3DLayer.threeDVisionCompatibility.map(tier => (
+                  <div key={tier.level} style={listStyle('#e2e8f0')}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', marginBottom: '4px' }}>
+                      <strong>{tier.level} · {tier.label}</strong>
+                      <span style={{ ...badgeStyle(readinessAccent(tier.readiness)), padding: '4px 10px' }}>{tier.readiness.toUpperCase()}</span>
+                    </div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.82rem' }}>HW: {tier.minimumHardwareProfile}</div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.82rem' }}>
+                      FPS: {tier.fpsTarget} · Load: {tier.maxLoadTime} · Memory: {tier.memoryBudget} · Latency: {tier.latencyTolerance}
+                    </div>
+                    <div style={{ color: '#f59e0b', fontSize: '0.82rem' }}>Ergonomija: {tier.ergonomicLimit}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
               <div style={sectionCard}>
                 <div style={{ ...badgeStyle('#10b981'), marginBottom: '12px' }}>📊 Readiness Index</div>
@@ -621,11 +640,28 @@ export default function GamesPage() {
                   Nedeljni pregled prati trendove i jasno signalizira da li igra ide ka live ili ostaje u pilot/restricted statusu.
                 </div>
               </div>
+              <div style={sectionCard}>
+                <div style={{ ...badgeStyle('#7c3aed'), marginBottom: '12px' }}>📡 3D Readiness Score</div>
+                <div style={{ fontSize: '2rem', fontWeight: 800, color: '#7c3aed', marginBottom: '8px' }}>
+                  {selectedStandards.extreme3DLayer.threeDReadinessScore}/100
+                </div>
+                <div style={{ color: 'var(--io-muted)', fontSize: '0.9rem' }}>
+                  Podskor za 3D naočare lane-ove; ulazi u ukupni production confidence.
+                </div>
+              </div>
 
               <div style={sectionCard}>
                 <div style={{ ...badgeStyle('#ef4444'), marginBottom: '12px' }}>🚧 Known limitations</div>
                 <div style={{ display: 'grid', gap: '8px' }}>
                   {selectedStandards.knownLimitations.map(item => (
+                    <div key={item} style={listStyle('#e2e8f0')}>{item}</div>
+                  ))}
+                </div>
+              </div>
+              <div style={sectionCard}>
+                <div style={{ ...badgeStyle('#f59e0b'), marginBottom: '12px' }}>🕶️ 3D known limitations</div>
+                <div style={{ display: 'grid', gap: '8px' }}>
+                  {selectedStandards.extreme3DLayer.threeDKnownLimitations.map(item => (
                     <div key={item} style={listStyle('#e2e8f0')}>{item}</div>
                   ))}
                 </div>
@@ -659,6 +695,31 @@ export default function GamesPage() {
             </div>
 
             <div style={sectionCard}>
+              <div style={{ ...badgeStyle('#2563eb'), marginBottom: '12px' }}>🛂 3D readiness gate (pre live statusa)</div>
+              <div style={{ display: 'grid', gap: '10px', marginBottom: '12px' }}>
+                {selectedStandards.extreme3DLayer.threeDReadinessGate.map(gate => (
+                  <div key={gate.level} style={listStyle(readinessAccent(gate.state))}>
+                    <strong>{gate.level}</strong>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.84rem', marginTop: '4px' }}>{gate.rule}</div>
+                    <div style={{ color: 'var(--io-text)', fontSize: '0.8rem', marginTop: '4px' }}>{gate.note}</div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ ...badgeStyle('#06b6d4'), marginBottom: '10px' }}>🔥 Health heatmap</div>
+              <div style={{ display: 'grid', gap: '8px' }}>
+                {selectedStandards.extreme3DLayer.healthHeatmap.map(item => (
+                  <div key={item.lane} style={listStyle('#e2e8f0')}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
+                      <strong>{item.lane}</strong>
+                      <span style={{ color: readinessAccent(item.state), fontWeight: 700 }}>{item.state.toUpperCase()} / {item.trend.toUpperCase()}</span>
+                    </div>
+                    <div style={{ color: 'var(--io-muted)', fontSize: '0.82rem' }}>{item.detail}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={sectionCard}>
               <div style={{ ...badgeStyle('#06b6d4'), marginBottom: '12px' }}>📈 Weekly readiness review</div>
               <div style={{ display: 'grid', gap: '10px', marginBottom: '12px' }}>
                 {selectedStandards.weeklyReadinessReview.map(metric => (
@@ -674,6 +735,18 @@ export default function GamesPage() {
               <div style={{ ...badgeStyle('#f59e0b'), marginBottom: '10px' }}>🧬 Experimental lane</div>
               <div style={{ display: 'grid', gap: '8px' }}>
                 {selectedStandards.experimentalLane.map(item => (
+                  <div key={item} style={listStyle('#e2e8f0')}>{item}</div>
+                ))}
+              </div>
+              <div style={{ ...badgeStyle('#7c3aed'), margin: '14px 0 10px' }}>🔓 Progressive unlock + safe mode + certification</div>
+              <div style={{ display: 'grid', gap: '8px' }}>
+                {selectedStandards.extreme3DLayer.progressiveUnlock.map(item => (
+                  <div key={item} style={listStyle('#e2e8f0')}>{item}</div>
+                ))}
+                {selectedStandards.extreme3DLayer.safeModeFallback.map(item => (
+                  <div key={item} style={listStyle('#e2e8f0')}>{item}</div>
+                ))}
+                {selectedStandards.extreme3DLayer.certificationLane.map(item => (
                   <div key={item} style={listStyle('#e2e8f0')}>{item}</div>
                 ))}
               </div>

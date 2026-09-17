@@ -15,6 +15,13 @@ export interface DeveloperWorkflowGate {
   checklist: string[];
 }
 
+export interface ExtremeControlTowerLane {
+  lane: string;
+  owner: string;
+  kpi: string;
+  cadence: string;
+}
+
 export const DEVELOPER_CREATE_EPIC_PILLARS: DeveloperCreatePillar[] = [
   {
     pillar: 'Product',
@@ -104,14 +111,80 @@ export const DEFINITION_OF_DONE: DeveloperWorkflowGate = {
 };
 
 export const QA_AND_RELEASE_GATES = [
-  'QA gate: funkcionalni testovi + regresija + security scan + sadržajni audit.',
-  'Release gate: rollout faze, monitoring signal, incident owner i rollback plan.',
+  'QA gate: funkcionalni testovi + regresija + 3D scenariji + accessibility + security scan + sadržajni audit.',
+  'Security gate: secret scanning + policy enforcement + dependency risk check.',
+  'Compliance gate: age-gating + region lock + KYC/AML readiness za professional tok.',
+  'Release gate: phased rollout + monitoring signal + incident owner + rollback plan.',
   'Post-release gate: weekly readiness review, trend metrike i risk board update.',
 ];
 
 export const ADVANCED_CONTINUOUS_IMPROVEMENTS = [
   'Readiness Index (0–100) po igri/modulu sa jasnim scoring pravilima.',
+  '3D Readiness Score kao podskor globalnog Readiness Index-a.',
+  'Health Heatmap po igri (2D/3D readiness + rizik + trend).',
+  'Progressive unlock: 360D → 720D → 1440D → 2880D → 5760D po dokazanim metrikama.',
+  'Safe mode fallback na niži 3D nivo kada performanse padnu.',
+  'Certification lane za 3D naočare (vendor/device profil validacije).',
   'Risk board po kategorijama: security, performance, compliance, fairness.',
   'Weekly readiness review sa trendovima (up/stable/down).',
   'Experimental lane za mehanike i algoritme bez uticaja na live stabilnost.',
+];
+
+export const EXTREME_PROGRAM_LAYER = {
+  title: 'Developer & Create EXTREME Control Tower',
+  strategicRoadmap: [
+    'Extreme Stage 1: Consolidate ownership i KPI baseline.',
+    'Extreme Stage 2: Full governance chain (DoR/DoD/QA/Release/Rollback).',
+    'Extreme Stage 3: 3D vision rollout po nivoima 360D/720D/1440D/2880D/5760D.',
+    'Extreme Stage 4: Continuous risk orchestration i weekly executive review.',
+  ],
+  deliveryGovernance: [
+    'Definition of Ready (hard pre-start gate)',
+    'Definition of Done (hard pre-release gate)',
+    'QA gate (functional + regression + 3D + accessibility)',
+    'Release gate (phased rollout + monitoring + incident owner)',
+    'Rollback gate (trigger rules + owner + recovery target)',
+  ],
+  riskOrchestration: [
+    'Security lane: secret scanning + policy enforcement + dependency risk check',
+    'Performance lane: FPS/load/memory/latency budget control',
+    'Compliance lane: age-gating + region lock + KYC/AML readiness',
+    'Fairness lane: anti-abuse + dispute integrity + audit trail',
+  ],
+  mandatoryWeeklyReview: ['status', 'trend', 'blockers', 'decisions'],
+};
+
+export const EXTREME_CONTROL_TOWER_LANES: ExtremeControlTowerLane[] = [
+  {
+    lane: 'Product Control',
+    owner: 'Product owner',
+    kpi: 'Readiness Index i acceptance gate pass rate',
+    cadence: 'Weekly',
+  },
+  {
+    lane: 'Platform Control',
+    owner: 'Platform lead',
+    kpi: 'FPS/load/latency stabilnost + browser/3D kompatibilnost',
+    cadence: 'Weekly',
+  },
+  {
+    lane: 'Content Control',
+    owner: 'Content lead',
+    kpi: 'Template completeness + known limitations quality',
+    cadence: 'Weekly',
+  },
+  {
+    lane: 'Operations Control',
+    owner: 'Ops lead',
+    kpi: 'Rollback readiness + incident recovery + audit completeness',
+    cadence: 'Weekly',
+  },
+];
+
+export const THREE_D_VISION_DIMENSION_POLICY = [
+  '360D (entry immersive): mora biti READY pre live.',
+  '720D (enhanced immersive): mora biti READY pre live.',
+  '1440D (pro immersive): minimum PARTIAL uz stabilizacioni plan pre live.',
+  '2880D (ultra immersive): može ostati experimental dok ne prođe performanse/sigurnost.',
+  '5760D (cinematic/max immersive): može ostati experimental dok ne prođe performanse/sigurnost.',
 ];

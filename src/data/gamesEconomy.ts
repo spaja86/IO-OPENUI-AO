@@ -113,6 +113,45 @@ export interface WeeklyReadinessMetric {
   trend: TrendDirection;
 }
 
+export type ThreeDLevel = '360D' | '720D' | '1440D' | '2880D' | '5760D';
+
+export interface ThreeDVisionCompatibility {
+  level: ThreeDLevel;
+  label: string;
+  readiness: CompatibilityReadiness;
+  minimumHardwareProfile: string;
+  fpsTarget: string;
+  maxLoadTime: string;
+  memoryBudget: string;
+  latencyTolerance: string;
+  ergonomicLimit: string;
+}
+
+export interface ThreeDReadinessGateRule {
+  level: ThreeDLevel;
+  rule: string;
+  state: 'pass' | 'hold';
+  note: string;
+}
+
+export interface HealthHeatmapItem {
+  lane: string;
+  state: CompatibilityReadiness;
+  trend: TrendDirection;
+  detail: string;
+}
+
+export interface GameThreeDExtremeLayer {
+  threeDReadinessScore: number;
+  threeDVisionCompatibility: ThreeDVisionCompatibility[];
+  threeDReadinessGate: ThreeDReadinessGateRule[];
+  threeDKnownLimitations: string[];
+  healthHeatmap: HealthHeatmapItem[];
+  progressiveUnlock: string[];
+  safeModeFallback: string[];
+  certificationLane: string[];
+}
+
 export interface GameStandardProfile {
   template: GameTemplateDimensions;
   technicalReadiness: GameTechnicalReadiness;
@@ -123,6 +162,7 @@ export interface GameStandardProfile {
   riskBoard: GameRiskBoardItem[];
   weeklyReadinessReview: WeeklyReadinessMetric[];
   experimentalLane: string[];
+  extreme3DLayer: GameThreeDExtremeLayer;
 }
 
 export interface GameMasterProfile {
@@ -1114,7 +1154,7 @@ export const globalMinimumAcceptanceGate = [
   'Compliance gate: age-gating, region pravila i KYC/AML readiness za professional tok su verifikovani.',
 ];
 
-export const gameStandardProfiles: Record<string, GameStandardProfile> = {
+const baseGameStandardProfiles: Record<string, Omit<GameStandardProfile, 'extreme3DLayer'>> = {
   'dota-pro-circuit': {
     template: {
       identity: 'Dota Pro Circuit kao timska MOBA skill competition arena.',
@@ -1567,6 +1607,225 @@ export const gameStandardProfiles: Record<string, GameStandardProfile> = {
     experimentalLane: ['Eksperimentalna forma-balans pravila u izolovanim academy sesijama.'],
   },
 };
+
+export const extremeProgramLayer = {
+  strategicRoadmap: [
+    'Stage 1: Program baseline + ownership model + KPI definitions.',
+    'Stage 2: Delivery governance gates (DoR/DoD/QA/Release/Rollback).',
+    'Stage 3: 3D vision rollout (360D→720D→1440D→2880D→5760D) by readiness evidence.',
+    'Stage 4: Weekly control-tower review with blockers, decisions, and risk actions.',
+  ],
+  ownershipKpis: [
+    'Product owner KPI: release readiness index i ispunjenje acceptance gate-a.',
+    'Platform owner KPI: stabilnost performansi, latency i browser/3D kompatibilnost.',
+    'Content owner KPI: kvalitet game template-a, trust/compliance jasnoća, known limitations.',
+    'Operations owner KPI: incident response, rollback readiness i audit completeness.',
+  ],
+  deliveryGovernance: [
+    'Definition of Ready',
+    'Definition of Done',
+    'QA gate',
+    'Release gate',
+    'Rollback gate',
+  ],
+  riskOrchestration: [
+    'Security risk lane',
+    'Performance risk lane',
+    'Compliance risk lane',
+    'Fairness risk lane',
+  ],
+  weeklyReviewProtocol: [
+    'Status pregled po igri i po lane-u',
+    'Trend signal (up/stable/down)',
+    'Blokatori i owner odluke',
+    'Next-week akcioni plan',
+  ],
+};
+
+const createThreeDLayer = (profile: {
+  score: number;
+  levelState: Record<ThreeDLevel, CompatibilityReadiness>;
+  gateState: Record<ThreeDLevel, 'pass' | 'hold'>;
+  limitations: string[];
+}): GameThreeDExtremeLayer => ({
+  threeDReadinessScore: profile.score,
+  threeDVisionCompatibility: [
+    {
+      level: '360D',
+      label: 'Entry immersive',
+      readiness: profile.levelState['360D'],
+      minimumHardwareProfile: '3D naočare (entry), GPU mid-tier, CPU 4-core',
+      fpsTarget: '>=60 FPS',
+      maxLoadTime: '<3.5s',
+      memoryBudget: '<1200MB',
+      latencyTolerance: '<90ms',
+      ergonomicLimit: '45 min sesija + eye-strain pauza 10 min',
+    },
+    {
+      level: '720D',
+      label: 'Enhanced immersive',
+      readiness: profile.levelState['720D'],
+      minimumHardwareProfile: '3D naočare (enhanced), GPU upper-mid, CPU 6-core',
+      fpsTarget: '>=70 FPS',
+      maxLoadTime: '<3.2s',
+      memoryBudget: '<1500MB',
+      latencyTolerance: '<80ms',
+      ergonomicLimit: '40 min sesija + eye-strain warning',
+    },
+    {
+      level: '1440D',
+      label: 'Pro immersive',
+      readiness: profile.levelState['1440D'],
+      minimumHardwareProfile: '3D naočare (pro), GPU high-tier, CPU 8-core',
+      fpsTarget: '>=90 FPS',
+      maxLoadTime: '<2.9s',
+      memoryBudget: '<1900MB',
+      latencyTolerance: '<70ms',
+      ergonomicLimit: '35 min sesija + obavezan comfort mode check',
+    },
+    {
+      level: '2880D',
+      label: 'Ultra immersive',
+      readiness: profile.levelState['2880D'],
+      minimumHardwareProfile: '3D naočare (ultra), GPU enthusiast, CPU 8+ core',
+      fpsTarget: '>=110 FPS',
+      maxLoadTime: '<2.6s',
+      memoryBudget: '<2400MB',
+      latencyTolerance: '<60ms',
+      ergonomicLimit: '30 min sesija + adaptive brightness limit',
+    },
+    {
+      level: '5760D',
+      label: 'Cinematic / max immersive',
+      readiness: profile.levelState['5760D'],
+      minimumHardwareProfile: '3D naočare (cinematic), GPU flagship, CPU workstation-grade',
+      fpsTarget: '>=120 FPS',
+      maxLoadTime: '<2.4s',
+      memoryBudget: '<3200MB',
+      latencyTolerance: '<50ms',
+      ergonomicLimit: '25 min sesija + mandatory cooldown window',
+    },
+  ],
+  threeDReadinessGate: [
+    {
+      level: '360D',
+      rule: 'Mora biti ready pre live statusa.',
+      state: profile.gateState['360D'],
+      note: 'Entry immersive minimum za production.',
+    },
+    {
+      level: '720D',
+      rule: 'Mora biti ready pre live statusa.',
+      state: profile.gateState['720D'],
+      note: 'Enhanced immersive minimum za production.',
+    },
+    {
+      level: '1440D',
+      rule: 'Minimum partial sa planom stabilizacije.',
+      state: profile.gateState['1440D'],
+      note: 'Pro immersive lane mora imati stabilizacioni plan.',
+    },
+    {
+      level: '2880D',
+      rule: 'Može ostati experimental dok performanse/sigurnost ne prođu.',
+      state: profile.gateState['2880D'],
+      note: 'Ultra immersive lane nije blokator za pilot.',
+    },
+    {
+      level: '5760D',
+      rule: 'Može ostati experimental dok performanse/sigurnost ne prođu.',
+      state: profile.gateState['5760D'],
+      note: 'Cinematic lane je advanced target.',
+    },
+  ],
+  threeDKnownLimitations: profile.limitations,
+  healthHeatmap: [
+    { lane: '2D Readiness', state: 'ready', trend: 'stable', detail: 'Core 2D tok stabilan.' },
+    { lane: '3D Vision', state: profile.levelState['1440D'], trend: 'up', detail: '3D lane napreduje kroz fazni rollout.' },
+    { lane: 'Risk posture', state: 'partial', trend: 'stable', detail: 'Aktivna mitigacija u security/performance/fairness lane-ovima.' },
+    { lane: 'Release confidence', state: profile.gateState['360D'] === 'pass' && profile.gateState['720D'] === 'pass' ? 'ready' : 'blocked', trend: 'stable', detail: 'Zavisi od hard 3D gate uslova.' },
+  ],
+  progressiveUnlock: [
+    '360D ready → 720D ready → 1440D partial+stabilization → 2880D experimental pass → 5760D certification pass.',
+  ],
+  safeModeFallback: [
+    'Auto downgrade 5760D→2880D pri frame drop-u ispod FPS praga.',
+    'Auto downgrade 2880D/1440D→720D pri latentnosti iznad tolerance.',
+    'Auto downgrade na 360D kada se detektuje eye-strain risk ili thermal throttling.',
+  ],
+  certificationLane: [
+    'Vendor/device profil validacija za 3D naočare.',
+    'Per-device conformance test za FPS, latency i ergonomiju.',
+    'Security + compliance check pre produkcionog whitelisting-a uređaja.',
+  ],
+});
+
+const gameThreeDExtensions: Record<string, GameThreeDExtremeLayer> = {
+  'dota-pro-circuit': createThreeDLayer({
+    score: 78,
+    levelState: { '360D': 'ready', '720D': 'ready', '1440D': 'partial', '2880D': 'partial', '5760D': 'blocked' },
+    gateState: { '360D': 'pass', '720D': 'pass', '1440D': 'pass', '2880D': 'hold', '5760D': 'hold' },
+    limitations: ['5760D lane traži jači GPU profil.', 'Duge sesije zahtevaju strogu eye-strain kontrolu.'],
+  }),
+  'io-chess-arena': createThreeDLayer({
+    score: 85,
+    levelState: { '360D': 'ready', '720D': 'ready', '1440D': 'ready', '2880D': 'partial', '5760D': 'partial' },
+    gateState: { '360D': 'pass', '720D': 'pass', '1440D': 'pass', '2880D': 'hold', '5760D': 'hold' },
+    limitations: ['2880D/5760D traže dodatnu optimizaciju board efekata.'],
+  }),
+  'dota-1350': createThreeDLayer({
+    score: 74,
+    levelState: { '360D': 'ready', '720D': 'ready', '1440D': 'partial', '2880D': 'blocked', '5760D': 'blocked' },
+    gateState: { '360D': 'pass', '720D': 'pass', '1440D': 'pass', '2880D': 'hold', '5760D': 'hold' },
+    limitations: ['2880D/5760D nisu spremni za competitive sesije.'],
+  }),
+  'bubli-babli-1320': createThreeDLayer({
+    score: 82,
+    levelState: { '360D': 'ready', '720D': 'ready', '1440D': 'partial', '2880D': 'partial', '5760D': 'blocked' },
+    gateState: { '360D': 'pass', '720D': 'pass', '1440D': 'pass', '2880D': 'hold', '5760D': 'hold' },
+    limitations: ['5760D zahteva dodatno memory tuning testiranje.'],
+  }),
+  'io-quiz-clash': createThreeDLayer({
+    score: 88,
+    levelState: { '360D': 'ready', '720D': 'ready', '1440D': 'ready', '2880D': 'partial', '5760D': 'partial' },
+    gateState: { '360D': 'pass', '720D': 'pass', '1440D': 'pass', '2880D': 'hold', '5760D': 'hold' },
+    limitations: ['Cinematic mode (5760D) je trenutno samo za limited certification group.'],
+  }),
+  'spaja-slug-ops': createThreeDLayer({
+    score: 70,
+    levelState: { '360D': 'ready', '720D': 'ready', '1440D': 'partial', '2880D': 'blocked', '5760D': 'blocked' },
+    gateState: { '360D': 'pass', '720D': 'pass', '1440D': 'pass', '2880D': 'hold', '5760D': 'hold' },
+    limitations: ['2880D/5760D blokirani dok se ne smanji render cost na slabijim profilima.'],
+  }),
+  'spaja-poker': createThreeDLayer({
+    score: 66,
+    levelState: { '360D': 'ready', '720D': 'ready', '1440D': 'partial', '2880D': 'blocked', '5760D': 'blocked' },
+    gateState: { '360D': 'pass', '720D': 'pass', '1440D': 'pass', '2880D': 'hold', '5760D': 'hold' },
+    limitations: ['Visok rizik eye-strain u dužim table sesijama.', '5760D nije dozvoljen u production lane-u.'],
+  }),
+  'gejming-industrija': createThreeDLayer({
+    score: 58,
+    levelState: { '360D': 'partial', '720D': 'partial', '1440D': 'blocked', '2880D': 'blocked', '5760D': 'blocked' },
+    gateState: { '360D': 'hold', '720D': 'hold', '1440D': 'hold', '2880D': 'hold', '5760D': 'hold' },
+    limitations: ['3D production lane trenutno nije spreman za live.', 'Potreban pun performance/security remediation pre live statusa.'],
+  }),
+  'transformes-1350': createThreeDLayer({
+    score: 76,
+    levelState: { '360D': 'ready', '720D': 'ready', '1440D': 'partial', '2880D': 'partial', '5760D': 'blocked' },
+    gateState: { '360D': 'pass', '720D': 'pass', '1440D': 'pass', '2880D': 'hold', '5760D': 'hold' },
+    limitations: ['5760D ostaje experimental dok ne prođe sigurnosni i performansni prag.'],
+  }),
+};
+
+export const gameStandardProfiles: Record<string, GameStandardProfile> = Object.fromEntries(
+  Object.entries(baseGameStandardProfiles).map(([id, profile]) => [
+    id,
+    {
+      ...profile,
+      extreme3DLayer: gameThreeDExtensions[id],
+    },
+  ]),
+) as Record<string, GameStandardProfile>;
 
 export const gameKnowledgeLayers: GameKnowledgeLayer[] = [
   {
