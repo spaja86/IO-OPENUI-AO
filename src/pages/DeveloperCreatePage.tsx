@@ -118,6 +118,21 @@ function routeAccent(route: string) {
   }
 }
 
+function domainLabel(route: string) {
+  switch (route) {
+    case '/games':
+      return 'Games Economy';
+    case '/spajapro':
+      return 'SPAJAPRO';
+    case '/university':
+      return 'UNEVERZITET';
+    case '/developer-create':
+      return 'Developer & Create';
+    default:
+      return route;
+  }
+}
+
 function decorativeBadge(color: string, label: string, emoji?: string) {
   return (
     <div style={badgeStyle(color)}>
@@ -242,7 +257,7 @@ export default function DeveloperCreatePage() {
                     ) : (
                       <Link
                         to={domain.area}
-                        aria-label={`Otvori ${domain.area} modul`}
+                        aria-label={`Otvori ${domainLabel(domain.area)} modul`}
                         style={{
                           alignSelf: 'flex-start',
                           color: 'var(--io-accent)',
@@ -251,7 +266,7 @@ export default function DeveloperCreatePage() {
                           fontWeight: 700,
                         }}
                       >
-                        Otvori {domain.area} modul →
+                        Otvori {domainLabel(domain.area)} modul →
                       </Link>
                     )}
                   </div>
@@ -682,18 +697,22 @@ export default function DeveloperCreatePage() {
             </div>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
-            <div style={cardStyle}>
-              <h3 style={{ marginBottom: '10px' }}>3D Vision Compatibility policy</h3>
-              <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px' }}>
-                {THREE_D_VISION_DIMENSION_POLICY.map(item => <li key={item}>{item}</li>)}
-              </ul>
-            </div>
-            <div style={cardStyle}>
-              <h3 style={{ marginBottom: '10px' }}>Napredni nivo</h3>
-              <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px' }}>
-                {ADVANCED_CONTINUOUS_IMPROVEMENTS.map(item => <li key={item}>{item}</li>)}
-              </ul>
-            </div>
+            <ScrollAnimation>
+              <div style={cardStyle}>
+                <h3 style={{ marginBottom: '10px' }}>3D Vision Compatibility policy</h3>
+                <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px' }}>
+                  {THREE_D_VISION_DIMENSION_POLICY.map(item => <li key={item}>{item}</li>)}
+                </ul>
+              </div>
+            </ScrollAnimation>
+            <ScrollAnimation>
+              <div style={cardStyle}>
+                <h3 style={{ marginBottom: '10px' }}>Napredni nivo</h3>
+                <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px' }}>
+                  {ADVANCED_CONTINUOUS_IMPROVEMENTS.map(item => <li key={item}>{item}</li>)}
+                </ul>
+              </div>
+            </ScrollAnimation>
           </div>
         </div>
       </section>
