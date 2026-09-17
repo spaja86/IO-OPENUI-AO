@@ -231,6 +231,7 @@ export default function DeveloperCreatePage() {
                     ) : (
                       <Link
                         to={domain.area}
+                        aria-label={`Otvori ${domain.area} modul`}
                         style={{
                           alignSelf: 'flex-start',
                           color: 'var(--io-accent)',
@@ -239,7 +240,7 @@ export default function DeveloperCreatePage() {
                           fontWeight: 700,
                         }}
                       >
-                        Otvori domenski modul →
+                        Otvori {domain.area} modul →
                       </Link>
                     )}
                   </div>
@@ -307,15 +308,15 @@ export default function DeveloperCreatePage() {
                   <div style={{ ...badgeStyle(routeAccent(item.domain)), marginBottom: '14px' }}>{item.domain}</div>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '10px' }}>
                     {[
-                      ['Product', item.product],
-                      ['Tech', item.tech],
-                      ['Security', item.security],
-                      ['Compliance', item.compliance],
-                      ['Operations', item.operations],
-                    ].map(([label, value]) => (
-                      <div key={`${item.domain}-${label}`} style={{ ...listStyle('#e2e8f0'), border: `1px solid ${statusColor(String(value))}55` }}>
+                      { label: 'Product', value: item.product },
+                      { label: 'Tech', value: item.tech },
+                      { label: 'Security', value: item.security },
+                      { label: 'Compliance', value: item.compliance },
+                      { label: 'Operations', value: item.operations },
+                    ].map(({ label, value }) => (
+                      <div key={`${item.domain}-${label}`} style={{ ...listStyle('#e2e8f0'), border: `1px solid ${statusColor(value)}55` }}>
                         <strong style={{ display: 'block', marginBottom: '4px' }}>{label}</strong>
-                        <span style={{ color: statusColor(String(value)), fontWeight: 700 }}>{value}</span>
+                        <span style={{ color: statusColor(value), fontWeight: 700 }}>{value}</span>
                       </div>
                     ))}
                   </div>
