@@ -35,6 +35,12 @@ import {
   THREE_D_VISION_DIMENSION_POLICY,
   DEVELOPER_PERSONAS,
 } from '../data/developerCreate';
+import type {
+  ControlTowerStatus,
+  ControlTowerTrend,
+  ReadinessSignal,
+  RiskSeverity,
+} from '../data/developerCreate';
 
 const cardStyle: React.CSSProperties = {
   padding: '24px',
@@ -63,13 +69,13 @@ function listStyle(color: string): React.CSSProperties {
   return {
     padding: '10px 14px',
     borderRadius: '12px',
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(255,255,255,0.06)',
+    background: 'rgba(15, 23, 42, 0.92)',
+    border: '1px solid rgba(148,163,184,0.28)',
     color,
   };
 }
 
-function statusColor(status: string) {
+function statusColor(status: ControlTowerStatus | ControlTowerTrend | ReadinessSignal | RiskSeverity) {
   switch (status) {
     case 'ready':
     case 'active':
@@ -228,7 +234,8 @@ export default function DeveloperCreatePage() {
                         style={{
                           alignSelf: 'flex-start',
                           color: 'var(--io-accent)',
-                          textDecoration: 'none',
+                          textDecoration: 'underline',
+                          textUnderlineOffset: '3px',
                           fontWeight: 700,
                         }}
                       >

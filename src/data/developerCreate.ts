@@ -9,6 +9,7 @@ export type DeveloperCreatePillarName =
 export type ControlTowerStatus = 'planned' | 'active' | 'pilot' | 'live' | 'enterprise-ready';
 export type ReadinessSignal = 'ready' | 'partial' | 'blocked';
 export type RiskSeverity = 'low' | 'medium' | 'high' | 'critical';
+export type ControlTowerTrend = 'up' | 'stable' | 'watch';
 
 export interface DeveloperCreateNorthStar {
   title: string;
@@ -40,7 +41,7 @@ export interface ControlTowerDomainStatus {
   domain: '/games' | '/spajapro' | '/university';
   status: ControlTowerStatus;
   focus: string;
-  trend: 'up' | 'stable' | 'watch';
+  trend: ControlTowerTrend;
   blocker: string;
   nextDecision: string;
 }
