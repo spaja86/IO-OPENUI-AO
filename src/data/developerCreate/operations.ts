@@ -104,6 +104,48 @@ export const DOMAIN_SCORECARDS: DomainScorecard[] = [
   },
 ];
 
+export const CONTROL_TOWER_SCORE_SNAPSHOTS = [
+  {
+    route: '/games',
+    phase: 'Faza 3 · Povezivanje domena',
+    readiness: 76,
+    trust: 72,
+    release: 70,
+    signal: 'Usklađivanje fairness/compliance signala sa release odlukama.',
+  },
+  {
+    route: '/spajapro',
+    phase: 'Faza 4 · Governance hardening',
+    readiness: 84,
+    trust: 80,
+    release: 79,
+    signal: 'Stabilizacija release approvals i audit traga.',
+  },
+  {
+    route: '/university',
+    phase: 'Faza 4 · Governance hardening',
+    readiness: 82,
+    trust: 85,
+    release: 77,
+    signal: 'Zatvaranje certification evidence i region-ready signala.',
+  },
+  {
+    route: '/developer-create',
+    phase: 'Faza 5 · Executive visibility',
+    readiness: 88,
+    trust: 87,
+    release: 84,
+    signal: 'Centralni control tower signal za sve domene.',
+  },
+];
+
+export const CRITICAL_DEPENDENCY_HEATMAP = [
+  { from: '/games', to: '/spajapro', intensity: 'critical', reason: 'Policy orchestration i release guardrails zavise od platformskog enforcement sloja.' },
+  { from: '/games', to: '/university', intensity: 'high', reason: 'Professional activation i certification bridge zahtevaju usklađen dokaz readiness-a.' },
+  { from: '/university', to: '/spajapro', intensity: 'high', reason: 'Audit/compliance servisi i evidence trace dolaze kroz orchestration sloj.' },
+  { from: '/spajapro', to: '/developer-create', intensity: 'medium', reason: 'Tehnička isporuka mora ostati usklađena sa centralnim governance pravilima.' },
+];
+
 export const OWNERSHIP_MODEL: OwnershipRole[] = [
   {
     lane: 'Product readiness',

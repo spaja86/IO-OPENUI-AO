@@ -13,6 +13,7 @@ export const LOCKED_METRICS: LockedMetric[] = [
   { metric: 'Security finding severity trend', target: 'Down ili stable bez critical nalaza', whyItMatters: 'Štiti trust sloj.' },
   { metric: 'Performance stability', target: 'Budžeti ispunjeni po domenu', whyItMatters: 'Čuva korisničko iskustvo i live spremnost.' },
   { metric: 'Compliance completion rate', target: 'Sve obavezne kontrole zatvorene pre live', whyItMatters: 'Smanjuje regulatorni rizik.' },
+  { metric: 'Blocker aging', target: 'Blocked/held odluke zatvorene unutar definisanog SLA', whyItMatters: 'Sprečava zastoje i povećava predvidivost delivery-ja.' },
   { metric: 'Time from concept to release', target: 'Merljiv i trendovski optimizovan', whyItMatters: 'Pomaže planiranju delivery-ja.' },
   { metric: 'Rollback readiness score', target: 'Jasan recovery plan za svaki rollout', whyItMatters: 'Smanjuje incident impact.' },
   { metric: 'Documentation completeness', target: 'Template-i kompletni bez rupa', whyItMatters: 'Obezbeđuje audit i transfer znanja.' },
@@ -47,7 +48,7 @@ export const ADVANCED_CONTINUOUS_IMPROVEMENTS = [
 ];
 
 export const EXTREME_PROGRAM_LAYER = {
-  title: 'Developer & Create EXTREME Control Tower',
+  title: 'Developer & Create EXTREME v2 Control Tower',
   strategicRoadmap: [
     'Extreme Stage 1: Consolidate ownership, taxonomy i KPI baseline.',
     'Extreme Stage 2: Full governance chain (DoR/DoD/QA/Security/Compliance/Release/Rollback).',
@@ -178,6 +179,11 @@ export const CHANGE_IMPACT_MAP: ChangeImpactItem[] = [
     affects: ['Policy inheritance', 'Security posture', 'Audit trail', 'Decision memory'],
     requiredChecks: ['AI governance review', 'Risk board', 'Approval chain validation'],
   },
+  {
+    changeType: 'CI/deploy/config policy change',
+    affects: ['Release discipline', 'Security posture', 'Cross-domain stability', 'Audit evidence'],
+    requiredChecks: ['Owner/reviewer/approver confirmation', 'Security/compliance review', 'Change impact + rollback proof'],
+  },
 ];
 
 export const REPO_TRANSFORMATION_ROADMAP = [
@@ -185,4 +191,57 @@ export const REPO_TRANSFORMATION_ROADMAP = [
   'Q2: Domain scorecards, evidence matrix i impact review discipline.',
   'Q3: Capability registry, decision memory i scenario planning expansion.',
   'Q4: Multi-repo operating model i enterprise-grade executive dashboarding.',
+];
+
+export const ENTERPRISE_HARDENING_LANE = [
+  'Audit readiness proverava evidencu odluka, release signale i rollback vežbe po domenu.',
+  'Policy inheritance consistency proverava da /games, /spajapro i /university koriste ista centralna pravila.',
+  'Multi-domain stability prati degradaciju između povezanih ruta pre promotion odluke.',
+];
+
+export const INNOVATION_SANDBOX_LANE = [
+  'Eksperimenti rade u izolovanom capability prostoru bez direktnog uticaja na live tok.',
+  'Svaki sandbox eksperiment mora imati rollback put i failure signal pre širenja.',
+  'Promocija iz sandbox-a zahteva evidence paket i owner/reviewer/approver odluku.',
+];
+
+export const READINESS_CERTIFICATION_BADGES = [
+  { level: 'Prototype', criteria: 'Rizici evidentirani, scope izolovan, bez live uticaja.' },
+  { level: 'Validation', criteria: 'Readiness signal dokazan i acceptance kriterijumi prolaze.' },
+  { level: 'Pilot', criteria: 'Monitoring + rollback + incident owner potvrđeni.' },
+  { level: 'Live', criteria: 'No-live-without-evidence i svi hard gate-ovi green.' },
+  { level: 'Enterprise-ready', criteria: 'SLA, audit trag i policy inheritance stabilni kroz cikluse.' },
+];
+
+export const CONTINUOUS_IMPROVEMENT_BACKLOG = [
+  {
+    priority: 'P1',
+    item: 'Zatvoriti cross-domain release evidence gap',
+    riskImpact: 'Visok rizik / visok uticaj',
+    nextAction: 'Dopuniti evidence matrix za sve rute i vezati je za weekly review ulaz.',
+  },
+  {
+    priority: 'P1',
+    item: 'Formalizovati capability unlock/demotion pravila',
+    riskImpact: 'Visok rizik / visok uticaj',
+    nextAction: 'Zaključati promotivna i rollback pravila po maturity nivou.',
+  },
+  {
+    priority: 'P2',
+    item: 'Ujednačiti decision SLA discipline',
+    riskImpact: 'Srednji rizik / visok uticaj',
+    nextAction: 'Primeniti SLA pragove na blocked i held stanja kroz sve domene.',
+  },
+  {
+    priority: 'P2',
+    item: 'Pojačati policy drift monitoring',
+    riskImpact: 'Srednji rizik / srednji uticaj',
+    nextAction: 'Uvesti periodične drift check ulaze u governance review.',
+  },
+  {
+    priority: 'P3',
+    item: 'Skalirati readiness certification badge model',
+    riskImpact: 'Nizak rizik / srednji uticaj',
+    nextAction: 'Mapirati badge kriterijume na dashboard i release review pakete.',
+  },
 ];

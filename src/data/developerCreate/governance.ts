@@ -97,6 +97,11 @@ export const REPOSITORY_GOVERNANCE_RULES: GovernanceRule[] = [
     policy: 'Cross-domain moduli nasledjuju centralna pravila iz Developer & Create control tower-a.',
     enforcement: 'Svaki domen mora dokazati gde primenjuje repo-level policy i gate-ove.',
   },
+  {
+    title: 'Config and agent changes require reinforced review',
+    policy: 'Promene u CI/deploy/agent konfiguraciji moraju imati pojačan review signal i evidence.',
+    enforcement: 'Bez owner/reviewer/approver potpisa, impact mape i audit traga promena ostaje blokirana.',
+  },
 ];
 
 export const QUALITY_CONTRACTS: QualityContract[] = [
@@ -260,6 +265,52 @@ export const HUMAN_REVIEW_ESCALATION: EscalationTrigger[] = [
     agentLimit: 'Agent ne može prioritetizovati jedan domen na štetu drugog bez odluke.',
     humanAction: 'Program governance vodi finalnu trade-off odluku.',
   },
+];
+
+export const DECISION_SLA_MODEL = [
+  {
+    state: 'blocked',
+    closeWithin: '48h',
+    owner: 'Program governance',
+    escalation: 'Automatski ide na executive weekly review ako rok probije SLA.',
+  },
+  {
+    state: 'held',
+    closeWithin: '5 radnih dana',
+    owner: 'Domain lead',
+    escalation: 'Ako nema sledeće odluke, uključuje se security/compliance owner.',
+  },
+  {
+    state: 'approved',
+    closeWithin: '24h za evidenciju',
+    owner: 'Reviewer lane',
+    escalation: 'Ako audit trag nije kompletan, approval se vraća u held.',
+  },
+];
+
+export const POLICY_DRIFT_MONITOR = [
+  {
+    area: 'Terminology drift',
+    check: 'Readiness, blocker i decision termini ostaju isti kroz sve rute.',
+    reaction: 'Content freeze dok canonical vocabulary odstupanja ne budu uklonjena.',
+  },
+  {
+    area: 'Gate drift',
+    check: 'DoR/DoD/QA/Security/Release/Rollback lanac ostaje potpun po promeni.',
+    reaction: 'Promena se blokira dok missing gate dokaz ne bude vraćen.',
+  },
+  {
+    area: 'Ownership drift',
+    check: 'Svaka high-impact promena ima owner/reviewer/approver trijadu.',
+    reaction: 'Escalation i rollback readiness review postaju obavezni.',
+  },
+];
+
+export const STRATEGIC_AUDIT_TRAIL_REQUIREMENTS = [
+  'Svaka strateška odluka mora imati area, razlog, owner lane i sledeći potez.',
+  'Svaka high-impact promena mora imati impact map, evidence paket i approval chain trag.',
+  'Config i agent promene moraju sadržati policy check i security/compliance potvrdu.',
+  'Decision log mora biti ažuriran u istom ciklusu kada se menja readiness status.',
 ];
 
 export const CONTROL_TOWER_API_MODEL: ControlTowerApiShape[] = [
