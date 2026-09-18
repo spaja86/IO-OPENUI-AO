@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { OWNER, PLATFORMS } from '../utils/constants';
+import { NAV_LINKS, OWNER, PLATFORMS } from '../utils/constants';
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -70,20 +70,10 @@ export default function Footer() {
           <div>
             <h4 style={{ marginBottom: '16px', color: 'var(--io-text)' }}>Navigacija</h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {[
-                { to: '/', label: 'Početna' },
-                { to: '/features', label: 'Funkcionalnosti' },
-                { to: '/realtime', label: 'Real-time Demo' },
-                { to: '/games', label: 'Games Economy' },
-                { to: '/developer-create', label: 'Developer & Create' },
-                { to: '/spajapro', label: 'SPAJAPRO' },
-                { to: '/university', label: 'Univerzitet' },
-                { to: '/about', label: 'O Nama' },
-                { to: '/contact', label: 'Kontakt' },
-              ].map(l => (
-                <li key={l.to}>
+              {NAV_LINKS.map(l => (
+                <li key={l.path}>
                   <Link
-                    to={l.to}
+                    to={l.path}
                     style={{ color: 'var(--io-muted)', fontSize: '0.9rem', transition: 'color 0.2s' }}
                     onMouseEnter={e => (e.currentTarget.style.color = 'var(--io-accent)')}
                     onMouseLeave={e => (e.currentTarget.style.color = 'var(--io-muted)')}
