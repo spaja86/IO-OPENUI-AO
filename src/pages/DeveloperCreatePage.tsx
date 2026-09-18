@@ -8,13 +8,18 @@ import {
   CERTIFICATION_AND_TRUST_FRAMEWORK,
   CHANGE_IMPACT_MAP,
   CONTROL_TOWER_API_MODEL,
+  CONTROL_TOWER_SCORE_SNAPSHOTS,
   CONTROL_TOWER_DASHBOARD,
+  CONTINUOUS_IMPROVEMENT_BACKLOG,
   CONTRIBUTOR_OPERATING_GUIDE,
+  CRITICAL_DEPENDENCY_HEATMAP,
   CREATE_WORKFLOW,
   CRITICAL_PATH_MAP,
   DECISION_MEMORY,
+  DECISION_SLA_MODEL,
   DEFINITION_OF_DONE,
   DEFINITION_OF_READY,
+  DEVELOPER_CREATE_EXTREME_V2,
   DEVELOPER_CREATE_EPIC_PILLARS,
   DEVELOPER_CREATE_NORTH_STAR,
   DEVELOPER_CREATE_ROADMAP,
@@ -31,14 +36,18 @@ import {
   GOVERNANCE_POLICY_SECTIONS,
   HUMAN_REVIEW_ESCALATION,
   INCIDENT_AND_ROLLBACK_DISCIPLINE,
+  INNOVATION_SANDBOX_LANE,
   LOCKED_METRICS,
   LOCKED_PROGRAM_GOALS,
+  LOCKED_REPOSITORY_HIERARCHY,
   OPERATING_PHASES,
   OWNERSHIP_MODEL,
+  POLICY_DRIFT_MONITOR,
   POLICY_INHERITANCE_MODEL,
   PROGRAM_HIERARCHY,
   QA_AND_RELEASE_GATES,
   QUALITY_CONTRACTS,
+  READINESS_CERTIFICATION_BADGES,
   RELEASE_MATURITY_LADDER,
   REPOSITORY_DOMAIN_BOUNDARIES,
   REPOSITORY_GOVERNANCE_RULES,
@@ -46,9 +55,11 @@ import {
   REPO_TRANSFORMATION_ROADMAP,
   RISK_BOARD,
   SCENARIO_MODES,
+  STRATEGIC_AUDIT_TRAIL_REQUIREMENTS,
   STANDARD_TEMPLATES,
   THREE_D_VISION_DIMENSION_POLICY,
   TRUST_SURFACE_MAP,
+  ENTERPRISE_HARDENING_LANE,
 } from '../data/developerCreate';
 import type { ControlTowerStatus, ControlTowerTrend, ReadinessSignal, RiskSeverity } from '../data/developerCreate';
 import {
@@ -168,6 +179,7 @@ export default function DeveloperCreatePage() {
                 <span style={badgeStyle(statusColor(REPOSITORY_HEALTH_OVERVIEW.status))}>
                   Overall status: {REPOSITORY_HEALTH_OVERVIEW.status}
                 </span>
+                <span style={badgeStyle('#14b8a6')}>EXTREME v2</span>
                 <span style={badgeStyle('#8b5cf6')}>Single source of truth</span>
                 <span style={badgeStyle('#10b981')}>Cross-domain governance</span>
               </div>
@@ -270,6 +282,22 @@ export default function DeveloperCreatePage() {
           </InfoCard>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
+          <InfoCard title={DEVELOPER_CREATE_EXTREME_V2.title} badge="Official repo program" badgeColor="#14b8a6">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              <div style={listStyle('#e2e8f0')}>
+                <strong style={{ display: 'block', marginBottom: '6px' }}>Scope</strong>
+                <div style={{ color: 'var(--io-muted)' }}>{DEVELOPER_CREATE_EXTREME_V2.scope}</div>
+              </div>
+              <div style={listStyle('#e2e8f0')}>
+                <strong style={{ display: 'block', marginBottom: '6px' }}>Objectives</strong>
+                <div style={{ color: 'var(--io-muted)' }}>{DEVELOPER_CREATE_EXTREME_V2.objectives.join(' · ')}</div>
+              </div>
+              <div style={listStyle('#e2e8f0')}>
+                <strong style={{ display: 'block', marginBottom: '6px' }}>Responsibility boundaries</strong>
+                <div style={{ color: 'var(--io-muted)' }}>{DEVELOPER_CREATE_EXTREME_V2.responsibilityBoundaries.join(' · ')}</div>
+              </div>
+            </div>
+          </InfoCard>
           <InfoCard title="Repository program map" badge="Domain orchestration">
             <div style={{ display: 'grid', gap: '12px' }}>
               {REPOSITORY_DOMAIN_BOUNDARIES.map(domain => (
@@ -294,6 +322,13 @@ export default function DeveloperCreatePage() {
           <InfoCard title="Locked program goals" badge="Non-negotiables" badgeColor="#f59e0b">
             <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px' }}>
               {LOCKED_PROGRAM_GOALS.map(item => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </InfoCard>
+          <InfoCard title="Locked hierarchy framework" badge="Mandatory order" badgeColor="#2563eb">
+            <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px' }}>
+              {LOCKED_REPOSITORY_HIERARCHY.map(item => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
@@ -385,6 +420,35 @@ export default function DeveloperCreatePage() {
         </InfoCard>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px', marginTop: '16px' }}>
+          <InfoCard title="Control tower score snapshots" badge="Per route / phase" badgeColor="#14b8a6">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {CONTROL_TOWER_SCORE_SNAPSHOTS.map(item => (
+                <div key={`${item.route}-${item.phase}`} style={listStyle('#e2e8f0')}>
+                  <strong style={{ display: 'block', marginBottom: '6px' }}>{item.route}</strong>
+                  <div style={{ marginBottom: '6px' }}>Phase: {item.phase}</div>
+                  <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}>
+                    Readiness {item.readiness}% · Trust {item.trust}% · Release {item.release}%
+                  </div>
+                  <div style={{ color: 'var(--io-muted)' }}>{item.signal}</div>
+                </div>
+              ))}
+            </div>
+          </InfoCard>
+          <InfoCard title="Critical dependency heatmap" badge="Cross-domain pressure" badgeColor="#ef4444">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {CRITICAL_DEPENDENCY_HEATMAP.map(item => (
+                <div key={`${item.from}-${item.to}`} style={{ ...listStyle('#e2e8f0'), border: `1px solid ${statusColor(item.intensity as RiskSeverity)}55` }}>
+                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '6px' }}>
+                    <strong>
+                      {item.from} → {item.to}
+                    </strong>
+                    <span style={badgeStyle(statusColor(item.intensity as RiskSeverity))}>{item.intensity}</span>
+                  </div>
+                  <div style={{ color: 'var(--io-muted)' }}>{item.reason}</div>
+                </div>
+              ))}
+            </div>
+          </InfoCard>
           <InfoCard title="Readiness matrix" badge="Shared scoring">
             <div style={{ display: 'grid', gap: '10px' }}>
               {DOMAIN_READINESS_MATRIX.map(item => (
@@ -521,6 +585,36 @@ export default function DeveloperCreatePage() {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
+          <InfoCard title="Decision SLA model" badge="Blocker closure discipline" badgeColor="#14b8a6">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {DECISION_SLA_MODEL.map(item => (
+                <div key={item.state} style={listStyle('#e2e8f0')}>
+                  <strong style={{ display: 'block', marginBottom: '6px' }}>{item.state}</strong>
+                  <div style={{ marginBottom: '6px' }}>Close within: {item.closeWithin}</div>
+                  <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}>Owner: {item.owner}</div>
+                  <div style={{ color: 'var(--io-muted)' }}>{item.escalation}</div>
+                </div>
+              ))}
+            </div>
+          </InfoCard>
+          <InfoCard title="Policy drift monitor" badge="Deviation tracking" badgeColor="#ef4444">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {POLICY_DRIFT_MONITOR.map(item => (
+                <div key={item.area} style={listStyle('#e2e8f0')}>
+                  <strong style={{ display: 'block', marginBottom: '6px' }}>{item.area}</strong>
+                  <div style={{ marginBottom: '6px' }}><strong>Check:</strong> {item.check}</div>
+                  <div style={{ color: 'var(--io-muted)' }}><strong>Reaction:</strong> {item.reaction}</div>
+                </div>
+              ))}
+            </div>
+          </InfoCard>
+          <InfoCard title="Strategic audit trail requirements" badge="High-impact mandatory proof" badgeColor="#2563eb">
+            <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px' }}>
+              {STRATEGIC_AUDIT_TRAIL_REQUIREMENTS.map(item => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </InfoCard>
           <InfoCard title="Decision memory" badge="Approved / held / blocked">
             <div style={{ display: 'grid', gap: '10px' }}>
               {DECISION_MEMORY.map(item => (
@@ -783,6 +877,26 @@ export default function DeveloperCreatePage() {
               ))}
             </div>
           </InfoCard>
+          <InfoCard title="Enterprise hardening and sandbox lanes" badge="Scale without instability" badgeColor="#14b8a6">
+            <div style={{ display: 'grid', gap: '12px', marginBottom: '12px' }}>
+              <div style={listStyle('#e2e8f0')}>
+                <strong style={{ display: 'block', marginBottom: '6px' }}>Enterprise hardening lane</strong>
+                <div style={{ color: 'var(--io-muted)' }}>{ENTERPRISE_HARDENING_LANE.join(' · ')}</div>
+              </div>
+              <div style={listStyle('#e2e8f0')}>
+                <strong style={{ display: 'block', marginBottom: '6px' }}>Innovation sandbox lane</strong>
+                <div style={{ color: 'var(--io-muted)' }}>{INNOVATION_SANDBOX_LANE.join(' · ')}</div>
+              </div>
+            </div>
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {READINESS_CERTIFICATION_BADGES.map(item => (
+                <div key={item.level} style={listStyle('#e2e8f0')}>
+                  <strong style={{ display: 'block', marginBottom: '6px' }}>{item.level} badge</strong>
+                  <div style={{ color: 'var(--io-muted)' }}>{item.criteria}</div>
+                </div>
+              ))}
+            </div>
+          </InfoCard>
           <InfoCard title="Repo transformation roadmap" badge="Quarterly evolution" badgeColor="#2563eb">
             <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px', marginBottom: '12px' }}>
               {REPO_TRANSFORMATION_ROADMAP.map(item => (
@@ -805,6 +919,20 @@ export default function DeveloperCreatePage() {
               {['Consistency layer', 'Future-ready repo scale', 'Safe promotion/demotion engine'].map(item => (
                 <div key={item} style={listStyle('#e2e8f0')}>
                   {item}
+                </div>
+              ))}
+            </div>
+          </InfoCard>
+          <InfoCard title="Continuous improvement backlog" badge="Prioritized by risk × impact" badgeColor="#8b5cf6">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {CONTINUOUS_IMPROVEMENT_BACKLOG.map(item => (
+                <div key={item.item} style={listStyle('#e2e8f0')}>
+                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '6px' }}>
+                    <strong>{item.item}</strong>
+                    <span style={badgeStyle(item.priority === 'P1' ? '#ef4444' : item.priority === 'P2' ? '#f59e0b' : '#06b6d4')}>{item.priority}</span>
+                  </div>
+                  <div style={{ marginBottom: '6px' }}>{item.riskImpact}</div>
+                  <div style={{ color: 'var(--io-muted)' }}>Next action: {item.nextAction}</div>
                 </div>
               ))}
             </div>

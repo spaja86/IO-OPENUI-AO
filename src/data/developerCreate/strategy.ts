@@ -22,6 +22,24 @@ export const DEVELOPER_CREATE_NORTH_STAR: DeveloperCreateNorthStar = {
   ],
 };
 
+export const DEVELOPER_CREATE_EXTREME_V2 = {
+  title: 'Developer & Create EXTREME v2',
+  scope:
+    'Zvanični repo program koji zaključava zajednički operativni jezik, governance i readiness model za /games, /spajapro, /university i /developer-create.',
+  objectives: [
+    'Jedinstven model odluka, ownership-a i release discipline kroz sve domene.',
+    'Maksimalna auditabilnost strategic i high-impact promena.',
+    'Stabilan put od ideje do enterprise-ready capability nivoa.',
+  ],
+  responsibilityBoundaries: [
+    'Product: vrednost, scope i capability target po domenu.',
+    'Platform: tehnička stabilnost, observability i rollback spremnost.',
+    'Trust/Governance: security, compliance, evidence i policy enforcement.',
+  ],
+};
+
+export const LOCKED_REPOSITORY_HIERARCHY = ['Strategy', 'Operating Model', 'Governance', 'Metrics', 'Risk', 'Expansion'];
+
 export const PROGRAM_HIERARCHY: ProgramHierarchyLayer[] = [
   {
     layer: 'Strategy',
