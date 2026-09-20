@@ -225,7 +225,8 @@ export interface ScenarioMode {
 export interface CapabilityRegistryItem {
   capability: string;
   owner: string;
-  currentLevel: string;
+  currentLevel: ControlTowerStatus | 'validation';
+  targetState: string;
   unlocks: string[];
 }
 

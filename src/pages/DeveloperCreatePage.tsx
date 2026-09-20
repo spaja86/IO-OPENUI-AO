@@ -670,7 +670,8 @@ export default function DeveloperCreatePage() {
                 <div key={item.capability} style={listStyle('#e2e8f0')}>
                   <strong style={{ display: 'block', marginBottom: '6px' }}>{item.capability}</strong>
                   <div style={{ marginBottom: '6px' }}>Owner: {item.owner}</div>
-                  <div style={{ marginBottom: '6px' }}>Current level: {statusLabel(item.currentLevel as ControlTowerStatus)}</div>
+                  <div style={{ marginBottom: '6px' }}>Current level: {statusLabel(item.currentLevel)}</div>
+                  <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}>Target state: {item.targetState}</div>
                   <div style={{ color: 'var(--io-muted)' }}>Unlocks: {item.unlocks.join(' · ')}</div>
                 </div>
               ))}
