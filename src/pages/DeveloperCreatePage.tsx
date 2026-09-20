@@ -124,27 +124,27 @@ function statusColor(status: ControlTowerStatus | ControlTowerTrend | ReadinessS
 function statusLabel(status: ControlTowerStatus | ControlTowerTrend | ReadinessSignal | RiskSeverity | 'held' | 'blocked' | 'validation') {
   switch (status) {
     case 'active':
-      return '● active';
+      return 'active';
     case 'pilot':
-      return '◐ pilot';
+      return 'pilot';
     case 'blocked':
-      return '✕ blocked';
+      return 'blocked';
     case 'held':
-      return '◌ held';
+      return 'held';
     case 'enterprise-ready':
-      return '◆ enterprise-ready';
+      return 'enterprise-ready';
     case 'live':
-      return '▲ live';
+      return 'live';
     case 'planned':
-      return '○ planned';
+      return 'planned';
     case 'validation':
-      return '◍ validation';
+      return 'validation';
     case 'up':
-      return '↑ up';
+      return 'up';
     case 'stable':
-      return '→ stable';
+      return 'stable';
     case 'watch':
-      return '⚠ watch';
+      return 'watch';
     default:
       return status;
   }
