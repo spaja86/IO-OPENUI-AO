@@ -13,16 +13,18 @@ import type {
 export const DEVELOPER_CREATE_NORTH_STAR: DeveloperCreateNorthStar = {
   title: 'Developer & Create Control Tower',
   mission:
-    'Jedinstveni upravljački sloj koji definiše kako se u repozitorijumu planira, gradi, proverava, pušta i unapređuje svaki proizvodni domen.',
+    'Jedinstveni repo-wide upravljački sloj koji zaključava isti jezik, iste gate-ove, isti ownership i isti evidence model za svaki proizvodni domen i svaki budući modul.',
   why: [
     'Da /games, /spajapro i /university koriste isti governance jezik.',
     'Da svaki novi modul ima merljiv readiness pre nego što ide u pilot/live.',
     'Da sigurnost, compliance i rollback spremnost budu deo početka, ne završnog popravnog koraka.',
+    'Da se isti radni takt vidi u planiranju, build-u, review-u, release-u i poboljšanjima kroz ceo repo.',
   ],
   measures: [
     'Readiness Index po domenu i ruti.',
     'Gate pass rate za build, QA, security, compliance i release.',
     'Trend blokera, odluka i rollback spremnosti na weekly review nivou.',
+    'Stepen usklađenosti domena sa jedinstvenim operating cycle modelom.',
   ],
 };
 
@@ -42,7 +44,7 @@ export const DEVELOPER_CREATE_EXTREME_V2 = {
   ],
 };
 
-export const LOCKED_REPOSITORY_HIERARCHY = ['Strategy', 'Operating Model', 'Governance', 'Metrics', 'Risk', 'Expansion'];
+export const LOCKED_REPOSITORY_HIERARCHY = ['Strategy', 'Standards', 'Gates', 'Metrics', 'Dependencies', 'Review loop'];
 
 export const PROGRAM_HIERARCHY: ProgramHierarchyLayer[] = [
   {
@@ -66,9 +68,9 @@ export const PROGRAM_HIERARCHY: ProgramHierarchyLayer[] = [
     outputs: ['Readiness Index', 'Risk severity trend', 'Ownership clarity score'],
   },
   {
-    layer: 'Domain execution',
-    summary: 'Povezuje /games, /spajapro i /university sa zajedničkim modelom isporuke.',
-    outputs: ['Domain status', 'Dependency map', 'Release maturity ladder'],
+    layer: 'Dependencies',
+    summary: 'Povezuje /games, /spajapro, /university i /developer-create kroz isti unlock, blocker i inheritance model.',
+    outputs: ['Domain status', 'Dependency map', 'Inherited policies', 'Unified operating outputs'],
   },
   {
     layer: 'Review loop',

@@ -65,6 +65,7 @@ import {
   QUALITY_CONTRACTS,
   READINESS_CERTIFICATION_BADGES,
   REPO_COMMAND_CENTER,
+  REPO_IMPLEMENTATION_PRIORITIES,
   REPO_OPERATING_CHARTER,
   RELEASE_MATURITY_LADDER,
   REPOSITORY_DOMAIN_BOUNDARIES,
@@ -369,7 +370,7 @@ export default function DeveloperCreatePage() {
         subtitle="Developer & Create sada okuplja North Star, terminologiju i granice domena u jedan repo-level operativni jezik."
       >
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px', marginBottom: '16px' }}>
-          <InfoCard title="Program hierarchy" badge="Strategy → Review loop">
+          <InfoCard title="Program hierarchy" badge="6 hard layers">
             <div style={{ display: 'grid', gap: '10px' }}>
               {PROGRAM_HIERARCHY.map(layer => (
                 <div key={layer.layer} style={listStyle('#e2e8f0')}>
@@ -520,6 +521,17 @@ export default function DeveloperCreatePage() {
                 <li key={item}>{item}</li>
               ))}
             </ul>
+          </InfoCard>
+          <InfoCard title="Implementation priority" badge="Repo-wide execution order" badgeColor="#f97316">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {REPO_IMPLEMENTATION_PRIORITIES.map(item => (
+                <div key={item.priority} style={listStyle('#e2e8f0')}>
+                  <strong style={{ display: 'block', marginBottom: '6px' }}>{item.priority}</strong>
+                  <div style={{ marginBottom: '6px' }}>{item.focus}</div>
+                  <div style={{ color: 'var(--io-muted)' }}>{item.outcome}</div>
+                </div>
+              ))}
+            </div>
           </InfoCard>
           <InfoCard title="Create workflow" badge="Idea → Review" badgeColor="#8b5cf6">
             <div style={{ display: 'grid', gap: '10px' }}>
@@ -679,20 +691,24 @@ export default function DeveloperCreatePage() {
           </InfoCard>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px', marginTop: '16px' }}>
-          <InfoCard title="Domain operating signals" badge="Owner + blocker + evidence" badgeColor="#f97316">
+          <InfoCard title="Domain operating contracts" badge="Unified repo-wide outputs" badgeColor="#f97316">
             <div style={{ display: 'grid', gap: '10px' }}>
               {DOMAIN_OPERATING_SIGNALS.map(item => (
                 <div key={item.domain} style={{ ...listStyle('#e2e8f0'), border: `1px solid ${routeAccent(item.domain)}55` }}>
                   <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '6px' }}>
                     <span style={badgeStyle(routeAccent(item.domain))}>{item.domain}</span>
+                    <span style={badgeStyle(statusColor(item.status))}>{statusLabel(item.status)}</span>
                     <span style={badgeStyle(statusColor(deliveryLaneStatus(item.deliveryLane)))}>
                       {item.deliveryLane} lane
                     </span>
                   </div>
                   <div style={{ marginBottom: '6px' }}><strong>Owner:</strong> {item.owner}</div>
+                  <div style={{ marginBottom: '6px' }}><strong>Next unlock:</strong> {item.nextUnlock}</div>
                   <div style={{ marginBottom: '6px' }}><strong>Blocker:</strong> {item.blocker}</div>
                   <div style={{ marginBottom: '6px' }}><strong>Next decision:</strong> {item.nextDecision}</div>
+                  <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}><strong>Dependency map:</strong> {item.dependencyMap.join(' · ')}</div>
                   <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}><strong>Required evidence:</strong> {item.requiredEvidence.join(' · ')}</div>
+                  <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}><strong>Rollback readiness:</strong> {item.rollbackReadiness}</div>
                   <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}><strong>Inherited policies:</strong> {item.inheritedPolicies.join(' · ')}</div>
                   <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}><strong>Impact signal:</strong> {item.impactSignal}</div>
                   <div style={{ color: 'var(--io-accent)' }}><strong>Escalation:</strong> {item.escalationLane}</div>

@@ -21,7 +21,7 @@ export interface DeveloperCreateNorthStar {
 }
 
 export interface ProgramHierarchyLayer {
-  layer: 'Strategy' | 'Standards' | 'Gates' | 'Metrics' | 'Domain execution' | 'Review loop';
+  layer: 'Strategy' | 'Standards' | 'Gates' | 'Metrics' | 'Dependencies' | 'Review loop';
   summary: string;
   outputs: string[];
 }
@@ -271,10 +271,14 @@ export interface DeliveryLaneRule {
 
 export interface DomainOperatingSignal {
   domain: '/games' | '/spajapro' | '/university' | '/developer-create';
+  status: ControlTowerStatus | 'validation';
   owner: string;
+  nextUnlock: string;
   blocker: string;
   nextDecision: string;
+  dependencyMap: string[];
   requiredEvidence: string[];
+  rollbackReadiness: string;
   inheritedPolicies: string[];
   impactSignal: string;
   escalationLane: string;
@@ -366,4 +370,10 @@ export interface QuarterlyDomainPlan {
   domain: '/games' | '/spajapro' | '/university' | '/developer-create';
   focus: string;
   exitSignal: string;
+}
+
+export interface ImplementationPriorityItem {
+  priority: string;
+  focus: string;
+  outcome: string;
 }
