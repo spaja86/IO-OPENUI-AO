@@ -34,16 +34,17 @@ export function listStyle(color: string): React.CSSProperties {
   };
 }
 
-const toneColor: Record<'core' | 'advanced' | 'future', string> = {
+const toneColor: Record<'core' | 'advanced' | 'future' | 'audit', string> = {
   core: '#06b6d4',
   advanced: '#8b5cf6',
   future: '#10b981',
+  audit: '#f97316',
 };
 
 export function AnchorNavigation({
   items,
 }: {
-  items: Array<{ id: string; label: string; tone: 'core' | 'advanced' | 'future' }>;
+  items: Array<{ id: string; label: string; tone: 'core' | 'advanced' | 'future' | 'audit' }>;
 }) {
   return (
     <div
@@ -79,7 +80,7 @@ export function SectionShell({
   children,
 }: {
   id: string;
-  tone: 'core' | 'advanced' | 'future';
+  tone: 'core' | 'advanced' | 'future' | 'audit';
   eyebrow: string;
   title: string;
   subtitle: string;

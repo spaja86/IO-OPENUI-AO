@@ -1,7 +1,11 @@
 import type {
   CanonicalVocabularyItem,
+  DeliveryLaneRule,
   DeveloperCreateNorthStar,
   DeveloperCreatePillar,
+  MasterCapabilityMapItem,
+  MaturityMapEntry,
+  OperatingCharter,
   ProgramHierarchyLayer,
   RepositoryDomainBoundary,
 } from './types';
@@ -204,5 +208,106 @@ export const CANONICAL_VOCABULARY: CanonicalVocabularyItem[] = [
     term: 'Owner / Reviewer / Approver',
     definition: 'Tri obavezne role koje vode, proveravaju i potvrđuju promenu.',
     usage: 'Obavezne su za svaki veliki feature, modul, release i audit lane.',
+  },
+];
+
+export const REPO_OPERATING_CHARTER: OperatingCharter = {
+  title: 'Repo Operating Charter',
+  promise:
+    'Svaki domen i svaka promena u repozitorijumu ulaze u isti operativni sistem: isti jezik, isti dokazi, isti ownership i isti promotion/demotion signali.',
+  operatingPrinciples: [
+    'Single source of truth ostaje u `src/data/developerCreate/*` za repo-level pravila i modele.',
+    'Policy inheritance nije opcionalan: svi domeni nasleđuju canonical vocabulary, evidence discipline i ownership trijadu.',
+    'Stable i experimental lane se vode odvojeno kako bi inovacija bila brza, ali bez degradacije live/stable toka.',
+    'No live without evidence, no high-impact change without audit trail i no config/agent change without reinforced review.',
+  ],
+  successDefinition: [
+    'Svaki domen ima owner-a, blocker, next decision i minimum evidence signal.',
+    'Capability promotion i demotion rade po istim pravilima kroz /games, /spajapro, /university i /developer-create.',
+    'Executive pregled može na jednom mestu da vidi repo health, rizike, zavisnosti i sledeće odluke.',
+  ],
+};
+
+export const MASTER_CAPABILITY_MAP: MasterCapabilityMapItem[] = [
+  {
+    area: '/games',
+    currentState: 'pilot',
+    targetState: 'live → enterprise-ready po naslovu',
+    stableBoundary: 'Fairness, compliance i rollback dokazi moraju biti green pre live aktivacije.',
+    experimentalScope: '3D slojevi, nove ekonomije i test mehanike ostaju u izolovanom readiness prostoru.',
+  },
+  {
+    area: '/spajapro',
+    currentState: 'active',
+    targetState: 'enterprise-ready orchestration backbone',
+    stableBoundary: 'Policy enforcement, connector safety i audit trail ne smeju pasti ispod control tower minimuma.',
+    experimentalScope: 'Novi agent tokovi i connector pattern-i idu kroz sandbox lane pre širenja.',
+  },
+  {
+    area: '/university',
+    currentState: 'active',
+    targetState: 'verified professional bridge',
+    stableBoundary: 'Certification evidence i region readiness ostaju obavezni za professional claim.',
+    experimentalScope: 'Novi programi i progression modeli ostaju u validation/pilot zoni dok ne dobiju dokaz.',
+  },
+  {
+    area: '/developer-create',
+    currentState: 'active',
+    targetState: 'repo-wide operating center',
+    stableBoundary: 'Repo-level pravila, scorecards i evidence model moraju ostati konzistentni i auditabilni.',
+    experimentalScope: 'Future dashboards, APIs i multi-repo kontrolni sloj razvijaju se bez rušenja postojećeg governance modela.',
+  },
+  {
+    area: 'future modules',
+    currentState: 'planned',
+    targetState: 'policy-inherited module onboarding',
+    stableBoundary: 'Nijedan novi modul ne ulazi bez ownership-a, template-a i evidence contract-a.',
+    experimentalScope: 'Novi moduli smeju ući u sandbox lane dok ne dokažu readiness i stabilnost.',
+  },
+];
+
+export const EXECUTIVE_MATURITY_MAP: MaturityMapEntry[] = [
+  {
+    stage: 'planned',
+    scope: 'Future modules i nove capability ideje bez dozvole za aktivne claim-ove.',
+    exitSignal: 'Scope, owner-i i minimalni proof plan su zaključani.',
+  },
+  {
+    stage: 'validation',
+    scope: 'Eksperimentalni tokovi sa dokazivanjem korisnosti i osnovne stabilnosti.',
+    exitSignal: 'Acceptance signal, dependency map i minimalni evidence paket su kompletirani.',
+  },
+  {
+    stage: 'pilot',
+    scope: 'Kontrolisana aktivacija uz monitoring i rollback disciplinu.',
+    exitSignal: 'Phased rollout, incident owner i demotion pravila su green.',
+  },
+  {
+    stage: 'live',
+    scope: 'Stabilan produkcioni rad uz pun evidence i governance trag.',
+    exitSignal: 'No live without evidence i svi hard gate-ovi ostaju green kroz review cikluse.',
+  },
+  {
+    stage: 'enterprise-ready',
+    scope: 'Audit-ready i policy-driven capability koja može skalirati na repo/platform nivou.',
+    exitSignal: 'SLA, policy inheritance i trend stabilnost ostaju dokazivi kroz više ciklusa.',
+  },
+];
+
+export const DELIVERY_LANE_RULES: DeliveryLaneRule[] = [
+  {
+    lane: 'stable',
+    purpose: 'Za capability-je koji nose live ili aktivne repo claim-ove.',
+    protects: ['Release discipline', 'Observability', 'Rollback confidence', 'Audit evidence'],
+  },
+  {
+    lane: 'experimental',
+    purpose: 'Za agresivno testiranje novih modula, agenata i governance obrazaca bez rušenja stabilnog toka.',
+    protects: ['Blast-radius izolaciju', 'Explicitne exit kriterijume', 'Brzu demotion putanju'],
+  },
+  {
+    lane: 'hybrid',
+    purpose: 'Za module koji imaju stabilno jezgro, ali testiraju novi sloj ili capability uz kontrolisani most.',
+    protects: ['Stable core', 'Owner/reviewer/approver disciplinu', 'Decision memory i impact review'],
   },
 ];

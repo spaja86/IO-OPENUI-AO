@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 import {
   ADVANCED_CONTINUOUS_IMPROVEMENTS,
   AI_AGENT_GOVERNANCE_MODEL,
+  BLOCKER_AGING_BOARD,
   CANONICAL_VOCABULARY,
   CAPABILITY_REGISTRY,
   CERTIFICATION_AND_TRUST_FRAMEWORK,
+  CHANGE_CLASS_SYSTEM,
   CHANGE_IMPACT_MAP,
   CONTROL_TOWER_API_MODEL,
+  CONTROL_TOWER_CHANGELOG,
   CONTROL_TOWER_SCORE_SNAPSHOTS,
   CONTROL_TOWER_DASHBOARD,
   CONTINUOUS_IMPROVEMENT_BACKLOG,
@@ -24,10 +27,17 @@ import {
   DEVELOPER_CREATE_NORTH_STAR,
   DEVELOPER_CREATE_ROADMAP,
   DEVELOPER_PERSONAS,
+  DELIVERY_LANE_RULES,
   DEPENDENCY_MAP,
+  DEMOTION_ENGINE_RULES,
   DOMAIN_READINESS_MATRIX,
+  DOMAIN_OPERATING_SIGNALS,
+  DOMAIN_RISK_LENSES,
   DOMAIN_SCORECARDS,
   EVIDENCE_MATRIX,
+  EXECUTIVE_MATURITY_MAP,
+  FUTURE_MODULE_ONBOARDING_LANE,
+  FUTURE_MODULE_READINESS_CONTRACT,
   EXTREME_CONTROL_TOWER_LANES,
   EXTREME_PROGRAM_LAYER,
   EXTREME_REVIEW_PACK,
@@ -37,17 +47,25 @@ import {
   HUMAN_REVIEW_ESCALATION,
   INCIDENT_AND_ROLLBACK_DISCIPLINE,
   INNOVATION_SANDBOX_LANE,
+  KNOWN_GOVERNANCE_DEBT,
   LOCKED_METRICS,
   LOCKED_PROGRAM_GOALS,
   LOCKED_REPOSITORY_HIERARCHY,
+  MASTER_CAPABILITY_MAP,
+  MINIMUM_PROOF_REQUIREMENTS,
+  MULTI_REPO_READINESS_MODEL,
   OPERATING_PHASES,
+  OPERATING_EXCEPTIONS,
   OWNERSHIP_MODEL,
   POLICY_DRIFT_MONITOR,
   POLICY_INHERITANCE_MODEL,
   PROGRAM_HIERARCHY,
+  QUARTERLY_DOMAIN_TRANSFORMATION_MAP,
   QA_AND_RELEASE_GATES,
   QUALITY_CONTRACTS,
   READINESS_CERTIFICATION_BADGES,
+  REPO_COMMAND_CENTER,
+  REPO_OPERATING_CHARTER,
   RELEASE_MATURITY_LADDER,
   REPOSITORY_DOMAIN_BOUNDARIES,
   REPOSITORY_GOVERNANCE_RULES,
@@ -61,7 +79,7 @@ import {
   TRUST_SURFACE_MAP,
   ENTERPRISE_HARDENING_LANE,
 } from '../data/developerCreate';
-import type { ControlTowerStatus, ControlTowerTrend, ReadinessSignal, RiskSeverity } from '../data/developerCreate';
+import type { ControlTowerStatus, ControlTowerTrend, DeliveryLane, ReadinessSignal, RiskSeverity } from '../data/developerCreate';
 import {
   AnchorNavigation,
   InfoCard,
@@ -73,7 +91,7 @@ import {
   listStyle,
 } from '../components/developer-create/ControlTowerUI';
 
-function statusColor(status: ControlTowerStatus | ControlTowerTrend | ReadinessSignal | RiskSeverity) {
+function statusColor(status: ControlTowerStatus | ControlTowerTrend | ReadinessSignal | RiskSeverity | 'held' | 'blocked' | 'validation') {
   switch (status) {
     case 'ready':
     case 'active':
@@ -84,9 +102,11 @@ function statusColor(status: ControlTowerStatus | ControlTowerTrend | ReadinessS
     case 'partial':
     case 'stable':
     case 'medium':
+    case 'held':
       return '#f59e0b';
     case 'planned':
     case 'enterprise-ready':
+    case 'validation':
       return '#2563eb';
     case 'high':
     case 'watch':
@@ -98,6 +118,46 @@ function statusColor(status: ControlTowerStatus | ControlTowerTrend | ReadinessS
       return '#06b6d4';
     default:
       return '#94a3b8';
+  }
+}
+
+function statusLabel(status: ControlTowerStatus | ControlTowerTrend | ReadinessSignal | RiskSeverity | 'held' | 'blocked' | 'validation') {
+  switch (status) {
+    case 'active':
+      return 'active';
+    case 'pilot':
+      return 'pilot';
+    case 'blocked':
+      return 'blocked';
+    case 'held':
+      return 'held';
+    case 'enterprise-ready':
+      return 'enterprise-ready';
+    case 'live':
+      return 'live';
+    case 'planned':
+      return 'planned';
+    case 'validation':
+      return 'validation';
+    case 'up':
+      return 'up';
+    case 'stable':
+      return 'stable';
+    case 'watch':
+      return 'watch';
+    default:
+      return status;
+  }
+}
+
+function deliveryLaneStatus(lane: DeliveryLane): ControlTowerStatus {
+  switch (lane) {
+    case 'stable':
+      return 'active';
+    case 'experimental':
+      return 'planned';
+    case 'hybrid':
+      return 'pilot';
   }
 }
 
@@ -145,12 +205,13 @@ function decisionStateColor(state: 'approved' | 'held' | 'blocked' | 'archived')
 }
 
 const SECTION_ITEMS = [
-  { id: 'strategy', label: 'Strategy', tone: 'core' as const },
-  { id: 'operating-model', label: 'Operating Model', tone: 'core' as const },
-  { id: 'governance', label: 'Governance', tone: 'advanced' as const },
-  { id: 'metrics', label: 'Metrics', tone: 'advanced' as const },
-  { id: 'risk', label: 'Risk', tone: 'advanced' as const },
-  { id: 'expansion', label: 'Expansion', tone: 'future' as const },
+  { id: 'strategy', label: 'Core · Strategy', tone: 'core' as const },
+  { id: 'operating-model', label: 'Core · Operating Model', tone: 'core' as const },
+  { id: 'governance', label: 'Advanced · Governance', tone: 'advanced' as const },
+  { id: 'metrics', label: 'Advanced · Metrics', tone: 'advanced' as const },
+  { id: 'risk', label: 'Advanced · Risk', tone: 'advanced' as const },
+  { id: 'expansion', label: 'Future · Expansion', tone: 'future' as const },
+  { id: 'audit', label: 'Audit · Evidence', tone: 'audit' as const },
 ];
 
 export default function DeveloperCreatePage() {
@@ -177,7 +238,7 @@ export default function DeveloperCreatePage() {
               </p>
               <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
                 <span style={badgeStyle(statusColor(REPOSITORY_HEALTH_OVERVIEW.status))}>
-                  Overall status: {REPOSITORY_HEALTH_OVERVIEW.status}
+                  Overall status: {statusLabel(REPOSITORY_HEALTH_OVERVIEW.status)}
                 </span>
                 <span style={badgeStyle('#14b8a6')}>EXTREME v2</span>
                 <span style={badgeStyle('#8b5cf6')}>Single source of truth</span>
@@ -226,6 +287,67 @@ export default function DeveloperCreatePage() {
                       {item}
                     </div>
                   ))}
+                </div>
+              </div>
+            </div>
+
+            <div style={{ ...cardStyle, marginTop: '16px', border: '1px solid rgba(249,115,22,0.35)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap', marginBottom: '14px' }}>
+                <div>
+                  <div style={{ ...badgeStyle('#f97316'), marginBottom: '10px' }}>Repo command center</div>
+                  <h2 style={{ fontSize: '1.3rem', marginBottom: '8px' }}>{REPO_OPERATING_CHARTER.title}</h2>
+                  <p style={{ color: 'var(--io-muted)', maxWidth: '860px', lineHeight: 1.7 }}>{REPO_OPERATING_CHARTER.promise}</p>
+                </div>
+                <div style={{ display: 'grid', gap: '8px', alignContent: 'flex-start' }}>
+                  <span style={badgeStyle('#06b6d4')}>4 domain signals</span>
+                  <span style={badgeStyle('#ef4444')}>3 aging blockers</span>
+                  <span style={badgeStyle('#10b981')}>Unified proof model</span>
+                </div>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '12px', marginBottom: '14px' }}>
+                {REPO_COMMAND_CENTER.map(item => (
+                  <article key={item.title} style={{ ...listStyle('#e2e8f0'), border: `1px solid ${statusColor(item.status)}55` }}>
+                    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '8px' }}>
+                      <span style={badgeStyle(statusColor(item.status))}>{statusLabel(item.status)}</span>
+                      <span style={badgeStyle('#94a3b8')}>{item.owner}</span>
+                    </div>
+                    <strong style={{ display: 'block', marginBottom: '6px' }}>{item.title}</strong>
+                    <div style={{ marginBottom: '6px' }}>{item.focus}</div>
+                    <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}>
+                      <strong>What breaks if this slips:</strong> {item.whatBreaksIfSlips}
+                    </div>
+                    <div style={{ color: 'var(--io-accent)' }}><strong>Next action:</strong> {item.nextAction}</div>
+                  </article>
+                ))}
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '12px' }}>
+                <div style={listStyle('#e2e8f0')}>
+                  <strong style={{ display: 'block', marginBottom: '8px' }}>Highest-risk dependencies</strong>
+                  <div style={{ display: 'grid', gap: '8px' }}>
+                    {CRITICAL_DEPENDENCY_HEATMAP.slice(0, 3).map(item => (
+                      <div key={`${item.from}-${item.to}`} style={{ ...listStyle('#cbd5e1'), border: `1px solid ${statusColor(item.intensity as RiskSeverity)}55` }}>
+                        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '6px' }}>
+                          <strong>
+                            {item.from} → {item.to}
+                          </strong>
+                          <span style={badgeStyle(statusColor(item.intensity as RiskSeverity))}>{item.intensity}</span>
+                        </div>
+                        <div style={{ color: 'var(--io-muted)' }}>{item.reason}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div style={listStyle('#e2e8f0')}>
+                  <strong style={{ display: 'block', marginBottom: '8px' }}>Operating principles</strong>
+                  <div style={{ display: 'grid', gap: '8px' }}>
+                    {REPO_OPERATING_CHARTER.operatingPrinciples.slice(0, 3).map(item => (
+                      <div key={item} style={listStyle('#cbd5e1')}>
+                        {item}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -334,6 +456,54 @@ export default function DeveloperCreatePage() {
             </ul>
           </InfoCard>
         </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px', marginTop: '16px' }}>
+          <InfoCard title="Repo operating charter" badge="Single operating system" badgeColor="#f97316">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              <div style={listStyle('#e2e8f0')}>
+                <strong style={{ display: 'block', marginBottom: '6px' }}>Promise</strong>
+                <div style={{ color: 'var(--io-muted)' }}>{REPO_OPERATING_CHARTER.promise}</div>
+              </div>
+              {REPO_OPERATING_CHARTER.successDefinition.map(item => (
+                <div key={item} style={listStyle('#e2e8f0')}>
+                  {item}
+                </div>
+              ))}
+            </div>
+          </InfoCard>
+          <InfoCard title="Master capability map" badge="Stable vs experimental" badgeColor="#10b981">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {MASTER_CAPABILITY_MAP.map(item => (
+                <div key={item.area} style={{ ...listStyle('#e2e8f0'), border: `1px solid ${routeAccent(item.area === 'future modules' ? '/developer-create' : item.area)}55` }}>
+                  <strong style={{ display: 'block', marginBottom: '6px' }}>{item.area}</strong>
+                  <div style={{ marginBottom: '6px' }}><strong>Current:</strong> {item.currentState}</div>
+                  <div style={{ marginBottom: '6px' }}><strong>Target:</strong> {item.targetState}</div>
+                  <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}><strong>Stable boundary:</strong> {item.stableBoundary}</div>
+                  <div style={{ color: 'var(--io-muted)' }}><strong>Experimental scope:</strong> {item.experimentalScope}</div>
+                </div>
+              ))}
+            </div>
+          </InfoCard>
+          <InfoCard title="Executive maturity map" badge="Planned → Enterprise-ready" badgeColor="#2563eb">
+            <div style={{ display: 'grid', gap: '10px', marginBottom: '12px' }}>
+              {EXECUTIVE_MATURITY_MAP.map(item => (
+                <div key={item.stage} style={listStyle('#e2e8f0')}>
+                  <strong style={{ display: 'block', marginBottom: '6px' }}>{statusLabel(item.stage)}</strong>
+                  <div style={{ marginBottom: '6px' }}>{item.scope}</div>
+                  <div style={{ color: 'var(--io-muted)' }}><strong>Exit signal:</strong> {item.exitSignal}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {DELIVERY_LANE_RULES.map(item => (
+                <div key={item.lane} style={listStyle('#e2e8f0')}>
+                  <strong style={{ display: 'block', marginBottom: '6px', textTransform: 'capitalize' }}>{item.lane} lane</strong>
+                  <div style={{ marginBottom: '6px' }}>{item.purpose}</div>
+                  <div style={{ color: 'var(--io-muted)' }}>Protects: {item.protects.join(' · ')}</div>
+                </div>
+              ))}
+            </div>
+          </InfoCard>
+        </div>
       </SectionShell>
 
       <SectionShell
@@ -381,7 +551,7 @@ export default function DeveloperCreatePage() {
               <article key={item.domain} style={{ ...listStyle('#e2e8f0'), border: `1px solid ${routeAccent(item.domain)}55` }}>
                 <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '10px' }}>
                   <div style={badgeStyle(routeAccent(item.domain))}>{item.domain}</div>
-                  <div style={badgeStyle(statusColor(item.status))}>{item.status}</div>
+                  <div style={badgeStyle(statusColor(item.status))}>{statusLabel(item.status)}</div>
                   <div style={badgeStyle(statusColor(item.trend))}>{item.trend}</div>
                 </div>
                 <div style={{ marginBottom: '6px' }}><strong>Focus:</strong> {item.focus}</div>
@@ -401,7 +571,7 @@ export default function DeveloperCreatePage() {
                     <p style={{ color: 'var(--io-muted)' }}>{item.role}</p>
                   </div>
                   <div style={{ display: 'grid', gap: '8px', alignContent: 'flex-start' }}>
-                    <div style={badgeStyle(statusColor(item.status))}>{item.status}</div>
+                    <div style={badgeStyle(statusColor(item.status))}>{statusLabel(item.status)}</div>
                     <div style={badgeStyle(statusColor(item.trend))}>{item.trend}</div>
                   </div>
                 </div>
@@ -500,8 +670,48 @@ export default function DeveloperCreatePage() {
                 <div key={item.capability} style={listStyle('#e2e8f0')}>
                   <strong style={{ display: 'block', marginBottom: '6px' }}>{item.capability}</strong>
                   <div style={{ marginBottom: '6px' }}>Owner: {item.owner}</div>
-                  <div style={{ marginBottom: '6px' }}>Current level: {item.currentLevel}</div>
+                  <div style={{ marginBottom: '6px' }}>Current level: {statusLabel(item.currentLevel)}</div>
+                  <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}>Target state: {item.targetState}</div>
                   <div style={{ color: 'var(--io-muted)' }}>Unlocks: {item.unlocks.join(' · ')}</div>
+                </div>
+              ))}
+            </div>
+          </InfoCard>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px', marginTop: '16px' }}>
+          <InfoCard title="Domain operating signals" badge="Owner + blocker + evidence" badgeColor="#f97316">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {DOMAIN_OPERATING_SIGNALS.map(item => (
+                <div key={item.domain} style={{ ...listStyle('#e2e8f0'), border: `1px solid ${routeAccent(item.domain)}55` }}>
+                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '6px' }}>
+                    <span style={badgeStyle(routeAccent(item.domain))}>{item.domain}</span>
+                    <span style={badgeStyle(statusColor(deliveryLaneStatus(item.deliveryLane)))}>
+                      {item.deliveryLane} lane
+                    </span>
+                  </div>
+                  <div style={{ marginBottom: '6px' }}><strong>Owner:</strong> {item.owner}</div>
+                  <div style={{ marginBottom: '6px' }}><strong>Blocker:</strong> {item.blocker}</div>
+                  <div style={{ marginBottom: '6px' }}><strong>Next decision:</strong> {item.nextDecision}</div>
+                  <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}><strong>Required evidence:</strong> {item.requiredEvidence.join(' · ')}</div>
+                  <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}><strong>Inherited policies:</strong> {item.inheritedPolicies.join(' · ')}</div>
+                  <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}><strong>Impact signal:</strong> {item.impactSignal}</div>
+                  <div style={{ color: 'var(--io-accent)' }}><strong>Escalation:</strong> {item.escalationLane}</div>
+                </div>
+              ))}
+            </div>
+          </InfoCard>
+          <InfoCard title="Blocker aging board" badge="SLA-aware pressure" badgeColor="#ef4444">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {BLOCKER_AGING_BOARD.map(item => (
+                <div key={item.label} style={{ ...listStyle('#e2e8f0'), border: `1px solid ${statusColor(item.state)}55` }}>
+                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '6px' }}>
+                    <strong>{item.label}</strong>
+                    <span style={badgeStyle(statusColor(item.state))}>{statusLabel(item.state)}</span>
+                    <span style={badgeStyle('#94a3b8')}>{item.age}</span>
+                  </div>
+                  <div style={{ marginBottom: '6px' }}>Owner: {item.owner}</div>
+                  <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}>{item.impact}</div>
+                  <div style={{ color: 'var(--io-accent)' }}>Next review: {item.nextReview}</div>
                 </div>
               ))}
             </div>
@@ -589,7 +799,7 @@ export default function DeveloperCreatePage() {
             <div style={{ display: 'grid', gap: '10px' }}>
               {DECISION_SLA_MODEL.map(item => (
                 <div key={item.state} style={listStyle('#e2e8f0')}>
-                  <strong style={{ display: 'block', marginBottom: '6px' }}>{item.state}</strong>
+                  <strong style={{ display: 'block', marginBottom: '6px' }}>{statusLabel(item.state as 'held' | 'blocked')}</strong>
                   <div style={{ marginBottom: '6px' }}>Close within: {item.closeWithin}</div>
                   <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}>Owner: {item.owner}</div>
                   <div style={{ color: 'var(--io-muted)' }}>{item.escalation}</div>
@@ -621,7 +831,7 @@ export default function DeveloperCreatePage() {
                 <div key={item.area} style={{ ...listStyle('#e2e8f0'), border: `1px solid ${decisionStateColor(item.state)}55` }}>
                   <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '6px' }}>
                     <strong>{item.area}</strong>
-                    <span style={badgeStyle(decisionStateColor(item.state))}>{item.state}</span>
+                    <span style={badgeStyle(decisionStateColor(item.state))}>{statusLabel(item.state as 'held' | 'blocked')}</span>
                   </div>
                   <div style={{ marginBottom: '6px' }}>{item.reason}</div>
                   <div style={{ color: 'var(--io-muted)' }}>{item.nextMove}</div>
@@ -656,6 +866,41 @@ export default function DeveloperCreatePage() {
                   <strong style={{ display: 'block', marginBottom: '6px' }}>{item.trigger}</strong>
                   <div style={{ marginBottom: '6px' }}>Agent limit: {item.agentLimit}</div>
                   <div style={{ color: 'var(--io-muted)' }}>Human action: {item.humanAction}</div>
+                </div>
+              ))}
+            </div>
+          </InfoCard>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px', marginTop: '16px' }}>
+          <InfoCard title="Change class system" badge="Repo-wide review lanes" badgeColor="#f97316">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {CHANGE_CLASS_SYSTEM.map(item => (
+                <div key={item.changeClass} style={listStyle('#e2e8f0')}>
+                  <strong style={{ display: 'block', marginBottom: '6px', textTransform: 'capitalize' }}>{item.changeClass}</strong>
+                  <div style={{ marginBottom: '6px' }}><strong>Minimum proof:</strong> {item.minimumProof.join(' · ')}</div>
+                  <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}><strong>Human review:</strong> {item.humanReviewRequired}</div>
+                  <div style={{ color: 'var(--io-accent)' }}><strong>Escalation:</strong> {item.escalation}</div>
+                </div>
+              ))}
+            </div>
+          </InfoCard>
+          <InfoCard title="Minimum proof required" badge="No change without evidence" badgeColor="#10b981">
+            <div style={{ display: 'grid', gap: '10px', marginBottom: '12px' }}>
+              {MINIMUM_PROOF_REQUIREMENTS.map(item => (
+                <div key={item.asset} style={listStyle('#e2e8f0')}>
+                  <strong style={{ display: 'block', marginBottom: '6px' }}>{item.asset}</strong>
+                  <div style={{ marginBottom: '6px' }}>{item.minimumProof.join(' · ')}</div>
+                  <div style={{ color: 'var(--io-muted)' }}><strong>Failure if missing:</strong> {item.failureIfMissing}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {FUTURE_MODULE_READINESS_CONTRACT.map(item => (
+                <div key={item.area} style={listStyle('#e2e8f0')}>
+                  <strong style={{ display: 'block', marginBottom: '6px' }}>{item.area}</strong>
+                  <div style={{ marginBottom: '6px' }}><strong>Requirements:</strong> {item.requirements.join(' · ')}</div>
+                  <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}><strong>Inherits:</strong> {item.inherits.join(' · ')}</div>
+                  <div style={{ color: 'var(--io-accent)' }}><strong>Success signal:</strong> {item.successSignal}</div>
                 </div>
               ))}
             </div>
@@ -810,6 +1055,38 @@ export default function DeveloperCreatePage() {
             ))}
           </div>
         </InfoCard>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px', marginTop: '16px' }}>
+          <InfoCard title="Domain risk lenses" badge="Repo + domain tripwires" badgeColor="#f97316">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {DOMAIN_RISK_LENSES.map(item => (
+                <div key={item.domain} style={{ ...listStyle('#e2e8f0'), border: `1px solid ${statusColor(item.severity)}55` }}>
+                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '6px' }}>
+                    <span style={badgeStyle(routeAccent(item.domain))}>{item.domain}</span>
+                    <span style={badgeStyle(statusColor(item.severity))}>{item.severity}</span>
+                  </div>
+                  <div style={{ marginBottom: '6px' }}><strong>Top risk:</strong> {item.topRisk}</div>
+                  <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}><strong>Tripwire:</strong> {item.tripwire}</div>
+                  <div style={{ color: 'var(--io-accent)' }}><strong>Response:</strong> {item.response}</div>
+                </div>
+              ))}
+            </div>
+          </InfoCard>
+          <InfoCard title="Capability unlock / demotion engine" badge="Fallback before failure" badgeColor="#ef4444">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {DEMOTION_ENGINE_RULES.map(item => (
+                <div key={`${item.from}-${item.to}`} style={listStyle('#e2e8f0')}>
+                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '6px' }}>
+                    <span style={badgeStyle(statusColor(item.from))}>{statusLabel(item.from)}</span>
+                    <span style={badgeStyle('#94a3b8')}>→</span>
+                    <span style={badgeStyle(statusColor(item.to))}>{statusLabel(item.to)}</span>
+                  </div>
+                  <div style={{ marginBottom: '6px' }}><strong>Trigger:</strong> {item.trigger}</div>
+                  <div style={{ color: 'var(--io-muted)' }}><strong>Proof to recover:</strong> {item.proofToRecover}</div>
+                </div>
+              ))}
+            </div>
+          </InfoCard>
+        </div>
       </SectionShell>
 
       <SectionShell
@@ -933,6 +1210,89 @@ export default function DeveloperCreatePage() {
                   </div>
                   <div style={{ marginBottom: '6px' }}>{item.riskImpact}</div>
                   <div style={{ color: 'var(--io-muted)' }}>Next action: {item.nextAction}</div>
+                </div>
+              ))}
+            </div>
+          </InfoCard>
+        </div>
+      </SectionShell>
+      <SectionShell
+        id="audit"
+        tone="audit"
+        eyebrow="Audit layer"
+        title="Audit, compliance and evolution ledger"
+        subtitle="Najkritičniji evidence, exceptions, debt i changelog signali sada su izdvojeni kao poseban audit sloj za repo-level odluke."
+      >
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px', marginBottom: '16px' }}>
+          <InfoCard title="Operating exceptions" badge="Allowed deviations" badgeColor="#f97316">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {OPERATING_EXCEPTIONS.map(item => (
+                <div key={item.exception} style={listStyle('#e2e8f0')}>
+                  <strong style={{ display: 'block', marginBottom: '6px' }}>{item.exception}</strong>
+                  <div style={{ marginBottom: '6px' }}><strong>Scope:</strong> {item.scope}</div>
+                  <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}><strong>Guardrail:</strong> {item.guardrail}</div>
+                  <div style={{ color: 'var(--io-accent)' }}><strong>Expires when:</strong> {item.expiresWhen}</div>
+                </div>
+              ))}
+            </div>
+          </InfoCard>
+          <InfoCard title="Known governance debt" badge="Must burn down" badgeColor="#ef4444">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {KNOWN_GOVERNANCE_DEBT.map(item => (
+                <div key={item.debt} style={{ ...listStyle('#e2e8f0'), border: `1px solid ${statusColor(item.severity)}55` }}>
+                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '6px' }}>
+                    <span style={badgeStyle(statusColor(item.severity))}>{item.severity}</span>
+                  </div>
+                  <strong style={{ display: 'block', marginBottom: '6px' }}>{item.debt}</strong>
+                  <div style={{ marginBottom: '6px' }}>{item.whyItMatters}</div>
+                  <div style={{ color: 'var(--io-accent)' }}><strong>Closure signal:</strong> {item.closureSignal}</div>
+                </div>
+              ))}
+            </div>
+          </InfoCard>
+          <InfoCard title="Control tower changelog" badge="Evolution trail" badgeColor="#2563eb">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {CONTROL_TOWER_CHANGELOG.map(item => (
+                <div key={item.version} style={listStyle('#e2e8f0')}>
+                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '6px' }}>
+                    <strong>{item.version}</strong>
+                    <span style={badgeStyle('#94a3b8')}>{item.date}</span>
+                  </div>
+                  <div style={{ marginBottom: '6px' }}>{item.highlights.join(' · ')}</div>
+                  <div style={{ color: 'var(--io-muted)' }}>{item.effect}</div>
+                </div>
+              ))}
+            </div>
+          </InfoCard>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
+          <InfoCard title="Future module onboarding lane" badge="Planned growth control" badgeColor="#10b981">
+            <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px', marginBottom: '12px' }}>
+              {FUTURE_MODULE_ONBOARDING_LANE.map(item => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {MULTI_REPO_READINESS_MODEL.map(item => (
+                <div key={item.layer} style={listStyle('#e2e8f0')}>
+                  <strong style={{ display: 'block', marginBottom: '6px' }}>{item.layer}</strong>
+                  <div style={{ marginBottom: '6px' }}>{item.objective}</div>
+                  <div style={{ color: 'var(--io-muted)' }}><strong>Guardrail:</strong> {item.guardrail}</div>
+                </div>
+              ))}
+            </div>
+          </InfoCard>
+          <InfoCard title="Quarterly domain transformation map" badge="By quarter and domain" badgeColor="#8b5cf6">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {QUARTERLY_DOMAIN_TRANSFORMATION_MAP.map(item => (
+                <div key={`${item.quarter}-${item.domain}`} style={{ ...listStyle('#e2e8f0'), border: `1px solid ${routeAccent(item.domain)}55` }}>
+                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '6px' }}>
+                    <span style={badgeStyle('#94a3b8')}>{item.quarter}</span>
+                    <span style={badgeStyle(routeAccent(item.domain))}>{item.domain}</span>
+                  </div>
+                  <div style={{ marginBottom: '6px' }}>{item.focus}</div>
+                  <div style={{ color: 'var(--io-accent)' }}><strong>Exit signal:</strong> {item.exitSignal}</div>
                 </div>
               ))}
             </div>

@@ -1,4 +1,4 @@
-import type { FailureModeItem, RiskBoardItem, TrustSurfaceItem } from './types';
+import type { DemotionRule, DomainRiskLens, FailureModeItem, RiskBoardItem, TrustSurfaceItem } from './types';
 
 export const RISK_BOARD: RiskBoardItem[] = [
   {
@@ -58,6 +58,24 @@ export const FAILURE_MODE_BOARD: FailureModeItem[] = [
     earlySignal: 'Release score raste, a rollback confidence ostaje nizak.',
     response: 'Zaustaviti promotion dok rollback signal ne bude verifikovan.',
   },
+  {
+    mode: 'Automation overreach',
+    breaks: 'Agent ili automation tok dobija veći operativni domet od dozvoljenog.',
+    earlySignal: 'Config/agent promena nema reinforced review ili human escalation dokaz.',
+    response: 'Vratiti capability u controlled/sandbox lane dok se ne zaključa scope izolacija.',
+  },
+  {
+    mode: 'Config drift under delivery pressure',
+    breaks: 'CI/deploy/policy promena ulazi bez istog evidence i rollback modela kao code change.',
+    earlySignal: 'Impact review nedostaje, a release ili security posture se ipak menja.',
+    response: 'Blokirati promotion i vratiti config-change u reinforced review lane.',
+  },
+  {
+    mode: 'Release shortcut claim',
+    breaks: 'Domen tvrdi readiness uprkos otvorenim blockerima ili nekompletnom evidence paketu.',
+    earlySignal: 'Status badge je green, a blocker aging ili decision log ostaju held/blocked.',
+    response: 'Automatski spustiti signal na pilot/validation i otvoriti executive review.',
+  },
 ];
 
 export const TRUST_SURFACE_MAP: TrustSurfaceItem[] = [
@@ -80,5 +98,57 @@ export const TRUST_SURFACE_MAP: TrustSurfaceItem[] = [
     surface: 'Developer & Create control tower',
     promise: 'Repo-wide standardi i odluke ostaju konzistentni kroz sve module.',
     proof: 'Canonical vocabulary + policy inheritance + decision memory.',
+  },
+];
+
+export const DOMAIN_RISK_LENSES: DomainRiskLens[] = [
+  {
+    domain: '/games',
+    topRisk: 'Readiness inflation na professional/live claim-ovima bez dovoljno cross-domain evidence-a.',
+    severity: 'critical',
+    tripwire: 'Compliance ili rollback dokaz ostane partial dok status pokušava da ide ka live.',
+    response: 'Spustiti capability na pilot i zatvoriti release evidence gap pre nove odluke.',
+  },
+  {
+    domain: '/spajapro',
+    topRisk: 'Automation ili connector promena menja policy posture drugih domena bez reinforced review-a.',
+    severity: 'high',
+    tripwire: 'Agent/config change ulazi bez audit traga ili security potvrde.',
+    response: 'Zaustaviti rollout i vratiti promenu u config/automation review lane.',
+  },
+  {
+    domain: '/university',
+    topRisk: 'Certification i readiness claim nisu potpuno sinhronizovani sa centralnim scoring modelom.',
+    severity: 'high',
+    tripwire: 'Knowledge proof i region readiness više ne podržavaju isti maturity status.',
+    response: 'Zadržati capability u validation/pilot zoni dok se dokazi ne poravnaju.',
+  },
+  {
+    domain: '/developer-create',
+    topRisk: 'Repo-level pravila se šire sporije od novih modula, što uvodi governance drift.',
+    severity: 'high',
+    tripwire: 'Novi modul ili change class se pojavljuje bez inheritance, audit i KPI veze.',
+    response: 'Aktivirati command center blocker i zaustaviti širenje dok contract sloj ne bude primenjen.',
+  },
+];
+
+export const DEMOTION_ENGINE_RULES: DemotionRule[] = [
+  {
+    from: 'live',
+    to: 'pilot',
+    trigger: 'Hard gate padne, evidence oslabi ili monitoring pokaže ozbiljno odstupanje.',
+    proofToRecover: 'Treba ponovo zatvoriti gate-ove, rollback signal i decision review.',
+  },
+  {
+    from: 'pilot',
+    to: 'validation',
+    trigger: 'Rollback plan nije održiv ili blocker aging probije SLA bez jasne odluke.',
+    proofToRecover: 'Validation dokaz, novi owner commitments i stabilizovan dependency signal.',
+  },
+  {
+    from: 'enterprise-ready',
+    to: 'live',
+    trigger: 'Policy inheritance, audit ili SLA trend više nisu stabilni kroz cikluse.',
+    proofToRecover: 'Više uzastopnih green review ciklusa sa kompletnim audit tragom.',
   },
 ];

@@ -1,8 +1,11 @@
 import type {
   CapabilityRegistryItem,
   ChangeImpactItem,
+  ControlTowerChangelogEntry,
   ExtremeControlTowerLane,
   LockedMetric,
+  MultiRepoReadinessItem,
+  QuarterlyDomainPlan,
   ScenarioMode,
 } from './types';
 
@@ -117,24 +120,28 @@ export const CAPABILITY_REGISTRY: CapabilityRegistryItem[] = [
     capability: 'Games readiness orchestration',
     owner: 'Games product + QA lead',
     currentLevel: 'pilot',
+    targetState: 'live → enterprise-ready po naslovu',
     unlocks: ['Professional per-title approval', '3D certification rollout', 'Fairness-backed live expansion'],
   },
   {
     capability: 'SPAJAPRO agent execution',
     owner: 'Platform engineering',
     currentLevel: 'active',
+    targetState: 'enterprise-ready orchestration backbone',
     unlocks: ['Enterprise automation', 'Connector policy scaling', 'Audit-driven orchestration'],
   },
   {
     capability: 'University professional bridge',
     owner: 'Learning/content ops',
-    currentLevel: 'active',
+    currentLevel: 'validation',
+    targetState: 'verified professional bridge',
     unlocks: ['Verified capability proof', 'License activation discipline', 'Region-aware progression'],
   },
   {
     capability: 'Developer & Create master operating system',
     owner: 'Program governance',
     currentLevel: 'active',
+    targetState: 'repo-wide operating center',
     unlocks: ['Repo-wide validation layer', 'Decision memory discipline', 'Multi-repo expansion model'],
   },
 ];
@@ -243,5 +250,84 @@ export const CONTINUOUS_IMPROVEMENT_BACKLOG = [
     item: 'Skalirati readiness certification badge model',
     riskImpact: 'Nizak rizik / srednji uticaj',
     nextAction: 'Mapirati badge kriterijume na dashboard i release review pakete.',
+  },
+];
+
+export const MULTI_REPO_READINESS_MODEL: MultiRepoReadinessItem[] = [
+  {
+    layer: 'Shared control tower vocabulary',
+    objective: 'Povezani repozitorijumi koriste isti readiness, blocker i decision jezik.',
+    guardrail: 'Bez vocabulary alignment-a nema cross-repo executive dashboard-a.',
+  },
+  {
+    layer: 'Policy inheritance bridge',
+    objective: 'Security, config-change i audit pravila se prenose iz centralnog modela na povezane repoe.',
+    guardrail: 'Lokalna odstupanja moraju biti dokumentovana kao operating exception.',
+  },
+  {
+    layer: 'Cross-repo evidence lane',
+    objective: 'Release i compliance dokazi ostaju povezani kroz više sistema.',
+    guardrail: 'Nijedan repo ne može tvrditi green state ako zavisni repo nosi critical block.',
+  },
+];
+
+export const FUTURE_MODULE_ONBOARDING_LANE = [
+  'Novi modul prvo dobija domain owner-a, reviewer-a i approver-a.',
+  'Zatim popunjava standard template, minimum proof i dependency view.',
+  'Tek nakon toga ulazi u scorecard, command center i maturity map.',
+  'Bez inheritance, audit i rollback contract-a modul ostaje planned/experimental.',
+];
+
+export const QUARTERLY_DOMAIN_TRANSFORMATION_MAP: QuarterlyDomainPlan[] = [
+  {
+    quarter: 'Q1',
+    domain: '/developer-create',
+    focus: 'Zaključati canonical vocabulary, ownership model i centralni command center.',
+    exitSignal: 'Repo-wide operating charter i domain operating signals su aktivni.',
+  },
+  {
+    quarter: 'Q2',
+    domain: '/games',
+    focus: 'Povezati fairness/compliance/live signale sa centralnim evidence modelom.',
+    exitSignal: 'Per-title release evidence i demotion pravila su standardizovani.',
+  },
+  {
+    quarter: 'Q2',
+    domain: '/university',
+    focus: 'Uskladiti certification bridge i professional activation sa centralnim scoring-om.',
+    exitSignal: 'Knowledge proof i region readiness koriste isti unlock model.',
+  },
+  {
+    quarter: 'Q3',
+    domain: '/spajapro',
+    focus: 'Zatvoriti reinforced review lane za agent, connector i config promene.',
+    exitSignal: 'Automation i config change klase imaju pun audit trag i approval chain.',
+  },
+  {
+    quarter: 'Q4',
+    domain: '/developer-create',
+    focus: 'Otvoriti future dashboard/API i multi-repo readiness sloj.',
+    exitSignal: 'Control tower model može da se prenese na nove module i povezane repozitorijume.',
+  },
+];
+
+export const CONTROL_TOWER_CHANGELOG: ControlTowerChangelogEntry[] = [
+  {
+    version: 'v2.1',
+    date: '2026-09',
+    highlights: ['Repo command center', 'Domain operating signals', 'Audit layer'],
+    effect: 'Developer & Create više nije samo pregled sadržaja, već operativni centar za odluke i eskalacije.',
+  },
+  {
+    version: 'v2.0',
+    date: '2026-08',
+    highlights: ['EXTREME v2 governance artifacts', 'Score snapshots', 'Dependency heatmap'],
+    effect: 'Control tower je dobio executive pregled i napredne governance temelje.',
+  },
+  {
+    version: 'v1.0',
+    date: '2026-07',
+    highlights: ['North Star', 'Hierarchy', 'Core governance language'],
+    effect: 'Postavljen je zajednički jezik za planiranje i review kroz više domena.',
   },
 ];

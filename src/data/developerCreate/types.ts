@@ -10,6 +10,8 @@ export type ControlTowerStatus = 'planned' | 'active' | 'pilot' | 'live' | 'ente
 export type ReadinessSignal = 'ready' | 'partial' | 'blocked';
 export type RiskSeverity = 'low' | 'medium' | 'high' | 'critical';
 export type ControlTowerTrend = 'up' | 'stable' | 'watch';
+export type ChangeClass = 'content' | 'feature' | 'governance' | 'automation' | 'config' | 'security-critical';
+export type DeliveryLane = 'stable' | 'experimental' | 'hybrid';
 
 export interface DeveloperCreateNorthStar {
   title: string;
@@ -223,7 +225,8 @@ export interface ScenarioMode {
 export interface CapabilityRegistryItem {
   capability: string;
   owner: string;
-  currentLevel: string;
+  currentLevel: ControlTowerStatus | 'validation';
+  targetState: string;
   unlocks: string[];
 }
 
@@ -237,4 +240,130 @@ export interface EscalationTrigger {
   trigger: string;
   agentLimit: string;
   humanAction: string;
+}
+
+export interface OperatingCharter {
+  title: string;
+  promise: string;
+  operatingPrinciples: string[];
+  successDefinition: string[];
+}
+
+export interface MasterCapabilityMapItem {
+  area: '/games' | '/spajapro' | '/university' | '/developer-create' | 'future modules';
+  currentState: string;
+  targetState: string;
+  stableBoundary: string;
+  experimentalScope: string;
+}
+
+export interface MaturityMapEntry {
+  stage: ControlTowerStatus | 'validation';
+  scope: string;
+  exitSignal: string;
+}
+
+export interface DeliveryLaneRule {
+  lane: DeliveryLane;
+  purpose: string;
+  protects: string[];
+}
+
+export interface DomainOperatingSignal {
+  domain: '/games' | '/spajapro' | '/university' | '/developer-create';
+  owner: string;
+  blocker: string;
+  nextDecision: string;
+  requiredEvidence: string[];
+  inheritedPolicies: string[];
+  impactSignal: string;
+  escalationLane: string;
+  deliveryLane: DeliveryLane;
+}
+
+export interface CommandCenterItem {
+  title: string;
+  status: ControlTowerStatus | 'blocked' | 'held';
+  owner: string;
+  focus: string;
+  whatBreaksIfSlips: string;
+  nextAction: string;
+}
+
+export interface BlockerAgingItem {
+  label: string;
+  state: 'blocked' | 'held' | 'watch';
+  age: string;
+  owner: string;
+  impact: string;
+  nextReview: string;
+}
+
+export interface DomainRiskLens {
+  domain: '/games' | '/spajapro' | '/university' | '/developer-create';
+  topRisk: string;
+  severity: RiskSeverity;
+  tripwire: string;
+  response: string;
+}
+
+export interface DemotionRule {
+  from: ControlTowerStatus | 'validation';
+  to: ControlTowerStatus | 'validation';
+  trigger: string;
+  proofToRecover: string;
+}
+
+export interface ChangeClassRule {
+  changeClass: ChangeClass;
+  minimumProof: string[];
+  humanReviewRequired: string;
+  escalation: string;
+}
+
+export interface ProofRequirement {
+  asset: string;
+  minimumProof: string[];
+  failureIfMissing: string;
+}
+
+export interface OperatingException {
+  exception: string;
+  scope: string;
+  guardrail: string;
+  expiresWhen: string;
+}
+
+export interface GovernanceDebtItem {
+  debt: string;
+  severity: RiskSeverity;
+  whyItMatters: string;
+  closureSignal: string;
+}
+
+export interface FutureModuleContract {
+  area: string;
+  requirements: string[];
+  inherits: string[];
+  successSignal: string;
+}
+
+export interface ControlTowerChangelogEntry {
+  version: string;
+  date: string;
+  highlights: string[];
+  effect: string;
+}
+
+export interface MultiRepoReadinessItem {
+  layer: string;
+  objective: string;
+  guardrail: string;
+}
+
+export interface QuarterlyDomainPlan {
+  quarter: string;
+  domain: '/games' | '/spajapro' | '/university' | '/developer-create';
+  focus: string;
+  exitSignal: string;
 }
