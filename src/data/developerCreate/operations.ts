@@ -8,6 +8,7 @@ import type {
   DomainOperatingSignal,
   DomainReadinessMatrix,
   DomainScorecard,
+  ImplementationPriorityItem,
   OperatingPhase,
   OwnershipRole,
   ReleaseMaturityStage,
@@ -16,22 +17,22 @@ import type {
 
 export const REPOSITORY_HEALTH_OVERVIEW: RepositoryHealthOverview = {
   status: 'active',
-  readinessScore: 79,
-  trustScore: 83,
-  ownershipClarityScore: 86,
-  releaseDisciplineScore: 78,
-  rollbackConfidenceScore: 74,
+  readinessScore: 82,
+  trustScore: 86,
+  ownershipClarityScore: 88,
+  releaseDisciplineScore: 81,
+  rollbackConfidenceScore: 78,
   summary:
-    'Repo ima stabilan control-tower pravac i jasnu strukturu domena, ali još uvek mora dodatno zaključati evidence discipline i zajednički capability unlock model.',
+    'Repo sada gradi vrhovni operating sistem u kome /developer-create služi kao centralni control tower, a svi domeni nasleđuju isti operating rhythm, ownership i evidence discipline.',
   criticalBlockers: [
-    'Cross-domain release evidence još nije formalizovan za sve domene.',
-    'Capability unlock pravila nisu jednako eksplicitna za games, spajapro i university.',
-    'Repo-wide consistency layer mora da potvrdi terminologiju i ownership reference.',
+    'Cross-domain release evidence još mora ostati dosledno zatvoren za svaki live/professional claim.',
+    'Capability unlock i demotion pravila moraju biti jednako primenjena kroz sve domene.',
+    'Config i agent change lane traži stroži reinforced review pre enterprise širenja.',
   ],
   topDecisions: [
-    'Zaključati canonical vocabulary kao globalni jezik repozitorijuma.',
-    'Voditi sve velike promene kroz standard templates + evidence matrix.',
-    'Koristiti domain scorecards kao centralni executive prikaz po modulu.',
+    'Zaključati šest tvrdih slojeva kao obavezni repo-wide operating spine.',
+    'Voditi sve velike promene kroz standard templates, evidence matrix i owner/reviewer/approver trijadu.',
+    'Koristiti unified domain outputs kao centralni executive prikaz po modulu.',
   ],
 };
 
@@ -309,6 +310,39 @@ export const CREATE_WORKFLOW: CreateWorkflowStep[] = [
   { step: 'Review', objective: 'Zaključati odluke i sledeći korak.', hardProof: 'Weekly review paket beleži status, trend, blokere i odluke.' },
 ];
 
+export const REPO_IMPLEMENTATION_PRIORITIES: ImplementationPriorityItem[] = [
+  {
+    priority: '1. Konsolidacija termina i ownership-a',
+    focus: 'Zaključati North Star, canonical vocabulary i owner/reviewer/approver disciplinu.',
+    outcome: 'Svi domeni koriste isti upravljački jezik i isti ownership model.',
+  },
+  {
+    priority: '2. Standardizacija template-a i quality contract-a',
+    focus: 'Obavezni template-i, quality contracts i evidence plan postaju default ulaz za svaku promenu.',
+    outcome: 'Repo-wide standard postoji pre build/test/release rada.',
+  },
+  {
+    priority: '3. Povezivanje domena kroz zajedničke metrike',
+    focus: 'Scorecards, readiness matrix i dependency map rade nad istim signalima.',
+    outcome: 'Executive pogled vidi isti readiness, trust i unblock model svuda.',
+  },
+  {
+    priority: '4. Governance hardening i evidence disciplina',
+    focus: 'DoR, DoD, QA/security/compliance/release/rollback gate-ovi ostaju tvrdi i auditabilni.',
+    outcome: 'Nema high-impact ili live odluke bez dokazivog evidence paketa.',
+  },
+  {
+    priority: '5. Executive visibility',
+    focus: 'Command center, weekly review paket i blocker aging board zaključavaju centralnu kontrolu.',
+    outcome: 'Status, trend, blocker i next decision postaju isti izlaz za svaki domen.',
+  },
+  {
+    priority: '6. Enterprise / extreme layer',
+    focus: 'Sandbox, API, multi-repo readiness i policy-driven scaling se grade na stabilnoj osnovi.',
+    outcome: 'Repo može da širi capability bez gubitka discipline i audit traga.',
+  },
+];
+
 export const OPERATING_PHASES: OperatingPhase[] = [
   {
     phase: 'Faza 1 · Konsolidacija',
@@ -345,10 +379,14 @@ export const OPERATING_PHASES: OperatingPhase[] = [
 export const DOMAIN_OPERATING_SIGNALS: DomainOperatingSignal[] = [
   {
     domain: '/games',
+    status: 'pilot',
     owner: 'Games product + fairness/release owner',
+    nextUnlock: 'Verifikovan per-title professional/live unlock bez otvorenih evidence gap-ova.',
     blocker: 'Cross-domain release evidence za professional/live aktivaciju još nije zaključen po naslovu.',
     nextDecision: 'Potvrditi per-title evidence paket i demotion signal pre širenja live režima.',
+    dependencyMap: ['/spajapro policy orchestration', '/university certification bridge', 'Fairness/compliance proof chain'],
     requiredEvidence: ['Fairness audit', 'Compliance proof', 'Rollback vežba', 'Monitoring coverage'],
+    rollbackReadiness: 'Rollback ostaje delimično spreman dok svaki naslov ne zatvori recovery vežbu i demotion trigger.',
     inheritedPolicies: ['Canonical vocabulary', 'No live without evidence', 'Ownership trijada'],
     impactSignal: 'Ako signal oslabi, professional claims i live readiness narativi postaju nevalidni.',
     escalationLane: 'Executive weekly review + security/compliance review',
@@ -356,10 +394,14 @@ export const DOMAIN_OPERATING_SIGNALS: DomainOperatingSignal[] = [
   },
   {
     domain: '/spajapro',
+    status: 'active',
     owner: 'Platform engineering + security owner',
+    nextUnlock: 'Enterprise-ready orchestration backbone sa zatvorenim config/automation review putem.',
     blocker: 'Connector policy i audit approvals nisu još potpuno zaključani za enterprise claim.',
     nextDecision: 'Zaključati reinforced review lane za automation, config i connector promene.',
+    dependencyMap: ['/developer-create policy inheritance', 'Security review board', 'Release approval chain'],
     requiredEvidence: ['Connector safety proof', 'Audit trail completeness', 'Approval chain trace', 'Runtime isolation proof'],
+    rollbackReadiness: 'Rollback plan postoji, ali config-change scenarios još traže stroži dokaz za recovery i blast-radius izolaciju.',
     inheritedPolicies: ['Policy inheritance', 'AI governance review', 'Config-change reinforced review'],
     impactSignal: 'Slab signal direktno ruši release discipline drugih domena koji zavise od orchestration sloja.',
     escalationLane: 'Platform lead + security review board',
@@ -367,10 +409,14 @@ export const DOMAIN_OPERATING_SIGNALS: DomainOperatingSignal[] = [
   },
   {
     domain: '/university',
+    status: 'active',
     owner: 'Learning/content ops + readiness governance',
+    nextUnlock: 'Profesionalni bridge koji vezuje certification i region readiness za centralni score.',
     blocker: 'Professional bridge i certification claims još nisu u potpunosti vezani za centralni scoring model.',
     nextDecision: 'Zaključati knowledge proof, region readiness i release evidence u jedinstveni unlock model.',
+    dependencyMap: ['/spajapro audit/compliance services', '/developer-create governance score', 'Certification evidence chain'],
     requiredEvidence: ['Certification evidence', 'Region readiness map', 'Progression integrity proof', 'Rollback content plan'],
+    rollbackReadiness: 'Sadržajni fallback postoji, ali još traži jasniji signal kada professional claims moraju nazad u validation/pilot zonu.',
     inheritedPolicies: ['Canonical vocabulary', 'Evidence-first promotion', 'Decision SLA discipline'],
     impactSignal: 'Ako signal kasni, profesionalni prelaz i readiness claim-ovi postaju neusklađeni sa control tower-om.',
     escalationLane: 'Program governance + content/reviewer lane',
@@ -378,10 +424,14 @@ export const DOMAIN_OPERATING_SIGNALS: DomainOperatingSignal[] = [
   },
   {
     domain: '/developer-create',
+    status: 'active',
     owner: 'Program governance + technical leadership',
+    nextUnlock: 'Repo-wide command center koji zaključava isti operating output za sve domene i nove module.',
     blocker: 'Repo-wide capability unlock/demotion i audit layer moraju biti potpuno formalizovani.',
     nextDecision: 'Pretvoriti control tower u puni command center sa audit, change-class i future-module contract slojem.',
+    dependencyMap: ['/games readiness language', '/spajapro governance enforcement', '/university certification evidence', 'Future module onboarding contracts'],
     requiredEvidence: ['Repo scorecards', 'Change impact rules', 'Audit trail requirements', 'Policy drift monitors'],
+    rollbackReadiness: 'Centralni rollback model postoji, ali još zatvara automatizovanu demotion logiku za sve capability nivoe.',
     inheritedPolicies: ['Single source of truth', 'Policy inheritance is mandatory', 'No high-impact change without evidence'],
     impactSignal: 'Ako ovaj signal kasni, svi ostali domeni gube zajednički operativni jezik i izvršni pregled.',
     escalationLane: 'Executive weekly review',

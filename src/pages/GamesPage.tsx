@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import TicTacToe from '../components/demos/TicTacToe';
 import GameHub from '../components/demos/GameHub';
 import Chess from '../components/games/Chess';
@@ -41,6 +42,13 @@ const MINI_GAMES: { id: ActiveGame; icon: string; title: string; desc: string; c
   { id: 'quiz', icon: '🧠', title: 'Tehnološki Kviz', desc: 'Znanje, brzina i lokalna rang lista.', color: '#06b6d4' },
   { id: 'chess', icon: '♟️', title: 'Chess', desc: 'Trening tabla i validacija poteza.', color: '#f59e0b' },
   { id: 'pong', icon: '🏓', title: 'Multiplayer Pong', desc: 'Arcade test režim za dva igrača.', color: '#10b981' },
+];
+
+const GAMES_CONTROL_TOWER_ALIGNMENT = [
+  'Status izlaz: svaki naslov mora imati readiness signal, blocker i sledeći unlock pre professional/live širenja.',
+  'Centralni gate-ovi: fairness, compliance, security, release i rollback pravila ostaju ista kao u repo control tower-u.',
+  'Evidence paket: professional claim traži audit, monitoring i rollback dokaz po naslovu.',
+  'Ownership model: owner, reviewer i approver ostaju obavezni za svaku veću games promenu.',
 ];
 
 const sectionCard: React.CSSProperties = {
@@ -227,6 +235,33 @@ export default function GamesPage() {
                 starosti, identiteta, KYC/AML pravila i audit nadzorom. Korisnici ispod 18 godina ostaju samo
                 u Fun/Test režimu dok ne ispune sve uslove.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style={{ padding: '0 0 40px' }}>
+        <div className="container">
+          <div style={{ ...sectionCard, borderColor: 'rgba(6,182,212,0.32)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap', marginBottom: '16px' }}>
+              <div>
+                <div style={{ ...badgeStyle('#06b6d4'), marginBottom: '12px' }}>🧭 Repo control tower alignment</div>
+                <h2 style={{ marginBottom: '8px', fontSize: '1.35rem' }}>Games radi pod istim centralnim pravilima</h2>
+                <p style={{ color: 'var(--io-muted)', maxWidth: '860px' }}>
+                  `/games` nasleđuje isti operating rhythm, iste gate-ove i isti evidence model koje zaključava
+                  Developer &amp; Create control tower.
+                </p>
+              </div>
+              <Link to="/developer-create" style={{ ...badgeStyle('#f59e0b'), textDecoration: 'none', alignSelf: 'flex-start' }}>
+                Otvori control tower →
+              </Link>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px' }}>
+              {GAMES_CONTROL_TOWER_ALIGNMENT.map(item => (
+                <div key={item} style={listStyle('#e2e8f0')}>
+                  {item}
+                </div>
+              ))}
             </div>
           </div>
         </div>

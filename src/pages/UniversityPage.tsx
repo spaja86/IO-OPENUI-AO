@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { universityProgram } from '../data/university';
 import {
   getDefaultUniversityUnit,
@@ -55,6 +56,13 @@ const statusColor = {
   'Enterprise review': '#2563eb',
 } as const;
 
+const UNIVERSITY_CONTROL_TOWER_ALIGNMENT = [
+  'Status izlaz: svaki program i progression bridge mora imati status, blocker i sledeći unlock.',
+  'Centralni gate-ovi: certification, compliance, release i rollback discipline ostaju isti kao u repo control tower-u.',
+  'Evidence paket: knowledge proof, region readiness i progression integrity ostaju obavezni za professional claim.',
+  'Ownership model: content owner, reviewer i approver ostaju obavezni za svaku veću akademsku promenu.',
+];
+
 export default function UniversityPage() {
   const [selectedUnitCode, setSelectedUnitCode] = useState(getDefaultUniversityUnit().code);
   const selectedUnit = useMemo(() => getSelectedUniversityUnit(selectedUnitCode), [selectedUnitCode]);
@@ -92,6 +100,33 @@ export default function UniversityPage() {
                 {universityProgram.heroTitle} funkcioniše kao poseban sistem koji spaja obrazovanje, testiranje,
                 sertifikaciju, praktičan rad i dokazivu spremnost za viši pristup platformi.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style={{ padding: '0 0 40px' }}>
+        <div className="container">
+          <div style={{ ...sectionCard, borderColor: 'rgba(6,182,212,0.28)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap', marginBottom: '16px' }}>
+              <div>
+                <div style={{ ...badgeStyle('#06b6d4'), marginBottom: '12px' }}>🧭 Repo control tower alignment</div>
+                <h2 style={{ marginBottom: '8px', fontSize: '1.35rem' }}>UNEVERZITET prati isti repo-wide operating model</h2>
+                <p style={{ color: 'var(--io-muted)', maxWidth: '860px' }}>
+                  `/university` nasleđuje isti governance jezik, isti evidence model i isti review/release ritam iz
+                  Developer &amp; Create control tower-a.
+                </p>
+              </div>
+              <Link to="/developer-create" style={{ ...badgeStyle('#2563eb'), textDecoration: 'none', alignSelf: 'flex-start' }}>
+                Otvori control tower →
+              </Link>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px' }}>
+              {UNIVERSITY_CONTROL_TOWER_ALIGNMENT.map(item => (
+                <div key={item} style={listStyle('#e2e8f0')}>
+                  {item}
+                </div>
+              ))}
             </div>
           </div>
         </div>

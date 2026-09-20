@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import ScrollAnimation from '../components/ScrollAnimation';
 import {
   SPAJAPRO_DELIVERABLES,
@@ -19,6 +20,13 @@ const cardStyle: React.CSSProperties = {
   border: '1px solid rgba(0, 212, 255, 0.16)',
 };
 
+const SPAJAPRO_CONTROL_TOWER_ALIGNMENT = [
+  'Status izlaz: orchestration sloj mora imati jasan status, blocker i sledeći unlock pre enterprise claim-a.',
+  'Centralni gate-ovi: automation, config i connector promene prolaze isti security, release i rollback lane.',
+  'Evidence paket: audit trail, approval chain i runtime isolation ostaju obavezni proof model.',
+  'Ownership model: platform owner, reviewer i approver ostaju zaključani za svaku high-impact promenu.',
+];
+
 export default function SpajaProPage() {
   return (
     <main style={{ paddingTop: 'var(--header-height)' }}>
@@ -38,6 +46,36 @@ export default function SpajaProPage() {
               AI platforma umesto ChatGPT sa modulnom arhitekturom, governance modelom i delivery disciplinom.
             </p>
           </ScrollAnimation>
+        </div>
+      </section>
+
+      <section style={{ padding: '0 0 40px' }}>
+        <div className="container">
+          <article style={{ ...cardStyle, borderColor: 'rgba(6,182,212,0.28)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap', marginBottom: '16px' }}>
+              <div>
+                <p style={{ color: '#06b6d4', fontWeight: 700, marginBottom: '10px' }}>Repo control tower alignment</p>
+                <h2 style={{ marginBottom: '8px' }}>SPAJAPRO prati isti operating rhythm kao ostatak repozitorijuma</h2>
+                <p style={{ color: 'var(--io-muted)', lineHeight: 1.6, maxWidth: '860px' }}>
+                  `/spajapro` radi kao platformski stub, ali i dalje nasleđuje isti governance, evidence i reinforced
+                  review model iz Developer &amp; Create control tower-a.
+                </p>
+              </div>
+              <Link
+                to="/developer-create"
+                style={{ color: '#f59e0b', fontWeight: 700, textDecoration: 'none', alignSelf: 'flex-start' }}
+              >
+                Otvori control tower →
+              </Link>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
+              {SPAJAPRO_CONTROL_TOWER_ALIGNMENT.map(item => (
+                <div key={item} style={cardStyle}>
+                  <p style={{ color: 'var(--io-muted)', lineHeight: 1.6 }}>{item}</p>
+                </div>
+              ))}
+            </div>
+          </article>
         </div>
       </section>
 
