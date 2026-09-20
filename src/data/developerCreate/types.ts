@@ -11,6 +11,7 @@ export type ReadinessSignal = 'ready' | 'partial' | 'blocked';
 export type RiskSeverity = 'low' | 'medium' | 'high' | 'critical';
 export type ControlTowerTrend = 'up' | 'stable' | 'watch';
 export type ChangeClass = 'content' | 'feature' | 'governance' | 'automation' | 'config' | 'security-critical';
+export type DeliveryLane = 'stable' | 'experimental' | 'hybrid';
 
 export interface DeveloperCreateNorthStar {
   title: string;
@@ -256,13 +257,13 @@ export interface MasterCapabilityMapItem {
 }
 
 export interface MaturityMapEntry {
-  stage: string;
+  stage: ControlTowerStatus | 'validation';
   scope: string;
   exitSignal: string;
 }
 
 export interface DeliveryLaneRule {
-  lane: 'stable' | 'experimental' | 'hybrid';
+  lane: DeliveryLane;
   purpose: string;
   protects: string[];
 }
@@ -276,7 +277,7 @@ export interface DomainOperatingSignal {
   inheritedPolicies: string[];
   impactSignal: string;
   escalationLane: string;
-  deliveryLane: 'stable' | 'experimental' | 'hybrid';
+  deliveryLane: DeliveryLane;
 }
 
 export interface CommandCenterItem {
@@ -306,8 +307,8 @@ export interface DomainRiskLens {
 }
 
 export interface DemotionRule {
-  from: string;
-  to: string;
+  from: ControlTowerStatus | 'validation';
+  to: ControlTowerStatus | 'validation';
   trigger: string;
   proofToRecover: string;
 }

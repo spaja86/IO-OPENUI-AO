@@ -79,7 +79,7 @@ import {
   TRUST_SURFACE_MAP,
   ENTERPRISE_HARDENING_LANE,
 } from '../data/developerCreate';
-import type { ControlTowerStatus, ControlTowerTrend, ReadinessSignal, RiskSeverity } from '../data/developerCreate';
+import type { ControlTowerStatus, ControlTowerTrend, DeliveryLane, ReadinessSignal, RiskSeverity } from '../data/developerCreate';
 import {
   AnchorNavigation,
   InfoCard,
@@ -147,6 +147,17 @@ function statusLabel(status: ControlTowerStatus | ControlTowerTrend | ReadinessS
       return '⚠ watch';
     default:
       return status;
+  }
+}
+
+function deliveryLaneStatus(lane: DeliveryLane): ControlTowerStatus {
+  switch (lane) {
+    case 'stable':
+      return 'active';
+    case 'experimental':
+      return 'planned';
+    default:
+      return 'pilot';
   }
 }
 
@@ -476,7 +487,7 @@ export default function DeveloperCreatePage() {
             <div style={{ display: 'grid', gap: '10px', marginBottom: '12px' }}>
               {EXECUTIVE_MATURITY_MAP.map(item => (
                 <div key={item.stage} style={listStyle('#e2e8f0')}>
-                  <strong style={{ display: 'block', marginBottom: '6px' }}>{statusLabel(item.stage as ControlTowerStatus | 'validation')}</strong>
+                  <strong style={{ display: 'block', marginBottom: '6px' }}>{statusLabel(item.stage)}</strong>
                   <div style={{ marginBottom: '6px' }}>{item.scope}</div>
                   <div style={{ color: 'var(--io-muted)' }}><strong>Exit signal:</strong> {item.exitSignal}</div>
                 </div>
@@ -659,7 +670,7 @@ export default function DeveloperCreatePage() {
                 <div key={item.capability} style={listStyle('#e2e8f0')}>
                   <strong style={{ display: 'block', marginBottom: '6px' }}>{item.capability}</strong>
                   <div style={{ marginBottom: '6px' }}>Owner: {item.owner}</div>
-                  <div style={{ marginBottom: '6px' }}>Current level: {statusLabel(item.currentLevel as ControlTowerStatus | 'validation')}</div>
+                  <div style={{ marginBottom: '6px' }}>Current level: {statusLabel(item.currentLevel as ControlTowerStatus)}</div>
                   <div style={{ color: 'var(--io-muted)' }}>Unlocks: {item.unlocks.join(' · ')}</div>
                 </div>
               ))}
@@ -673,7 +684,7 @@ export default function DeveloperCreatePage() {
                 <div key={item.domain} style={{ ...listStyle('#e2e8f0'), border: `1px solid ${routeAccent(item.domain)}55` }}>
                   <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '6px' }}>
                     <span style={badgeStyle(routeAccent(item.domain))}>{item.domain}</span>
-                    <span style={badgeStyle(statusColor(item.deliveryLane === 'stable' ? 'active' : item.deliveryLane === 'experimental' ? 'planned' : 'pilot'))}>
+                    <span style={badgeStyle(statusColor(deliveryLaneStatus(item.deliveryLane)))}>
                       {item.deliveryLane} lane
                     </span>
                   </div>
@@ -1064,9 +1075,9 @@ export default function DeveloperCreatePage() {
               {DEMOTION_ENGINE_RULES.map(item => (
                 <div key={`${item.from}-${item.to}`} style={listStyle('#e2e8f0')}>
                   <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '6px' }}>
-                    <span style={badgeStyle(statusColor(item.from as ControlTowerStatus | 'validation'))}>{statusLabel(item.from as ControlTowerStatus | 'validation')}</span>
+                    <span style={badgeStyle(statusColor(item.from))}>{statusLabel(item.from)}</span>
                     <span style={badgeStyle('#94a3b8')}>→</span>
-                    <span style={badgeStyle(statusColor(item.to as ControlTowerStatus | 'validation'))}>{statusLabel(item.to as ControlTowerStatus | 'validation')}</span>
+                    <span style={badgeStyle(statusColor(item.to))}>{statusLabel(item.to)}</span>
                   </div>
                   <div style={{ marginBottom: '6px' }}><strong>Trigger:</strong> {item.trigger}</div>
                   <div style={{ color: 'var(--io-muted)' }}><strong>Proof to recover:</strong> {item.proofToRecover}</div>
