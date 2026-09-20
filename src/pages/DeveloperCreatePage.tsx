@@ -156,7 +156,7 @@ function deliveryLaneStatus(lane: DeliveryLane): ControlTowerStatus {
       return 'active';
     case 'experimental':
       return 'planned';
-    default:
+    case 'hybrid':
       return 'pilot';
   }
 }
