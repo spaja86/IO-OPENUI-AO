@@ -1,12 +1,17 @@
 import type {
+  ChangeClassRule,
   ControlTowerApiShape,
   ContributorGuideStep,
   DecisionLogEntry,
   EscalationTrigger,
   EvidenceMatrixItem,
+  FutureModuleContract,
+  GovernanceDebtItem,
   GovernancePolicySection,
   GovernanceRule,
+  OperatingException,
   PolicyInheritanceRule,
+  ProofRequirement,
   QualityContract,
   StandardTemplate,
 } from './types';
@@ -328,5 +333,118 @@ export const CONTROL_TOWER_API_MODEL: ControlTowerApiShape[] = [
     object: 'evidenceMatrix',
     fields: ['asset', 'evidence', 'reviewer', 'approvalGate'],
     usage: 'Standardizuje koji dokaz je potreban po tipu promene.',
+  },
+];
+
+export const CHANGE_CLASS_SYSTEM: ChangeClassRule[] = [
+  {
+    changeClass: 'content',
+    minimumProof: ['Canonical vocabulary review', 'Owner/reviewer map', 'Known limitations update'],
+    humanReviewRequired: 'Domain/content reviewer potvrđuje da claim odgovara readiness signalu.',
+    escalation: 'Content freeze ako terminologija ili claim odstupaju.',
+  },
+  {
+    changeClass: 'feature',
+    minimumProof: ['Dependency map', 'Acceptance signal', 'Rollback path'],
+    humanReviewRequired: 'Owner + reviewer + approver trijada potvrđuje promotion odluku.',
+    escalation: 'Executive weekly review ako cross-domain uticaj ostane otvoren.',
+  },
+  {
+    changeClass: 'governance',
+    minimumProof: ['Decision log entry', 'Policy inheritance mapping', 'Audit trail update'],
+    humanReviewRequired: 'Program governance potvrđuje da repo-level pravila ostaju konzistentna.',
+    escalation: 'Held state dok se ne zatvore drift i evidence pitanja.',
+  },
+  {
+    changeClass: 'automation',
+    minimumProof: ['AI governance review', 'Scope isolation proof', 'Human escalation rule'],
+    humanReviewRequired: 'Security owner i governance owner potvrđuju granice automatizacije.',
+    escalation: 'Policy block ako automation može uticati na release, security ili governance claim.',
+  },
+  {
+    changeClass: 'config',
+    minimumProof: ['Change impact map', 'Rollback proof', 'Security/compliance confirmation'],
+    humanReviewRequired: 'Reinforced review lane je obavezan za CI, deploy i agent/config promene.',
+    escalation: 'Promena ostaje blocked bez owner/reviewer/approver potpisa.',
+  },
+  {
+    changeClass: 'security-critical',
+    minimumProof: ['Critical-risk assessment', 'Mitigation proof', 'Clean post-change scan state'],
+    humanReviewRequired: 'Security/compliance board daje finalnu potvrdu pre promotion/merge odluke.',
+    escalation: 'Automatski policy block do zatvaranja nalaza.',
+  },
+];
+
+export const MINIMUM_PROOF_REQUIREMENTS: ProofRequirement[] = [
+  {
+    asset: 'Nova ruta / repo sekcija',
+    minimumProof: ['Scope + owner-i', 'Readiness criteria', 'Terminology alignment', 'Navigation expectation'],
+    failureIfMissing: 'Ruta ulazi bez jasne uloge u operating model i povećava governance drift.',
+  },
+  {
+    asset: 'Cross-domain feature',
+    minimumProof: ['Dependency impact', 'Evidence matrix', 'Escalation lane', 'Rollback signal'],
+    failureIfMissing: 'Jedan domen može degradirati drugi bez vidljivog razloga i odluke.',
+  },
+  {
+    asset: 'Config / CI / deploy / agent change',
+    minimumProof: ['Reinforced review', 'Security confirmation', 'Rollback proof', 'Audit trail'],
+    failureIfMissing: 'Repo security posture i release discipline mogu biti promenjeni bez kontrole.',
+  },
+  {
+    asset: 'Governance or readiness claim',
+    minimumProof: ['Decision log', 'Policy inheritance note', 'Repo KPI effect', 'Owner approval'],
+    failureIfMissing: 'Executive dashboard prikazuje claim koji nema dokazivi operativni trag.',
+  },
+];
+
+export const OPERATING_EXCEPTIONS: OperatingException[] = [
+  {
+    exception: 'Fast-track pilot signal',
+    scope: 'Eksperimentalni capability sa ograničenim blast-radius-om',
+    guardrail: 'Mora zadržati minimalni evidence pack, named owner-a i rollback put.',
+    expiresWhen: 'Čim capability traži live ili shared-domain claim.',
+  },
+  {
+    exception: 'Temporary terminology bridge',
+    scope: 'Migracija starog sadržaja ka canonical vocabulary modelu',
+    guardrail: 'Mora imati jasno označen drift backlog i owner-a za zatvaranje.',
+    expiresWhen: 'Kada content freeze i standard terminology review budu završeni.',
+  },
+];
+
+export const KNOWN_GOVERNANCE_DEBT: GovernanceDebtItem[] = [
+  {
+    debt: 'Cross-domain release evidence nije još potpuno ujednačen po svim domenima.',
+    severity: 'high',
+    whyItMatters: 'Live/professional claim-ovi nisu jednako dokazivi kroz ceo repo.',
+    closureSignal: 'Evidence matrix i operating signals pokrivaju sve rute i weekly review koristi isti ulaz.',
+  },
+  {
+    debt: 'Unlock/demotion pravila nisu formalno centralizovana.',
+    severity: 'critical',
+    whyItMatters: 'Status može delovati green bez jasne putanje nazad kada signal oslabi.',
+    closureSignal: 'Svaki capability nivo ima trigger, owner-a i recovery proof.',
+  },
+  {
+    debt: 'Config/agent reinforced review lane nije potpuno standardizovan.',
+    severity: 'high',
+    whyItMatters: 'High-impact automatizacione promene još nemaju uvek isti minimum proof.',
+    closureSignal: 'Sve CI/deploy/agent promene koriste isti change-class i audit model.',
+  },
+];
+
+export const FUTURE_MODULE_READINESS_CONTRACT: FutureModuleContract[] = [
+  {
+    area: 'Future route or program',
+    requirements: ['Mapped domain owner', 'Standard template', 'Dependency view', 'Readiness and rollback criteria'],
+    inherits: ['Canonical vocabulary', 'No live without evidence', 'Ownership trijada'],
+    successSignal: 'Novi modul se pojavljuje u command center-u i scorecard sistemu bez posebnog improvizovanog pravila.',
+  },
+  {
+    area: 'Future agent or automation lane',
+    requirements: ['Scope isolation', 'Human escalation path', 'Security/compliance guardrail', 'Audit evidence'],
+    inherits: ['AI governance review', 'Config-change reinforced review', 'Decision trail discipline'],
+    successSignal: 'Agent tok može da se meri, zaustavi i auditira kao i svaki drugi capability.',
   },
 ];
