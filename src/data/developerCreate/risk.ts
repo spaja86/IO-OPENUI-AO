@@ -134,6 +134,14 @@ export const DOMAIN_RISK_LENSES: DomainRiskLens[] = [
 
 export const DEMOTION_ENGINE_RULES: DemotionRule[] = [
   {
+    from: 'active',
+    to: 'pilot',
+    trigger:
+      'Montezacija readiness signal padne ispod sigurnog praga (security/compliance ili trust trend ode u critical/watch bez zatvaranja).',
+    proofToRecover:
+      'Stabilizovati signal u pilot režimu, zatvoriti security/compliance nalaze i kroz executive weekly review potvrditi povratak na prethodni active nivo.',
+  },
+  {
     from: 'live',
     to: 'pilot',
     trigger: 'Hard gate padne, evidence oslabi ili monitoring pokaže ozbiljno odstupanje.',

@@ -11,11 +11,12 @@ import type {
 } from './types';
 
 export const DEVELOPER_CREATE_NORTH_STAR: DeveloperCreateNorthStar = {
-  title: 'Developer & Create Control Tower',
+  title: 'Developer & Create Control Tower · VRH PROGRAMSKOG EKVILADENTA',
   mission:
-    'Jedinstveni repo-wide upravljački sloj koji zaključava isti jezik, iste gate-ove, isti ownership i isti evidence model za svaki proizvodni domen i svaki budući modul.',
+    'Jedinstveni repo-wide upravljački sloj koji zaključava VRH PROGRAMSKOG EKVILADENTA kao jedini standard za MONTEZACIJA discipline: isti jezik, isti gate-ovi, isti ownership i isti evidence model za svaki proizvodni domen i svaki budući modul.',
   why: [
     'Da /games, /spajapro i /university koriste isti governance jezik.',
+    'Da MONTEZACIJA sloj radi kroz istu tvrdu hijerarhiju: Strategy → Standards → Gates → Metrics → Dependencies → Review loop.',
     'Da svaki novi modul ima merljiv readiness pre nego što ide u pilot/live.',
     'Da sigurnost, compliance i rollback spremnost budu deo početka, ne završnog popravnog koraka.',
     'Da se isti radni takt vidi u planiranju, build-u, review-u, release-u i poboljšanjima kroz ceo repo.',
@@ -34,9 +35,10 @@ export const DEVELOPER_CREATE_EXTREME_V2 = {
     'Zvanični repo program i jedini centralni control tower koji zaključava zajednički operativni jezik, governance i readiness model za /games, /spajapro, /university i /developer-create.',
   objectives: [
     'Jedinstven model odluka, ownership-a i release discipline kroz sve domene.',
-    'Maksimalna auditabilnost strategic i high-impact promena.',
+    'Maksimalna auditabilnost strateških i high-impact promena.',
     'Stabilan put od ideje do enterprise-ready capability nivoa.',
     'Jedan centralni programski identitet: isti standard, isti gate-ovi i isti ownership model kroz ceo repozitorijum.',
+    'VRH PROGRAMSKOG EKVILADENTA je zvanični cilj i jedini programski ekvivalent za cross-domain MONTEZACIJA odluke.',
   ],
   responsibilityBoundaries: [
     'Product: vrednost, scope i capability target po domenu.',
@@ -51,6 +53,7 @@ export const CONTROL_TOWER_IDENTITY_LOCK = [
   'Developer & Create je jedini centralni control tower za strateške, governance i readiness odluke na nivou repozitorijuma.',
   'Svi domeni koriste isti standardni jezik, isti gate model i isti ownership trijas (owner/reviewer/approver).',
   'Nema paralelnog policy centra izvan Developer & Create modela za status, promotion i governance claim-ove.',
+  'MONTEZACIJA model je validan samo kada prati šest hard layer-a (Strategy → Standards → Gates → Metrics → Dependencies → Review loop).',
 ];
 
 export const PROGRAM_HIERARCHY: ProgramHierarchyLayer[] = [
@@ -217,6 +220,21 @@ export const DEVELOPER_CREATE_ROADMAP = [
 
 export const CANONICAL_VOCABULARY: CanonicalVocabularyItem[] = [
   {
+    term: 'VRH PROGRAMSKOG EKVILADENTA',
+    definition: 'Zvanični repo cilj koji zaključava jedinstven programski standard za sve domene.',
+    usage: 'Koristi se kao severnjača za sve strategic, governance i readiness odluke.',
+  },
+  {
+    term: 'MONTEZACIJA',
+    definition: 'Operativni sloj koji povezuje capability, gate, score i review discipline kroz ceo repo.',
+    usage: 'Svaki MONTEZACIJA claim mora biti mapiran na hard spine i audit dokaz.',
+  },
+  {
+    term: 'Montezacija readiness',
+    definition: 'Skup readiness/trust/release/rollback signala koji potvrđuje da monetizacione odluke ne ruše security i compliance.',
+    usage: 'Prikazuje se u scorecard-u, blocker aging board-u i dependency heatmap ulazima.',
+  },
+  {
     term: 'Readiness',
     definition: 'Merljiva spremnost domena ili modula za sledeći capability nivo.',
     usage: 'Koristi se u scorecard-ovima, release review-u i capability registru.',
@@ -295,9 +313,9 @@ export const MASTER_CAPABILITY_MAP: MasterCapabilityMapItem[] = [
   {
     area: '/developer-create',
     currentState: 'active',
-    targetState: 'repo-wide operating center',
-    stableBoundary: 'Repo-level pravila, scorecards i evidence model moraju ostati konzistentni i auditabilni.',
-    experimentalScope: 'Future dashboards, APIs i multi-repo kontrolni sloj razvijaju se bez rušenja postojećeg governance modela.',
+    targetState: 'repo-wide operating center i vrh programskog ekviladenta',
+    stableBoundary: 'Repo-level pravila, scorecards i MONTEZACIJA readiness model moraju ostati konzistentni i auditabilni.',
+    experimentalScope: 'Future dashboards, APIs i multi-repo kontrolni sloj razvijaju se bez rušenja postojećeg governance modela i bez paralelnog policy centra.',
   },
   {
     area: 'future modules',
