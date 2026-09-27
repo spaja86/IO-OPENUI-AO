@@ -2,7 +2,8 @@
   "name": "ioopenuiao",
   "private": true,
   "scripts": {
-    "build": "npm run build:realtime && npm run build:chat && mkdir -p public && cp index.html public/",
+    "build": "npm run build:root && npm run build:realtime && npm run build:chat",
+    "build:root": "vite build --outDir public --emptyOutDir false",
     "build:realtime": "cd put-a-realtime-webrtc/web && npm ci && npm run build",
     "build:chat": "cd put-b-chat-socketio/web && npm ci && npm run build"
   },
