@@ -361,7 +361,7 @@ export const LOCKED_REPOSITORY_SCORING_FORMAT = [
   'Trust score (0-100) je obavezan po domenu.',
   'Release score (0-100) je obavezan po domenu.',
   'Rollback score (0-100) je obavezan po domenu.',
-  'Montezacija readiness signal (monetization integrity + security/compliance alignment) je obavezan po domenu; format je enum: green | watch | blocked | out-of-scope.',
+  'Montezacija readiness signal (monetization integrity + security/compliance alignment) je obavezan u svakom domen scorecard-u; format je enum: green | watch | blocked | out-of-scope (za domene bez monetizacijske odluke).',
   'Blocker aging signal (state + age + owner + next review) je obavezan po kritičnom pitanju.',
   'Ownership clarity signal (owner/reviewer/approver pokrivenost) je obavezan pre promotion odluke.',
 ];

@@ -139,7 +139,7 @@ export const DEMOTION_ENGINE_RULES: DemotionRule[] = [
     trigger:
       'Montezacija readiness signal padne ispod sigurnog praga (security/compliance ili trust trend ode u critical/watch bez zatvaranja).',
     proofToRecover:
-      'Obnoviti readiness/trust/release/rollback signal, zatvoriti security/compliance nalaze i potvrditi oporavak kroz executive weekly review.',
+      'Stabilizovati signal u pilot režimu, zatvoriti security/compliance nalaze i kroz executive weekly review potvrditi povratak na prethodni active nivo.',
   },
   {
     from: 'live',
