@@ -23,6 +23,7 @@
     { "source": "/realtime/(.*)", "destination": "/realtime/index.html" },
     { "source": "/chat", "destination": "/chat/index.html" },
     { "source": "/chat/(.*)", "destination": "/chat/index.html" },
-    { "source": "/developer-create", "destination": "/index.html" }
+    { "source": "/developer-create", "destination": "/index.html" },
+    { "source": "/developer-create/(.*)", "destination": "/index.html" }
   ]
 }
