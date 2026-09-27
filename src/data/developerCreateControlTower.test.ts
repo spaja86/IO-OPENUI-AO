@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { CONTROL_TOWER_SCORE_SNAPSHOTS, DOMAIN_SCORECARDS } from './developerCreate.ts';
+import { CONTROL_TOWER_SCORE_SNAPSHOTS, DOMAIN_SCORECARDS } from './developerCreate/operations.ts';
 
 test('all developer-create domain scorecards expose a bounded meta-governance score', () => {
   for (const scorecard of DOMAIN_SCORECARDS) {
