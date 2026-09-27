@@ -656,8 +656,19 @@ export default function DeveloperCreatePage() {
                 <div key={`${item.route}-${item.phase}`} style={listStyle('#e2e8f0')}>
                   <strong style={{ display: 'block', marginBottom: '6px' }}>{item.route}</strong>
                   <div style={{ marginBottom: '6px' }}>Phase: {item.phase}</div>
-                  <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}>
-                    Readiness {item.readiness}% · Trust {item.trust}% · Release {item.release}% · Meta governance {item.metaGovernance}%
+                  <div
+                    style={{
+                      marginBottom: '6px',
+                      color: 'var(--io-muted)',
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+                      gap: '6px',
+                    }}
+                  >
+                    <div>Readiness: {item.readiness}%</div>
+                    <div>Trust: {item.trust}%</div>
+                    <div>Release: {item.release}%</div>
+                    <div>Meta governance: {item.metaGovernance}%</div>
                   </div>
                   <div style={{ color: 'var(--io-muted)' }}>{item.signal}</div>
                 </div>
