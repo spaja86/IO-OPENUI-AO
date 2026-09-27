@@ -656,7 +656,7 @@ export default function DeveloperCreatePage() {
                 <div key={`${item.route}-${item.phase}`} style={listStyle('#e2e8f0')}>
                   <strong style={{ display: 'block', marginBottom: '6px' }}>{item.route}</strong>
                   <div style={{ marginBottom: '6px' }}>Phase: {item.phase}</div>
-                  <div
+                  <dl
                     style={{
                       marginBottom: '6px',
                       color: 'var(--io-muted)',
@@ -665,11 +665,18 @@ export default function DeveloperCreatePage() {
                       gap: '6px',
                     }}
                   >
-                    <div>Readiness: {item.readiness}%</div>
-                    <div>Trust: {item.trust}%</div>
-                    <div>Release: {item.release}%</div>
-                    <div>Meta governance: {item.metaGovernance}%</div>
-                  </div>
+                    {[
+                      ['Readiness', `${item.readiness}%`],
+                      ['Trust', `${item.trust}%`],
+                      ['Release', `${item.release}%`],
+                      ['Meta governance', `${item.metaGovernance}%`],
+                    ].map(([label, value]) => (
+                      <div key={`${item.route}-${label}`} style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '6px' }}>
+                        <dt style={{ fontWeight: 600 }}>{label}:</dt>
+                        <dd style={{ margin: 0 }}>{value}</dd>
+                      </div>
+                    ))}
+                  </dl>
                   <div style={{ color: 'var(--io-muted)' }}>{item.signal}</div>
                 </div>
               ))}
