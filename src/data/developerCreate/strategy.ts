@@ -89,32 +89,32 @@ export const PROGRAM_HIERARCHY: ProgramHierarchyLayer[] = [
 export const HARD_SPINE_CHANGE_MAPPING = [
   {
     layer: 'Strategy',
-    mandatoryMapping: 'Svaka promena mora navesti North Star vezu, scope i ownership razlog.',
+    mandatoryMapping: 'Svaka promena treba da navede North Star vezu, scope i ownership razlog.',
     proof: 'Program map + owner/reviewer/approver map.',
   },
   {
     layer: 'Standards',
-    mandatoryMapping: 'Promena mora koristiti standard template i quality contract za svoj change class.',
+    mandatoryMapping: 'Promena treba da koristi standard template i quality contract za svoj change class.',
     proof: 'Popunjen template + contract sekcije + canonical vocabulary alignment.',
   },
   {
     layer: 'Gates',
-    mandatoryMapping: 'Promena mora deklarisati koje gate-ove prolazi pre promotion odluke.',
+    mandatoryMapping: 'Promena treba da deklariše koje gate-ove prolazi pre promotion odluke.',
     proof: 'DoR/DoD/QA/security/compliance/release/rollback signali.',
   },
   {
     layer: 'Metrics',
-    mandatoryMapping: 'Promena mora prikazati efekat na readiness/trust/release/rollback i blocker aging.',
+    mandatoryMapping: 'Promena treba da prikaže efekat na readiness/trust/release/rollback i blocker aging.',
     proof: 'Scorecard update + trend signal.',
   },
   {
     layer: 'Dependencies',
-    mandatoryMapping: 'Promena mora mapirati blocked-by i upstream/downstream uticaj.',
+    mandatoryMapping: 'Promena treba da mapira blocked-by i upstream/downstream uticaj.',
     proof: 'Dependency map + impact lane.',
   },
   {
     layer: 'Review loop',
-    mandatoryMapping: 'Promena mora ući u executive weekly review izlaz i backlog narednih koraka.',
+    mandatoryMapping: 'Promena treba da uđe u executive weekly review izlaz i backlog narednih koraka.',
     proof: 'Decision log + status/trend/blocker/decision/next action paket.',
   },
 ];

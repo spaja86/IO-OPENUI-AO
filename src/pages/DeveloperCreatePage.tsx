@@ -519,7 +519,7 @@ export default function DeveloperCreatePage() {
               ))}
             </ul>
           </InfoCard>
-          <InfoCard title="Hard spine change mapping" badge="Mandatory per change" badgeColor="#f97316">
+          <InfoCard title="Hard spine change mapping" badge="Guidance per change" badgeColor="#f97316">
             <div style={{ display: 'grid', gap: '10px' }}>
               {HARD_SPINE_CHANGE_MAPPING.map(item => (
                 <div key={item.layer} style={listStyle('#e2e8f0')}>
