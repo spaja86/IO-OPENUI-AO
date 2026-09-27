@@ -41,7 +41,7 @@ export interface RepositoryDomainBoundary {
 }
 
 export interface ControlTowerDomainStatus {
-  domain: '/games' | '/spajapro' | '/university';
+  domain: '/games' | '/spajapro' | '/university' | '/developer-create';
   status: ControlTowerStatus;
   focus: string;
   trend: ControlTowerTrend;
@@ -50,7 +50,7 @@ export interface ControlTowerDomainStatus {
 }
 
 export interface DomainReadinessMatrix {
-  domain: '/games' | '/spajapro' | '/university';
+  domain: '/games' | '/spajapro' | '/university' | '/developer-create';
   product: ReadinessSignal;
   tech: ReadinessSignal;
   security: ReadinessSignal;
@@ -67,7 +67,7 @@ export interface OwnershipRole {
 }
 
 export interface DependencyMapItem {
-  domain: '/games' | '/spajapro' | '/university';
+  domain: '/games' | '/spajapro' | '/university' | '/developer-create';
   dependsOn: string[];
   blockedBy: string[];
   readyFor: string[];
@@ -163,6 +163,7 @@ export interface DomainScorecard {
     ownership: number;
     release: number;
     rollback: number;
+    metaGovernance: number;
   };
   dependencies: string[];
 }

@@ -13,10 +13,11 @@ import type {
 export const DEVELOPER_CREATE_NORTH_STAR: DeveloperCreateNorthStar = {
   title: 'Developer & Create Control Tower · VRH PROGRAMSKOG EKVILADENTA',
   mission:
-    'Jedinstveni repo-wide upravljački sloj koji zaključava VRH PROGRAMSKOG EKVILADENTA kao jedini standard za MONTEZACIJA discipline: isti jezik, isti gate-ovi, isti ownership i isti evidence model za svaki proizvodni domen i svaki budući modul.',
+    'Jedinstveni repo-wide upravljački sloj koji zaključava VRH PROGRAMSKOG EKVILADENTA kao jedini standard za MONTEZACIJA discipline, dok MONTEZACIJA NAD MONTEZACIJAMA uvodi najviši koordinacioni sloj za innovation density, pattern reuse, approval discipline i cross-domain consistency bez paralelnog governance centra.',
   why: [
     'Da /games, /spajapro i /university koriste isti governance jezik.',
     'Da MONTEZACIJA sloj radi kroz istu tvrdu hijerarhiju: Strategy → Standards → Gates → Metrics → Dependencies → Review loop.',
+    'Da MONTEZACIJA NAD MONTEZACIJAMA ostane jedini meta-governance sloj iznad pojedinačnih monetization/readiness odluka.',
     'Da svaki novi modul ima merljiv readiness pre nego što ide u pilot/live.',
     'Da sigurnost, compliance i rollback spremnost budu deo početka, ne završnog popravnog koraka.',
     'Da se isti radni takt vidi u planiranju, build-u, review-u, release-u i poboljšanjima kroz ceo repo.',
@@ -26,6 +27,7 @@ export const DEVELOPER_CREATE_NORTH_STAR: DeveloperCreateNorthStar = {
     'Gate pass rate za build, QA, security, compliance i release.',
     'Trend blokera, odluka i rollback spremnosti na weekly review nivou.',
     'Stepen usklađenosti domena sa jedinstvenim operating cycle modelom.',
+    'Meta-governance score za innovation density, pattern stability, dependency impact, audit completeness i security/compliance alignment.',
   ],
 };
 
@@ -39,6 +41,7 @@ export const DEVELOPER_CREATE_EXTREME_V2 = {
     'Stabilan put od ideje do enterprise-ready capability nivoa.',
     'Jedan centralni programski identitet: isti standard, isti gate-ovi i isti ownership model kroz ceo repozitorijum.',
     'VRH PROGRAMSKOG EKVILADENTA je zvanični cilj i jedini programski ekvivalent za cross-domain MONTEZACIJA odluke.',
+    'MONTEZACIJA NAD MONTEZACIJAMA je odobrena samo kao unutrašnji meta-governance sloj Developer & Create control tower-a.',
   ],
   responsibilityBoundaries: [
     'Product: vrednost, scope i capability target po domenu.',
@@ -54,6 +57,7 @@ export const CONTROL_TOWER_IDENTITY_LOCK = [
   'Svi domeni koriste isti standardni jezik, isti gate model i isti ownership trijas (owner/reviewer/approver).',
   'Nema paralelnog policy centra izvan Developer & Create modela za status, promotion i governance claim-ove.',
   'MONTEZACIJA model je validan samo kada prati šest hard layer-a (Strategy → Standards → Gates → Metrics → Dependencies → Review loop).',
+  'MONTEZACIJA NAD MONTEZACIJAMA je validna samo kao meta-sloj unutar istog control tower-a: jedan vocabulary, jedan score model i jedan approval kanal.',
 ];
 
 export const PROGRAM_HIERARCHY: ProgramHierarchyLayer[] = [
@@ -210,12 +214,11 @@ export const LOCKED_PROGRAM_GOALS = [
 ];
 
 export const DEVELOPER_CREATE_ROADMAP = [
-  'Faza 1: Konsolidacija pojmova, scope-a i ownership modela po repozitorijumu.',
-  'Faza 2: Standardizacija template-a, quality contract-a i readiness kriterijuma.',
-  'Faza 3: Povezivanje /games, /spajapro i /university kroz zajedničke metrike i dependency map.',
-  'Faza 4: Governance hardening kroz tvrde gate-ove, audit evidence i human/security review discipline.',
-  'Faza 5: Executive visibility kroz control tower dashboard, KPI board i weekly review paket.',
-  'Faza 6: Extreme / enterprise layer sa advanced scoring, sandbox lane-om i policy enforcement modelom.',
+  'Faza 1: Zaključati terminologiju, decision altitude i approval definiciju za MONTEZACIJA NAD MONTEZACIJAMA.',
+  'Faza 2: Ugraditi score i proof model u postojeće scorecard-e, evidence matrix i audit zahteve.',
+  'Faza 3: Povezati /games, /spajapro, /university i future modules kroz inheritance i dependency update pravila.',
+  'Faza 4: Uvesti executive dashboard vidljivost, blocker aging i weekly review signal za meta-governance layer.',
+  'Faza 5: Odobriti prvi repo-wide MONTEZACIJA NAD MONTEZACIJAMA paket bez otvaranja paralelnog policy centra.',
 ];
 
 export const CANONICAL_VOCABULARY: CanonicalVocabularyItem[] = [
@@ -230,9 +233,33 @@ export const CANONICAL_VOCABULARY: CanonicalVocabularyItem[] = [
     usage: 'Svaki MONTEZACIJA claim mora biti mapiran na hard spine i audit dokaz.',
   },
   {
+    term: 'MONTEZACIJA NAD MONTEZACIJAMA',
+    definition:
+      'Najviši koordinacioni meta-governance sloj koji odobrava kako se innovation density, pattern reuse i cross-domain approval disciplina uvode u postojeći control tower.',
+    usage:
+      'Koristi se samo za repo-wide pattern i meta-monetization odluke koje prolaze isti hard spine i ostaju unutar Developer & Create modela.',
+  },
+  {
     term: 'Montezacija readiness',
     definition: 'Skup readiness/trust/release/rollback signala koji potvrđuje da monetizacione odluke ne ruše security i compliance.',
     usage: 'Prikazuje se u scorecard-u, blocker aging board-u i dependency heatmap ulazima.',
+  },
+  {
+    term: 'Domain-level decision',
+    definition: 'Odluka koja utiče na jedan domen i njegov capability nivo bez menjanja repo-wide patterna.',
+    usage: 'Owner domena je vodi, a control tower proverava da li ostaje usklađena sa centralnim pravilima.',
+  },
+  {
+    term: 'Cross-domain decision',
+    definition: 'Odluka koja povezuje najmanje dva domena kroz shared dependency, unlock ili evidence tok.',
+    usage: 'Traži dependency impact pregled i isti evidence jezik za sve pogođene domene.',
+  },
+  {
+    term: 'Meta-governance decision',
+    definition:
+      'Odluka koja menja repo-wide pattern reuse, innovation lane ili approval disciplinu iznad pojedinačnih domena.',
+    usage:
+      'Traži MONTEZACIJA NAD MONTEZACIJAMA score, owner/reviewer/approver dokaz i executive weekly review referencu.',
   },
   {
     term: 'Readiness',
@@ -280,6 +307,7 @@ export const REPO_OPERATING_CHARTER: OperatingCharter = {
     'Policy inheritance nije opcionalan: svi domeni nasleđuju canonical vocabulary, evidence discipline i ownership trijadu.',
     'Stable i experimental lane se vode odvojeno kako bi inovacija bila brza, ali bez degradacije live/stable toka.',
     'No live without evidence, no high-impact change without audit trail i no config/agent change without reinforced review.',
+    'MONTEZACIJA NAD MONTEZACIJAMA koristi isti approval spine i ne sme otvoriti paralelni policy centar ili zaseban score model.',
   ],
   successDefinition: [
     'Svaki domen ima owner-a, blocker, next decision i minimum evidence signal.',
@@ -314,8 +342,10 @@ export const MASTER_CAPABILITY_MAP: MasterCapabilityMapItem[] = [
     area: '/developer-create',
     currentState: 'active',
     targetState: 'repo-wide operating center i vrh programskog ekviladenta',
-    stableBoundary: 'Repo-level pravila, scorecards i MONTEZACIJA readiness model moraju ostati konzistentni i auditabilni.',
-    experimentalScope: 'Future dashboards, APIs i multi-repo kontrolni sloj razvijaju se bez rušenja postojećeg governance modela i bez paralelnog policy centra.',
+    stableBoundary:
+      'Repo-level pravila, scorecards, MONTEZACIJA readiness model i MONTEZACIJA NAD MONTEZACIJAMA approval spine moraju ostati konzistentni i auditabilni.',
+    experimentalScope:
+      'Future dashboards, APIs, multi-repo kontrolni sloj i novi pattern paketi razvijaju se bez rušenja postojećeg governance modela i bez paralelnog policy centra.',
   },
   {
     area: 'future modules',

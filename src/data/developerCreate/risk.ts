@@ -31,6 +31,12 @@ export const RISK_BOARD: RiskBoardItem[] = [
     signal: 'Nejasan reviewer ili escalation put.',
     mitigation: 'Dopisati ownership map pre daljeg napredovanja.',
   },
+  {
+    category: 'Meta-governance',
+    level: 'high',
+    signal: 'Mnoštvo inovacija ili patterna pokušava da uvede paralelni approval centar ili terminološki drift.',
+    mitigation: 'Zadržati paket u sandbox/held stanju dok meta-governance score, dependency refresh i executive approval ne budu kompletni.',
+  },
 ];
 
 export const FAILURE_MODE_BOARD: FailureModeItem[] = [
@@ -75,6 +81,12 @@ export const FAILURE_MODE_BOARD: FailureModeItem[] = [
     breaks: 'Domen tvrdi readiness uprkos otvorenim blockerima ili nekompletnom evidence paketu.',
     earlySignal: 'Status badge je green, a blocker aging ili decision log ostaju held/blocked.',
     response: 'Automatski spustiti signal na pilot/validation i otvoriti executive review.',
+  },
+  {
+    mode: 'Pattern explosion without control tower lock',
+    breaks: 'Mnoštvo inovacija i patterna uvodi više governance centara i ruši zajednički approval jezik.',
+    earlySignal: 'Novi pattern paketi nemaju decision altitude, meta-governance score ili dependency refresh.',
+    response: 'Vratiti sve neodobrene pattern-e u sandbox lane i dozvoliti samo centralno odobren paket.',
   },
 ];
 
@@ -125,10 +137,10 @@ export const DOMAIN_RISK_LENSES: DomainRiskLens[] = [
   },
   {
     domain: '/developer-create',
-    topRisk: 'Repo-level pravila se šire sporije od novih modula, što uvodi governance drift.',
+    topRisk: 'Repo-level pravila i meta-governance layer se šire sporije od novih pattern-a, što uvodi governance drift i paralelne approval pokušaje.',
     severity: 'high',
-    tripwire: 'Novi modul ili change class se pojavljuje bez inheritance, audit i KPI veze.',
-    response: 'Aktivirati command center blocker i zaustaviti širenje dok contract sloj ne bude primenjen.',
+    tripwire: 'Novi modul, change class ili pattern paket se pojavljuje bez inheritance, audit, KPI i meta-governance veze.',
+    response: 'Aktivirati command center blocker i zaustaviti širenje dok contract i score sloj ne budu primenjeni.',
   },
 ];
 
