@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "npm run build:root && npm run build:realtime && npm run build:chat",
-    "build:root": "vite build --outDir public --emptyOutDir false",
+    "build:root": "vite build && rm -rf public/assets public/index.html && cp -r dist/assets public/assets && cp dist/index.html public/index.html",
     "build:realtime": "cd put-a-realtime-webrtc/web && npm ci && npm run build",
     "build:chat": "cd put-b-chat-socketio/web && npm ci && npm run build"
   },
