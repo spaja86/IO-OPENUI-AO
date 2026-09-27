@@ -29,7 +29,6 @@
     { "source": "/games/((?!.*\\.).*)", "destination": "/index.html" },
     { "source": "/developer-create", "destination": "/index.html" },
     { "source": "/developer-create/", "destination": "/index.html" },
-    { "source": "/developer-create/(.*\\..*)", "destination": "/$1" },
     { "source": "/developer-create/((?!.*\\.).*)", "destination": "/index.html" },
     { "source": "/spajapro", "destination": "/index.html" },
     { "source": "/spajapro/((?!.*\\.).*)", "destination": "/index.html" },
