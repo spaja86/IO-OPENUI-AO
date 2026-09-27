@@ -1,13 +1,7 @@
-import { cpSync, mkdirSync, readdirSync, rmSync } from 'node:fs';
-import path from 'node:path';
+import { copyFileSync, cpSync, rmSync } from 'node:fs';
 
-const keep = new Set(['realtime', 'chat', 'ai', 'bank', 'company', 'exchange']);
+rmSync('public/assets', { recursive: true, force: true });
+rmSync('public/index.html', { force: true });
 
-mkdirSync('public', { recursive: true });
-
-for (const entry of readdirSync('public')) {
-  if (keep.has(entry)) continue;
-  rmSync(path.join('public', entry), { recursive: true, force: true });
-}
-
-cpSync('dist', 'public', { recursive: true });
+cpSync('dist/assets', 'public/assets', { recursive: true });
+copyFileSync('dist/index.html', 'public/index.html');
