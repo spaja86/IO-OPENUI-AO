@@ -27,6 +27,6 @@ test('control-tower score snapshots include meta-governance values for every rou
 });
 
 test('developer-create roadmap stays aligned with six operating phases', () => {
-  assert.equal(DEVELOPER_CREATE_ROADMAP.length, 6);
-  assert.match(DEVELOPER_CREATE_ROADMAP[5], /^Faza 6:/);
+  const phaseLabels = DEVELOPER_CREATE_ROADMAP.map(item => item.match(/^Faza \d:/)?.[0]);
+  assert.deepEqual(phaseLabels, ['Faza 1:', 'Faza 2:', 'Faza 3:', 'Faza 4:', 'Faza 5:', 'Faza 6:']);
 });
