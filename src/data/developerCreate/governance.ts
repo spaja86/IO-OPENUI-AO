@@ -446,7 +446,7 @@ export const FUTURE_MODULE_READINESS_CONTRACT: FutureModuleContract[] = [
     ],
     inherits: ['Canonical vocabulary', 'No live without evidence', 'Ownership trijada'],
     successSignal:
-      'Novi modul ostaje planned/validation dok ne zatvori template, readiness, ownership i evidence zahteve; tek tada ulazi u command center i scorecard sistem.',
+      'Dokumentovani cilj: novi modul treba da ostane planned/validation dok ne zatvori template, readiness, ownership i evidence zahteve, pa zatim ulazi u command center i scorecard sistem.',
   },
   {
     area: 'Future agent or automation lane',
