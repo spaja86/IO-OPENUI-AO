@@ -26,7 +26,6 @@
     { "source": "/developer-create", "destination": "/index.html" },
     { "source": "/developer-create/", "destination": "/index.html" },
     { "source": "/developer-create/assets/(.*)", "destination": "/assets/$1" },
-    { "source": "/developer-create/:path((?!.*\\.).*)", "destination": "/index.html" },
-    { "source": "/developer-create/((?!.*\\.).*)", "destination": "/index.html" }
+    { "source": "/developer-create/:path((?!.*\\.).*)", "destination": "/index.html" }
   ]
 }
