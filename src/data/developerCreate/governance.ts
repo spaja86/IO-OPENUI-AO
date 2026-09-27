@@ -268,7 +268,8 @@ export const POLICY_INHERITANCE_MODEL: PolicyInheritanceRule[] = [
   {
     source: 'Montezacija readiness rule',
     inheritsTo: ['/games', '/spajapro', '/university', 'future modules'],
-    invariant: 'Monetizacijska odluka je validna samo ako readiness/trust/release/rollback i security/compliance signal ostanu green.',
+    invariant:
+      'Gde postoji monetizacijska odluka, ona je validna samo ako readiness/trust/release/rollback i security/compliance signal ostanu green; za ostale module signal mora biti eksplicitno označen kao van scope-a.',
   },
 ];
 

@@ -208,7 +208,7 @@ export const DEPENDENCY_MAP: DependencyMapItem[] = [
 export const DEFINITION_OF_READY = {
   title: 'Definition of Ready (nova stranica/igra/modul)',
   checklist: [
-    'Jasno definisani ciljevi, scope i capability nivo (idea/prototype/validation/pilot/live/enterprise).',
+    'Jasno definisani ciljevi, scope i capability nivo (idea/prototype/validation/pilot/live/enterprise-ready).',
     'Product, technical, security i operational owner su imenovani.',
     'Owner/reviewer/approver evidenca i review lane su zaključani pre početka rada.',
     'Kompatibilnost, minimalni tehnički zahtevi i observability zahtevi su dokumentovani.',
@@ -361,7 +361,7 @@ export const LOCKED_REPOSITORY_SCORING_FORMAT = [
   'Trust score (0-100) je obavezan po domenu.',
   'Release score (0-100) je obavezan po domenu.',
   'Rollback score (0-100) je obavezan po domenu.',
-  'Montezacija readiness signal (monetization integrity + security/compliance alignment) je obavezan po domenu gde postoji monetizacijska odluka.',
+  'Montezacija readiness signal (monetization integrity + security/compliance alignment) je obavezan po domenu, uz eksplicitno stanje kada monetizacijska odluka nije u scope-u.',
   'Blocker aging signal (state + age + owner + next review) je obavezan po kritičnom pitanju.',
   'Ownership clarity signal (owner/reviewer/approver pokrivenost) je obavezan pre promotion odluke.',
 ];
