@@ -630,7 +630,7 @@ export default function DeveloperCreatePage() {
                     <div style={badgeStyle(statusColor(item.status))}>{statusLabel(item.status)}</div>
                     <div style={badgeStyle(statusColor(item.trend))}>{item.trend}</div>
                     <div style={badgeStyle(statusColor(item.monetizationReadiness))}>
-                      Montezacija: {statusLabel(item.monetizationReadiness)}
+                      Monetization readiness: {statusLabel(item.monetizationReadiness)}
                     </div>
                   </div>
                 </div>
