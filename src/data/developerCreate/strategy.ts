@@ -219,6 +219,7 @@ export const DEVELOPER_CREATE_ROADMAP = [
   'Faza 3: Povezati /games, /spajapro, /university i future modules kroz inheritance i dependency update pravila.',
   'Faza 4: Uvesti executive dashboard vidljivost, blocker aging i weekly review signal za meta-governance layer.',
   'Faza 5: Odobriti prvi repo-wide MONTEZACIJA NAD MONTEZACIJAMA paket bez otvaranja paralelnog policy centra.',
+  'Faza 6: Uvesti enterprise/extreme sloj sa advanced scoring modelom, innovation sandbox-om i policy-driven scaling disciplinom.',
 ];
 
 export const CANONICAL_VOCABULARY: CanonicalVocabularyItem[] = [
