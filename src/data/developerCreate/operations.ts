@@ -63,21 +63,12 @@ export const CONTROL_TOWER_DASHBOARD: ControlTowerDomainStatus[] = [
     blocker: 'Professional activation mora imati strogu vezu sa dokazima znanja i region readiness pravilima.',
     nextDecision: 'Povezati završne statuse i licence sa centralnim readiness scoring modelom.',
   },
-  {
-    domain: '/developer-create',
-    status: 'active',
-    focus: 'Meta-governance koordinacija za pattern reuse, innovation density i executive-only approval discipline.',
-    trend: 'up',
-    blocker: 'Meta-governance score, dependency refresh i audit layer moraju biti potpuno formalizovani za prvi repo-wide pattern paket.',
-    nextDecision: 'Odobriti prvi MONTEZACIJA NAD MONTEZACIJAMA paket bez paralelnog policy centra.',
-  },
 ];
 
 export const DOMAIN_READINESS_MATRIX: DomainReadinessMatrix[] = [
   { domain: '/games', product: 'ready', tech: 'partial', security: 'partial', compliance: 'partial', operations: 'partial' },
   { domain: '/spajapro', product: 'ready', tech: 'ready', security: 'partial', compliance: 'partial', operations: 'ready' },
   { domain: '/university', product: 'ready', tech: 'ready', security: 'ready', compliance: 'partial', operations: 'partial' },
-  { domain: '/developer-create', product: 'ready', tech: 'ready', security: 'partial', compliance: 'partial', operations: 'ready' },
 ];
 
 export const DOMAIN_SCORECARDS: DomainScorecard[] = [
@@ -236,12 +227,6 @@ export const DEPENDENCY_MAP: DependencyMapItem[] = [
     dependsOn: ['/developer-create governance', '/spajapro audit/compliance services'],
     blockedBy: ['Certification evidence gaps', 'Region readiness mismatch', 'Progression integrity flags'],
     readyFor: ['Professional work bridge', 'Licensing activation', 'Verified capability proof'],
-  },
-  {
-    domain: '/developer-create',
-    dependsOn: ['/games readiness language', '/spajapro orchestration proof', '/university certification evidence', 'Future-module contracts'],
-    blockedBy: ['Meta-governance score gap', 'Pattern drift risk', 'Missing dependency refresh'],
-    readyFor: ['First approved MONTEZACIJA NAD MONTEZACIJAMA package', 'Repo-wide pattern adoption', 'Executive-only promotion decisions'],
   },
 ];
 

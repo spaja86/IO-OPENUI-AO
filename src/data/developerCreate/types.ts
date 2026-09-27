@@ -13,7 +13,8 @@ export type ControlTowerTrend = 'up' | 'stable' | 'watch';
 export type MonetizationReadiness = 'green' | 'watch' | 'blocked' | 'out-of-scope';
 export type ChangeClass = 'content' | 'feature' | 'governance' | 'automation' | 'config' | 'security-critical';
 export type DeliveryLane = 'stable' | 'experimental' | 'hybrid';
-export type RepositoryDomainRoute = '/games' | '/spajapro' | '/university' | '/developer-create';
+export type ProductDomainRoute = '/games' | '/spajapro' | '/university';
+export type RepositoryDomainRoute = ProductDomainRoute | '/developer-create';
 export type RepositoryDomainArea = RepositoryDomainRoute | 'future modules';
 
 export interface DeveloperCreateNorthStar {
@@ -43,7 +44,7 @@ export interface RepositoryDomainBoundary {
 }
 
 export interface ControlTowerDomainStatus {
-  domain: RepositoryDomainRoute;
+  domain: ProductDomainRoute;
   status: ControlTowerStatus;
   focus: string;
   trend: ControlTowerTrend;
@@ -52,7 +53,7 @@ export interface ControlTowerDomainStatus {
 }
 
 export interface DomainReadinessMatrix {
-  domain: RepositoryDomainRoute;
+  domain: ProductDomainRoute;
   product: ReadinessSignal;
   tech: ReadinessSignal;
   security: ReadinessSignal;
@@ -69,7 +70,7 @@ export interface OwnershipRole {
 }
 
 export interface DependencyMapItem {
-  domain: RepositoryDomainRoute;
+  domain: ProductDomainRoute;
   dependsOn: string[];
   blockedBy: string[];
   readyFor: string[];
