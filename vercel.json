@@ -25,6 +25,7 @@
     { "source": "/chat/(.*)", "destination": "/chat/index.html" },
     { "source": "/developer-create", "destination": "/index.html" },
     { "source": "/developer-create/", "destination": "/index.html" },
-    { "source": "/developer-create/((?!.*\\.).*)", "destination": "/index.html" }
+    { "source": "/developer-create/(.*\\..*)", "destination": "/developer-create/$1" },
+    { "source": "/developer-create/(.*)", "destination": "/index.html" }
   ]
 }
