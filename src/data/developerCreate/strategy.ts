@@ -31,11 +31,12 @@ export const DEVELOPER_CREATE_NORTH_STAR: DeveloperCreateNorthStar = {
 export const DEVELOPER_CREATE_EXTREME_V2 = {
   title: 'Developer & Create EXTREME v2',
   scope:
-    'Zvanični repo program koji zaključava zajednički operativni jezik, governance i readiness model za /games, /spajapro, /university i /developer-create.',
+    'Zvanični repo program i jedini centralni control tower koji zaključava zajednički operativni jezik, governance i readiness model za /games, /spajapro, /university i /developer-create.',
   objectives: [
     'Jedinstven model odluka, ownership-a i release discipline kroz sve domene.',
     'Maksimalna auditabilnost strategic i high-impact promena.',
     'Stabilan put od ideje do enterprise-ready capability nivoa.',
+    'Jedan centralni programski identitet: isti standard, isti gate-ovi i isti ownership model kroz ceo repozitorijum.',
   ],
   responsibilityBoundaries: [
     'Product: vrednost, scope i capability target po domenu.',
@@ -45,6 +46,12 @@ export const DEVELOPER_CREATE_EXTREME_V2 = {
 };
 
 export const LOCKED_REPOSITORY_HIERARCHY = ['Strategy', 'Standards', 'Gates', 'Metrics', 'Dependencies', 'Review loop'];
+
+export const CONTROL_TOWER_IDENTITY_LOCK = [
+  'Developer & Create je jedini centralni control tower za strateške, governance i readiness odluke na nivou repozitorijuma.',
+  'Svi domeni koriste isti standardni jezik, isti gate model i isti ownership trijas (owner/reviewer/approver).',
+  'Nema paralelnog policy centra izvan Developer & Create modela za status, promotion i governance claim-ove.',
+];
 
 export const PROGRAM_HIERARCHY: ProgramHierarchyLayer[] = [
   {
@@ -76,6 +83,39 @@ export const PROGRAM_HIERARCHY: ProgramHierarchyLayer[] = [
     layer: 'Review loop',
     summary: 'Zaključava obavezne weekly review odluke i continuous improvement ciklus.',
     outputs: ['Extreme review pack', 'Executive KPI board', 'Improvement engine'],
+  },
+];
+
+export const HARD_SPINE_CHANGE_MAPPING = [
+  {
+    layer: 'Strategy',
+    mandatoryMapping: 'Svaka promena mora navesti North Star vezu, scope i ownership razlog.',
+    proof: 'Program map + owner/reviewer/approver map.',
+  },
+  {
+    layer: 'Standards',
+    mandatoryMapping: 'Promena mora koristiti standard template i quality contract za svoj change class.',
+    proof: 'Popunjen template + contract sekcije + canonical vocabulary alignment.',
+  },
+  {
+    layer: 'Gates',
+    mandatoryMapping: 'Promena mora deklarisati koje gate-ove prolazi pre promotion odluke.',
+    proof: 'DoR/DoD/QA/security/compliance/release/rollback signali.',
+  },
+  {
+    layer: 'Metrics',
+    mandatoryMapping: 'Promena mora prikazati efekat na readiness/trust/release/rollback i blocker aging.',
+    proof: 'Scorecard update + trend signal.',
+  },
+  {
+    layer: 'Dependencies',
+    mandatoryMapping: 'Promena mora mapirati blocked-by i upstream/downstream uticaj.',
+    proof: 'Dependency map + impact lane.',
+  },
+  {
+    layer: 'Review loop',
+    mandatoryMapping: 'Promena mora ući u executive weekly review izlaz i backlog narednih koraka.',
+    proof: 'Decision log + status/trend/blocker/decision/next action paket.',
   },
 ];
 

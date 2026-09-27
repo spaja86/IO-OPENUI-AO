@@ -310,6 +310,62 @@ export const CREATE_WORKFLOW: CreateWorkflowStep[] = [
   { step: 'Review', objective: 'Zaključati odluke i sledeći korak.', hardProof: 'Weekly review paket beleži status, trend, blokere i odluke.' },
 ];
 
+export const MANDATORY_WORKING_RHYTHM_CYCLE = [
+  {
+    stage: 'Planning',
+    mandate: 'Scope, owner-i, rizici i hard spine mapiranje moraju biti zaključani pre build rada.',
+    output: 'Plan + ownership trijada + change-to-layer map.',
+  },
+  {
+    stage: 'Build',
+    mandate: 'Implementacija sledi standard template, quality contract i dependency disciplinu.',
+    output: 'Dokazive promene sa impact map-om.',
+  },
+  {
+    stage: 'Review',
+    mandate: 'Human review proverava evidence, policy inheritance i change-class minimum proof.',
+    output: 'Reviewer signal + decision kandidati.',
+  },
+  {
+    stage: 'Release',
+    mandate: 'Promotion je dozvoljen samo sa green gate-ovima i bez critical upstream blokade.',
+    output: 'Approval chain + release signal.',
+  },
+  {
+    stage: 'Rollback',
+    mandate: 'Recovery put i trigger pravila postoje pre release-a i testirani su.',
+    output: 'Rollback readiness dokaz + incident owner.',
+  },
+  {
+    stage: 'Improvement',
+    mandate: 'Rezultat ciklusa ulazi u weekly review i backlog prioritizaciju.',
+    output: 'Status/trend/blockers/decisions/next actions paket.',
+  },
+];
+
+export const CROSS_DOMAIN_PROMOTION_LOCK = [
+  'Nijedan domen ne promoviše capability kada zavisni upstream domen nosi critical blocker signal.',
+  'Dependency map i readiness matrix su obavezni pre svake pilot/live/enterprise-ready odluke.',
+  'Ako upstream signal padne, downstream capability ide u hold ili demotion tok dok se critical nalaz ne zatvori.',
+];
+
+export const LOCKED_REPOSITORY_SCORING_FORMAT = [
+  'Readiness score (0-100) je obavezan po domenu.',
+  'Trust score (0-100) je obavezan po domenu.',
+  'Release score (0-100) je obavezan po domenu.',
+  'Rollback score (0-100) je obavezan po domenu.',
+  'Blocker aging signal (state + age + owner + next review) je obavezan po kritičnom pitanju.',
+  'Ownership clarity signal (owner/reviewer/approver pokrivenost) je obavezan pre promotion odluke.',
+];
+
+export const EXECUTIVE_WEEKLY_REVIEW_RHYTHM = [
+  'Status: gde je domen na maturity putanji.',
+  'Trend: da li signal ide up/stable/watch.',
+  'Blockers: šta direktno sprečava sledeći unlock.',
+  'Decisions: promote, hold, rollback ili archive.',
+  'Next actions: prioritetni koraci koji hrane backlog i sledeći ciklus.',
+];
+
 export const REPO_IMPLEMENTATION_PRIORITIES: ImplementationPriorityItem[] = [
   {
     priority: '1. Konsolidacija termina i ownership-a',

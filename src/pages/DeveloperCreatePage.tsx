@@ -9,6 +9,7 @@ import {
   CERTIFICATION_AND_TRUST_FRAMEWORK,
   CHANGE_CLASS_SYSTEM,
   CHANGE_IMPACT_MAP,
+  CONTROL_TOWER_IDENTITY_LOCK,
   CONTROL_TOWER_API_MODEL,
   CONTROL_TOWER_CHANGELOG,
   CONTROL_TOWER_SCORE_SNAPSHOTS,
@@ -47,11 +48,14 @@ import {
   HUMAN_REVIEW_ESCALATION,
   INCIDENT_AND_ROLLBACK_DISCIPLINE,
   INNOVATION_SANDBOX_LANE,
+  HARD_SPINE_CHANGE_MAPPING,
   KNOWN_GOVERNANCE_DEBT,
   LOCKED_METRICS,
+  LOCKED_REPOSITORY_SCORING_FORMAT,
   LOCKED_PROGRAM_GOALS,
   LOCKED_REPOSITORY_HIERARCHY,
   MASTER_CAPABILITY_MAP,
+  MANDATORY_WORKING_RHYTHM_CYCLE,
   MINIMUM_PROOF_REQUIREMENTS,
   MULTI_REPO_READINESS_MODEL,
   OPERATING_PHASES,
@@ -74,10 +78,12 @@ import {
   REPO_TRANSFORMATION_ROADMAP,
   RISK_BOARD,
   SCENARIO_MODES,
+  CROSS_DOMAIN_PROMOTION_LOCK,
   STRATEGIC_AUDIT_TRAIL_REQUIREMENTS,
   STANDARD_TEMPLATES,
   THREE_D_VISION_DIMENSION_POLICY,
   TRUST_SURFACE_MAP,
+  EXECUTIVE_WEEKLY_REVIEW_RHYTHM,
   ENTERPRISE_HARDENING_LANE,
 } from '../data/developerCreate';
 import type { ControlTowerStatus, ControlTowerTrend, DeliveryLane, ReadinessSignal, RiskSeverity } from '../data/developerCreate';
@@ -505,6 +511,26 @@ export default function DeveloperCreatePage() {
             </div>
           </InfoCard>
         </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px', marginTop: '16px' }}>
+          <InfoCard title="Control tower identity lock" badge="Single central program" badgeColor="#06b6d4">
+            <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px' }}>
+              {CONTROL_TOWER_IDENTITY_LOCK.map(item => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </InfoCard>
+          <InfoCard title="Hard spine change mapping" badge="Mandatory per change" badgeColor="#f97316">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {HARD_SPINE_CHANGE_MAPPING.map(item => (
+                <div key={item.layer} style={listStyle('#e2e8f0')}>
+                  <strong style={{ display: 'block', marginBottom: '6px' }}>{item.layer}</strong>
+                  <div style={{ marginBottom: '6px' }}>{item.mandatoryMapping}</div>
+                  <div style={{ color: 'var(--io-muted)' }}><strong>Proof:</strong> {item.proof}</div>
+                </div>
+              ))}
+            </div>
+          </InfoCard>
+        </div>
       </SectionShell>
 
       <SectionShell
@@ -551,6 +577,17 @@ export default function DeveloperCreatePage() {
                   <strong style={{ display: 'block', marginBottom: '6px' }}>{item.phase}</strong>
                   <div style={{ marginBottom: '6px' }}>{item.objective}</div>
                   <div style={{ color: 'var(--io-muted)' }}>{item.outcomes.join(' · ')}</div>
+                </div>
+              ))}
+            </div>
+          </InfoCard>
+          <InfoCard title="Mandatory working rhythm" badge="Planning → Improvement" badgeColor="#14b8a6">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {MANDATORY_WORKING_RHYTHM_CYCLE.map(item => (
+                <div key={item.stage} style={listStyle('#e2e8f0')}>
+                  <strong style={{ display: 'block', marginBottom: '6px' }}>{item.stage}</strong>
+                  <div style={{ marginBottom: '6px' }}>{item.mandate}</div>
+                  <div style={{ color: 'var(--io-muted)' }}><strong>Output:</strong> {item.output}</div>
                 </div>
               ))}
             </div>
@@ -732,6 +769,24 @@ export default function DeveloperCreatePage() {
               ))}
             </div>
           </InfoCard>
+          <InfoCard title="Promotion lock and scoring contract" badge="Cross-domain guardrails" badgeColor="#2563eb">
+            <div style={{ marginBottom: '12px' }}>
+              <strong style={{ display: 'block', marginBottom: '8px' }}>Promotion lock</strong>
+              <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px' }}>
+                {CROSS_DOMAIN_PROMOTION_LOCK.map(item => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <strong style={{ display: 'block', marginBottom: '8px' }}>Locked scoring format</strong>
+              <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px' }}>
+                {LOCKED_REPOSITORY_SCORING_FORMAT.map(item => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </InfoCard>
         </div>
       </SectionShell>
 
@@ -822,6 +877,13 @@ export default function DeveloperCreatePage() {
                 </div>
               ))}
             </div>
+          </InfoCard>
+          <InfoCard title="Executive weekly review rhythm" badge="Fixed operating output" badgeColor="#06b6d4">
+            <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px' }}>
+              {EXECUTIVE_WEEKLY_REVIEW_RHYTHM.map(item => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
           </InfoCard>
           <InfoCard title="Policy drift monitor" badge="Deviation tracking" badgeColor="#ef4444">
             <div style={{ display: 'grid', gap: '10px' }}>

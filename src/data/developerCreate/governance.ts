@@ -437,9 +437,16 @@ export const KNOWN_GOVERNANCE_DEBT: GovernanceDebtItem[] = [
 export const FUTURE_MODULE_READINESS_CONTRACT: FutureModuleContract[] = [
   {
     area: 'Future route or program',
-    requirements: ['Mapped domain owner', 'Standard template', 'Dependency view', 'Readiness and rollback criteria'],
+    requirements: [
+      'Mapped domain owner/reviewer/approver',
+      'Standard template',
+      'Dependency view + upstream signal check',
+      'Readiness matrix + rollback criteria',
+      'Evidence discipline before promotion',
+    ],
     inherits: ['Canonical vocabulary', 'No live without evidence', 'Ownership trijada'],
-    successSignal: 'Novi modul se pojavljuje u command center-u i scorecard sistemu bez posebnog improvizovanog pravila.',
+    successSignal:
+      'Novi modul ostaje planned/validation dok ne zatvori template, readiness, ownership i evidence zahteve; tek tada ulazi u command center i scorecard sistem.',
   },
   {
     area: 'Future agent or automation lane',
