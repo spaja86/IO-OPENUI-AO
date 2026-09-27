@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "npm run build:root && npm run build:realtime && npm run build:chat",
-    "build:root": "vite build && rm -rf public/assets public/index.html && cp -r dist/. public/",
+    "build:root": "vite build && node -e \"const fs=require('node:fs');fs.rmSync('public/assets',{recursive:true,force:true});fs.rmSync('public/index.html',{force:true});fs.cpSync('dist','public',{recursive:true});\"",
     "build:realtime": "cd put-a-realtime-webrtc/web && npm ci && npm run build",
     "build:chat": "cd put-b-chat-socketio/web && npm ci && npm run build"
   },
