@@ -548,7 +548,7 @@ export default function DeveloperCreatePage() {
         subtitle="Jedinstveni operating model povezuje domen scorecards, workflow, ownership i capability unlock logiku."
       >
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px', marginBottom: '16px' }}>
-          <InfoCard title="Repo operating roadmap" badge="5 faza">
+          <InfoCard title="Repo operating roadmap" badge={`${DEVELOPER_CREATE_ROADMAP.length} faza`}>
             <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px' }}>
               {DEVELOPER_CREATE_ROADMAP.map(item => (
                 <li key={item}>{item}</li>
