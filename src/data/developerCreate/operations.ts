@@ -102,9 +102,9 @@ export const DOMAIN_SCORECARDS: DomainScorecard[] = [
     role: 'Repo-wide master operating system za standarde, gates i odluke',
     status: 'active',
     trend: 'up',
-    nextUnlock: 'Formalizovan validation layer za sve buduće module i rute.',
+    nextUnlock: 'Formalizovan MONTEZACIJA readiness layer i promotion kanal koji ide isključivo kroz executive weekly review.',
     scores: { readiness: 88, trust: 87, ownership: 90, release: 84, rollback: 80 },
-    dependencies: ['Canonical vocabulary', 'Policy inheritance model', 'Executive review discipline'],
+    dependencies: ['Canonical vocabulary', 'Policy inheritance model', 'Executive review discipline', 'Montezacija readiness dokaz'],
   },
 ];
 
@@ -148,6 +148,7 @@ export const CRITICAL_DEPENDENCY_HEATMAP = [
   { from: '/games', to: '/university', intensity: 'high', reason: 'Professional activation i certification bridge zahtevaju usklađen dokaz readiness-a.' },
   { from: '/university', to: '/spajapro', intensity: 'high', reason: 'Audit/compliance servisi i evidence trace dolaze kroz orchestration sloj.' },
   { from: '/spajapro', to: '/developer-create', intensity: 'medium', reason: 'Tehnička isporuka mora ostati usklađena sa centralnim governance pravilima.' },
+  { from: '/developer-create', to: '/games', intensity: 'high', reason: 'Montezacija readiness signal mora potvrditi da monetizacijske odluke ostaju usklađene sa security/compliance guardrail-ovima.' },
 ];
 
 export const OWNERSHIP_MODEL: OwnershipRole[] = [
@@ -205,8 +206,9 @@ export const DEPENDENCY_MAP: DependencyMapItem[] = [
 export const DEFINITION_OF_READY = {
   title: 'Definition of Ready (nova stranica/igra/modul)',
   checklist: [
-    'Jasno definisani ciljevi, scope i capability nivo (idea/prototype/validation/pilot/live).',
+    'Jasno definisani ciljevi, scope i capability nivo (idea/prototype/validation/pilot/live/enterprise).',
     'Product, technical, security i operational owner su imenovani.',
+    'Owner/reviewer/approver evidenca i review lane su zaključani pre početka rada.',
     'Kompatibilnost, minimalni tehnički zahtevi i observability zahtevi su dokumentovani.',
     'Compliance scenario, rizici i acceptance kriterijumi su potvrđeni pre početka rada.',
   ],
@@ -219,6 +221,7 @@ export const DEFINITION_OF_DONE = {
     'Security skenovi, secret scanning i policy kontrole nemaju kritične nalaze.',
     'Performanse, monitoring signali i rollback plan su verifikovani.',
     'Audit evidence paket i finalna odluka za sledeći maturity nivo su dokumentovani.',
+    'Promotion/higher-capability odluka je evidentirana kroz executive weekly review (status/trend/blockers/decisions/next actions).',
   ],
 };
 
@@ -228,6 +231,7 @@ export const QA_AND_RELEASE_GATES = [
   'Compliance gate: age-gating + region lock + KYC/AML + certification evidence kada je relevantno.',
   'Release gate: phased rollout + monitoring signal + incident owner + rollback plan + approval chain.',
   'Rollback gate: trigger pravila + recovery target + ownership + povratak na stabilan capability nivo.',
+  'Promotion gate: prelaz na viši capability nivo je dozvoljen samo kroz executive weekly review.',
   'Weekly executive review: status + trend + blockers + decisions + next actions.',
 ];
 
@@ -328,7 +332,7 @@ export const MANDATORY_WORKING_RHYTHM_CYCLE = [
   },
   {
     stage: 'Release',
-    mandate: 'Promotion je dozvoljen samo sa green gate-ovima i bez critical upstream blokade.',
+    mandate: 'Promotion je dozvoljen samo sa green gate-ovima, bez critical upstream blokade i sa potvrdom iz executive weekly review kanala.',
     output: 'Approval chain + release signal.',
   },
   {
@@ -347,6 +351,7 @@ export const CROSS_DOMAIN_PROMOTION_LOCK = [
   'Nijedan domen ne promoviše capability kada zavisni upstream domen nosi critical blocker signal.',
   'Dependency map i readiness matrix su obavezni pre svake pilot/live/enterprise-ready odluke.',
   'Ako upstream signal padne, preporučeni downstream tok je hold ili demotion dok se critical nalaz ne zatvori.',
+  'Prelaz na viši capability nivo mora biti potvrđen u executive weekly review formatu kao jedinom promotion kanalu.',
 ];
 
 export const LOCKED_REPOSITORY_SCORING_FORMAT = [
@@ -354,6 +359,7 @@ export const LOCKED_REPOSITORY_SCORING_FORMAT = [
   'Trust score (0-100) je obavezan po domenu.',
   'Release score (0-100) je obavezan po domenu.',
   'Rollback score (0-100) je obavezan po domenu.',
+  'Montezacija readiness signal (monetization integrity + security/compliance alignment) je obavezan po domenu gde postoji monetizacijska odluka.',
   'Blocker aging signal (state + age + owner + next review) je obavezan po kritičnom pitanju.',
   'Ownership clarity signal (owner/reviewer/approver pokrivenost) je obavezan pre promotion odluke.',
 ];
@@ -364,6 +370,7 @@ export const EXECUTIVE_WEEKLY_REVIEW_RHYTHM = [
   'Blockers: šta direktno sprečava sledeći unlock.',
   'Decisions: promote, hold, rollback ili archive.',
   'Next actions: prioritetni koraci koji hrane backlog i sledeći ciklus.',
+  'Sole channel rule: samo odluka iz ovog ritma može odobriti prelaz na viši capability nivo.',
 ];
 
 export const REPO_IMPLEMENTATION_PRIORITIES: ImplementationPriorityItem[] = [
@@ -554,5 +561,13 @@ export const BLOCKER_AGING_BOARD: BlockerAgingItem[] = [
     owner: 'Security owner',
     impact: 'CI/agent/deploy promene nemaju još potpuno standardizovan minimum proof model.',
     nextReview: 'Security/compliance lane',
+  },
+  {
+    label: 'Montezacija readiness calibration',
+    state: 'watch',
+    age: '4 dana',
+    owner: 'Program governance + compliance owner',
+    impact: 'Monetizacijske odluke mogu preći capability granicu bez dovoljno jakog security/compliance signala.',
+    nextReview: 'Executive weekly review',
   },
 ];

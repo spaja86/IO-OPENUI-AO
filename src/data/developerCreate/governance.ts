@@ -107,6 +107,13 @@ export const REPOSITORY_GOVERNANCE_RULES: GovernanceRule[] = [
     policy: 'Promene u CI/deploy/agent konfiguraciji moraju imati pojačan review signal i evidence.',
     enforcement: 'Bez owner/reviewer/approver potpisa, impact mape i audit traga promena ostaje blokirana.',
   },
+  {
+    title: 'Montezacija follows one control spine',
+    policy:
+      'Montezacija odluke moraju pratiti isti hard-spine model (Strategy → Standards → Gates → Metrics → Dependencies → Review loop) i ne smeju imati paralelni governance centar.',
+    enforcement:
+      'Ako bilo koji spine sloj nema dokaz, capability promotion ostaje blocked do zatvaranja evidence i review paketa.',
+  },
 ];
 
 export const QUALITY_CONTRACTS: QualityContract[] = [
@@ -188,6 +195,12 @@ export const EVIDENCE_MATRIX: EvidenceMatrixItem[] = [
 
 export const DECISION_MEMORY: DecisionLogEntry[] = [
   {
+    area: 'VRH PROGRAMSKOG EKVILADENTA target lock',
+    state: 'approved',
+    reason: 'Repo traži jedinstveni programski cilj da sve cross-domain MONTEZACIJA odluke koriste isti standard.',
+    nextMove: 'Uvezati cilj u North Star, scoring, gate-ove i executive review izlaze.',
+  },
+  {
     area: 'Canonical vocabulary rollout',
     state: 'approved',
     reason: 'Repo treba jedan operativni jezik pre daljeg širenja domena.',
@@ -251,6 +264,11 @@ export const POLICY_INHERITANCE_MODEL: PolicyInheritanceRule[] = [
     source: 'Ownership trijada',
     inheritsTo: ['/games', '/spajapro', '/university', 'future modules'],
     invariant: 'Owner, reviewer i approver su obavezni za svaku veću promenu.',
+  },
+  {
+    source: 'Montezacija readiness rule',
+    inheritsTo: ['/games', '/spajapro', '/university', 'future modules'],
+    invariant: 'Monetizacijska odluka je validna samo ako readiness/trust/release/rollback i security/compliance signal ostanu green.',
   },
 ];
 
@@ -316,6 +334,7 @@ export const STRATEGIC_AUDIT_TRAIL_REQUIREMENTS = [
   'Svaka high-impact promena mora imati impact map, evidence paket i approval chain trag.',
   'Config i agent promene moraju sadržati policy check i security/compliance potvrdu.',
   'Decision log mora biti ažuriran u istom ciklusu kada se menja readiness status.',
+  'Montezacija promotion odluka mora navesti owner/reviewer/approver dokaz i executive weekly review referencu kao jedini kanal za viši capability nivo.',
 ];
 
 export const CONTROL_TOWER_API_MODEL: ControlTowerApiShape[] = [
@@ -353,7 +372,7 @@ export const CHANGE_CLASS_SYSTEM: ChangeClassRule[] = [
     changeClass: 'governance',
     minimumProof: ['Decision log entry', 'Policy inheritance mapping', 'Audit trail update'],
     humanReviewRequired: 'Program governance potvrđuje da repo-level pravila ostaju konzistentna.',
-    escalation: 'Held state dok se ne zatvore drift i evidence pitanja.',
+    escalation: 'Held state dok se ne zatvore drift i evidence pitanja, uključujući montezacija readiness dokaz.',
   },
   {
     changeClass: 'automation',
@@ -395,6 +414,11 @@ export const MINIMUM_PROOF_REQUIREMENTS: ProofRequirement[] = [
     asset: 'Governance or readiness claim',
     minimumProof: ['Decision log', 'Policy inheritance note', 'Repo KPI effect', 'Owner approval'],
     failureIfMissing: 'Executive dashboard prikazuje claim koji nema dokazivi operativni trag.',
+  },
+  {
+    asset: 'Montezacija readiness claim',
+    minimumProof: ['Readiness/trust/release/rollback trend', 'Security/compliance proof', 'Dependency heatmap impact', 'Executive weekly review decision'],
+    failureIfMissing: 'Monetizacijske odluke mogu narušiti trust i compliance bez vidljivog centralnog signala.',
   },
 ];
 

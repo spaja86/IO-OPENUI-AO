@@ -53,10 +53,10 @@ export const ADVANCED_CONTINUOUS_IMPROVEMENTS = [
 export const EXTREME_PROGRAM_LAYER = {
   title: 'Developer & Create EXTREME v2 Control Tower',
   strategicRoadmap: [
-    'Extreme Stage 1: Consolidate ownership, taxonomy i KPI baseline.',
+    'Extreme Stage 1: Consolidate ownership, taxonomy, KPI baseline i VRH PROGRAMSKOG EKVILADENTA target.',
     'Extreme Stage 2: Full governance chain (DoR/DoD/QA/Security/Compliance/Release/Rollback).',
     'Extreme Stage 3: Capability unlock model za route/module/program nivoe.',
-    'Extreme Stage 4: Continuous risk orchestration i weekly executive review.',
+    'Extreme Stage 4: Continuous risk orchestration i weekly executive review kao jedini promotion kanal.',
   ],
   deliveryGovernance: [
     'Definition of Ready (hard pre-start gate)',
@@ -64,12 +64,14 @@ export const EXTREME_PROGRAM_LAYER = {
     'QA gate (functional + regression + accessibility + content audit)',
     'Release gate (phased rollout + monitoring + incident owner)',
     'Rollback gate (trigger rules + owner + recovery target)',
+    'Promotion gate (viši capability nivo samo kroz executive weekly review)',
   ],
   riskOrchestration: [
     'Security lane: secret scanning + policy enforcement + dependency risk check',
     'Performance lane: FPS/load/memory/latency budget ili ekvivalentni signal po domenu',
     'Compliance lane: age-gating + region lock + KYC/AML + certification readiness',
     'Fairness/content lane: anti-abuse + integrity + audit trail + scope truthfulness',
+    'Monetization integrity lane: monetizacijske odluke ne smeju spustiti security/compliance readiness ispod green signala',
   ],
   mandatoryWeeklyReview: ['status', 'trend', 'blockers', 'decisions', 'next actions'],
 };
@@ -141,8 +143,8 @@ export const CAPABILITY_REGISTRY: CapabilityRegistryItem[] = [
     capability: 'Developer & Create master operating system',
     owner: 'Program governance',
     currentLevel: 'active',
-    targetState: 'repo-wide operating center',
-    unlocks: ['Repo-wide validation layer', 'Decision memory discipline', 'Multi-repo expansion model'],
+    targetState: 'repo-wide operating center i vrh programskog ekviladenta',
+    unlocks: ['Repo-wide validation layer', 'Decision memory discipline', 'Montezacija readiness model', 'Multi-repo expansion model'],
   },
 ];
 
@@ -203,13 +205,15 @@ export const REPO_TRANSFORMATION_ROADMAP = [
 export const ENTERPRISE_HARDENING_LANE = [
   'Audit readiness proverava evidencu odluka, release signale i rollback vežbe po domenu.',
   'Policy inheritance consistency proverava da /games, /spajapro i /university koriste ista centralna pravila.',
+  'Security/compliance hardening proverava da monetizacijske odluke ne ruše trust sloj.',
   'Multi-domain stability prati degradaciju između povezanih ruta pre promotion odluke.',
 ];
 
 export const INNOVATION_SANDBOX_LANE = [
   'Eksperimenti rade u izolovanom capability prostoru bez direktnog uticaja na live tok.',
   'Svaki sandbox eksperiment mora imati rollback put i failure signal pre širenja.',
-  'Promocija iz sandbox-a zahteva evidence paket i owner/reviewer/approver odluku.',
+  'Sandbox tok ne može zaobići centralni governance spine niti otvoriti paralelni policy centar.',
+  'Promocija iz sandbox-a zahteva evidence paket, owner/reviewer/approver odluku i executive weekly review potvrdu.',
 ];
 
 export const READINESS_CERTIFICATION_BADGES = [
@@ -232,6 +236,12 @@ export const CONTINUOUS_IMPROVEMENT_BACKLOG = [
     item: 'Formalizovati capability unlock/demotion pravila',
     riskImpact: 'Visok rizik / visok uticaj',
     nextAction: 'Zaključati promotivna i rollback pravila po maturity nivou.',
+  },
+  {
+    priority: 'P1',
+    item: 'Montezacija readiness scoring lock',
+    riskImpact: 'Visok rizik / visok uticaj',
+    nextAction: 'Vezati readiness/trust/release/rollback + security/compliance signal za monetizacijske odluke u scorecard i review ulazu.',
   },
   {
     priority: 'P2',
