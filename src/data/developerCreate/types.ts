@@ -15,7 +15,7 @@ export type ChangeClass = 'content' | 'feature' | 'governance' | 'automation' | 
 export type DeliveryLane = 'stable' | 'experimental' | 'hybrid';
 export type ProductDomainRoute = '/games' | '/spajapro' | '/university';
 export type RepositoryDomainRoute = ProductDomainRoute | '/developer-create';
-export type RepositoryDomainArea = RepositoryDomainRoute | 'future modules';
+export type RepositoryScopeArea = RepositoryDomainRoute | 'future modules';
 
 export interface DeveloperCreateNorthStar {
   title: string;
@@ -256,7 +256,7 @@ export interface OperatingCharter {
 }
 
 export interface MasterCapabilityMapItem {
-  area: RepositoryDomainArea;
+  area: RepositoryScopeArea;
   currentState: string;
   targetState: string;
   stableBoundary: string;

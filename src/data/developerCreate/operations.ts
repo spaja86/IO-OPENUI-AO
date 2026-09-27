@@ -168,7 +168,6 @@ export const CRITICAL_DEPENDENCY_HEATMAP = [
   { from: '/developer-create', to: '/games', intensity: 'high', reason: 'Montezacija readiness signal mora potvrditi da monetizacijske odluke ostaju usklađene sa security/compliance guardrail-ovima.' },
   { from: '/developer-create', to: '/spajapro', intensity: 'high', reason: 'MONTEZACIJA NAD MONTEZACIJAMA signal mora ostati poravnat sa orchestration, pattern enforcement i config/agent reinforced review pravilima.' },
   { from: '/developer-create', to: '/university', intensity: 'medium', reason: 'Montezacija readiness signal mora ostati usklađen sa certification, compliance i meta-pattern dokazima za professional bridge.' },
-  { from: '/developer-create', to: 'future modules', intensity: 'critical', reason: 'Svaki approved repo-wide pattern mora ažurirati dependency pogled pre nego što novi modul nasledi control tower pravila.' },
 ];
 
 export const OWNERSHIP_MODEL: OwnershipRole[] = [
