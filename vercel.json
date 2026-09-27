@@ -23,9 +23,21 @@
     { "source": "/realtime/(.*)", "destination": "/realtime/index.html" },
     { "source": "/chat", "destination": "/chat/index.html" },
     { "source": "/chat/(.*)", "destination": "/chat/index.html" },
+    { "source": "/features", "destination": "/index.html" },
+    { "source": "/features/((?!.*\\.).*)", "destination": "/index.html" },
+    { "source": "/games", "destination": "/index.html" },
+    { "source": "/games/((?!.*\\.).*)", "destination": "/index.html" },
     { "source": "/developer-create", "destination": "/index.html" },
     { "source": "/developer-create/", "destination": "/index.html" },
     { "source": "/developer-create/(.*\\..*)", "destination": "/$1" },
-    { "source": "/developer-create/((?!.*\\.).*)", "destination": "/index.html" }
+    { "source": "/developer-create/((?!.*\\.).*)", "destination": "/index.html" },
+    { "source": "/spajapro", "destination": "/index.html" },
+    { "source": "/spajapro/((?!.*\\.).*)", "destination": "/index.html" },
+    { "source": "/university", "destination": "/index.html" },
+    { "source": "/university/((?!.*\\.).*)", "destination": "/index.html" },
+    { "source": "/about", "destination": "/index.html" },
+    { "source": "/about/((?!.*\\.).*)", "destination": "/index.html" },
+    { "source": "/contact", "destination": "/index.html" },
+    { "source": "/contact/((?!.*\\.).*)", "destination": "/index.html" }
   ]
 }
