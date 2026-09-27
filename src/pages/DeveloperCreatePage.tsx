@@ -86,7 +86,7 @@ import {
   EXECUTIVE_WEEKLY_REVIEW_RHYTHM,
   ENTERPRISE_HARDENING_LANE,
 } from '../data/developerCreate';
-import type { ControlTowerStatus, ControlTowerTrend, DeliveryLane, ReadinessSignal, RiskSeverity } from '../data/developerCreate';
+import type { ControlTowerStatus, ControlTowerTrend, DeliveryLane, MonetizationReadiness, ReadinessSignal, RiskSeverity } from '../data/developerCreate';
 import {
   AnchorNavigation,
   InfoCard,
@@ -98,12 +98,15 @@ import {
   listStyle,
 } from '../components/developer-create/ControlTowerUI';
 
-function statusColor(status: ControlTowerStatus | ControlTowerTrend | ReadinessSignal | RiskSeverity | 'held' | 'blocked' | 'validation') {
+function statusColor(
+  status: ControlTowerStatus | ControlTowerTrend | MonetizationReadiness | ReadinessSignal | RiskSeverity | 'held' | 'blocked' | 'validation',
+) {
   switch (status) {
     case 'ready':
     case 'active':
     case 'live':
     case 'up':
+    case 'green':
       return '#10b981';
     case 'pilot':
     case 'partial':
@@ -128,7 +131,9 @@ function statusColor(status: ControlTowerStatus | ControlTowerTrend | ReadinessS
   }
 }
 
-function statusLabel(status: ControlTowerStatus | ControlTowerTrend | ReadinessSignal | RiskSeverity | 'held' | 'blocked' | 'validation') {
+function statusLabel(
+  status: ControlTowerStatus | ControlTowerTrend | MonetizationReadiness | ReadinessSignal | RiskSeverity | 'held' | 'blocked' | 'validation',
+) {
   switch (status) {
     case 'active':
       return 'active';
@@ -152,6 +157,8 @@ function statusLabel(status: ControlTowerStatus | ControlTowerTrend | ReadinessS
       return 'stable';
     case 'watch':
       return 'watch';
+    case 'out-of-scope':
+      return 'out-of-scope';
     default:
       return status;
   }
@@ -622,6 +629,9 @@ export default function DeveloperCreatePage() {
                   <div style={{ display: 'grid', gap: '8px', alignContent: 'flex-start' }}>
                     <div style={badgeStyle(statusColor(item.status))}>{statusLabel(item.status)}</div>
                     <div style={badgeStyle(statusColor(item.trend))}>{item.trend}</div>
+                    <div style={badgeStyle(statusColor(item.monetizationReadiness))}>
+                      Monetization readiness: {statusLabel(item.monetizationReadiness)}
+                    </div>
                   </div>
                 </div>
                 <div style={{ display: 'grid', gap: '10px', marginBottom: '12px' }}>

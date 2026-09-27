@@ -10,6 +10,7 @@ export type ControlTowerStatus = 'planned' | 'active' | 'pilot' | 'live' | 'ente
 export type ReadinessSignal = 'ready' | 'partial' | 'blocked';
 export type RiskSeverity = 'low' | 'medium' | 'high' | 'critical';
 export type ControlTowerTrend = 'up' | 'stable' | 'watch';
+export type MonetizationReadiness = 'green' | 'watch' | 'blocked' | 'out-of-scope';
 export type ChangeClass = 'content' | 'feature' | 'governance' | 'automation' | 'config' | 'security-critical';
 export type DeliveryLane = 'stable' | 'experimental' | 'hybrid';
 
@@ -154,6 +155,7 @@ export interface DomainScorecard {
   role: string;
   status: ControlTowerStatus;
   trend: ControlTowerTrend;
+  monetizationReadiness: MonetizationReadiness;
   nextUnlock: string;
   scores: {
     readiness: number;
