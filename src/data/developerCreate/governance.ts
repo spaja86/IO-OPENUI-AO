@@ -79,6 +79,14 @@ export const GOVERNANCE_POLICY_SECTIONS: GovernancePolicySection[] = [
       'Innovation lane postoji da ubrza učenje bez ugrožavanja produkcije.',
     ],
   },
+  {
+    title: 'Meta-Governance Pattern Approval',
+    items: [
+      'MONTEZACIJA NAD MONTEZACIJAMA odobrava se samo kao unutrašnji layer postojećeg control tower-a.',
+      'Svaki repo-wide pattern mora pokazati innovation density, pattern stability i dependency impact pre approval odluke.',
+      'Executive weekly review ostaje jedini kanal za promotion meta-governance paketa.',
+    ],
+  },
 ];
 
 export const REPOSITORY_GOVERNANCE_RULES: GovernanceRule[] = [
@@ -114,6 +122,13 @@ export const REPOSITORY_GOVERNANCE_RULES: GovernanceRule[] = [
     enforcement:
       'Ako bilo koji spine sloj nema dokaz, capability promotion ostaje blocked do zatvaranja evidence i review paketa.',
   },
+  {
+    title: 'Montezacija nad Montezacijama stays inside the tower',
+    policy:
+      'MONTEZACIJA NAD MONTEZACIJAMA je odobrena samo kada ostaje deo postojećeg Developer & Create control tower-a, sa jednim vocabulary-jem, jednim score modelom i jednim approval putem.',
+    enforcement:
+      'Ako pattern paket pokuša da uvede paralelni policy centar, zaseban KPI model ili alternativni promotion kanal, odluka ostaje blocked.',
+  },
 ];
 
 export const QUALITY_CONTRACTS: QualityContract[] = [
@@ -139,6 +154,7 @@ export const QUALITY_CONTRACTS: QualityContract[] = [
       'Mora imati scope boundary, owner-e i integration policy.',
       'Mora navesti blocked by i ready for signale.',
       'Mora biti uklopljen u release maturity ladder i weekly review format.',
+      'Ako uvodi repo-wide pattern, mora dokazati zašto je meta-governance odluka umesto lokalnog domen izuzetka.',
     ],
   },
 ];
@@ -191,6 +207,13 @@ export const EVIDENCE_MATRIX: EvidenceMatrixItem[] = [
     reviewer: 'Security owner + program governance',
     approvalGate: 'AI governance review',
   },
+  {
+    asset: 'Meta-governance pattern package',
+    evidence:
+      'Meta-governance score uticaj, dependency heatmap refresh, security/compliance alignment, rollback/demotion path i executive review referenca.',
+    reviewer: 'Program governance + technical leadership + security/compliance owner',
+    approvalGate: 'Executive weekly review',
+  },
 ];
 
 export const DECISION_MEMORY: DecisionLogEntry[] = [
@@ -224,6 +247,14 @@ export const DECISION_MEMORY: DecisionLogEntry[] = [
     reason: 'Capability registry i failure-mode dokaz moraju biti kompletirani.',
     nextMove: 'Zaključati unlock/demotion model i critical-path pregled.',
   },
+  {
+    area: 'MONTEZACIJA NAD MONTEZACIJAMA approval',
+    state: 'approved',
+    reason:
+      'Meta-governance layer je odobren zato što ostaje unutar Developer & Create control tower-a i koristi isti vocabulary, score i review kanal.',
+    nextMove:
+      'Koristiti ga samo za repo-wide pattern pakete sa dependency refresh, score impact i audit reference dokazom.',
+  },
 ];
 
 export const CONTRIBUTOR_OPERATING_GUIDE: ContributorGuideStep[] = [
@@ -246,6 +277,11 @@ export const CONTRIBUTOR_OPERATING_GUIDE: ContributorGuideStep[] = [
     step: 'Zaključaj review i escalation lane.',
     owner: 'Program governance / Security owner',
     output: 'Human-review i approval chain su spremni pre release odluke.',
+  },
+  {
+    step: 'Odredi decision altitude i pattern scope.',
+    owner: 'Program governance',
+    output: 'Jasno je da li odluka ostaje domain-level, cross-domain ili meta-governance layer zahtev.',
   },
 ];
 
@@ -271,6 +307,12 @@ export const POLICY_INHERITANCE_MODEL: PolicyInheritanceRule[] = [
     invariant:
       'Gde postoji monetizacijska odluka, promotion traži green signal; watch signal uvodi hold/demotion plan, blocked signal blokira promotion, a za ostale module signal mora biti eksplicitno out-of-scope.',
   },
+  {
+    source: 'Montezacija nad Montezacijama governance layer',
+    inheritsTo: ['/games', '/spajapro', '/university', 'future modules'],
+    invariant:
+      'Repo-wide pattern odluka prolazi isti control tower spine; domen može predložiti novi pattern, ali samo executive weekly review može odobriti usvajanje kroz ceo repo.',
+  },
 ];
 
 export const HUMAN_REVIEW_ESCALATION: EscalationTrigger[] = [
@@ -288,6 +330,11 @@ export const HUMAN_REVIEW_ESCALATION: EscalationTrigger[] = [
     trigger: 'Cross-module degradacija ili konfliktni readiness signal.',
     agentLimit: 'Agent ne može prioritetizovati jedan domen na štetu drugog bez odluke.',
     humanAction: 'Program governance vodi finalnu trade-off odluku.',
+  },
+  {
+    trigger: 'Predlog uvodi novi repo-wide pattern ili meta-monetization claim.',
+    agentLimit: 'Agent može pripremiti dokaz, ali ne može sam odobriti MONTEZACIJA NAD MONTEZACIJAMA paket.',
+    humanAction: 'Executive weekly review potvrđuje approval ili hold odluku uz dependency refresh.',
   },
 ];
 
@@ -328,6 +375,11 @@ export const POLICY_DRIFT_MONITOR = [
     check: 'Svaka high-impact promena ima owner/reviewer/approver trijadu.',
     reaction: 'Escalation i rollback readiness review postaju obavezni.',
   },
+  {
+    area: 'Parallel governance drift',
+    check: 'Nijedan inovacioni ili pattern paket ne uvodi zaseban vocabulary, score model ili promotion kanal.',
+    reaction: 'Command center hold dok se odluka ne vrati u centralni control tower spine.',
+  },
 ];
 
 export const STRATEGIC_AUDIT_TRAIL_REQUIREMENTS = [
@@ -336,6 +388,7 @@ export const STRATEGIC_AUDIT_TRAIL_REQUIREMENTS = [
   'Config i agent promene moraju sadržati policy check i security/compliance potvrdu.',
   'Decision log mora biti ažuriran u istom ciklusu kada se menja readiness status.',
   'Montezacija promotion odluka mora navesti owner/reviewer/approver dokaz i executive weekly review referencu kao jedini kanal za viši capability nivo.',
+  'MONTEZACIJA NAD MONTEZACIJAMA odluka mora navesti score impact, dependency refresh, rollback/demotion plan i razlog zašto ostaje unutar jednog control tower modela.',
 ];
 
 export const CONTROL_TOWER_API_MODEL: ControlTowerApiShape[] = [
@@ -371,9 +424,9 @@ export const CHANGE_CLASS_SYSTEM: ChangeClassRule[] = [
   },
   {
     changeClass: 'governance',
-    minimumProof: ['Decision log entry', 'Policy inheritance mapping', 'Audit trail update'],
-    humanReviewRequired: 'Program governance potvrđuje da repo-level pravila ostaju konzistentna.',
-    escalation: 'Held state dok se ne zatvore drift i evidence pitanja, uključujući montezacija readiness dokaz.',
+    minimumProof: ['Decision log entry', 'Policy inheritance mapping', 'Audit trail update', 'Meta-governance score impact kada se menja repo-wide pattern'],
+    humanReviewRequired: 'Program governance potvrđuje da repo-level pravila ostaju konzistentna i da nema paralelnog policy centra.',
+    escalation: 'Held state dok se ne zatvore drift i evidence pitanja, uključujući montezacija readiness i meta-governance dokaz.',
   },
   {
     changeClass: 'automation',
@@ -413,13 +466,18 @@ export const MINIMUM_PROOF_REQUIREMENTS: ProofRequirement[] = [
   },
   {
     asset: 'Governance or readiness claim',
-    minimumProof: ['Decision log', 'Policy inheritance note', 'Repo KPI effect', 'Owner approval'],
-    failureIfMissing: 'Executive dashboard prikazuje claim koji nema dokazivi operativni trag.',
+    minimumProof: ['Decision log', 'Policy inheritance note', 'Repo KPI effect', 'Owner approval', 'Decision altitude'],
+    failureIfMissing: 'Executive dashboard prikazuje claim koji nema dokazivi operativni trag ili nejasno menja nivo odluke.',
   },
   {
     asset: 'Montezacija readiness claim',
     minimumProof: ['Readiness/trust/release/rollback trend', 'Security/compliance proof', 'Dependency heatmap impact', 'Executive weekly review decision'],
     failureIfMissing: 'Monetizacijske odluke mogu narušiti trust i compliance bez vidljivog centralnog signala.',
+  },
+  {
+    asset: 'MONTEZACIJA NAD MONTEZACIJAMA package',
+    minimumProof: ['Meta-governance score impact', 'Dependency refresh', 'Security/compliance alignment', 'Rollback/demotion path', 'Executive weekly review reference'],
+    failureIfMissing: 'Repo može uvesti mnoštvo inovacija i patterna bez jedinstvenog approval spine-a i auditabilnog razloga.',
   },
 ];
 
@@ -468,8 +526,9 @@ export const FUTURE_MODULE_READINESS_CONTRACT: FutureModuleContract[] = [
       'Dependency view + upstream signal check',
       'Readiness matrix + rollback criteria',
       'Evidence discipline before promotion',
+      'Ako nasleđuje repo-wide pattern, mora imati eksplicitan MONTEZACIJA NAD MONTEZACIJAMA inheritance dokaz',
     ],
-    inherits: ['Canonical vocabulary', 'No live without evidence', 'Ownership trijada'],
+    inherits: ['Canonical vocabulary', 'No live without evidence', 'Ownership trijada', 'Meta-governance pattern approval'],
     successSignal:
       'Dokumentovani cilj: novi modul treba da ostane planned/validation dok ne zatvori template, readiness, ownership i evidence zahteve, pa zatim ulazi u command center i scorecard sistem.',
   },

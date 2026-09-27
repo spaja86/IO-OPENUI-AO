@@ -21,6 +21,11 @@ export const LOCKED_METRICS: LockedMetric[] = [
   { metric: 'Rollback readiness score', target: 'Jasan recovery plan za svaki rollout', whyItMatters: 'Smanjuje incident impact.' },
   { metric: 'Documentation completeness', target: 'Template-i kompletni bez rupa', whyItMatters: 'Obezbeđuje audit i transfer znanja.' },
   { metric: 'Ownership clarity score', target: 'Nema nejasnih owner-a na ključnim tokovima', whyItMatters: 'Sprečava blokere i praznine u odgovornosti.' },
+  {
+    metric: 'Meta-governance score',
+    target: '0–100 kroz innovation density, pattern stability, dependency impact, audit completeness i security/compliance alignment',
+    whyItMatters: 'Drži MONTEZACIJA NAD MONTEZACIJAMA unutar postojećeg scorecard sistema umesto u paralelnom KPI modelu.',
+  },
 ];
 
 export const EXTREME_REVIEW_PACK = [
@@ -36,6 +41,7 @@ export const FUTURE_EXPANSION_MODELS = [
   'Global taxonomy za module, programe i readiness statuse.',
   'Multi-repo sync model za buduće povezane sisteme.',
   'Innovation without production damage lane za agresivno testiranje ideja.',
+  'MONTEZACIJA NAD MONTEZACIJAMA pattern package model za odobravanje repo-wide inovacija bez paralelnog governance centra.',
 ];
 
 export const ADVANCED_CONTINUOUS_IMPROVEMENTS = [
@@ -48,15 +54,17 @@ export const ADVANCED_CONTINUOUS_IMPROVEMENTS = [
   'Risk board po kategorijama: security, performance, compliance, fairness, content integrity.',
   'Weekly readiness review sa trendovima i sledećom executive odlukom.',
   'Experimental lane za mehanike, agente i algoritme bez uticaja na live stabilnost.',
+  'Meta-governance score za innovation density, pattern stability, dependency impact, audit completeness i security/compliance alignment.',
 ];
 
 export const EXTREME_PROGRAM_LAYER = {
   title: 'Developer & Create EXTREME v2 Control Tower',
   strategicRoadmap: [
-    'Extreme Stage 1: Consolidate ownership, taxonomy, KPI baseline i VRH PROGRAMSKOG EKVILADENTA target.',
-    'Extreme Stage 2: Full governance chain (DoR/DoD/QA/Security/Compliance/Release/Rollback).',
-    'Extreme Stage 3: Capability unlock model za route/module/program nivoe.',
+    'Extreme Stage 1: Consolidate ownership, taxonomy, decision altitude i VRH PROGRAMSKOG EKVILADENTA target.',
+    'Extreme Stage 2: Lock MONTEZACIJA NAD MONTEZACIJAMA score and proof model inside existing scorecards.',
+    'Extreme Stage 3: Connect capability unlock model sa dependency refresh pravilima za route/module/program nivoe.',
     'Extreme Stage 4: Continuous risk orchestration i weekly executive review kao jedini promotion kanal.',
+    'Extreme Stage 5: Approve the first repo-wide pattern package bez paralelnog policy centra.',
   ],
   deliveryGovernance: [
     'Definition of Ready (hard pre-start gate)',
@@ -144,7 +152,13 @@ export const CAPABILITY_REGISTRY: CapabilityRegistryItem[] = [
     owner: 'Program governance',
     currentLevel: 'active',
     targetState: 'repo-wide operating center i vrh programskog ekviladenta',
-    unlocks: ['Repo-wide validation layer', 'Decision memory discipline', 'Montezacija readiness model', 'Multi-repo expansion model'],
+    unlocks: [
+      'Repo-wide validation layer',
+      'Decision memory discipline',
+      'Montezacija readiness model',
+      'Montezacija nad Montezacijama package approval',
+      'Multi-repo expansion model',
+    ],
   },
 ];
 
@@ -193,13 +207,18 @@ export const CHANGE_IMPACT_MAP: ChangeImpactItem[] = [
     affects: ['Release discipline', 'Security posture', 'Cross-domain stability', 'Audit evidence'],
     requiredChecks: ['Owner/reviewer/approver confirmation', 'Security/compliance review', 'Change impact + rollback proof'],
   },
+  {
+    changeType: 'Repo-wide pattern / meta-governance package',
+    affects: ['Innovation density', 'Pattern reuse', 'Dependency heatmap', 'Executive approval discipline'],
+    requiredChecks: ['Meta-governance score', 'Dependency refresh', 'Security/compliance alignment', 'Executive weekly review reference'],
+  },
 ];
 
 export const REPO_TRANSFORMATION_ROADMAP = [
   'Q1: Repo language consolidation i policy inheritance adoption.',
   'Q2: Domain scorecards, evidence matrix i impact review discipline.',
-  'Q3: Capability registry, decision memory i scenario planning expansion.',
-  'Q4: Multi-repo operating model i enterprise-grade executive dashboarding.',
+  'Q3: Capability registry, decision memory, MONTEZACIJA NAD MONTEZACIJAMA approval i scenario planning expansion.',
+  'Q4: Multi-repo operating model i enterprise-grade executive dashboarding bez paralelnog governance centra.',
 ];
 
 export const ENTERPRISE_HARDENING_LANE = [
@@ -213,6 +232,7 @@ export const INNOVATION_SANDBOX_LANE = [
   'Eksperimenti rade u izolovanom capability prostoru bez direktnog uticaja na live tok.',
   'Svaki sandbox eksperiment mora imati rollback put i failure signal pre širenja.',
   'Sandbox tok ne može zaobići centralni governance spine niti otvoriti paralelni policy centar.',
+  'Neodobreni pattern-i i meta-governance ideje ostaju u sandbox-u dok ne dobiju meta-governance score, dependency refresh i executive weekly review potvrdu.',
   'Promocija iz sandbox-a zahteva evidence paket, owner/reviewer/approver odluku i executive weekly review potvrdu.',
 ];
 
@@ -242,6 +262,12 @@ export const CONTINUOUS_IMPROVEMENT_BACKLOG = [
     item: 'Montezacija readiness scoring lock',
     riskImpact: 'Visok rizik / visok uticaj',
     nextAction: 'Vezati readiness/trust/release/rollback + security/compliance signal za monetizacijske odluke u scorecard i review ulazu.',
+  },
+  {
+    priority: 'P1',
+    item: 'MONTEZACIJA NAD MONTEZACIJAMA package approval',
+    riskImpact: 'Visok rizik / visok uticaj',
+    nextAction: 'Odobriti prvi repo-wide pattern paket tek kada meta-governance score, dependency refresh i audit reference budu green.',
   },
   {
     priority: 'P2',

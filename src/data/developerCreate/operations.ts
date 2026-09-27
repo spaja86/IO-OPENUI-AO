@@ -23,16 +23,18 @@ export const REPOSITORY_HEALTH_OVERVIEW: RepositoryHealthOverview = {
   releaseDisciplineScore: 81,
   rollbackConfidenceScore: 78,
   summary:
-    'Repo sada gradi vrhovni operating sistem u kome /developer-create služi kao centralni control tower, a svi domeni nasleđuju isti operating rhythm, ownership i evidence discipline.',
+    'Repo sada gradi vrhovni operating sistem u kome /developer-create služi kao centralni control tower, a MONTEZACIJA NAD MONTEZACIJAMA ostaje najviši koordinacioni sloj za pattern reuse, innovation density i approval disciplinu kroz sve domene.',
   criticalBlockers: [
     'Cross-domain release evidence još mora ostati dosledno zatvoren za svaki live/professional claim.',
     'Capability unlock i demotion pravila moraju biti jednako primenjena kroz sve domene.',
     'Config i agent change lane traži stroži reinforced review pre enterprise širenja.',
+    'Meta-governance score mora ostati jedinstven i vezan za postojeće scorecard-e, bez paralelnog approval ili KPI centra.',
   ],
   topDecisions: [
     'Zaključati šest tvrdih slojeva kao obavezni repo-wide operating spine.',
     'Voditi sve velike promene kroz standard templates, evidence matrix i owner/reviewer/approver trijadu.',
     'Koristiti unified domain outputs kao centralni executive prikaz po modulu.',
+    'Odobriti MONTEZACIJA NAD MONTEZACIJAMA samo kao control-tower layer koji povezuje innovation, pattern i dependency odluke.',
   ],
 };
 
@@ -77,8 +79,8 @@ export const DOMAIN_SCORECARDS: DomainScorecard[] = [
     trend: 'up',
     monetizationReadiness: 'watch',
     nextUnlock: 'Verifikovan professional readiness paket po igri.',
-    scores: { readiness: 76, trust: 72, ownership: 81, release: 70, rollback: 68 },
-    dependencies: ['Compliance evidence', 'Fairness audit', '3D readiness discipline'],
+    scores: { readiness: 76, trust: 72, ownership: 81, release: 70, rollback: 68, metaGovernance: 64 },
+    dependencies: ['Compliance evidence', 'Fairness audit', '3D readiness discipline', 'Approved repo-wide pattern package'],
   },
   {
     domain: '/spajapro',
@@ -87,8 +89,8 @@ export const DOMAIN_SCORECARDS: DomainScorecard[] = [
     trend: 'stable',
     monetizationReadiness: 'out-of-scope',
     nextUnlock: 'Povezan release approval chain sa audit trace modelom.',
-    scores: { readiness: 84, trust: 80, ownership: 88, release: 79, rollback: 75 },
-    dependencies: ['Connector safety', 'Audit trail completeness', 'Runtime isolation proof'],
+    scores: { readiness: 84, trust: 80, ownership: 88, release: 79, rollback: 75, metaGovernance: 78 },
+    dependencies: ['Connector safety', 'Audit trail completeness', 'Runtime isolation proof', 'Meta-pattern enforcement lane'],
   },
   {
     domain: '/university',
@@ -97,18 +99,25 @@ export const DOMAIN_SCORECARDS: DomainScorecard[] = [
     trend: 'up',
     monetizationReadiness: 'out-of-scope',
     nextUnlock: 'Centralni score koji vezuje knowledge proof i professional activation.',
-    scores: { readiness: 82, trust: 85, ownership: 84, release: 77, rollback: 73 },
-    dependencies: ['Certification evidence', 'Region readiness mapping', 'Progression integrity'],
+    scores: { readiness: 82, trust: 85, ownership: 84, release: 77, rollback: 73, metaGovernance: 74 },
+    dependencies: ['Certification evidence', 'Region readiness mapping', 'Progression integrity', 'Meta-governance inheritance proof'],
   },
   {
     domain: '/developer-create',
-    role: 'Repo-wide master operating system za standarde, gates i odluke',
+    role: 'Repo-wide master operating system za standarde, gates, pattern reuse i MONTEZACIJA NAD MONTEZACIJAMA approval disciplinu',
     status: 'active',
     trend: 'up',
     monetizationReadiness: 'watch',
-    nextUnlock: 'Formalizovan MONTEZACIJA readiness layer i promotion kanal koji ide isključivo kroz executive weekly review.',
-    scores: { readiness: 88, trust: 87, ownership: 90, release: 84, rollback: 80 },
-    dependencies: ['Canonical vocabulary', 'Policy inheritance model', 'Executive review discipline', 'Montezacija readiness dokaz'],
+    nextUnlock:
+      'Formalizovan MONTEZACIJA NAD MONTEZACIJAMA layer sa score pragovima, approval spine-om i prvim repo-wide pattern paketom kroz executive weekly review.',
+    scores: { readiness: 88, trust: 87, ownership: 90, release: 84, rollback: 80, metaGovernance: 91 },
+    dependencies: [
+      'Canonical vocabulary',
+      'Policy inheritance model',
+      'Executive review discipline',
+      'Montezacija readiness dokaz',
+      'Meta-governance score evidence',
+    ],
   },
 ];
 
@@ -119,7 +128,8 @@ export const CONTROL_TOWER_SCORE_SNAPSHOTS = [
     readiness: 76,
     trust: 72,
     release: 70,
-    signal: 'Usklađivanje fairness/compliance signala sa release odlukama.',
+    metaGovernance: 64,
+    signal: 'Usklađivanje fairness/compliance signala sa release odlukama i repo-wide pattern paketom.',
   },
   {
     route: '/spajapro',
@@ -127,7 +137,8 @@ export const CONTROL_TOWER_SCORE_SNAPSHOTS = [
     readiness: 84,
     trust: 80,
     release: 79,
-    signal: 'Stabilizacija release approvals i audit traga.',
+    metaGovernance: 78,
+    signal: 'Stabilizacija release approvals, audit traga i meta-pattern enforcement-a.',
   },
   {
     route: '/university',
@@ -135,15 +146,17 @@ export const CONTROL_TOWER_SCORE_SNAPSHOTS = [
     readiness: 82,
     trust: 85,
     release: 77,
-    signal: 'Zatvaranje certification evidence i region-ready signala.',
+    metaGovernance: 74,
+    signal: 'Zatvaranje certification evidence, region-ready signala i inheritance dokaza za shared pattern-e.',
   },
   {
     route: '/developer-create',
-    phase: 'Faza 5 · Executive visibility',
+    phase: 'Faza 5 · Meta-governance approval',
     readiness: 88,
     trust: 87,
     release: 84,
-    signal: 'Centralni control tower signal za sve domene.',
+    metaGovernance: 91,
+    signal: 'Centralni control tower signal za sve domene i prvi approved MONTEZACIJA NAD MONTEZACIJAMA paket.',
   },
 ];
 
@@ -153,8 +166,8 @@ export const CRITICAL_DEPENDENCY_HEATMAP = [
   { from: '/university', to: '/spajapro', intensity: 'high', reason: 'Audit/compliance servisi i evidence trace dolaze kroz orchestration sloj.' },
   { from: '/spajapro', to: '/developer-create', intensity: 'medium', reason: 'Tehnička isporuka mora ostati usklađena sa centralnim governance pravilima.' },
   { from: '/developer-create', to: '/games', intensity: 'high', reason: 'Montezacija readiness signal mora potvrditi da monetizacijske odluke ostaju usklađene sa security/compliance guardrail-ovima.' },
-  { from: '/developer-create', to: '/spajapro', intensity: 'medium', reason: 'Montezacija governance signal mora ostati poravnat sa orchestration i config/agent reinforced review pravilima.' },
-  { from: '/developer-create', to: '/university', intensity: 'medium', reason: 'Montezacija readiness signal mora ostati usklađen sa certification i compliance dokazima za professional bridge.' },
+  { from: '/developer-create', to: '/spajapro', intensity: 'high', reason: 'MONTEZACIJA NAD MONTEZACIJAMA signal mora ostati poravnat sa orchestration, pattern enforcement i config/agent reinforced review pravilima.' },
+  { from: '/developer-create', to: '/university', intensity: 'medium', reason: 'Montezacija readiness signal mora ostati usklađen sa certification, compliance i meta-pattern dokazima za professional bridge.' },
 ];
 
 export const OWNERSHIP_MODEL: OwnershipRole[] = [
@@ -185,6 +198,13 @@ export const OWNERSHIP_MODEL: OwnershipRole[] = [
     reviewer: 'QA/content ops',
     approver: 'Program governance',
     escalation: 'Content freeze',
+  },
+  {
+    lane: 'Meta-governance approval',
+    owner: 'Program governance',
+    reviewer: 'Technical leadership + security/compliance owner',
+    approver: 'Executive weekly review',
+    escalation: 'Command center hold + dependency refresh',
   },
 ];
 
@@ -217,6 +237,7 @@ export const DEFINITION_OF_READY = {
     'Owner/reviewer/approver evidenca i review lane su zaključani pre početka rada.',
     'Kompatibilnost, minimalni tehnički zahtevi i observability zahtevi su dokumentovani.',
     'Compliance scenario, rizici i acceptance kriterijumi su potvrđeni pre početka rada.',
+    'Ako promena uvodi repo-wide pattern, decision altitude i meta-governance impact su eksplicitno definisani.',
   ],
 };
 
@@ -228,6 +249,7 @@ export const DEFINITION_OF_DONE = {
     'Performanse, monitoring signali i rollback plan su verifikovani.',
     'Audit evidence paket i finalna odluka za sledeći maturity nivo su dokumentovani.',
     'Promotion/higher-capability odluka je evidentirana kroz executive weekly review (status/trend/blockers/decisions/next actions).',
+    'Repo-wide pattern ili monetization meta-odluka sadrži meta-governance score, dependency refresh i demotion putanju.',
   ],
 };
 

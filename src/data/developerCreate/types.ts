@@ -13,6 +13,9 @@ export type ControlTowerTrend = 'up' | 'stable' | 'watch';
 export type MonetizationReadiness = 'green' | 'watch' | 'blocked' | 'out-of-scope';
 export type ChangeClass = 'content' | 'feature' | 'governance' | 'automation' | 'config' | 'security-critical';
 export type DeliveryLane = 'stable' | 'experimental' | 'hybrid';
+export type ProductDomainRoute = '/games' | '/spajapro' | '/university';
+export type RepositoryDomainRoute = ProductDomainRoute | '/developer-create';
+export type RepositoryScopeArea = RepositoryDomainRoute | 'future modules';
 
 export interface DeveloperCreateNorthStar {
   title: string;
@@ -34,14 +37,14 @@ export interface DeveloperCreatePillar {
 }
 
 export interface RepositoryDomainBoundary {
-  area: '/games' | '/spajapro' | '/university' | '/developer-create';
+  area: RepositoryDomainRoute;
   scope: string;
   ownership: string;
   readinessFocus: string;
 }
 
 export interface ControlTowerDomainStatus {
-  domain: '/games' | '/spajapro' | '/university';
+  domain: ProductDomainRoute;
   status: ControlTowerStatus;
   focus: string;
   trend: ControlTowerTrend;
@@ -50,7 +53,7 @@ export interface ControlTowerDomainStatus {
 }
 
 export interface DomainReadinessMatrix {
-  domain: '/games' | '/spajapro' | '/university';
+  domain: ProductDomainRoute;
   product: ReadinessSignal;
   tech: ReadinessSignal;
   security: ReadinessSignal;
@@ -67,7 +70,7 @@ export interface OwnershipRole {
 }
 
 export interface DependencyMapItem {
-  domain: '/games' | '/spajapro' | '/university';
+  domain: ProductDomainRoute;
   dependsOn: string[];
   blockedBy: string[];
   readyFor: string[];
@@ -151,7 +154,7 @@ export interface RepositoryHealthOverview {
 }
 
 export interface DomainScorecard {
-  domain: '/games' | '/spajapro' | '/university' | '/developer-create';
+  domain: RepositoryDomainRoute;
   role: string;
   status: ControlTowerStatus;
   trend: ControlTowerTrend;
@@ -163,6 +166,7 @@ export interface DomainScorecard {
     ownership: number;
     release: number;
     rollback: number;
+    metaGovernance: number;
   };
   dependencies: string[];
 }
@@ -252,7 +256,7 @@ export interface OperatingCharter {
 }
 
 export interface MasterCapabilityMapItem {
-  area: '/games' | '/spajapro' | '/university' | '/developer-create' | 'future modules';
+  area: RepositoryScopeArea;
   currentState: string;
   targetState: string;
   stableBoundary: string;
@@ -272,7 +276,7 @@ export interface DeliveryLaneRule {
 }
 
 export interface DomainOperatingSignal {
-  domain: '/games' | '/spajapro' | '/university' | '/developer-create';
+  domain: RepositoryDomainRoute;
   status: ControlTowerStatus | 'validation';
   owner: string;
   nextUnlock: string;
@@ -306,7 +310,7 @@ export interface BlockerAgingItem {
 }
 
 export interface DomainRiskLens {
-  domain: '/games' | '/spajapro' | '/university' | '/developer-create';
+  domain: RepositoryDomainRoute;
   topRisk: string;
   severity: RiskSeverity;
   tripwire: string;

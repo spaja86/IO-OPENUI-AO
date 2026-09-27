@@ -548,7 +548,7 @@ export default function DeveloperCreatePage() {
         subtitle="Jedinstveni operating model povezuje domen scorecards, workflow, ownership i capability unlock logiku."
       >
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px', marginBottom: '16px' }}>
-          <InfoCard title="Repo operating roadmap" badge="6 faza">
+          <InfoCard title="Repo operating roadmap" badge="5 faza">
             <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px' }}>
               {DEVELOPER_CREATE_ROADMAP.map(item => (
                 <li key={item}>{item}</li>
@@ -640,6 +640,7 @@ export default function DeveloperCreatePage() {
                   <MeterRow label="Ownership" value={item.scores.ownership} color="#2563eb" />
                   <MeterRow label="Release" value={item.scores.release} color="#f59e0b" />
                   <MeterRow label="Rollback" value={item.scores.rollback} color="#fb7185" />
+                  <MeterRow label="Meta governance" value={item.scores.metaGovernance} color="#8b5cf6" />
                 </div>
                 <div style={{ marginBottom: '8px' }}><strong>Next unlock:</strong> {item.nextUnlock}</div>
                 <div style={{ color: 'var(--io-muted)' }}><strong>Dependencies:</strong> {item.dependencies.join(' · ')}</div>
@@ -655,9 +656,27 @@ export default function DeveloperCreatePage() {
                 <div key={`${item.route}-${item.phase}`} style={listStyle('#e2e8f0')}>
                   <strong style={{ display: 'block', marginBottom: '6px' }}>{item.route}</strong>
                   <div style={{ marginBottom: '6px' }}>Phase: {item.phase}</div>
-                  <div style={{ marginBottom: '6px', color: 'var(--io-muted)' }}>
-                    Readiness {item.readiness}% · Trust {item.trust}% · Release {item.release}%
-                  </div>
+                  <dl
+                    style={{
+                      marginBottom: '6px',
+                      color: 'var(--io-muted)',
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+                      gap: '6px',
+                    }}
+                  >
+                    {[
+                      ['Readiness', `${item.readiness}%`],
+                      ['Trust', `${item.trust}%`],
+                      ['Release', `${item.release}%`],
+                      ['Meta governance', `${item.metaGovernance}%`],
+                    ].map(([label, value]) => (
+                      <div key={`${item.route}-${label}`} style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '6px' }}>
+                        <dt style={{ fontWeight: 600 }}>{label}:</dt>
+                        <dd style={{ margin: 0 }}>{value}</dd>
+                      </div>
+                    ))}
+                  </dl>
                   <div style={{ color: 'var(--io-muted)' }}>{item.signal}</div>
                 </div>
               ))}
