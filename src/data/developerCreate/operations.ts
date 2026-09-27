@@ -346,7 +346,7 @@ export const MANDATORY_WORKING_RHYTHM_CYCLE = [
 export const CROSS_DOMAIN_PROMOTION_LOCK = [
   'Nijedan domen ne promoviše capability kada zavisni upstream domen nosi critical blocker signal.',
   'Dependency map i readiness matrix su obavezni pre svake pilot/live/enterprise-ready odluke.',
-  'Ako upstream signal padne, downstream capability ide u hold ili demotion tok dok se critical nalaz ne zatvori.',
+  'Ako upstream signal padne, preporučeni downstream tok je hold ili demotion dok se critical nalaz ne zatvori.',
 ];
 
 export const LOCKED_REPOSITORY_SCORING_FORMAT = [
