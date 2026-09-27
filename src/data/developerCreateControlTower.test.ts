@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { CONTROL_TOWER_SCORE_SNAPSHOTS, DOMAIN_SCORECARDS } from './developerCreate/operations.ts';
+import { DEVELOPER_CREATE_ROADMAP } from './developerCreate/strategy.ts';
 
 test('all developer-create domain scorecards expose a bounded meta-governance score', () => {
   for (const scorecard of DOMAIN_SCORECARDS) {
@@ -23,4 +24,9 @@ test('control-tower score snapshots include meta-governance values for every rou
     assert.ok(snapshot.metaGovernance >= 0);
     assert.ok(snapshot.metaGovernance <= 100);
   }
+});
+
+test('developer-create roadmap stays aligned with six operating phases', () => {
+  assert.equal(DEVELOPER_CREATE_ROADMAP.length, 6);
+  assert.match(DEVELOPER_CREATE_ROADMAP[5], /^Faza 6:/);
 });
