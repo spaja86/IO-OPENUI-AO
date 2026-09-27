@@ -35,7 +35,7 @@ export const DEVELOPER_CREATE_EXTREME_V2 = {
     'Zvanični repo program i jedini centralni control tower koji zaključava zajednički operativni jezik, governance i readiness model za /games, /spajapro, /university i /developer-create.',
   objectives: [
     'Jedinstven model odluka, ownership-a i release discipline kroz sve domene.',
-    'Maksimalna auditabilnost strategic i high-impact promena.',
+    'Maksimalna auditabilnost strateških i high-impact promena.',
     'Stabilan put od ideje do enterprise-ready capability nivoa.',
     'Jedan centralni programski identitet: isti standard, isti gate-ovi i isti ownership model kroz ceo repozitorijum.',
     'VRH PROGRAMSKOG EKVILADENTA je zvanični cilj i jedini programski ekvivalent za cross-domain MONTEZACIJA odluke.',

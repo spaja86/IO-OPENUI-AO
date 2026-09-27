@@ -149,6 +149,8 @@ export const CRITICAL_DEPENDENCY_HEATMAP = [
   { from: '/university', to: '/spajapro', intensity: 'high', reason: 'Audit/compliance servisi i evidence trace dolaze kroz orchestration sloj.' },
   { from: '/spajapro', to: '/developer-create', intensity: 'medium', reason: 'Tehnička isporuka mora ostati usklađena sa centralnim governance pravilima.' },
   { from: '/developer-create', to: '/games', intensity: 'high', reason: 'Montezacija readiness signal mora potvrditi da monetizacijske odluke ostaju usklađene sa security/compliance guardrail-ovima.' },
+  { from: '/developer-create', to: '/spajapro', intensity: 'medium', reason: 'Montezacija governance signal mora ostati poravnat sa orchestration i config/agent reinforced review pravilima.' },
+  { from: '/developer-create', to: '/university', intensity: 'medium', reason: 'Montezacija readiness signal mora ostati usklađen sa certification i compliance dokazima za professional bridge.' },
 ];
 
 export const OWNERSHIP_MODEL: OwnershipRole[] = [
