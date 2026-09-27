@@ -27,6 +27,7 @@ import {
   DEVELOPER_CREATE_EPIC_PILLARS,
   DEVELOPER_CREATE_NORTH_STAR,
   DEVELOPER_CREATE_ROADMAP,
+  FINAL_ACCEPTANCE_CRITERIA,
   DEVELOPER_PERSONAS,
   DELIVERY_LANE_RULES,
   DEPENDENCY_MAP,
@@ -1292,6 +1293,20 @@ export default function DeveloperCreatePage() {
                 <li key={item}>{item}</li>
               ))}
             </ul>
+          </InfoCard>
+          <InfoCard title="Final acceptance criteria" badge="Program completion lock" badgeColor="#10b981">
+            <div style={{ display: 'grid', gap: '10px' }}>
+              {FINAL_ACCEPTANCE_CRITERIA.map(item => (
+                <div key={item.id} style={listStyle('#e2e8f0')}>
+                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '6px' }}>
+                    <span style={badgeStyle('#10b981')}>{item.id}</span>
+                    <span style={badgeStyle('#2563eb')}>{item.owner}</span>
+                  </div>
+                  <div style={{ marginBottom: '6px' }}>{item.criterion}</div>
+                  <div style={{ color: 'var(--io-muted)' }}><strong>Evidence:</strong> {item.evidence}</div>
+                </div>
+              ))}
+            </div>
           </InfoCard>
           <InfoCard title="3D vision compatibility" badge="Immersive policy" badgeColor="#f59e0b">
             <ul style={{ color: 'var(--io-muted)', lineHeight: 1.8, paddingLeft: '18px', marginBottom: '12px' }}>

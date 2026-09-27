@@ -11,9 +11,9 @@ import type {
 } from './types';
 
 export const DEVELOPER_CREATE_NORTH_STAR: DeveloperCreateNorthStar = {
-  title: 'Developer & Create Control Tower · VRH PROGRAMSKOG EKVILADENTA',
+  title: 'Developer & Create = VRH PROGRAMSKOG EKVILADENTA',
   mission:
-    'Jedinstveni repo-wide upravljački sloj koji zaključava VRH PROGRAMSKOG EKVILADENTA kao jedini standard za MONTEZACIJA discipline, dok MONTEZACIJA NAD MONTEZACIJAMA uvodi najviši koordinacioni sloj za innovation density, pattern reuse, approval discipline i cross-domain consistency bez paralelnog governance centra.',
+    'Jedinstveni repo-wide upravljački sloj koji zaključava Developer & Create = VRH PROGRAMSKOG EKVILADENTA kao jedini north-star standard za IO/OPENUI/AO i MONTEZACIJA discipline, dok MONTEZACIJA NAD MONTEZACIJAMA uvodi najviši koordinacioni sloj za innovation density, pattern reuse, approval discipline i cross-domain consistency bez paralelnog governance centra.',
   why: [
     'Da /games, /spajapro i /university koriste isti governance jezik.',
     'Da MONTEZACIJA sloj radi kroz istu tvrdu hijerarhiju: Strategy → Standards → Gates → Metrics → Dependencies → Review loop.',
@@ -220,6 +220,75 @@ export const DEVELOPER_CREATE_ROADMAP = [
   'Faza 4: Uvesti executive dashboard vidljivost, blocker aging i weekly review signal za meta-governance layer.',
   'Faza 5: Odobriti prvi repo-wide MONTEZACIJA NAD MONTEZACIJAMA paket bez otvaranja paralelnog policy centra.',
   'Faza 6: Uvesti enterprise/extreme sloj sa advanced scoring modelom, innovation sandbox-om i policy-driven scaling disciplinom.',
+];
+
+export const FINAL_ACCEPTANCE_CRITERIA = [
+  {
+    id: 'AC-01',
+    criterion: 'Developer & Create = VRH PROGRAMSKOG EKVILADENTA je eksplicitno zaključan kao jedini repo-wide north-star za IO/OPENUI/AO.',
+    owner: 'Program governance',
+    evidence: 'North Star + decision memory + canonical vocabulary.',
+  },
+  {
+    id: 'AC-02',
+    criterion: '/developer-create ostaje jedini centralni control tower za /games, /spajapro i /university bez paralelnog governance centra.',
+    owner: 'Control tower owner',
+    evidence: 'Domain boundaries + policy inheritance + governance rules.',
+  },
+  {
+    id: 'AC-03',
+    criterion: 'Hard spine model (Strategy → Standards → Gates → Metrics → Dependencies → Review loop) je obavezan za svaku high-impact promenu.',
+    owner: 'Technical leadership',
+    evidence: 'Hard-spine mapping + change-class proof + review output.',
+  },
+  {
+    id: 'AC-04',
+    criterion: 'Ownership trijada (owner/reviewer/approver), approval i escalation signal su prisutni za sve ključne change lane-ove.',
+    owner: 'Program governance + security owner',
+    evidence: 'Ownership model + escalation lanes + approval traces.',
+  },
+  {
+    id: 'AC-05',
+    criterion: 'Template-i, quality contract, evidence matrix, policy inheritance i change-class pravila ostaju obavezni ulaz pre release/promotion odluke.',
+    owner: 'Domain lead + reviewers',
+    evidence: 'Standard templates + quality contracts + evidence matrix.',
+  },
+  {
+    id: 'AC-06',
+    criterion: 'Jedinstveni KPI i status model (readiness, trust, ownership, release, rollback, meta-governance) ostaje standard kroz sve domene.',
+    owner: 'Executive KPI board',
+    evidence: 'Domain scorecards + snapshots + locked scoring format.',
+  },
+  {
+    id: 'AC-07',
+    criterion: 'No live without evidence ostaje tvrd uslov i blokira promotion bez kompletnog QA/security/compliance/rollback dokaza.',
+    owner: 'Release owner + security/compliance board',
+    evidence: 'Gate pass output + no-live enforcement + rollback proof.',
+  },
+  {
+    id: 'AC-08',
+    criterion: 'Executive weekly review ritam i blocker-aging board ostaju jedini validni izlaz za promotion odluke.',
+    owner: 'Executive weekly review lane',
+    evidence: 'Status/trend/blockers/decisions/next-actions paket + blocker aging board.',
+  },
+  {
+    id: 'AC-09',
+    criterion: 'Failure modes, trust surface i demotion engine pravila ostaju aktivni kao rani sistem za otkrivanje readiness pada.',
+    owner: 'Risk + trust owners',
+    evidence: 'Failure mode board + trust surface map + demotion rules.',
+  },
+  {
+    id: 'AC-10',
+    criterion: 'EXTREME roadmap faze ostaju zaključane kroz score/evidence integraciju, dependency sync i multi-repo/enterprise hardening.',
+    owner: 'Program governance + technical leadership',
+    evidence: 'Roadmap stages + multi-repo readiness model + hardening lane.',
+  },
+  {
+    id: 'AC-11',
+    criterion: 'Decision trail ostaje auditabilan i pokazuje merljiv napredak scorecard-a ka enterprise-ready stabilnosti.',
+    owner: 'Audit and governance lane',
+    evidence: 'Decision memory + audit trail requirements + trended scorecards.',
+  },
 ];
 
 export const CANONICAL_VOCABULARY: CanonicalVocabularyItem[] = [
