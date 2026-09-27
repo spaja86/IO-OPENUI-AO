@@ -22,6 +22,8 @@
     { "source": "/realtime", "destination": "/realtime/index.html" },
     { "source": "/realtime/(.*)", "destination": "/realtime/index.html" },
     { "source": "/chat", "destination": "/chat/index.html" },
-    { "source": "/chat/(.*)", "destination": "/chat/index.html" }
+    { "source": "/chat/(.*)", "destination": "/chat/index.html" },
+    { "source": "/(features|games|developer-create|spajapro|university|about|contact)", "destination": "/index.html" },
+    { "source": "/(features|games|developer-create|spajapro|university|about|contact)/(.*)", "destination": "/index.html" }
   ]
 }
