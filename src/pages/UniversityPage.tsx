@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { universityProgram } from '../data/university';
+import UniversityCatalog from '../components/UniversityCatalog';
 import {
   getDefaultUniversityUnit,
   getSelectedUniversityUnit,
@@ -104,6 +105,8 @@ export default function UniversityPage() {
           </div>
         </div>
       </section>
+
+      <UniversityCatalog />
 
       <section style={{ padding: '0 0 40px' }}>
         <div className="container">
