@@ -152,3 +152,9 @@ All pages use a consistent dark theme defined by CSS variables. The primary acce
 **Nikola Spajić** — spajicn@gmail.com
 
 © 2026 SPAJA Ekosistem. Sva prava zadržana / All rights reserved.
+
+## Univerzitetski katalog / University catalog
+
+Na postojećoj ruti `/university` nalazi se dokumentacioni katalog sa **10 mesta: 9 imenovanih akademskih traka i 1 rezervisanim mestom**. To nisu deset akreditovanih ustanova. Podaci su uvezeni iz [kanonske liste AI-IQ-SUPER-PLATFORMA](https://github.com/spaja86/AI-IQ-SUPER-PLATFORMA/blob/f6c2be5b25d5849193c9067b1f3f5aa67480d4ef/docs/ECOSYSTEM-REFERENCE-LIST.md); izvorni nazivi i ownership ostaju sačuvani.
+
+Pretraga podržava izvorne nazive, alias mehanike i latinicu bez dijakritike. Šest PAN–DUN jedinica ostaje odvojeno od kataloga. Detalji uvoza, granice, provere i postupak osvežavanja: [UNIVERSITY-CATALOG-IMPORT.md](UNIVERSITY-CATALOG-IMPORT.md).
