@@ -8,4 +8,4 @@ Glavna korekcija: https://github.com/spaja86/Ai-Iq-World-Bank/pull/49. Polazna r
 
 Provera: `node --test src/worldBankPublicPresentation.test.cjs` — 4/4 prolaze (obuhvata sintaksu pet promenjenih TypeScript/TSX fajlova). Test koristi postojeću TypeScript razvojnu zavisnost. `git diff --check` prolazi. Nije rađen pun build, udaljeni CI niti vizuelna provera; sadržaj eventualne zasebne `/bank/` instalacije nije potvrđen ovom korekcijom.
 
-Nema bankarskih operacija, stvarnih uplata, novih zavisnosti, spajanja ili deployment-a. Patch je pripremljen za potpisan commit i ljudski pregled prema AGENTS.md; nije objavljen kao nepotpisan commit u ovom repozitorijumu.
+Nema bankarskih operacija, stvarnih uplata, novih zavisnosti, spajanja ili produkcionog deployment-a. Izmene se čuvaju u grani `bugfix/world-bank-public-status-20261026` kroz GitHub web interfejs, koji potpisuje commitove; potpis prvih izmena potvrđen je kroz GitHub API (`verified: true`). Ljudski pregled pre spajanja ostaje obavezan prema AGENTS.md. Statusi svih commitova i konačni rezultat provera beleže se u draft PR-u.
