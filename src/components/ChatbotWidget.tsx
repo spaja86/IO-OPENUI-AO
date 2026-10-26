@@ -11,14 +11,14 @@ interface Message {
 const KB: [RegExp, string][] = [
   [/video poziv|webrtc/i, 'Da pokrenete video poziv: idite na stranicu Video, kliknite "Pokreni poziv" i odobrite pristup kameri i mikrofonu. Koristimo WebRTC tehnologiju — direktna veza, bez servera.'],
   [/igric[ae]|games/i, 'Dostupne igrice: 🎮 Tic-Tac-Toe (vs AI), 🧠 Tehnološki Kviz, ♟️ Chess (uskoro), 🏓 Pong (uskoro). Idite na stranicu Igrice!'],
-  [/bank|world bank|ai iq world bank/i, 'AI IQ World Bank je globalni work/licensing/compliance centar ekosistema. Na /bank/ možete videti delatnosti, licence, statuse, regione, dokumentaciju i enterprise programe.'],
+  [/bank|world bank|ai iq world bank/i, 'AI IQ World Bank je radni naziv demonstracionog softvera u razvoju, bez dozvole NBS za rad banke. Ne otvara račune, ne prima depozite, ne izdaje kartice i ne izvršava uplate. Prikazi licenci i delatnosti su razvojni planovi, ne dokaz odobrenja.'],
   [/licenc|license|licence/i, '"Licence za celu planetu za rad" je premium programski stub ekosistema: platformska licenca za globalni radni identitet, verifikovanu kompetenciju, compliance-ready status i odobrene delatnosti. Nije automatska državna radna dozvola za svaku zemlju.'],
-  [/delatnost|sektor|industry|industr/i, 'AI IQ World Bank podržava širok katalog delatnosti: finansije, kripto tokove, poslovne servise, AI operacije, dokumentaciju i sektorske programe za IT, AI, fintech, gaming, consulting i druge industrije.'],
+  [/delatnost|sektor|industry|industr/i, 'AI IQ World Bank prikazuje razvojne ideje za digitalne alate i finansijsku edukaciju. Regulisane finansijske usluge nisu aktivne; budući pravci zahtevaju zasebnu pravnu i tehničku proveru.'],
   [/univerzitet|sertifik|spremnost|readiness/i, 'UNEVERZITET vodi korisnika od PAN do DUN nivoa i sada uključuje global work readiness, bank/compliance/licensing module, KYC/AML, AI-finance i education-to-licence putanju.'],
   [/webrtc/i, 'WebRTC (Web Real-Time Communication) je otvoreni standard za peer-to-peer audio, video i razmenu podataka direktno između pretraživača — bez potrebe za serverom.'],
   [/chat|poruka/i, 'Za korišćenje chata: idite na Chat stranicu, izaberite kanal (#general, #gaming, #business, #random) i počnite da kucate. Podržani su emoji i reply na poruke.'],
   [/vlasnik|autor|ko je/i, 'Vlasnik platforme je Nikola Spajić 👨‍💻. Email: spajicn@yahoo.com | spajicn@gmail.com. GitHub: spaja86. Facebook/Instagram/TikTok: Spaja86.'],
-  [/platform[ae]|ekosistem/i, 'IO-OPENUI-AO ekosistem ima 4 platforme:\n🌐 IO-OPENUI-AO — saradnja i igrice\n💱 Ai-Iq-Menjačnica — kripto menjačnica\n🏦 Ai-Iq-World-Bank — globalni work/licensing/compliance centar\n🏢 Kompanija SPAJA — IT hub'],
+  [/platform[ae]|ekosistem/i, 'IO-OPENUI-AO ekosistem ima 4 platforme:\n🌐 IO-OPENUI-AO — saradnja i igrice\n💱 Ai-Iq-Menjačnica — kripto menjačnica\n🏦 Ai-Iq-World-Bank — demonstracioni softver bez dozvole NBS za rad banke\n🏢 Kompanija SPAJA — IT hub'],
 ];
 
 function getReply(text: string): string {
@@ -34,7 +34,7 @@ export default function ChatbotWidget() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([
-    { id: nextId++, role: 'bot', text: 'Zdravo! Ja sam IO-AO asistent 🤖. Mogu da pomognem sa pitanjima o platformi, AI IQ World Bank licencama i UNEVERZITET sistemu!', ts: new Date() },
+    { id: nextId++, role: 'bot', text: 'Zdravo! Ja sam IO-AO asistent 🤖. Mogu da pomognem sa pitanjima o platformi, softverskom projektu AI IQ World Bank i UNEVERZITET sistemu!', ts: new Date() },
   ]);
   const [typing, setTyping] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -163,7 +163,7 @@ export default function ChatbotWidget() {
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && send()}
-              placeholder="Pitaj o banki, licencama, univerzitetu..."
+              placeholder="Pitaj o projektu, razvojnim planovima, univerzitetu..."
               style={{
                 flex: 1,
                 background: 'rgba(255,255,255,0.05)',
