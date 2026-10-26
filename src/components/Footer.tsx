@@ -47,7 +47,7 @@ export default function Footer() {
               </span>
             </div>
             <p style={{ color: 'var(--io-muted)', fontSize: '0.9rem', lineHeight: 1.7 }}>
-              Platforma za profesionalnu saradnju, AI IQ World Bank licence, UNEVERZITET sertifikaciju i globalni radni pristup.
+              Platforma za saradnju i razvojne projekte. AI IQ World Bank je demonstracioni softver bez dozvole NBS za rad banke.
             </p>
             <div
               style={{

@@ -36,12 +36,12 @@ export const PLATFORMS: Platform[] = [
   {
     id: 'ai-iq-world-bank',
     name: 'Ai-Iq-World-Bank',
-    description: 'Profesionalna svetska banka sa AI funkcionalnostima i globalnom saradnjom',
+    description: 'Demonstracioni softver u razvoju, bez dozvole NBS za rad banke; edukativni alati i probni prikazi.',
     url: 'https://github.com/spaja86/Ai-Iq-World-Bank',
     github: 'https://github.com/spaja86/Ai-Iq-World-Bank',
     tech: ['HTML', 'CSS', 'JavaScript', 'AI'],
     icon: '🏦',
-    status: 'active',
+    status: 'development',
   },
   {
     id: 'ai-iq-menjacnica',
