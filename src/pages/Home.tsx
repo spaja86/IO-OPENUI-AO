@@ -8,7 +8,7 @@ import { FEATURES } from '../utils/constants';
 
 const STATS = [
   { value: '4', label: 'Ekosistem modula' },
-  { value: '10', label: 'Tipova licenci u bank sloju' },
+  { value: 'DEMO', label: 'AI IQ World Bank — softverski projekat' },
   { value: '18', label: 'Ciljanih industrijskih vertikala' },
   { value: '24/7', label: 'Globalni pristup' },
 ];
@@ -104,7 +104,7 @@ export default function Home() {
                 <div style={{ fontSize: '2rem', marginBottom: '12px' }}>🏦</div>
                 <h3 style={{ color: 'var(--io-text)', marginBottom: '10px' }}>AI IQ World Bank</h3>
                 <p style={{ color: 'var(--io-muted)', lineHeight: 1.7, marginBottom: '14px' }}>
-                  Globalni work/licensing/compliance centar za delatnosti, dokumente, statuse, regione i enterprise aktivaciju.
+                  Demonstracioni softver u razvoju, bez dozvole NBS za rad banke. Edukativni alati i probni prikazi; bez računa, depozita, kartica i uplata.
                 </p>
                 <span style={{ color: 'var(--io-accent)', fontWeight: 700 }}>Otvori /bank/ →</span>
               </a>
@@ -155,7 +155,7 @@ export default function Home() {
                   lineHeight: 1.7,
                 }}
               >
-                Istraži AI IQ World Bank licence, proveri UNEVERZITET readiness putanju i zatim testiraj real-time i games module u istom ekosistemu.
+                Istraži softverski prototip AI IQ World Bank i njegove razvojne planove, proveri UNEVERZITET readiness putanju i zatim testiraj real-time i games module u istom ekosistemu.
               </p>
               <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
                 <a href="/bank/" className="btn-primary">
